@@ -1,7 +1,46 @@
+
+
 .main {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 6rem;
+  align-content: center;
+  padding: 2rem;
   min-height: 100vh;
+  --primary-color:  rgba(41, 86, 56, 0.946);
+  color: var(--primary-color)
+}
+
+.subtext {
+  font-size: 1.1rem;
+  line-height: 1.2rem;
+}
+
+.box {
+  border-radius: 0.25rem;
+  border-width: 1px;
+  border-style: solid;
+  width: 80%;
+  font-family: inherit;
+  font-size: 100%;
+  margin: 2rem 0;
+  padding: 0.75rem;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  text-align: center;
+  border-color: var(--primary-color);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.content h1 {
+  font-size: 100px;
+  line-height: 100%;
+  letter-spacing: 1.5rem;
 }

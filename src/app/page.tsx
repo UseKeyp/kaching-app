@@ -11,7 +11,20 @@ const font = Font({
 export default function Home() {
   return (
     <main className={`${styles.main} ${font.className}`}>
-      <h1>Juicebox x Feather</h1>
+      <div className={styles.content}>
+        <h1>🧃x🪶</h1>
+        <br></br>
+        <p className={`${styles.subtext}`}>
+          Interact with 🧃Juicebox projects without a pre-existing wallet
+          using 🪶Feather
+        </p>
+
+        <input
+          type="text"
+          className={`${styles.box}`}
+          placeholder='"https://juicebox.money/@juicebox"  or "@juicebox"'
+        ></input>
+      </div>
     </main>
   );
 }
