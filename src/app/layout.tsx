@@ -3,6 +3,7 @@ import ProjectContext, { IProjectContext } from "@/context/ProjectContext";
 import { useState } from "react";
 import "./globals.css";
 import { Roboto_Mono as Font } from "@next/font/google";
+import { createClient, Provider } from "urql";
 
 const font = Font({
   weight: ["100", "200", "300", "400", "500", "600", "700"],
@@ -15,7 +16,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const [projectId, setProjectId] = useState<string | undefined>(undefined);
-
+  const urqlClient = createClient({
+    url: "https://api.thegraph.com/subgraphs/id/QmSL5i1EsqJgc6kys7Ckzh3PHDbyUoKbyG5ibtFSAsgvFV",
+  });
   return (
     <html lang="en">
       {/*
@@ -24,11 +27,13 @@ export default function RootLayout({
       */}
       <head />
       <body className={font.className}>
-        <ProjectContext.Provider
-          value={{ projectId: projectId, setProjectId: setProjectId }}
-        >
-          {children}
-        </ProjectContext.Provider>
+        <Provider value={urqlClient}>
+          <ProjectContext.Provider
+            value={{ projectId: projectId, setProjectId: setProjectId }}
+          >
+            {children}
+          </ProjectContext.Provider>
+        </Provider>
       </body>
     </html>
   );
