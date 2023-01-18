@@ -1,19 +1,17 @@
+
 import { Inter } from "@next/font/google";
 import styles from "./page.module.css";
-import { Roboto_Mono as Font } from "@next/font/google";
-import Card from "./card";
+
+import Card from "@/components/Card/Card";
+import SearchBox from "@/components/SearchBox/SearchBox";
+import useProject from "@/hooks/useProject";
+
 const inter = Inter({ subsets: ["latin"] });
 
-const font = Font({
-  weight: ["100", "200", "300", "400", "500", "600", "700"],
-  display: "auto",
-  subsets: ["latin"],
-});
 export default function Home(props: any) {
 
-  console.log({props})
   return (
-    <main className={`${styles.main} ${font.className}`}>
+    <main className={styles.main}>
       <div className={styles.content}>
         <h1>🧃x🪶</h1>
         <br></br>
@@ -22,19 +20,9 @@ export default function Home(props: any) {
           🪶Feather
         </p>
 
-        <div className={styles.search}>
-          <input
-            type="text"
-            className={styles.box}
-            placeholder='"https://juicebox.money/@juicebox"  or "@juicebox"'
-          ></input>
-          <button className={styles.gobutton}>Go</button>
-        </div>
-
-        <Card />
+        <SearchBox />
+        {/* <Card /> */}
       </div>
     </main>
   );
 }
-
-

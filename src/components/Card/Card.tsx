@@ -1,7 +1,6 @@
 import Image from "next/image";
-import styles from "./card.module.css";
-import cheerio from 'cheerio'
-import axios from 'axios'
+import styles from "./Card.module.css";
+
 
 
 
