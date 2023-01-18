@@ -9,6 +9,9 @@ const nextConfig = {
   },
   experimental: {
     appDir: true,
+  }, 
+  images: {
+    domains: ['juicebox.money'],
   },
 };
 
