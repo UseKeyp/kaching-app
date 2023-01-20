@@ -2,12 +2,14 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "urql";
 import axios from "axios";
+import { ethers } from "ethers";
 const ProjectQuery = `
 query MyQuery($projectId: String!) {
   project(id: $projectId) {
     id
     metadataUri
     projectId
+    owner
   }
 }
 `;
@@ -21,6 +23,7 @@ interface IProject {
   logoUri: string;
   twitter: string;
   infoUri: string;
+  owner: string;
 }
 
 const useProject = (projectId: string) => {
@@ -38,13 +41,18 @@ const useProject = (projectId: string) => {
     if (!data) return;
 
     let project = data?.project;
-    axios.get(`https://ipfs.io/ipfs/${project.metadataUri}`).then((res) => {
-      setProject({
-        ...project,
-        projectId: data.project.projectId,
-        id: data.project.id,
+    axios
+      .get(`https://ipfs.io/ipfs/${project.metadataUri}`)
+      .then(async (res) => {
+        setProject({
+          ...res.data,
+          projectId: data.project.projectId,
+          id: data.project.id,
+          owner: await ethers
+            .getDefaultProvider()
+            .lookupAddress(data.project.owner),
+        });
       });
-    });
   }, [data]);
 
   if (fetching) return { loading: true };

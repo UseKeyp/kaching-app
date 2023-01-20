@@ -26,14 +26,16 @@ export default function RootLayout({
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body className={font.className}>
-        <Provider value={urqlClient}>
-          <ProjectContext.Provider
-            value={{ projectId: projectId, setProjectId: setProjectId }}
-          >
-            {children}
-          </ProjectContext.Provider>
-        </Provider>
+      <body>
+        <main className={font.className}>
+          <Provider value={urqlClient}>
+            <ProjectContext.Provider
+              value={{ projectId: projectId, setProjectId: setProjectId }}
+            >
+              {children}
+            </ProjectContext.Provider>
+          </Provider>
+        </main>
       </body>
     </html>
   );

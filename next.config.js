@@ -11,7 +11,7 @@ const nextConfig = {
     appDir: true,
   }, 
   images: {
-    domains: ['juicebox.money'],
+    domains: ['juicebox.money','jbx.mypinata.cloud'],
   },
 };
 

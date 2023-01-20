@@ -1,3 +1,6 @@
+.project {
+  margin-top: 100px;
+}
 .card {
   flex-wrap: wrap !important;
   display: grid;
