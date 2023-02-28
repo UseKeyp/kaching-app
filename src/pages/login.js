@@ -20,15 +20,15 @@ export default function LoginPage() {
       <h1>Login to Example</h1>
       <div className="form-container">
         <div className="submit">
-          <button onClick={() => signIn("keyp", null, "login_provider=google")}>
+          <button onClick={() => signIn("keyp", null, "login_provider=GOOGLE")}>
             Log in with Google
           </button>
           <button
-            onClick={() => signIn("keyp", null, "login_provider=discord")}
+            onClick={() => signIn("keyp", null, "login_provider=DISCORD")}
           >
             Log in with Discord
           </button>
-          <button onClick={() => signIn("keyp", null, "login_provider=chess")}>
+          <button onClick={() => signIn("keyp", null, "login_provider=CHESS")}>
             Log in with Chess
           </button>
         </div>
