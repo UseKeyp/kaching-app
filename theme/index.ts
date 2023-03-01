@@ -1,9 +1,11 @@
 import { extendTheme } from "@chakra-ui/react";
-import Heading from "../components/Navbar";
+import Heading from "./components/Heading";
+import Button from "./components/Button";
 
 export const theme = extendTheme({
   components: {
     Heading,
+    Button,
   },
   colors: {
     pink: "#FC3BAF",
@@ -20,18 +22,6 @@ export const theme = extendTheme({
         m: 0,
         p: 0,
         bg: "white",
-      },
-      "&::-webkit-scrollbar": {
-        width: "10px",
-        bg: "transparent",
-        display: "none",
-      },
-      "&::-webkit-scrollbar-thumb": {
-        background: "red",
-        borderRadius: "5px",
-      },
-      "&::-webkit-scrollbar-thumb:hover": {
-        background: "white",
       },
     },
   },
