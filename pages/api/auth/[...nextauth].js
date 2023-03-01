@@ -29,4 +29,26 @@ const KeypProvider = {
 export default NextAuth({
   secret: process.env.TOKEN_SECRET,
   providers: [KeypProvider],
+  callbacks: {
+    async jwt({ token, account, profile }) {
+      if (account) {
+        // Comes from the returned JWT from Keyp
+        token.accessToken = account.access_token;
+      }
+      if (profile) {
+        // Comes from  the /userinfo endpoint
+        token.username = profile.username;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      // Send properties to the client, like an access_token from a provider.
+      if (token) {
+        session.user.accessToken = token.accessToken;
+        session.user.username = token.username;
+        session.user.id = token.sub;
+      }
+      return session;
+    },
+  },
 });
