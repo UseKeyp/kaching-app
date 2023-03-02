@@ -41,7 +41,7 @@ const LoginPage = () => {
             <Button
               w="full"
               variant="outline"
-              onClick={() => signIn("keyp", undefined, "login_provider=google")}
+              onClick={() => signIn("keyp", undefined, "login_provider=GOOGLE")}
               leftIcon={<FaGoogle />}
             >
               Log in with Google
@@ -52,7 +52,7 @@ const LoginPage = () => {
               w="full"
               variant="outline"
               onClick={() =>
-                signIn("keyp", undefined, "login_provider=discord")
+                signIn("keyp", undefined, "login_provider=DISCORD")
               }
               leftIcon={<FaDiscord />}
             >

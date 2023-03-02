@@ -1,12 +1,11 @@
 import React from "react";
 import { Box, Heading, HStack, Text } from "@chakra-ui/react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
-interface NavbarProps {
-  session: any;
-}
+const Navbar: React.FC<NavbarProps> = () => {
+  const { data: session } = useSession();
 
-const Navbar: React.FC<NavbarProps> = ({ session }) => {
   return (
     <HStack py="1rem" justifyContent="space-between" w="full">
       <Box>
