@@ -1,42 +1,33 @@
-"use client";
-import ProjectContext, { IProjectContext } from "@/context/ProjectContext";
-import { useState } from "react";
-import "./globals.css";
-import { Roboto_Mono as Font } from "@next/font/google";
-import { createClient, Provider } from "urql";
+import React, { ReactNode } from "react";
+import { Flex } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 
-const font = Font({
-  weight: ["100", "200", "300", "400", "500", "600", "700"],
-  display: "auto",
-  subsets: ["latin"],
-});
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const [projectId, setProjectId] = useState<string | undefined>(undefined);
-  const urqlClient = createClient({
-    url: "https://api.thegraph.com/subgraphs/id/QmSL5i1EsqJgc6kys7Ckzh3PHDbyUoKbyG5ibtFSAsgvFV",
-  });
-  return (
-    <html lang="en">
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
-      <head />
-      <body>
-        <main className={font.className}>
-          <Provider value={urqlClient}>
-            <ProjectContext.Provider
-              value={{ projectId: projectId, setProjectId: setProjectId }}
-            >
-              {children}
-            </ProjectContext.Provider>
-          </Provider>
-        </main>
-      </body>
-    </html>
-  );
+interface LayoutProps {
+  children: ReactNode;
 }
+
+const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const { data: session } = useSession();
+  console.log(session);
+
+  return (
+    <>
+      <Flex
+        direction="column"
+        alignItems="center"
+        justifyContent="space-between"
+        mx="auto"
+        px={["1rem", "2rem"]}
+        pb="1rem"
+        w={["full", "full", "60%"]}
+        border="1px lightgray solid"
+        rounded="xl"
+        fontFamily="sharpie"
+      >
+        {children}
+      </Flex>
+    </>
+  );
+};
+
+export default Layout;

@@ -1,10 +1,14 @@
-export default function Head() {
+const Head = () => {
   return (
     <>
-      <title>Juicebox x Feather</title>
+      <title>Ka-ching</title>
       <meta content="width=device-width, initial-scale=1" name="viewport" />
-      <meta name="description" content="JB x Feather" />
+      <meta
+        name="description"
+        content="Log in with Google or Discord and send cryptocurrency"
+      />
       <link rel="icon" href="/favicon.ico" />
     </>
-  )
-}
+  );
+};
+export default Head;

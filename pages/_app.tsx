@@ -1,4 +1,7 @@
+import { ChakraProvider, theme } from "@chakra-ui/react";
+import Layout from "../components/Layout";
 import { SessionProvider } from "next-auth/react";
+import Navbar from "components/Navbar";
 
 interface AppProps {
   Component: any;
@@ -6,10 +9,17 @@ interface AppProps {
 }
 
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
+  console.log(session);
   return (
-    <SessionProvider session={session}>
-      <Component {...pageProps} />
-    </SessionProvider>
+    <ChakraProvider theme={theme}>
+      <SessionProvider session={session}>
+        <Layout>
+          {/* TODO: remove !session after fixing login */}
+          {session || (!session && <Navbar />)}
+          <Component {...pageProps} />
+        </Layout>
+      </SessionProvider>
+    </ChakraProvider>
   );
 };
 
