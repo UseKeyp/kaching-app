@@ -9,19 +9,31 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React from "react";
+import { FieldValues, useForm } from "react-hook-form";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
+import AssetModal from "./AssetModal";
 
+// TODO: refactor inputs so styles are put into custom Chakra theme component
+
+interface TransferFormProps {
+  type: string;
+}
 /**
  *
  * @returns div containing a form
  */
-const Send = () => {
+const TransferForm: React.FC<TransferFormProps> = ({ type }) => {
+  const localForm = useForm<FieldValues>();
+  const { getValues, register } = localForm;
+  const values = getValues();
+  console.log(values);
+
   return (
     <>
       <SimpleGrid columns={1} spacing={0} my={"1rem"}>
         <GridItem>
           <Input
-            type="text"
+            type="number"
             placeholder="$0.00"
             variant="unstyled"
             fontSize="80px"
@@ -32,25 +44,14 @@ const Send = () => {
               color: "#99DA67",
               fontWeight: "extrabold",
             }}
+            {...register("amount", {
+              required: "Cannot be blank",
+              min: 0,
+            })}
           />
         </GridItem>
         <GridItem>
-          {/* TODO: replace with React-Select */}
-          <Input
-            type="text"
-            placeholder="USDC"
-            variant="unstyled"
-            fontSize="80px"
-            color="#99DA67"
-            textAlign="left"
-            px="0.5rem"
-            fontWeight="extrabold"
-            _placeholder={{
-              color: "#F4AB00",
-
-              fontWeight: "extrabold",
-            }}
-          />
+          <AssetModal localForm={localForm} />
         </GridItem>
         <GridItem>
           <HStack justifyContent="space-around" px="0.5rem">
@@ -59,7 +60,6 @@ const Send = () => {
                 to
               </Text>
             </Box>
-
             <Box w="34%" textAlign="center" placeSelf="center">
               {/* inner Box serves as a border for FaGoogle */}
               <Box
@@ -95,9 +95,11 @@ const Send = () => {
             px="0.5rem"
             fontWeight="extrabold"
             _placeholder={{
+              p: "0.5rem",
               color: "#89DCFF",
               fontWeight: "extrabold",
             }}
+            {...register("email")}
           />
         </GridItem>
         <GridItem>
@@ -118,4 +120,4 @@ const Send = () => {
   );
 };
 
-export default Send;
+export default TransferForm;

@@ -1,6 +1,7 @@
 import React, { ReactNode, useState } from "react";
 import { Button, HStack } from "@chakra-ui/react";
-import Send from "components/Send";
+import Send from "components/TransferForm";
+import TransferForm from "components/TransferForm";
 
 /**
  * @remarks if user selects "send", render Send component, else render "Request"
@@ -42,7 +43,7 @@ const Home: React.FC<HomeProps> = () => {
           Request
         </Button>
       </HStack>
-      {type === "send" && <Send />}
+      <TransferForm type={type} />
     </>
   );
 };
