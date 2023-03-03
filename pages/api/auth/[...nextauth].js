@@ -15,7 +15,6 @@ const KeypProvider = {
   authorization: { params: { scope: "openid email" } },
   client: { token_endpoint_auth_method: "none" },
   profile(profile) {
-    console.log(profile);
     return {
       id: profile.sub,
       username: profile.username,
@@ -38,6 +37,7 @@ export default NextAuth({
       if (profile) {
         // Comes from  the /userinfo endpoint
         token.username = profile.username;
+        token.address = profile.address;
       }
       return token;
     },
@@ -46,6 +46,7 @@ export default NextAuth({
       if (token) {
         session.user.accessToken = token.accessToken;
         session.user.username = token.username;
+        session.user.address = token.address;
         session.user.id = token.sub;
       }
       return session;
