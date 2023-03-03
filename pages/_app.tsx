@@ -1,21 +1,21 @@
-import { ChakraProvider, theme } from "@chakra-ui/react";
-import Layout from "components/layout";
+import { ChakraProvider } from "@chakra-ui/react";
+import Layout from "../components/Layout";
 import { SessionProvider } from "next-auth/react";
-import Navbar from "components/Navbar";
+import HeadMetadata from "components/HeadMetadata";
+import { theme } from "theme";
 
 interface AppProps {
   Component: any;
   pageProps: any;
 }
+console.log(theme);
 
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
-  console.log(session);
   return (
     <ChakraProvider theme={theme}>
       <SessionProvider session={session}>
-        <Layout>
-          {/* TODO: remove !session after fixing login */}
-          {session || (!session && <Navbar />)}
+        <HeadMetadata />
+        <Layout session={session}>
           <Component {...pageProps} />
         </Layout>
       </SessionProvider>
