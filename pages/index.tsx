@@ -1,6 +1,8 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { Button, HStack, Link } from "@chakra-ui/react";
 import TransferForm from "components/TransferForm";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 /**
  * @remarks if user selects "send", render Send component, else render "Request"
@@ -17,6 +19,15 @@ const Home: React.FC<HomeProps> = () => {
   const [asset, setAsset] = useState<string>();
   const [platform, setPlatform] = useState<string>();
   const [email, setEmail] = useState<string>();
+
+  const { data: session } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!session) {
+      router.push("/login");
+    }
+  }, [session, router]);
 
   return (
     <>

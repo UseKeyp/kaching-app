@@ -48,8 +48,7 @@ const LoginPage = () => {
           </Box>
           <Box w="full">
             <Button
-              w="full"
-              variant="outline"
+              variant="login"
               onClick={() => signIn("keyp", undefined, "login_provider=GOOGLE")}
               leftIcon={<FaGoogle />}
             >
@@ -58,8 +57,7 @@ const LoginPage = () => {
           </Box>
           <Box w="full">
             <Button
-              w="full"
-              variant="outline"
+              variant="login"
               onClick={() =>
                 signIn("keyp", undefined, "login_provider=DISCORD")
               }

@@ -1,13 +1,14 @@
-import { ChakraProvider, theme } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import Layout from "../components/Layout";
 import { SessionProvider } from "next-auth/react";
-
 import HeadMetadata from "components/HeadMetadata";
+import { theme } from "theme";
 
 interface AppProps {
   Component: any;
   pageProps: any;
 }
+console.log(theme);
 
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   return (

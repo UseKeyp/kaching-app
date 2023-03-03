@@ -23,6 +23,11 @@ export const theme = extendTheme({
         p: 0,
         bg: "white",
       },
+      a: {
+        _hover: {
+          textDecoration: "none",
+        },
+      },
     },
   },
   config: {

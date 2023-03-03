@@ -105,17 +105,7 @@ const TransferForm: React.FC<TransferFormProps> = ({ type }) => {
         </GridItem>
         <GridItem>
           <Link href="/confirmation">
-            <Button
-              variant="outline"
-              shadow="lg"
-              fontSize="80px"
-              color="#C5C8CC"
-              my="1rem"
-              w="full"
-              h="fit"
-            >
-              Review
-            </Button>
+            <Button variant="form">Review</Button>
           </Link>
         </GridItem>
       </SimpleGrid>
