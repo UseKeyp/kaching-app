@@ -8,14 +8,20 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ session }) => {
   return (
-    <HStack py="1rem" justifyContent="space-between" w="full">
+    <HStack
+      py="1rem"
+      px="1rem"
+      justifyContent="space-between"
+      w="full"
+      mb="1.5rem"
+    >
       <Box>
         <Link href="/">
           <Heading
             as="h1"
             fontWeight="bold"
             fontFamily="Sharpie"
-            color="green"
+            color="#F5287E"
             fontSize="23px"
           >
             <Text>Ka-ching</Text>

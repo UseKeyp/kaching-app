@@ -10,12 +10,11 @@ interface AppProps {
 
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   console.log(session);
+
   return (
     <ChakraProvider theme={theme}>
       <SessionProvider session={session}>
-        <Layout>
-          {/* TODO: remove !session after fixing login */}
-          {session || (!session && <Navbar />)}
+        <Layout session={session}>
           <Component {...pageProps} />
         </Layout>
       </SessionProvider>
