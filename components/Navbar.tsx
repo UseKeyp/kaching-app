@@ -14,6 +14,7 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
       justifyContent="space-between"
       w="full"
       mb="1.5rem"
+      fontSize="23px"
     >
       <Box>
         <Link href="/">
@@ -22,7 +23,6 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
             fontWeight="bold"
             fontFamily="Sharpie"
             color="#F5287E"
-            fontSize="23px"
           >
             <Text>Ka-ching</Text>
           </Heading>
@@ -30,7 +30,7 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
       </Box>
       <Box>
         {/* TODO: render image based on social logo of login */}
-        <Text>Signed in as {session?.user?.username || ""}</Text>
+        <Text color="black">Signed in as {session?.user?.username || ""}</Text>
         {/* <Button onClick={() => signOut()}>Sign out</Button> */}
       </Box>
     </HStack>

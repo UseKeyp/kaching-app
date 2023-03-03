@@ -4,34 +4,44 @@ import {
   Modal,
   ModalBody,
   ModalContent,
+  ModalFooter,
+  ModalHeader,
   ModalOverlay,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useState } from "react";
-import { UseFormReturn } from "react-hook-form";
+import { Dispatch, useState } from "react";
+import Navbar from "./Navbar";
 
 interface AssetModalProps {
-  localForm: UseFormReturn;
+  setGetAsset: Dispatch<any>;
 }
 
-const AssetModal: React.FC<AssetModalProps> = ({ localForm }) => {
-  const [selectedAsset, setSelectedAsset] = useState<undefined | string>();
+/**
+ * @remarks modal opens when user clicks on asset name
+ * @param setGetAsset useState hook variable that captures string of asset
+ * @returns modal that renders a list of assets
+ */
+const AssetModal: React.FC<AssetModalProps> = ({ setGetAsset }) => {
+  const [selectedAsset, setSelectedAsset] = useState("USDC");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  console.log(localForm);
-  const { setValue } = localForm;
-
-  const handleClick = (asset: string) => {
+  const handleClickedAsset = (asset: string) => {
     setSelectedAsset(asset);
+  };
+
+  const handleDone = () => {
+    console.log("handleDone");
+    setGetAsset(selectedAsset);
     onClose();
   };
 
+  // TODO: get list of assets from API and render those instead
   const assets = ["ETH", "MATIC", "USDC", "XDAI"];
   const renderAssets = assets.map((asset) => {
     return (
       <Box
-        onClick={() => handleClick(asset)}
+        onClick={() => handleClickedAsset(asset)}
         fontSize="80px"
         fontWeight="extra"
         key={asset}
@@ -49,24 +59,39 @@ const AssetModal: React.FC<AssetModalProps> = ({ localForm }) => {
         fontSize="80px"
         color="#F4AB00"
         variant="none"
-        my={4}
+        mt={6}
         p={0}
       >
         {selectedAsset}
       </Button>
-      <Modal onClose={onClose} size={"full"} isOpen={isOpen}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalBody
-            fontSize="80px"
-            fontFamily="sharpie"
-            fontWeight="extrabold"
-            color="#C2C2C2"
-          >
-            {renderAssets}
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+      <Box mt={"1.5rem"}>
+        <Modal onClose={onClose} size={"full"} isOpen={isOpen}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalBody
+              fontSize="80px"
+              fontFamily="sharpie"
+              fontWeight="extrabold"
+              color="#C2C2C2"
+            >
+              {renderAssets}
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                onClick={() => handleDone()}
+                color="#1499DA"
+                border="solid #1499DA 1px"
+                fontSize="80px"
+                lineHeight="96px"
+                py={"3rem"}
+                w="full"
+              >
+                Done
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </Box>
     </>
   );
 };

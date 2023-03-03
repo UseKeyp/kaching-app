@@ -8,7 +8,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
 import AssetModal from "./AssetModal";
@@ -23,10 +23,10 @@ interface TransferFormProps {
  * @returns div containing a form
  */
 const TransferForm: React.FC<TransferFormProps> = ({ type }) => {
+  const [getAsset, setGetAsset] = useState<string>();
   const localForm = useForm<FieldValues>();
-  const { getValues, register } = localForm;
+  const { getValues, register, setValue } = localForm;
   const values = getValues();
-  console.log(values);
 
   return (
     <>
@@ -51,7 +51,7 @@ const TransferForm: React.FC<TransferFormProps> = ({ type }) => {
           />
         </GridItem>
         <GridItem>
-          <AssetModal localForm={localForm} />
+          <AssetModal setGetAsset={setGetAsset} />
         </GridItem>
         <GridItem>
           <HStack justifyContent="space-around" px="0.5rem">
