@@ -1,6 +1,5 @@
 import React, { ReactNode, useState } from "react";
-import { Button, HStack } from "@chakra-ui/react";
-import Send from "components/TransferForm";
+import { Button, HStack, Link } from "@chakra-ui/react";
 import TransferForm from "components/TransferForm";
 
 /**
@@ -32,6 +31,7 @@ const Home: React.FC<HomeProps> = () => {
         >
           Send
         </Button>
+
         <Button
           onClick={() => setType("request")}
           variant="none"

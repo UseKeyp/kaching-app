@@ -1,7 +1,7 @@
 import { ChakraProvider, theme } from "@chakra-ui/react";
 import Layout from "../components/Layout";
 import { SessionProvider } from "next-auth/react";
-import Navbar from "components/Navbar";
+import Head from "components/Head";
 
 interface AppProps {
   Component: any;
@@ -9,11 +9,10 @@ interface AppProps {
 }
 
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
-  console.log(session);
-
   return (
     <ChakraProvider theme={theme}>
       <SessionProvider session={session}>
+        <Head />
         <Layout session={session}>
           <Component {...pageProps} />
         </Layout>

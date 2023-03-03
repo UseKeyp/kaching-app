@@ -4,6 +4,7 @@ import {
   GridItem,
   HStack,
   Input,
+  Link,
   SimpleGrid,
   Stack,
   Text,
@@ -103,17 +104,19 @@ const TransferForm: React.FC<TransferFormProps> = ({ type }) => {
           />
         </GridItem>
         <GridItem>
-          <Button
-            variant="outline"
-            shadow="lg"
-            fontSize="80px"
-            color="#C5C8CC"
-            my="1rem"
-            w="full"
-            h="fit"
-          >
-            Review
-          </Button>
+          <Link href="/confirmation">
+            <Button
+              variant="outline"
+              shadow="lg"
+              fontSize="80px"
+              color="#C5C8CC"
+              my="1rem"
+              w="full"
+              h="fit"
+            >
+              Review
+            </Button>
+          </Link>
         </GridItem>
       </SimpleGrid>
     </>
