@@ -1,10 +1,27 @@
 import React from "react";
-import { Box, Heading, HStack, Text } from "@chakra-ui/react";
+import { Box, Button, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+import { Session } from "types/session";
+import { FaGoogle, FaDiscord } from "react-icons/fa";
+import useSocialLogo from "hooks/useSocialLogo";
+const Navbar = () => {
+  const { data: session }: Session = useSession();
+  console.log(session);
+  const address = session?.user.address;
 
-const Navbar: React.FC<NavbarProps> = () => {
-  const { data: session } = useSession();
+  const socialLogo = useSocialLogo(session);
+  console.log(socialLogo);
+
+  const renderSocialLogo = () => {
+    if (socialLogo === "discord") {
+      return <FaDiscord color="#4E65F3" />;
+    } else if (socialLogo === "google") {
+      return <FaGoogle />;
+    } else return;
+  };
+
+  console.log(renderSocialLogo());
 
   return (
     <HStack
@@ -15,23 +32,33 @@ const Navbar: React.FC<NavbarProps> = () => {
       mb="1.5rem"
       fontSize="23px"
     >
-      <Box>
+      <Box w="50%">
         <Link href="/">
-          <Heading
-            as="h1"
-            fontWeight="bold"
-            fontFamily="Sharpie"
-            color="#F5287E"
-          >
+          <Heading as="h1" fontSize="23px" color="pink">
             <Text>Ka-ching</Text>
           </Heading>
         </Link>
       </Box>
-      <Box>
-        {/* TODO: render image based on social logo of login */}
-        <Text color="black">Signed in as {session?.user?.username || ""}</Text>
-        {/* <Button onClick={() => signOut()}>Sign out</Button> */}
-      </Box>
+      <VStack w="50%" alignItems="end" spacing={-0.5}>
+        <HStack>
+          {renderSocialLogo()}
+          <Text fontSize="23px" color="pink">
+            {session?.user?.username || ""}
+          </Text>
+        </HStack>
+        {session && (
+          <Box>
+            <Text fontSize="12px" color="#80858E">
+              {address.slice(0, 7)}
+              <span>...</span>
+              {address.slice(-6)}
+            </Text>
+            {/* <Button variant="outline" onClick={() => signOut()}>
+              Sign out
+            </Button> */}
+          </Box>
+        )}
+      </VStack>
     </HStack>
   );
 };

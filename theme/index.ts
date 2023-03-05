@@ -8,7 +8,8 @@ export const theme = extendTheme({
     Button,
   },
   colors: {
-    pink: "#FC3BAF",
+    pink: "#F5287E",
+    discordBlue: "#4E65F3",
   },
   fonts: {
     Sharpie: "Sharpie",

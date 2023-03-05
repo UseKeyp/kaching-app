@@ -17,12 +17,12 @@ const LoginPage = () => {
 
   return (
     <>
-      {/* {session && (
+      {session && (
         <>
           <Text>Signed in as {session && session?.user?.username}</Text>
           <Button onClick={() => signOut()}>Sign out</Button>
         </>
-      )} */}
+      )}
 
       <Box textAlign="center">
         <Heading as="h1" color="green">
