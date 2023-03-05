@@ -1,34 +1,41 @@
 import {
   Box,
   Button,
-  FormErrorMessage,
   GridItem,
   HStack,
   Input,
   Link,
   SimpleGrid,
-  Stack,
   Text,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { ErrorMessage } from "@hookform/error-message";
+import React, { Dispatch, useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
-import AssetModal from "./AssetModal";
+import AssetModal from "../components/AssetModal";
+import { useFormContext } from "context/FormContext";
 
 // TODO: refactor inputs so styles are put into custom Chakra theme component
 
-interface TransferFormProps {
-  type: string;
-}
 /**
- *
+ * @params type - determins if tx is send or receive
+ * @params inReview - passed down from Home. If True, user is reviewing transfer before sending. This TransferForm component will be set to hidden
  * @returns div containing a form
  */
-const TransferForm: React.FC<TransferFormProps> = ({ type }) => {
+const TransferForm = () => {
   const [getAsset, setGetAsset] = useState("USDC");
   const [isActiveGoogle, setIsActiveGoogle] = useState(false);
   const [isActiveDiscord, setIsActiveDiscord] = useState(true);
-  const [inReview, setInReview] = useState(false);
+  const {
+    type,
+    setType,
+    setAmount,
+    setAsset,
+    setUsername,
+    inReview,
+    setInReview,
+  } = useFormContext();
+
   const localForm = useForm<FieldValues>();
   const {
     getValues,
@@ -41,7 +48,7 @@ const TransferForm: React.FC<TransferFormProps> = ({ type }) => {
   const values = getValues();
   watch();
   console.log(values);
-  console.log(isValid, "isValid");
+  // console.log("errors", errors);
 
   const handleActiveIcons = (platform: string): void => {
     if (platform === "google") {
@@ -57,21 +64,6 @@ const TransferForm: React.FC<TransferFormProps> = ({ type }) => {
     }
   };
 
-  // const checkEmailFormat = (email: string): Boolean => {
-  //   let charArray = { "@": false, ".": false };
-  //   for (let i = 0; i < email.length; i++) {
-  //     if (email[i] === "@") {
-  //       charArray["@"] = true;
-  //     }
-  //     if (email[i] === ".") {
-  //       charArray["."] = true;
-  //     }
-  //   }
-  //   const isEmail =
-  //     charArray["@"] === true && charArray["."] === true ? true : false;
-  //   return isEmail;
-  // };
-
   const handleReivew = async () => {
     if (isValid) {
       setInReview(true);
@@ -83,7 +75,30 @@ const TransferForm: React.FC<TransferFormProps> = ({ type }) => {
   }, [getAsset, setValue]);
 
   return (
-    <>
+    <Box display={inReview ? "none" : ""}>
+      <HStack>
+        <Button
+          onClick={() => setType("send")}
+          variant="none"
+          fontFamily="sharpie"
+          fontSize="60px"
+          color="#1499DA"
+          opacity={type === "send" ? 1 : 0.5}
+        >
+          Send
+        </Button>
+
+        <Button
+          onClick={() => setType("request")}
+          variant="none"
+          fontFamily="sharpie"
+          fontSize="60px"
+          color="#1499DA"
+          opacity={type === "request" ? 1 : 0.5}
+        >
+          Request
+        </Button>
+      </HStack>
       <SimpleGrid columns={1} spacing={0} my={"1rem"}>
         <GridItem>
           <Input
@@ -98,17 +113,12 @@ const TransferForm: React.FC<TransferFormProps> = ({ type }) => {
           />
         </GridItem>
         <GridItem px={"0.5rem"}>
-          <AssetModal setGetAsset={setGetAsset} inReview={inReview} />
+          <AssetModal setGetAsset={setGetAsset} />
         </GridItem>
         <GridItem>
           <HStack justifyContent="space-around" px="0.5rem">
             <Box w="33%" my={"-0.5rem"}>
-              <Text
-                color="#63676F"
-                fontSize="80px"
-                fontWeight="extrabold"
-                opacity={inReview ? 0.4 : 1}
-              >
+              <Text color="#63676F" fontSize="80px" fontWeight="extrabold">
                 to
               </Text>
             </Box>
@@ -153,38 +163,43 @@ const TransferForm: React.FC<TransferFormProps> = ({ type }) => {
             placeholder={isActiveGoogle ? "Add Email" : "Add Username"}
             color="#89DCFF"
             {...register("username", {
+              required: "Cannot be blank",
               minLength: {
-                value: 3,
+                value: 1,
                 message: "cannot be blank",
               },
             })}
           />
-          {/* <FormErrorMessage
+          {/* TODO: Fix error message */}
+          <ErrorMessage
             errors={errors}
             name="username"
-            render={({ message }) => <FormErrorText message={message} />}
-          /> */}
+            render={({ message }) => {
+              return (
+                <Box>
+                  <Text fontSize="80px">{message}</Text>
+                </Box>
+              );
+            }}
+          />
         </GridItem>
         <GridItem>
-          {inReview && (
-            <Link href={inReview ? "/confirmation" : ""}>
-              <Button
-                onClick={() => handleReivew()}
-                variant="form"
-                color="#1499DA"
-              >
-                Send!
-              </Button>
-            </Link>
-          )}
-          {!inReview && (
-            <Button onClick={() => handleReivew()} variant="form">
-              Review
+          {/* <Link href={"/confirmation"}>
+            <Button
+              onClick={() => handleReivew()}
+              variant="form"
+              color="#1499DA"
+            >
+              Send!
             </Button>
-          )}
+          </Link> */}
+
+          <Button onClick={() => handleReivew()} variant="form">
+            Review
+          </Button>
         </GridItem>
       </SimpleGrid>
-    </>
+    </Box>
   );
 };
 

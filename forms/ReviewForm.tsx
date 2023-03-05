@@ -7,30 +7,22 @@ import {
   SimpleGrid,
   Text,
 } from "@chakra-ui/react";
+import { useFormContext } from "context/FormContext";
 import useTransfer from "hooks/useTransfer";
 import React from "react";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
 
-interface ReviewTransactionProps {
-  amount: number;
-  asset: string;
-  platform: string;
-  username: string;
-}
+const ReviewForm = () => {
+  const { isActiveGoogle, isActiveDiscord, amount, asset, username } =
+    useFormContext();
 
-const ReviewTransaction: React.FC<ReviewTransactionProps> = ({
-  amount,
-  asset,
-  platform,
-  username,
-}) => {
   const handleReivew = async () => {
     const data = {
       amount,
       asset,
-      platform,
       username,
     };
+    console.log(data);
     // TODO: plug in usrname to api so it returns
     // useTransfer(data);
   };
@@ -56,10 +48,10 @@ const ReviewTransaction: React.FC<ReviewTransactionProps> = ({
               rounded="full"
               p={3}
               borderColor="#C5C8CC"
-              bg={platform === "google" ? "#C5C8CC" : "white"}
+              bg={isActiveGoogle ? "#C5C8CC" : "white"}
             >
               <FaGoogle
-                color={platform === "google" ? "white" : "#C5C8CC"}
+                color={isActiveGoogle ? "white" : "#C5C8CC"}
                 fontSize="56px"
               />
             </Box>
@@ -71,10 +63,10 @@ const ReviewTransaction: React.FC<ReviewTransactionProps> = ({
               rounded="full"
               p={3}
               borderColor="#C5C8CC"
-              bg={platform === "discord" ? "#C5C8CC" : "white"}
+              bg={isActiveDiscord ? "#C5C8CC" : "white"}
             >
               <FaDiscord
-                color={platform === "discord" ? "white" : "#C5C8CC"}
+                color={isActiveDiscord ? "white" : "#C5C8CC"}
                 fontSize="56px"
               />
             </Box>
@@ -93,4 +85,4 @@ const ReviewTransaction: React.FC<ReviewTransactionProps> = ({
   );
 };
 
-export default ReviewTransaction;
+export default ReviewForm;

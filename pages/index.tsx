@@ -1,20 +1,19 @@
-import React, { ReactNode, useEffect, useState } from "react";
-import { Button, HStack, Link } from "@chakra-ui/react";
-import TransferForm from "components/TransferForm";
+import React, { useEffect, useState } from "react";
+import TransferForm from "forms/TransferForm";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
+import { useFormContext } from "context/FormContext";
+import Confirmation from "./confirmation";
+import ReviewTransaction from "forms/ReviewForm";
 
 /**
  * @remarks if user selects "send", render Send component, else render "Request"
  * @returns
  */
-interface HomeProps {
-  children?: ReactNode;
-}
 
 // TODO: if user is not logged in, redirect to login page
-const Home: React.FC<HomeProps> = () => {
-  const [type, setType] = useState("send");
+const Home = () => {
+  const { inReview } = useFormContext();
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -28,30 +27,8 @@ const Home: React.FC<HomeProps> = () => {
 
   return (
     <>
-      <HStack>
-        <Button
-          onClick={() => setType("send")}
-          variant="none"
-          fontFamily="sharpie"
-          fontSize="60px"
-          color="#1499DA"
-          opacity={type === "send" ? 1 : 0.5}
-        >
-          Send
-        </Button>
-
-        <Button
-          onClick={() => setType("request")}
-          variant="none"
-          fontFamily="sharpie"
-          fontSize="60px"
-          color="#1499DA"
-          opacity={type === "request" ? 1 : 0.5}
-        >
-          Request
-        </Button>
-      </HStack>
-      <TransferForm type={type} />
+      {!inReview && <TransferForm />}
+      {inReview && <ReviewTransaction />}
     </>
   );
 };

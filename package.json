@@ -12,6 +12,7 @@
     "@chakra-ui/react": "^2.5.1",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@hookform/error-message": "^2.0.1",
     "@next/font": "13.1.2",
     "@rainbow-me/rainbowkit": "^0.8.1",
     "@types/node": "18.11.18",
