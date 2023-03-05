@@ -1,7 +1,7 @@
 import { Session } from "types/session";
 import { FaGoogle, FaDiscord } from "react-icons/fa";
 
-const useSocialLogo = (session: Session | undefined) => {
+const useSocialLogo = (session: Session | null) => {
   let url;
   const id = session?.user.id;
   if (id?.includes("GOOGLE")) {

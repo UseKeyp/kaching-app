@@ -1,14 +1,16 @@
 import React from "react";
-import { Box, Button, Heading, HStack, Text, VStack } from "@chakra-ui/react";
+import { Box, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import { Session } from "types/session";
 import { FaGoogle, FaDiscord } from "react-icons/fa";
-import useSocialLogo from "hooks/useSocialLogo";
+import useSocialLogo from "../hooks/useSocialLogo";
+
 const Navbar = () => {
-  const { data: session }: Session = useSession();
+  const { data: session } = useSession();
   console.log(session);
   const address = session?.user.address;
+  const username = session?.user.username;
 
   const socialLogo = useSocialLogo(session);
   console.log(socialLogo);
@@ -43,7 +45,7 @@ const Navbar = () => {
         <HStack>
           {renderSocialLogo()}
           <Text fontSize="23px" color="pink">
-            {session?.user?.username || ""}
+            {username}
           </Text>
         </HStack>
         {session && (

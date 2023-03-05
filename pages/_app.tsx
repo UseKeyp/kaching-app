@@ -8,7 +8,6 @@ interface AppProps {
   Component: any;
   pageProps: any;
 }
-console.log(theme);
 
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   return (

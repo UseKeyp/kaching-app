@@ -18,11 +18,10 @@ const Layout: React.FC<LayoutProps> = ({ children, session }) => {
         px={["1rem", "2rem"]}
         pb="1rem"
         w={["full", "full", "50%"]}
-        border="1px lightgray solid"
         rounded="xl"
         fontFamily="sharpie"
       >
-        <Navbar session={session} />
+        <Navbar />
         {children}
       </Flex>
     </>

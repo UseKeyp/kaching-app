@@ -15,13 +15,10 @@ interface HomeProps {
 // TODO: if user is not logged in, redirect to login page
 const Home: React.FC<HomeProps> = () => {
   const [type, setType] = useState("send");
-  const [amount, setAmount] = useState(0);
-  const [asset, setAsset] = useState<string>();
-  const [platform, setPlatform] = useState<string>();
-  const [email, setEmail] = useState<string>();
-
   const { data: session } = useSession();
   const router = useRouter();
+
+  console.log(session);
 
   useEffect(() => {
     if (!session) {

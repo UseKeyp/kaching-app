@@ -9,7 +9,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
 import AssetModal from "./AssetModal";
@@ -25,9 +25,48 @@ interface TransferFormProps {
  */
 const TransferForm: React.FC<TransferFormProps> = ({ type }) => {
   const [getAsset, setGetAsset] = useState<string>();
+  const [isActiveGoogle, setIsActiveGoogle] = useState(false);
+  const [isActiveDiscord, setIsActiveDiscord] = useState(true);
   const localForm = useForm<FieldValues>();
-  const { getValues, register, setValue } = localForm;
+  const { getValues, register, setValue, watch } = localForm;
   const values = getValues();
+  watch();
+  console.log(values);
+
+  const handleActiveIcons = (platform: string): void => {
+    // if user clicks on Google icon
+    if (platform === "google") {
+      if (!isActiveGoogle) {
+        setIsActiveGoogle(true);
+        setIsActiveDiscord(false);
+      }
+    } else if (platform === "discord") {
+      // if discord is not toggled
+      if (!isActiveDiscord) {
+        setIsActiveDiscord(true);
+        setIsActiveGoogle(false);
+      }
+    }
+  };
+
+  const checkEmailFormat = (email: string): Boolean => {
+    let charArray = { "@": false, ".": false };
+    for (let i = 0; i < email.length; i++) {
+      if (email[i] === "@") {
+        charArray["@"] = true;
+      }
+      if (email[i] === ".") {
+        charArray["."] = true;
+      }
+    }
+    const isEmail =
+      charArray["@"] === true && charArray["."] === true ? true : false;
+    return isEmail;
+  };
+
+  useEffect(() => {
+    setValue("asset", getAsset);
+  }, [getAsset, setValue]);
 
   return (
     <>
@@ -69,8 +108,13 @@ const TransferForm: React.FC<TransferFormProps> = ({ type }) => {
                 rounded="full"
                 p={3}
                 borderColor="#C5C8CC"
+                bg={isActiveGoogle ? "#C5C8CC" : "white"}
               >
-                <FaGoogle color="#C5C8CC" fontSize="56px" />
+                <FaGoogle
+                  color={isActiveGoogle ? "white" : "#C5C8CC"}
+                  fontSize="56px"
+                  onClick={() => handleActiveIcons("google")}
+                />
               </Box>
             </Box>
             <Box w="34%" textAlign="center" placeSelf="center">
@@ -80,16 +124,22 @@ const TransferForm: React.FC<TransferFormProps> = ({ type }) => {
                 rounded="full"
                 p={3}
                 borderColor="#C5C8CC"
+                bg={isActiveDiscord ? "#C5C8CC" : "white"}
               >
-                <FaDiscord color="#C5C8CC" fontSize="56px" />
+                <FaDiscord
+                  color={isActiveDiscord ? "white" : "#C5C8CC"}
+                  fontSize="56px"
+                  onClick={() => handleActiveIcons("discord")}
+                />
               </Box>
             </Box>
           </HStack>
         </GridItem>
         <GridItem>
           <Input
-            type="text"
-            placeholder="Add Email"
+            type={isActiveGoogle ? "email" : "text"}
+            isDisabled={true}
+            placeholder={isActiveGoogle ? "Add Email" : "Add Username"}
             variant="unstyled"
             fontSize="80px"
             color="#89DCFF"
