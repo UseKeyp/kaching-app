@@ -29,6 +29,9 @@ const Button = defineStyleConfig({
       my: "1rem",
       w: "full",
       h: "fit",
+      _hover: {
+        textDecoration: "none",
+      },
     },
     login: {
       w: "full",

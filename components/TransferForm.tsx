@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  FormErrorMessage,
   GridItem,
   HStack,
   Input,
@@ -24,24 +25,31 @@ interface TransferFormProps {
  * @returns div containing a form
  */
 const TransferForm: React.FC<TransferFormProps> = ({ type }) => {
-  const [getAsset, setGetAsset] = useState<string>();
+  const [getAsset, setGetAsset] = useState("USDC");
   const [isActiveGoogle, setIsActiveGoogle] = useState(false);
   const [isActiveDiscord, setIsActiveDiscord] = useState(true);
+  const [inReview, setInReview] = useState(false);
   const localForm = useForm<FieldValues>();
-  const { getValues, register, setValue, watch } = localForm;
+  const {
+    getValues,
+    register,
+    setValue,
+    watch,
+    trigger,
+    formState: { errors, isValid },
+  } = localForm;
   const values = getValues();
   watch();
   console.log(values);
+  console.log(isValid, "isValid");
 
   const handleActiveIcons = (platform: string): void => {
-    // if user clicks on Google icon
     if (platform === "google") {
       if (!isActiveGoogle) {
         setIsActiveGoogle(true);
         setIsActiveDiscord(false);
       }
     } else if (platform === "discord") {
-      // if discord is not toggled
       if (!isActiveDiscord) {
         setIsActiveDiscord(true);
         setIsActiveGoogle(false);
@@ -49,19 +57,25 @@ const TransferForm: React.FC<TransferFormProps> = ({ type }) => {
     }
   };
 
-  const checkEmailFormat = (email: string): Boolean => {
-    let charArray = { "@": false, ".": false };
-    for (let i = 0; i < email.length; i++) {
-      if (email[i] === "@") {
-        charArray["@"] = true;
-      }
-      if (email[i] === ".") {
-        charArray["."] = true;
-      }
+  // const checkEmailFormat = (email: string): Boolean => {
+  //   let charArray = { "@": false, ".": false };
+  //   for (let i = 0; i < email.length; i++) {
+  //     if (email[i] === "@") {
+  //       charArray["@"] = true;
+  //     }
+  //     if (email[i] === ".") {
+  //       charArray["."] = true;
+  //     }
+  //   }
+  //   const isEmail =
+  //     charArray["@"] === true && charArray["."] === true ? true : false;
+  //   return isEmail;
+  // };
+
+  const handleReivew = async () => {
+    if (isValid) {
+      setInReview(true);
     }
-    const isEmail =
-      charArray["@"] === true && charArray["."] === true ? true : false;
-    return isEmail;
   };
 
   useEffect(() => {
@@ -74,6 +88,7 @@ const TransferForm: React.FC<TransferFormProps> = ({ type }) => {
         <GridItem>
           <Input
             type="number"
+            step={0.01}
             placeholder="$0.00"
             variant="unstyled"
             fontSize="80px"
@@ -138,7 +153,6 @@ const TransferForm: React.FC<TransferFormProps> = ({ type }) => {
         <GridItem>
           <Input
             type={isActiveGoogle ? "email" : "text"}
-            isDisabled={true}
             placeholder={isActiveGoogle ? "Add Email" : "Add Username"}
             variant="unstyled"
             fontSize="80px"
@@ -150,13 +164,36 @@ const TransferForm: React.FC<TransferFormProps> = ({ type }) => {
               color: "#89DCFF",
               fontWeight: "extrabold",
             }}
-            {...register("email")}
+            {...register("username", {
+              minLength: {
+                value: 3,
+                message: "cannot be blank",
+              },
+            })}
+          />
+          <FormErrorMessage
+            errors={errors}
+            name="username"
+            render={({ message }) => <FormErrorText message={message} />}
           />
         </GridItem>
         <GridItem>
-          <Link href="/confirmation">
-            <Button variant="form">Review</Button>
-          </Link>
+          {inReview && (
+            <Link href={inReview ? "/confirmation" : ""}>
+              <Button
+                onClick={() => handleReivew()}
+                variant="form"
+                color="#1499DA"
+              >
+                Send!
+              </Button>
+            </Link>
+          )}
+          {!inReview && (
+            <Button onClick={() => handleReivew()} variant="form">
+              Review
+            </Button>
+          )}
         </GridItem>
       </SimpleGrid>
     </>
