@@ -5,16 +5,15 @@ import {
   ModalBody,
   ModalContent,
   ModalFooter,
-  ModalHeader,
   ModalOverlay,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
 import { Dispatch, useState } from "react";
-import Navbar from "./Navbar";
 
 interface AssetModalProps {
   setGetAsset: Dispatch<any>;
+  inReview: boolean;
 }
 
 /**
@@ -22,14 +21,14 @@ interface AssetModalProps {
  * @param setGetAsset useState hook variable that captures string of asset
  * @returns modal that renders a list of assets
  */
-const AssetModal: React.FC<AssetModalProps> = ({ setGetAsset }) => {
+const AssetModal: React.FC<AssetModalProps> = ({ setGetAsset, inReview }) => {
   const [selectedAsset, setSelectedAsset] = useState("USDC");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleClickedAsset = (asset: string) => {
     setSelectedAsset(asset);
   };
-
+  console.log("inReview", inReview);
   const handleDone = () => {
     console.log("handleDone");
     setGetAsset(selectedAsset);
@@ -56,6 +55,7 @@ const AssetModal: React.FC<AssetModalProps> = ({ setGetAsset }) => {
     <>
       <Button
         onClick={() => onOpen()}
+        isDisabled={inReview}
         fontSize="80px"
         color="#F4AB00"
         variant="none"

@@ -88,30 +88,27 @@ const TransferForm: React.FC<TransferFormProps> = ({ type }) => {
         <GridItem>
           <Input
             type="number"
-            step={0.01}
+            step={0.1}
             placeholder="$0.00"
-            variant="unstyled"
-            fontSize="80px"
             color="#99DA67"
-            px="0.5rem"
-            fontWeight="extrabold"
-            _placeholder={{
-              color: "#99DA67",
-              fontWeight: "extrabold",
-            }}
             {...register("amount", {
               required: "Cannot be blank",
               min: 0,
             })}
           />
         </GridItem>
-        <GridItem>
-          <AssetModal setGetAsset={setGetAsset} />
+        <GridItem px={"0.5rem"}>
+          <AssetModal setGetAsset={setGetAsset} inReview={inReview} />
         </GridItem>
         <GridItem>
           <HStack justifyContent="space-around" px="0.5rem">
-            <Box w="33%">
-              <Text color="#63676F" fontSize="80px" fontWeight="extrabold">
+            <Box w="33%" my={"-0.5rem"}>
+              <Text
+                color="#63676F"
+                fontSize="80px"
+                fontWeight="extrabold"
+                opacity={inReview ? 0.4 : 1}
+              >
                 to
               </Text>
             </Box>
@@ -154,16 +151,7 @@ const TransferForm: React.FC<TransferFormProps> = ({ type }) => {
           <Input
             type={isActiveGoogle ? "email" : "text"}
             placeholder={isActiveGoogle ? "Add Email" : "Add Username"}
-            variant="unstyled"
-            fontSize="80px"
             color="#89DCFF"
-            px="0.5rem"
-            fontWeight="extrabold"
-            _placeholder={{
-              p: "0.5rem",
-              color: "#89DCFF",
-              fontWeight: "extrabold",
-            }}
             {...register("username", {
               minLength: {
                 value: 3,
@@ -171,11 +159,11 @@ const TransferForm: React.FC<TransferFormProps> = ({ type }) => {
               },
             })}
           />
-          <FormErrorMessage
+          {/* <FormErrorMessage
             errors={errors}
             name="username"
             render={({ message }) => <FormErrorText message={message} />}
-          />
+          /> */}
         </GridItem>
         <GridItem>
           {inReview && (

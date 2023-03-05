@@ -1,11 +1,13 @@
 import { extendTheme } from "@chakra-ui/react";
 import Heading from "./components/Heading";
 import Button from "./components/Button";
+import Input from "./components/Input";
 
 export const theme = extendTheme({
   components: {
     Heading,
     Button,
+    Input,
   },
   colors: {
     pink: "#F5287E",
