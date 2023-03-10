@@ -7,7 +7,7 @@ const Input = helpers.defineMultiStyleConfig({
   baseStyle: (props: StyleFunctionProps) => ({
     field: {
       bg: "white",
-      fontWeight: "extrabold",
+      fontWeight: "bold",
       py: "3.5rem",
       _placeholder: {
         px: "0.5rem",

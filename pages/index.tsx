@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import TransferForm from "forms/TransferForm";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { useFormContext } from "context/FormContext";
-import Confirmation from "./confirmation";
 import ReviewTransaction from "forms/ReviewForm";
 
 /**

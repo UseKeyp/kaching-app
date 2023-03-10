@@ -24,8 +24,8 @@ const LoginPage = () => {
         </>
       )}
 
-      <Box textAlign="center">
-        <Heading as="h1" color="green">
+      <Box textAlign="center" fontFamily="inter">
+        <Heading as="h1" color="pink">
           <Text fontSize="120px" fontFamily="sharpie">
             Kaching
           </Text>
@@ -36,32 +36,26 @@ const LoginPage = () => {
             👋
           </Text>
         </Box>
-        <Stack
-          direction="column"
-          textAlign="center"
-          m="auto"
-          spacing={3}
-          w={["full", "70%", "50%"]}
-        >
-          <Box w="full" textAlign="left">
+        <Stack direction="column" m="auto" spacing={3}>
+          <Box w="full" textAlign="left" color="loginGray">
             Log in with
           </Box>
-          <Box w="full">
+          <Box>
             <Button
               variant="login"
-              onClick={() => signIn("keyp", undefined, "login_provider=GOOGLE")}
               leftIcon={<FaGoogle />}
+              onClick={() => signIn("keyp", undefined, "login_provider=GOOGLE")}
             >
               Log in with Google
             </Button>
           </Box>
-          <Box w="full">
+          <Box>
             <Button
               variant="login"
+              leftIcon={<FaDiscord />}
               onClick={() =>
                 signIn("keyp", undefined, "login_provider=DISCORD")
               }
-              leftIcon={<FaDiscord />}
             >
               Log in with Discord
             </Button>

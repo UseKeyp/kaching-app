@@ -2,16 +2,25 @@ import { extendTheme } from "@chakra-ui/react";
 import Heading from "./components/Heading";
 import Button from "./components/Button";
 import Input from "./components/Input";
+import Link from "./components/Link";
 
 export const theme = extendTheme({
   components: {
     Heading,
     Button,
     Input,
+    Link,
   },
   colors: {
     pink: "#F5287E",
     discordBlue: "#4E65F3",
+    formGreen: "#99DA67",
+    formBlueDark: "#1499DA",
+    formLightBlue: "#89DCFF",
+    socialIconsGray: "#C5C8CC",
+    assetOrange: "#F4AB00",
+    loginGray: "#63676F",
+    loginBtnGray: "#80858E",
   },
   fonts: {
     Sharpie: "Sharpie",
@@ -25,11 +34,6 @@ export const theme = extendTheme({
         m: 0,
         p: 0,
         bg: "white",
-      },
-      a: {
-        _hover: {
-          textDecoration: "none",
-        },
       },
     },
   },

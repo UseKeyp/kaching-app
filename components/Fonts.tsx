@@ -62,6 +62,6 @@ const Fonts = () => (
       font-display: swap;
       font-style: normal;
     }
-    `}
+  `}
   />
 );

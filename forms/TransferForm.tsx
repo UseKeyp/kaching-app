@@ -1,10 +1,11 @@
 import {
+  Alert,
+  AlertIcon,
   Box,
   Button,
   GridItem,
   HStack,
   Input,
-  Link,
   SimpleGrid,
   Text,
 } from "@chakra-ui/react";
@@ -24,13 +25,16 @@ import { useFormContext } from "context/FormContext";
  */
 const TransferForm = () => {
   const [getAsset, setGetAsset] = useState("USDC");
-  const [isActiveGoogle, setIsActiveGoogle] = useState(false);
-  const [isActiveDiscord, setIsActiveDiscord] = useState(true);
+
   const {
     type,
     setType,
     setAmount,
     setAsset,
+    isActiveDiscord,
+    setIsActiveDiscord,
+    isActiveGoogle,
+    setIsActiveGoogle,
     setUsername,
     inReview,
     setInReview,
@@ -55,18 +59,23 @@ const TransferForm = () => {
       if (!isActiveGoogle) {
         setIsActiveGoogle(true);
         setIsActiveDiscord(false);
-      }
+      } else null;
     } else if (platform === "discord") {
       if (!isActiveDiscord) {
         setIsActiveDiscord(true);
         setIsActiveGoogle(false);
-      }
+      } else null;
     }
   };
 
   const handleReivew = async () => {
+    const valid = await trigger();
+    console.log(valid);
     if (isValid) {
-      setInReview(true);
+      setAmount(values.amount),
+        setAsset(values.asset),
+        setUsername(values.username),
+        setInReview(true);
     }
   };
 
@@ -75,25 +84,22 @@ const TransferForm = () => {
   }, [getAsset, setValue]);
 
   return (
-    <Box display={inReview ? "none" : ""}>
+    <Box display={inReview ? "none" : ""} fontWeight="bold">
       <HStack>
         <Button
           onClick={() => setType("send")}
           variant="none"
-          fontFamily="sharpie"
           fontSize="60px"
-          color="#1499DA"
+          color="formBlueDark"
           opacity={type === "send" ? 1 : 0.5}
         >
           Send
         </Button>
-
         <Button
           onClick={() => setType("request")}
           variant="none"
-          fontFamily="sharpie"
           fontSize="60px"
-          color="#1499DA"
+          color="formBlueDark"
           opacity={type === "request" ? 1 : 0.5}
         >
           Request
@@ -104,33 +110,47 @@ const TransferForm = () => {
           <Input
             type="number"
             step={0.1}
-            placeholder="$0.00"
-            color="#99DA67"
+            placeholder="0.00"
+            color="formGreen"
             {...register("amount", {
-              required: "Cannot be blank",
+              required: `Enter asset amount`,
               min: 0,
             })}
+          />
+          <ErrorMessage
+            errors={errors}
+            name="amount"
+            render={({ message }) => {
+              return (
+                <Box mb={"1rem"}>
+                  <Alert status="error" variant="left-accent">
+                    <AlertIcon />
+                    {message}
+                  </Alert>
+                </Box>
+              );
+            }}
           />
         </GridItem>
         <GridItem px={"0.5rem"}>
           <AssetModal setGetAsset={setGetAsset} />
         </GridItem>
         <GridItem>
-          <HStack justifyContent="space-around" px="0.5rem">
-            <Box w="33%" my={"-0.5rem"}>
-              <Text color="#63676F" fontSize="80px" fontWeight="extrabold">
+          <HStack justifyContent="start" px="0.5rem" spacing={"3rem"}>
+            <Box my={"-0.5rem"}>
+              <Text color="#63676F" fontSize="80px">
                 to
               </Text>
             </Box>
-            <Box w="34%" textAlign="center" placeSelf="center">
+            <Box textAlign="center" placeSelf="center">
               {/* inner Box serves as a border for FaGoogle */}
               <Box
                 w="min"
                 border="1px"
                 rounded="full"
                 p={3}
-                borderColor="#C5C8CC"
-                bg={isActiveGoogle ? "#C5C8CC" : "white"}
+                borderColor="socialIconsGray"
+                bg={isActiveGoogle ? "socialIconsGray" : "white"}
               >
                 <FaGoogle
                   color={isActiveGoogle ? "white" : "#C5C8CC"}
@@ -139,17 +159,17 @@ const TransferForm = () => {
                 />
               </Box>
             </Box>
-            <Box w="34%" textAlign="center" placeSelf="center">
+            <Box textAlign="center" placeSelf="center">
               <Box
                 w="min"
                 border="1px"
                 rounded="full"
                 p={3}
-                borderColor="#C5C8CC"
-                bg={isActiveDiscord ? "#C5C8CC" : "white"}
+                borderColor="socialIconsGray"
+                bg={isActiveGoogle ? "white" : "#C5C8CC"}
               >
                 <FaDiscord
-                  color={isActiveDiscord ? "white" : "#C5C8CC"}
+                  color={isActiveGoogle ? "#C5C8CC" : "white"}
                   fontSize="56px"
                   onClick={() => handleActiveIcons("discord")}
                 />
@@ -162,38 +182,32 @@ const TransferForm = () => {
             type={isActiveGoogle ? "email" : "text"}
             placeholder={isActiveGoogle ? "Add Email" : "Add Username"}
             color="#89DCFF"
+            autoComplete="false"
             {...register("username", {
-              required: "Cannot be blank",
+              required: "cannot be blank",
               minLength: {
                 value: 1,
                 message: "cannot be blank",
               },
             })}
           />
-          {/* TODO: Fix error message */}
           <ErrorMessage
             errors={errors}
             name="username"
             render={({ message }) => {
               return (
                 <Box>
-                  <Text fontSize="80px">{message}</Text>
+                  <Alert status="error" variant="left-accent">
+                    <AlertIcon />
+                    <Text mr={1}>{isActiveGoogle ? "Email" : "Username"}</Text>
+                    {message}
+                  </Alert>
                 </Box>
               );
             }}
           />
         </GridItem>
         <GridItem>
-          {/* <Link href={"/confirmation"}>
-            <Button
-              onClick={() => handleReivew()}
-              variant="form"
-              color="#1499DA"
-            >
-              Send!
-            </Button>
-          </Link> */}
-
           <Button onClick={() => handleReivew()} variant="form">
             Review
           </Button>

@@ -4,6 +4,8 @@ import { SessionProvider } from "next-auth/react";
 import HeadMetadata from "components/HeadMetadata";
 import { theme } from "theme";
 import { FormProvider } from "context/FormContext";
+import "@fontsource/inter";
+
 interface AppProps {
   Component: any;
   pageProps: any;

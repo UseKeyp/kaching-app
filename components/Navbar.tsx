@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Heading, HStack, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import { Session } from "types/session";
