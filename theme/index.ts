@@ -14,11 +14,12 @@ export const theme = extendTheme({
   colors: {
     pink: "#F5287E",
     discordBlue: "#4E65F3",
-    formGreen: "#99DA67",
+    formGreen: "#5DBA14",
     formBlueDark: "#1499DA",
     formLightBlue: "#89DCFF",
     socialIconsGray: "#C5C8CC",
     assetOrange: "#F4AB00",
+    lightGray: "#B0B6C1",
     loginGray: "#63676F",
     loginBtnGray: "#80858E",
   },

@@ -13,6 +13,8 @@ export const FormContext = createContext<{
   setIsActiveDiscord: any;
   inReview: boolean;
   setInReview: any;
+  confirmation: boolean;
+  setConfirmation: any;
   type: string;
   setType: any;
   amount: number | undefined;
@@ -28,6 +30,8 @@ export const FormContext = createContext<{
   setIsActiveDiscord: null,
   inReview: false,
   setInReview: null,
+  confirmation: false,
+  setConfirmation: null,
   type: "send",
   setType: null,
   amount: undefined,
@@ -43,12 +47,13 @@ interface FormProviderProps {
 }
 export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
   const [type, setType] = useState("send");
+  const [inReview, setInReview] = useState(false);
+  const [confirmation, setConfirmation] = useState(false);
   const [isActiveGoogle, setIsActiveGoogle] = useState(true);
   const [isActiveDiscord, setIsActiveDiscord] = useState(false);
   const [amount, setAmount] = useState<number | undefined>();
   const [asset, setAsset] = useState<string>("");
   const [username, setUsername] = useState<string | undefined>();
-  const [inReview, setInReview] = useState(false);
 
   const value = {
     type,
@@ -65,6 +70,8 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
     setUsername,
     inReview,
     setInReview,
+    confirmation,
+    setConfirmation,
   };
 
   return <FormContext.Provider value={value}>{children}</FormContext.Provider>;
@@ -86,6 +93,8 @@ export const useFormContext = () => {
     setUsername,
     inReview,
     setInReview,
+    confirmation,
+    setConfirmation,
   } = useContext(FormContext);
 
   return {
@@ -103,5 +112,7 @@ export const useFormContext = () => {
     setUsername,
     inReview,
     setInReview,
+    confirmation,
+    setConfirmation,
   };
 };

@@ -7,13 +7,12 @@ import { FaGoogle, FaDiscord } from "react-icons/fa";
 import useSocialLogo from "../hooks/useSocialLogo";
 
 const Navbar = () => {
-  const { data: session } = useSession();
-  console.log(session);
-  const address = session?.user.address;
-  const username = session?.user.username;
+  const session = useSession();
+
+  const address = session.data?.user?.address;
+  const username = session.data?.user?.username;
 
   const socialLogo = useSocialLogo(session);
-  console.log(socialLogo);
 
   const renderSocialLogo = () => {
     if (socialLogo === "discord") {
@@ -22,8 +21,6 @@ const Navbar = () => {
       return <FaGoogle />;
     } else return;
   };
-
-  console.log(renderSocialLogo());
 
   return (
     <HStack
@@ -49,16 +46,18 @@ const Navbar = () => {
           </Text>
         </HStack>
         {session && (
-          <Box>
-            <Text fontSize="12px" color="#80858E">
-              {address.slice(0, 7)}
-              <span>...</span>
-              {address.slice(-6)}
-            </Text>
-            {/* <Button variant="outline" onClick={() => signOut()}>
-              Sign out
-            </Button> */}
-          </Box>
+          <>
+            <Box>
+              <Text fontSize="12px" color="#80858E" textAlign="right">
+                {address?.slice(0, 7)}
+                <span>...</span>
+                {address?.slice(-6)}
+              </Text>
+            </Box>
+            {/* <Button variant="logout" onClick={() => signOut()}>
+                Sign out
+              </Button> */}
+          </>
         )}
       </VStack>
     </HStack>

@@ -9,12 +9,15 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useFormContext } from "context/FormContext";
+
 import React from "react";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
 
 const ReviewForm = () => {
   const {
     setInReview,
+    confirmation,
+    setConfirmation,
     type,
     isActiveGoogle,
     isActiveDiscord,
@@ -23,21 +26,15 @@ const ReviewForm = () => {
     username,
   } = useFormContext();
 
-  console.log(type, isActiveGoogle, isActiveDiscord, amount, asset, username);
+  console.log(amount, asset, username);
 
   const handleBack = () => {
     setInReview(false);
   };
 
-  const handleReivew = async () => {
-    const data = {
-      amount,
-      asset,
-      username,
-    };
-    console.log(data);
-    // TODO: plug in usrname to api so it returns
-    // useTransfer(data);
+  const handleSend = async () => {
+    setInReview(false);
+    setConfirmation(true);
   };
 
   return (
@@ -67,7 +64,7 @@ const ReviewForm = () => {
           <GridItem my={-2}>
             <HStack justifyContent="start" px="0.5rem">
               <Box mr={"3rem"}>
-                <Text color="#63676F" fontSize="80px">
+                <Text color="loginGray" fontSize="80px">
                   to
                 </Text>
               </Box>
@@ -83,11 +80,11 @@ const ReviewForm = () => {
                   border="1px"
                   rounded="full"
                   p={3}
-                  borderColor="#C5C8CC"
-                  bg={isActiveGoogle ? "#C5C8CC" : "white"}
+                  borderColor="socialIconsGray"
+                  bg={isActiveGoogle ? "socialIconsGray" : "white"}
                 >
                   <FaGoogle
-                    color={isActiveGoogle ? "white" : "#C5C8CC"}
+                    color={isActiveGoogle ? "white" : "socialIconsGray"}
                     fontSize="56px"
                   />
                 </Box>
@@ -103,11 +100,11 @@ const ReviewForm = () => {
                   border="1px"
                   rounded="full"
                   p={3}
-                  borderColor="#C5C8CC"
-                  bg={isActiveDiscord ? "#C5C8CC" : "white"}
+                  borderColor="socialIconsGray"
+                  bg={isActiveDiscord ? "socialIconsGray" : "white"}
                 >
                   <FaDiscord
-                    color={isActiveDiscord ? "white" : "#C5C8CC"}
+                    color={isActiveDiscord ? "white" : "socialIconsGray"}
                     fontSize="56px"
                   />
                 </Box>
@@ -121,7 +118,7 @@ const ReviewForm = () => {
           </GridItem>
           <GridItem>
             <HStack>
-              <Box w="50%">
+              <Box w={!confirmation ? "50%" : "full"}>
                 <Button
                   onClick={() => handleBack()}
                   variant="form"
@@ -130,16 +127,14 @@ const ReviewForm = () => {
                   Back!
                 </Button>
               </Box>
-              <Box w="50%">
-                <Link textDecor="none">
-                  <Button
-                    onClick={() => handleReivew()}
-                    variant="form"
-                    color="pink"
-                  >
-                    Send!
-                  </Button>
-                </Link>
+              <Box w="50%" display={confirmation ? "none" : ""}>
+                <Button
+                  onClick={() => handleSend()}
+                  variant="form"
+                  color="pink"
+                >
+                  Send!
+                </Button>
               </Box>
             </HStack>
           </GridItem>

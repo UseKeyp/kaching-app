@@ -1,10 +1,10 @@
-import { Box, Button, Heading, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Heading, Image, Stack, Text } from "@chakra-ui/react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
 
-const LoginPage = () => {
+const Login = () => {
   const { data: session } = useSession();
   console.log(session);
   const router = useRouter();
@@ -19,7 +19,7 @@ const LoginPage = () => {
     <>
       {session && (
         <>
-          <Text>Signed in as {session && session?.user?.username}</Text>
+          <Text>Signed in as {session && session?.data?.user?.username}</Text>
           <Button onClick={() => signOut()}>Sign out</Button>
         </>
       )}
@@ -36,14 +36,15 @@ const LoginPage = () => {
             👋
           </Text>
         </Box>
-        <Stack direction="column" m="auto" spacing={3}>
+        <Stack direction="column" m="auto" spacing={3} textAlign="left">
           <Box w="full" textAlign="left" color="loginGray">
             Log in with
           </Box>
           <Box>
             <Button
               variant="login"
-              leftIcon={<FaGoogle />}
+              leftIcon={<Image src={"google-color.svg"} alt="" />}
+              iconSpacing="1rem"
               onClick={() => signIn("keyp", undefined, "login_provider=GOOGLE")}
             >
               Log in with Google
@@ -52,7 +53,8 @@ const LoginPage = () => {
           <Box>
             <Button
               variant="login"
-              leftIcon={<FaDiscord />}
+              leftIcon={<Image src={"discord-color.svg"} alt="" />}
+              iconSpacing="1rem"
               onClick={() =>
                 signIn("keyp", undefined, "login_provider=DISCORD")
               }
@@ -60,10 +62,15 @@ const LoginPage = () => {
               Log in with Discord
             </Button>
           </Box>
+          <Box>
+            <Text color="#B0B6C1" fontSize="9px">
+              Powered by 🍩 Keyp
+            </Text>
+          </Box>
         </Stack>
       </Box>
     </>
   );
 };
 
-export default LoginPage;
+export default Login;

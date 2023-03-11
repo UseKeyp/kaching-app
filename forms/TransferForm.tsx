@@ -138,7 +138,7 @@ const TransferForm = () => {
         <GridItem>
           <HStack justifyContent="start" px="0.5rem" spacing={"3rem"}>
             <Box my={"-0.5rem"}>
-              <Text color="#63676F" fontSize="80px">
+              <Text color="loginGray" fontSize="80px">
                 to
               </Text>
             </Box>
@@ -182,7 +182,6 @@ const TransferForm = () => {
             type={isActiveGoogle ? "email" : "text"}
             placeholder={isActiveGoogle ? "Add Email" : "Add Username"}
             color="#89DCFF"
-            autoComplete="false"
             {...register("username", {
               required: "cannot be blank",
               minLength: {

@@ -5,7 +5,6 @@ const Button = defineStyleConfig({
     fontWeight: "bold",
     borderRadius: "lg",
     fontSize: "80px",
-    justifyContent: "start",
   },
 
   sizes: {
@@ -23,9 +22,9 @@ const Button = defineStyleConfig({
   variants: {
     form: (props: StyleFunctionProps) => ({
       border: "1px",
-      boxShadow: `6px 6px 0px 0px ${props.shadowColor || "#C5C8CC"}`,
+      boxShadow: `6px 6px 0px 0px ${props.shadowColor || "socialIconsGray"}`,
       fontSize: "80px",
-      color: "#C5C8CC",
+      color: "socialIconsGray",
       my: "1rem",
       w: "full",
       h: "fit",
@@ -35,7 +34,7 @@ const Button = defineStyleConfig({
       },
       _active: {
         // transform: "translateY(4px)",
-        boxShadow: `6px 6px 0px 0px ${props.shadowColor || "#C5C8CC"}`,
+        boxShadow: `6px 6px 0px 0px ${props.shadowColor || "socialIconsGray"}`,
       },
     }),
     login: {
@@ -48,7 +47,25 @@ const Button = defineStyleConfig({
       border: "1px",
       borderColor: "#E5E7EB",
       textAlign: "left",
+      justifyContent: "start",
     },
+    logout: {
+      fontSize: "sm",
+      color: "loginBtnGray",
+      border: "solid gray 1px",
+      py: "-2rem",
+    },
+    ramps: (props: StyleFunctionProps) => ({
+      w: "full",
+      fontFamily: "inter",
+      fontSize: "32px",
+      lineHeight: "32px",
+      justifyContent: "start",
+      color: `${props.color}`,
+      border: "solid #E5E7EB 1px",
+      rounded: "6px",
+      py: "2rem",
+    }),
   },
   // The default size and variant values
   defaultProps: {
