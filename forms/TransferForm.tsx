@@ -113,8 +113,11 @@ const TransferForm = () => {
             placeholder="0.00"
             color="formGreen"
             {...register("amount", {
-              required: `Enter asset amount`,
-              min: 0,
+              required: {
+                value: true,
+                message: `Enter asset amount`,
+              },
+              validate: (n) => n > 0 || "Value must be greater than 0",
             })}
           />
           <ErrorMessage
