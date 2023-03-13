@@ -14,11 +14,13 @@ const useApi = async (endpointType: string, variables: string) => {
   const method = requestType(endpointType);
 
   const headers = {
-    "Content-Type": "application/json",
-    "x-api-key": KEY,
+    "Content-type": "application/json",
+    "x-api-key": TOKEN_SECRET,
     "x-client-id": TOKEN_SECRET,
     "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Credentials": "true",
+    // "Access-Control-Allow-Credentials": "true",
+    "access-control-allow-headers":
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization",
     Authorization: "Bearer " + TOKEN_SECRET,
   };
 
@@ -26,9 +28,11 @@ const useApi = async (endpointType: string, variables: string) => {
     method,
     headers,
     url: `${baseUrl}/${endpoint}`,
-    withCredentials: true,
   })
-    .then((response) => response.data)
+    .then((response) => {
+      console.log(response);
+      response.data;
+    })
     .catch((error) => error);
 
   console.log("fetchData", fetchData);
