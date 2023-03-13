@@ -49,12 +49,12 @@ const Button = defineStyleConfig({
       textAlign: "left",
       justifyContent: "start",
     },
-    logout: {
-      fontSize: "sm",
-      color: "loginBtnGray",
-      border: "solid gray 1px",
-      py: "-2rem",
-    },
+    // logout: {
+    //   fontSize: "xs",
+    //   color: "loginBtnGray",
+    //   border: "1px solid gray",
+    //   px: "1rem",
+    // },
     ramps: (props: StyleFunctionProps) => ({
       w: "full",
       fontFamily: "inter",

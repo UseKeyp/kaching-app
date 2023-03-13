@@ -1,12 +1,12 @@
 import { Box, Button, Heading, Image, Stack, Text } from "@chakra-ui/react";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { FaDiscord, FaGoogle } from "react-icons/fa";
 
 const Login = () => {
   const { data: session } = useSession();
-  console.log(session);
+  console.log("session", session);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -17,13 +17,6 @@ const Login = () => {
 
   return (
     <>
-      {session && (
-        <>
-          <Text>Signed in as {session && session?.data?.user?.username}</Text>
-          <Button onClick={() => signOut()}>Sign out</Button>
-        </>
-      )}
-
       <Box textAlign="center" fontFamily="inter">
         <Heading as="h1" color="pink">
           <Text fontSize="120px" fontFamily="sharpie">

@@ -1,14 +1,15 @@
-import { Session } from "types/session";
+// import { Session } from "types/Session";
 
-const useSocialLogo = (session: Session | null) => {
-  let url;
-  const id = session?.data?.user?.id;
+const useSocialLogo = (
+  session: // Session |
+  any
+) => {
+  const id = session && session?.data?.user?.id;
   if (id?.includes("GOOGLE")) {
-    url = "google";
+    return "google";
   } else if (id?.includes("DISCORD")) {
-    url = "discord";
+    return "discord";
   } else return null;
-  return url;
 };
 
 export default useSocialLogo;

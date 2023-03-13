@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Button, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
-import { Session } from "types/session";
 import { FaGoogle, FaDiscord } from "react-icons/fa";
+import { MdArrowDropDown } from "react-icons/md";
 import useSocialLogo from "../hooks/useSocialLogo";
 
 const Navbar = () => {
+  const [showLogout, setShowLogout] = useState(false);
   const session = useSession();
+  console.log("session", session);
 
-  const address = session.data?.user?.address;
-  const username = session.data?.user?.username;
+  const address = session && session?.data?.user?.address;
+  const username = session && session?.data?.user?.username;
 
   const socialLogo = useSocialLogo(session);
 
@@ -20,6 +22,10 @@ const Navbar = () => {
     } else if (socialLogo === "google") {
       return <FaGoogle />;
     } else return;
+  };
+
+  const handleShowLogout = () => {
+    setShowLogout(!showLogout);
   };
 
   return (
@@ -48,15 +54,28 @@ const Navbar = () => {
         {session && (
           <>
             <Box>
-              <Text fontSize="12px" color="#80858E" textAlign="right">
-                {address?.slice(0, 7)}
-                <span>...</span>
-                {address?.slice(-6)}
+              <HStack>
+                <Box mr={-2} onClick={handleShowLogout}>
+                  <MdArrowDropDown color="#80858E" />
+                </Box>
+                <Text fontSize="12px" color="#80858E" textAlign="right">
+                  {address?.slice(0, 7)}
+                  <span>...</span>
+                  {address?.slice(-6)}
+                </Text>
+              </HStack>
+            </Box>
+            <Box
+              display={showLogout ? "block" : "none"}
+              border="1px solid gray"
+              px={2}
+              rounded="md"
+              onClick={() => signOut()}
+            >
+              <Text fontSize="xs" color="loginBtnGray">
+                Sign out
               </Text>
             </Box>
-            {/* <Button variant="logout" onClick={() => signOut()}>
-                Sign out
-              </Button> */}
           </>
         )}
       </VStack>
