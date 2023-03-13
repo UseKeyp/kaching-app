@@ -1,8 +1,20 @@
 import React from "react";
 import { Box, Button, Heading, Image, Text, VStack } from "@chakra-ui/react";
 import { RxCopy } from "react-icons/rx";
+import { useSession } from "next-auth/react";
+// import { Session } from "types/Session";
+import useApi from "hooks/useApi";
 
 const Fund = () => {
+  const { data: session } = useSession();
+  const request = useApi("onramps", "RAMP_NETWORK");
+  console.log(request);
+
+  const handleCopyAddress = () => {
+    const address = session && session?.user?.address;
+    navigator.clipboard.writeText(address);
+  };
+
   return (
     <Box px="1rem" w="full">
       <Heading as="h3">
@@ -23,7 +35,11 @@ const Fund = () => {
           </Button>
         </Box>
         <Box w="full">
-          <Button variant="ramps" color="formBlueDark">
+          <Button
+            variant="ramps"
+            color="formBlueDark"
+            onClick={handleCopyAddress}
+          >
             <RxCopy />
             <Text ml="1rem">Copy Address</Text>
           </Button>

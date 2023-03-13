@@ -1,13 +1,11 @@
 import React, { ReactNode } from "react";
 import { Flex } from "@chakra-ui/react";
 
-// TODO: fix type of session
 interface LayoutProps {
-  session: any;
   children: ReactNode;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, session }) => {
+const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <>
       <Flex

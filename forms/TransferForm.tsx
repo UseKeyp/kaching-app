@@ -3,6 +3,7 @@ import {
   AlertIcon,
   Box,
   Button,
+  FormErrorMessage,
   GridItem,
   HStack,
   Input,
@@ -51,8 +52,6 @@ const TransferForm = () => {
   } = localForm;
   const values = getValues();
   watch();
-  console.log(values);
-  // console.log("errors", errors);
 
   const handleActiveIcons = (platform: string): void => {
     if (platform === "google") {
@@ -70,7 +69,6 @@ const TransferForm = () => {
 
   const handleReivew = async () => {
     const valid = await trigger();
-    console.log(valid);
     if (isValid) {
       setAmount(values.amount),
         setAsset(values.asset),
@@ -210,9 +208,11 @@ const TransferForm = () => {
           />
         </GridItem>
         <GridItem>
-          <Button onClick={() => handleReivew()} variant="form">
-            Review
-          </Button>
+          <Box>
+            <Button onClick={() => handleReivew()} variant="form">
+              Review
+            </Button>
+          </Box>
         </GridItem>
       </SimpleGrid>
     </Box>

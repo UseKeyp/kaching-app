@@ -5,10 +5,12 @@ import HeadMetadata from "components/HeadMetadata";
 import { theme } from "theme";
 import { FormProvider } from "context/FormContext";
 import "@fontsource/inter";
+import { Session } from "types/Session";
 
 interface AppProps {
   Component: any;
   pageProps: any;
+  session: Session;
 }
 
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
@@ -17,7 +19,7 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
       <SessionProvider session={session}>
         <HeadMetadata />
         <FormProvider>
-          <Layout session={session}>
+          <Layout>
             <Component {...pageProps} />
           </Layout>
         </FormProvider>

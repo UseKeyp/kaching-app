@@ -17,10 +17,8 @@ import CashOut from "components/CashOut";
 // TODO: if user is not logged in, redirect to login page
 const Home = () => {
   const { type, inReview, confirmation } = useFormContext();
-  const { data: session } = useSession();
+  const session = useSession();
   const router = useRouter();
-
-  console.log(session);
 
   useEffect(() => {
     if (!session) {
@@ -38,7 +36,7 @@ const Home = () => {
       {type === "fund" && <Fund />}
       {type === "cashOut" && <CashOut />}
 
-      {/* <Fund /> */}
+      <Fund />
       {/* <CashOut /> */}
     </>
   );

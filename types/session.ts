@@ -1,9 +1,12 @@
 export type Session = {
   data: {
-    id: string;
-    accessToken: string;
-    username: string;
-    address: string;
+    expires: string;
+    user: {
+      id: string;
+      accessToken: string;
+      username: string;
+      address: string;
+    };
+    status: string;
   };
-  status: string;
 };

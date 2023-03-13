@@ -9,10 +9,13 @@ import useSocialLogo from "../hooks/useSocialLogo";
 const Navbar = () => {
   const [showLogout, setShowLogout] = useState(false);
   const session = useSession();
-  console.log("session", session);
+  // console.log("session", session);
 
-  const address = session && session?.data?.user?.address;
-  const username = session && session?.data?.user?.username;
+  // TODO: Fix typescript error below
+  // @ts-ignore
+  const address = session?.data?.user?.address || undefined;
+  // @ts-ignore
+  const username = session?.data?.user?.username || undefined;
 
   const socialLogo = useSocialLogo(session);
 

@@ -5,8 +5,6 @@ import { useEffect } from "react";
 
 const Login = () => {
   const { data: session } = useSession();
-  console.log("session", session);
-
   const router = useRouter();
 
   useEffect(() => {

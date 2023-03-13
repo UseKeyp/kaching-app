@@ -5,6 +5,11 @@ const Button = defineStyleConfig({
     fontWeight: "bold",
     borderRadius: "lg",
     fontSize: "80px",
+    _active: {
+      transform: "translateY(2px)",
+      bgColor: "#fafafa",
+      // boxShadow: `6px 6px 0px 0px ${props.shadowColor || "socialIconsGray"}`,
+    },
   },
 
   sizes: {
@@ -28,14 +33,6 @@ const Button = defineStyleConfig({
       my: "1rem",
       w: "full",
       h: "fit",
-      _hover: {
-        textDecoration: "none",
-        bg: "#fafafa",
-      },
-      _active: {
-        // transform: "translateY(4px)",
-        boxShadow: `6px 6px 0px 0px ${props.shadowColor || "socialIconsGray"}`,
-      },
     }),
     login: {
       w: "full",
@@ -55,6 +52,7 @@ const Button = defineStyleConfig({
     //   border: "1px solid gray",
     //   px: "1rem",
     // },
+
     ramps: (props: StyleFunctionProps) => ({
       w: "full",
       fontFamily: "inter",

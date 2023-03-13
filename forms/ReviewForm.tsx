@@ -28,7 +28,7 @@ const ReviewForm = () => {
 
   console.log(amount, asset, username);
 
-  const handleBack = () => {
+  const handleCancel = () => {
     setInReview(false);
   };
 
@@ -39,14 +39,25 @@ const ReviewForm = () => {
 
   return (
     <>
-      <Box fontWeight="bold">
-        <HStack fontSize="60px" color="formBlueDark" my={"-1rem"}>
-          <Box>
-            <Text opacity={type === "send" ? 1 : 0.5}>Send</Text>
-          </Box>
-          <Box>
-            <Text opacity={type === "request" ? 1 : 0.5}>Request</Text>
-          </Box>
+      <Box fontWeight="bold" w="full">
+        <HStack fontSize="60px" color="formBlueDark">
+          <Button
+            variant="none"
+            fontSize="60px"
+            isDisabled
+            opacity={type === "send" ? 1 : 0.5}
+          >
+            Send
+          </Button>
+          <Button
+            variant="none"
+            fontSize="60px"
+            opacity={0.5}
+            color="cancelOrange"
+            onClick={() => handleCancel()}
+          >
+            Cancel
+          </Button>
         </HStack>
         <SimpleGrid columns={1} spacing={0} mb={"1rem"}>
           <GridItem>
@@ -117,26 +128,15 @@ const ReviewForm = () => {
             </Text>
           </GridItem>
           <GridItem>
-            <HStack>
-              <Box w={!confirmation ? "50%" : "full"}>
-                <Button
-                  onClick={() => handleBack()}
-                  variant="form"
-                  color="#1499DA"
-                >
-                  Back!
-                </Button>
-              </Box>
-              <Box w="50%" display={confirmation ? "none" : ""}>
-                <Button
-                  onClick={() => handleSend()}
-                  variant="form"
-                  color="pink"
-                >
-                  Send!
-                </Button>
-              </Box>
-            </HStack>
+            <Box w="full">
+              <Button
+                onClick={() => handleSend()}
+                variant="form"
+                color="#1499DA"
+              >
+                Send!
+              </Button>
+            </Box>
           </GridItem>
         </SimpleGrid>
       </Box>

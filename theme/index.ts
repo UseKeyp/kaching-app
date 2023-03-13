@@ -18,6 +18,7 @@ export const theme = extendTheme({
     formBlueDark: "#1499DA",
     formLightBlue: "#89DCFF",
     socialIconsGray: "#C5C8CC",
+    cancelOrange: "#FFB489",
     assetOrange: "#F4AB00",
     lightGray: "#B0B6C1",
     loginGray: "#63676F",
