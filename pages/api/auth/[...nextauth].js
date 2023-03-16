@@ -1,8 +1,6 @@
 import NextAuth from "next-auth";
 
 const KEYP_APP_DOMAIN = "https://app.usekeyp.com";
-// const KEYP_APP_DOMAIN = "https://localhost";
-// const KEYP_APP_DOMAIN = "https://api.staging-env.usekeyp.com";
 
 const KeypProvider = {
   id: "keyp",
@@ -26,7 +24,7 @@ const KeypProvider = {
 };
 
 export default NextAuth({
-  secret: process.env.TOKEN_SECRET,
+  secret: process.env.NEXTAUTH_SESSION_COOKIE_SECRET,
   providers: [KeypProvider],
   callbacks: {
     async jwt({ token, account, profile }) {

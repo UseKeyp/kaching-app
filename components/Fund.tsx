@@ -16,8 +16,6 @@ import useApi from "hooks/useApi";
 const Fund = () => {
   const [openTooltip, setOpenTooltip] = useState(false);
   const { data: session } = useSession();
-  const request = useApi("onramps", "RAMP_NETWORK");
-  console.log(request);
 
   const handleCopyAddress = () => {
     const address = session && session?.user?.address;
@@ -26,6 +24,15 @@ const Fund = () => {
     setTimeout(() => {
       setOpenTooltip(false);
     }, 1000);
+  };
+
+  const handleClickFund = async (rampType) => {
+    const request = await useApi(
+      "onramps",
+      rampType,
+      session?.user?.accessToken
+    );
+    if (request.url) window.location = request.url;
   };
 
   return (
@@ -37,14 +44,12 @@ const Fund = () => {
       </Heading>
       <VStack spacing="1.5rem" mt="1.5rem">
         <Box w="full">
-          <Button variant="ramps" color="#22272F">
+          <Button
+            variant="ramps"
+            color="#22272F"
+            onClick={() => handleClickFund("RAMP_NETWORK")}
+          >
             <Image src={"payment-ramp.svg"} alt="Ramp" />
-          </Button>
-        </Box>
-        <Box w="full">
-          <Button variant="ramps" color="#4A4D53">
-            <Image src={"payment-coinbase.svg"} alt="" />
-            <Text ml="1rem">Coinbase</Text>
           </Button>
         </Box>
         <Box w="full">
