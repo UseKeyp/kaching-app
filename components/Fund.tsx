@@ -10,15 +10,14 @@ import {
 } from "@chakra-ui/react";
 import { RxCopy } from "react-icons/rx";
 import { useSession } from "next-auth/react";
-// import { Session } from "types/Session";
-import useApi from "hooks/useApi";
+import UseApi from "../hooks/useApi";
 
 const Fund = () => {
   const [openTooltip, setOpenTooltip] = useState(false);
   const { data: session } = useSession();
 
   const handleCopyAddress = () => {
-    const address = session && session?.user?.address;
+    const address = session && session?.address;
     navigator.clipboard.writeText(address);
     setOpenTooltip(true);
     setTimeout(() => {
@@ -26,13 +25,9 @@ const Fund = () => {
     }, 1000);
   };
 
-  const handleClickFund = async (rampType) => {
-    const request = await useApi(
-      "onramps",
-      rampType,
-      session?.user?.accessToken
-    );
-    if (request.url) window.location = request.url;
+  const handleClickFund = async (rampType: string) => {
+    const request = await UseApi("onramps", rampType, session?.accessToken);
+    if (request?.url) window.location = request?.url;
   };
 
   return (

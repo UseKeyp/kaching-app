@@ -1,14 +1,16 @@
+import React from "react";
 import { Box, Button, Heading, Image, Stack, Text } from "@chakra-ui/react";
 import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 const Login = () => {
-  const { data: session } = useSession();
+  const session = useSession();
   const router = useRouter();
+  console.log(session);
 
   useEffect(() => {
-    if (session) {
+    if (session.status === "authenticated") {
       router.push("/");
     }
   }, [session, router]);

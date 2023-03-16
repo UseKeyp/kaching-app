@@ -7,7 +7,7 @@ const KeypProvider = {
   name: "Keyp",
   type: "oauth",
   version: "2.0",
-  clientId: process.env.KEYP_CLIENT_ID,
+  clientId: process.env.NEXT_PUBLIC_KEYP_CLIENT_ID,
   wellKnown: `${KEYP_APP_DOMAIN}/oauth/.well-known/openid-configuration`,
   checks: ["pkce"],
   authorization: { params: { scope: "openid email" } },
@@ -24,7 +24,7 @@ const KeypProvider = {
 };
 
 export default NextAuth({
-  secret: process.env.NEXTAUTH_SESSION_COOKIE_SECRET,
+  secret: process.env.NEXT_PUBLIC_NEXTAUTH_SESSION_COOKIE_SECRET,
   providers: [KeypProvider],
   callbacks: {
     async jwt({ token, account, profile }) {

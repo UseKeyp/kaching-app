@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
-import TransferForm from "forms/TransferForm";
+import TransferForm from "../forms/TransferForm";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import { useFormContext } from "context/FormContext";
-import ReviewTransaction from "forms/ReviewForm";
-import Navbar from "components/Navbar";
-import Confirmation from "components/Confirmation";
-import Fund from "components/Fund";
-import CashOut from "components/CashOut";
+import { useFormContext } from "../context/FormContext";
+import ReviewTransaction from "../forms/ReviewForm";
+import Navbar from "../components/Navbar";
+import Confirmation from "../components/Confirmation";
+import Fund from "../components/Fund";
+import CashOut from "../components/CashOut";
 
 /**
  * @remarks if user selects "send", render Send component, else render "Request"
@@ -21,7 +21,7 @@ const Home = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!session) {
+    if (session.status !== "authenticated") {
       router.push("/login");
     }
   }, [session, router]);
@@ -35,8 +35,7 @@ const Home = () => {
       {confirmation && !inReview && <Confirmation />}
       {type === "fund" && <Fund />}
       {type === "cashOut" && <CashOut />}
-
-      <Fund />
+      {/* <Fund /> */}
       {/* <CashOut /> */}
     </>
   );

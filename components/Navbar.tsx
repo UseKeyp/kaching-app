@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, Heading, HStack, Text, VStack } from "@chakra-ui/react";
+import { Box, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import { FaGoogle, FaDiscord } from "react-icons/fa";
@@ -8,16 +8,12 @@ import useSocialLogo from "../hooks/useSocialLogo";
 
 const Navbar = () => {
   const [showLogout, setShowLogout] = useState(false);
-  const session = useSession();
-  // console.log("session", session);
+  const { data: session } = useSession();
+  const socialLogo = useSocialLogo(session);
 
   // TODO: Fix typescript error below
-  // @ts-ignore
-  const address = session?.data?.user?.address || undefined;
-  // @ts-ignore
-  const username = session?.data?.user?.username || undefined;
-
-  const socialLogo = useSocialLogo(session);
+  const address = session?.user?.address || undefined;
+  const username = session?.user?.username || undefined;
 
   const renderSocialLogo = () => {
     if (socialLogo === "discord") {
