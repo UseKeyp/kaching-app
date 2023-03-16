@@ -2,8 +2,7 @@ import axios from "axios";
 import { endpointLogic, requestType } from "utils/general";
 import fetch from 'cross-fetch'
 
-// const KEYP_API_BASE_URL = "https://api.usekeyp.com/v1";
-const KEYP_API_BASE_URL = "http://localhost:3001/v1";
+const KEYP_API_BASE_URL = "https://api.usekeyp.com/v1";
 
 /**
  * @remarks - This hook is used to fetch data from the Keyp API
