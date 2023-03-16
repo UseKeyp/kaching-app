@@ -1,8 +1,6 @@
 import NextAuth from "next-auth";
 
-// const KEYP_APP_DOMAIN = "https://app.usekeyp.com";
-const KEYP_APP_DOMAIN = "https://localhost";
-// const KEYP_APP_DOMAIN = "https://app.staging-env.usekeyp.com";
+const KEYP_APP_DOMAIN = "https://app.usekeyp.com";
 
 const KeypProvider = {
   id: "keyp",
