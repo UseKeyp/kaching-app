@@ -23,8 +23,6 @@ const Home = () => {
   const session = useSession();
   const router = useRouter();
 
-  console.log(type);
-
   const componentLogic = () => {
     if (type === "send") {
       if (!inReview && !confirmation) {
@@ -35,11 +33,12 @@ const Home = () => {
         return <Confirmation />;
       }
     } else if (type === "request") {
-      // TODO: create request component
-      return <Request />;
+      // TODO: build request component. Replace <TransferForm /> with <Request />
+      // return <Request />;
+      return <TransferForm />;
     } else if (type === "fund") {
       return <Fund />;
-    } else if (type === "cash out") {
+    } else if (type === "cashout") {
       return <CashOut />;
     }
   };

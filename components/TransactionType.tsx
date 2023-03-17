@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Box, Button, HStack } from "@chakra-ui/react";
+import React, { useEffect } from "react";
+import { Box, Button, Flex, HStack, Image, Text } from "@chakra-ui/react";
 import { useFormContext } from "../context/FormContext";
-import { render } from "react-dom";
 
 /**
  * @remarks - this component is used to determine the "type" of transaction. When user slides component, if it's within the constraints of 'container' id, the focused component gets brought into 'type' state
  * @returns - div containing scrollable buttons
  */
 const TransactionType = () => {
-  const [displayLeftArrow, setDisplayLeftArrow] = useState(false);
-  const [displayRightArrow, setDisplayRightArrow] = useState(true);
   const { setType, type } = useFormContext();
 
   const handletype = (e: any) => {
@@ -24,11 +21,11 @@ const TransactionType = () => {
         <Box key={value}>
           <Button
             onClick={handletype}
-            id={value.toLowerCase()}
+            id={value.toLowerCase().replace(" ", "")}
             variant="none"
             fontSize="60px"
             color="formBlueDark"
-            opacity={type === value.toLowerCase() ? 1 : 0.5}
+            opacity={type === value.toLowerCase().replace(" ", "") ? 1 : 0.5}
           >
             {value}
           </Button>
@@ -37,33 +34,105 @@ const TransactionType = () => {
     });
   };
 
-  useEffect(() => {
+  const handleScroll = (dir: string) => {
     const container = document.getElementById("container");
-    const containerPos = container?.getBoundingClientRect();
-    const start = containerPos && containerPos?.left;
-    const end = containerPos && containerPos?.width / 2;
-
     const send = document.getElementById("send");
-    const sendPos = send?.getBoundingClientRect();
+    const request = document.getElementById("request");
+    const fund = document.getElementById("fund");
+    const cashOut = document.getElementById("cashout");
 
-    const cashOut = document.getElementById("cashOut");
-    const cashOutPos = cashOut?.getBoundingClientRect();
+    const sendStart = send?.getBoundingClientRect().left;
+    const requestStart = request?.getBoundingClientRect().left;
+    const fundStart = fund?.getBoundingClientRect().left;
+    const cashOutStart = cashOut?.getBoundingClientRect().left;
 
-    // If id='send' aligns at start of 'container', display right arrow.
-    if (sendPos && start && sendPos.x < start) {
-      setDisplayLeftArrow(true);
+    // left click actions
+    if (dir === "left") {
+      if (type === "cashout") {
+        container?.scrollBy({
+          left: fundStart,
+          behavior: "smooth",
+        });
+        setType("fund");
+      } else if (type === "fund") {
+        container?.scrollBy({
+          left: requestStart && requestStart - 25,
+          behavior: "smooth",
+        });
+        setType("request");
+      } else if (type === "request") {
+        container?.scrollBy({
+          left: sendStart && sendStart - 55,
+          behavior: "smooth",
+        });
+        setType("send");
+      }
     }
-    // If 'cashOut'.left is < containerPos remove right arrow
-    if (cashOutPos && end && cashOutPos?.right < containerPos.right) {
-      setDisplayRightArrow(false);
+
+    // right click actions
+    if (dir === "right") {
+      if (type === "send") {
+        container?.scrollBy({
+          left: requestStart && requestStart - 25,
+          behavior: "smooth",
+        });
+        setType("request");
+      } else if (type === "request") {
+        container?.scrollBy({
+          left: fundStart && fundStart,
+          behavior: "smooth",
+        });
+        setType("fund");
+      } else if (type === "fund") {
+        container?.scrollBy({
+          left: cashOutStart,
+          behavior: "smooth",
+        });
+        setType("cashout");
+      }
     }
-  }, [type, displayLeftArrow, displayRightArrow]);
+  };
+
+  useEffect(() => {
+    console.log("type:", type);
+  }, [type]);
 
   return (
     <>
-      <HStack id="container" overflowX="scroll" py="1rem" w="450px">
-        {renderButtons()}
-      </HStack>
+      <Flex>
+        <Box
+          display={type === "send" ? "none" : "block"}
+          alignSelf="center"
+          zIndex={1}
+          transform="translateX(26px)"
+          onClick={() => handleScroll("left")}
+        >
+          <Image
+            src="arrow-right.gif"
+            alt=""
+            transform="rotate(180deg)"
+            opacity={0.5}
+          />
+        </Box>
+        <HStack
+          id="container"
+          overflowX="scroll"
+          py="1rem"
+          w="450px"
+          spacing="-1.5rem"
+        >
+          {renderButtons()}
+        </HStack>
+        <Box
+          display={type === "cashout" ? "none" : "block"}
+          transform="translateX(-36px)"
+          alignSelf="center"
+          zIndex={1}
+          onClick={() => handleScroll("right")}
+        >
+          <Image src="arrow-right.gif" alt="" opacity={0.5} />
+        </Box>
+      </Flex>
     </>
   );
 };
