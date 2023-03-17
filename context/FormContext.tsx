@@ -1,10 +1,4 @@
-import {
-  createContext,
-  // Dispatch,
-  ReactNode,
-  useContext,
-  useState,
-} from "react";
+import React, { createContext, ReactNode, useContext, useState } from "react";
 
 export const FormContext = createContext<{
   isActiveGoogle: boolean;

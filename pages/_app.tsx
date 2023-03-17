@@ -1,11 +1,12 @@
+import React from "react";
 import { ChakraProvider } from "@chakra-ui/react";
-import Layout from "components/layout";
+import Layout from "../components/layout";
 import { SessionProvider } from "next-auth/react";
-import HeadMetadata from "components/HeadMetadata";
-import { theme } from "theme";
-import { FormProvider } from "context/FormContext";
+import HeadMetadata from "../components/HeadMetadata";
+import { theme } from "../theme";
+import { FormProvider } from "../context/FormContext";
 import "@fontsource/inter";
-import { Session } from "types/Session";
+import { Session } from "../types/Session";
 
 interface AppProps {
   Component: any;

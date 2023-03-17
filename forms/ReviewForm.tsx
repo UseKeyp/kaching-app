@@ -8,7 +8,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { useFormContext } from "context/FormContext";
+import { useFormContext } from "../context/FormContext";
 
 import React from "react";
 import { FaDiscord, FaGoogle } from "react-icons/fa";

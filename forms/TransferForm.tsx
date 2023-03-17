@@ -11,11 +11,11 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { ErrorMessage } from "@hookform/error-message";
-import React, { Dispatch, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
 import AssetModal from "../components/AssetModal";
-import { useFormContext } from "context/FormContext";
+import { useFormContext } from "../context/FormContext";
 
 // TODO: refactor inputs so styles are put into custom Chakra theme component
 
@@ -28,8 +28,8 @@ const TransferForm = () => {
   const [getAsset, setGetAsset] = useState("USDC");
 
   const {
-    type,
-    setType,
+    // type,
+    // setType,
     setAmount,
     setAsset,
     isActiveDiscord,
@@ -83,7 +83,8 @@ const TransferForm = () => {
 
   return (
     <Box display={inReview ? "none" : ""} fontWeight="bold">
-      <HStack>
+      {/* TODO: delete HSTack below after polishing TransactionType component */}
+      {/* <HStack>
         <Button
           onClick={() => setType("send")}
           variant="none"
@@ -102,8 +103,8 @@ const TransferForm = () => {
         >
           Request
         </Button>
-      </HStack>
-      <SimpleGrid columns={1} spacing={0} my={"1rem"}>
+      </HStack> */}
+      <SimpleGrid columns={1} spacing={0} mb={"1rem"}>
         <GridItem>
           <Input
             type="number"

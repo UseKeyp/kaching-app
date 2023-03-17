@@ -31,7 +31,7 @@ const Fund = () => {
   };
 
   return (
-    <Box px="1rem" w="full">
+    <Box px="1rem" w="full" mt="3rem">
       <Heading as="h3">
         <Text fontSize="32px" color="socialIconsGray">
           Fund your Wallet

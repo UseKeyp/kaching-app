@@ -14,7 +14,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         justifyContent="space-between"
         px={["1rem", "2rem"]}
         pb="1rem"
-        w={["full", "80%", "60%", "50%"]}
+        w="450px"
         rounded="xl"
         fontFamily="sharpie"
       >

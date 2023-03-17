@@ -15,7 +15,7 @@ const CashOut = () => {
     if (request?.url) window.location = request?.url;
   };
   return (
-    <Box px="1rem" w="full">
+    <Box px="1rem" w="full" mt="3rem">
       <Heading as="h3">
         <Text fontSize="32px" color="socialIconsGray">
           Withdraw from your Wallet

@@ -1,13 +1,16 @@
-import React, { useEffect } from "react";
+import React, { ReactElement, ReactNode, useEffect } from "react";
 import TransferForm from "../forms/TransferForm";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { useFormContext } from "../context/FormContext";
 import ReviewTransaction from "../forms/ReviewForm";
 import Navbar from "../components/Navbar";
+import TransactionType from "../components/TransactionType";
 import Confirmation from "../components/Confirmation";
 import Fund from "../components/Fund";
 import CashOut from "../components/CashOut";
+import { Box } from "@chakra-ui/react";
+import Request from "../components/Request";
 
 /**
  * @remarks if user selects "send", render Send component, else render "Request"
@@ -20,6 +23,27 @@ const Home = () => {
   const session = useSession();
   const router = useRouter();
 
+  console.log(type);
+
+  const componentLogic = () => {
+    if (type === "send") {
+      if (!inReview && !confirmation) {
+        return <TransferForm />;
+      } else if (inReview) {
+        return <ReviewTransaction />;
+      } else if (confirmation && !inReview) {
+        return <Confirmation />;
+      }
+    } else if (type === "request") {
+      // TODO: create request component
+      return <Request />;
+    } else if (type === "fund") {
+      return <Fund />;
+    } else if (type === "cash out") {
+      return <CashOut />;
+    }
+  };
+
   useEffect(() => {
     if (session.status !== "authenticated") {
       router.push("/login");
@@ -29,14 +53,10 @@ const Home = () => {
   return (
     <>
       <Navbar />
-
-      {!inReview && !confirmation && <TransferForm />}
-      {inReview && <ReviewTransaction />}
-      {confirmation && !inReview && <Confirmation />}
-      {type === "fund" && <Fund />}
-      {type === "cashOut" && <CashOut />}
-      {/* <Fund /> */}
-      {/* <CashOut /> */}
+      <Box>
+        <TransactionType />
+        {componentLogic()}
+      </Box>
     </>
   );
 };

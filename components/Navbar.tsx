@@ -12,8 +12,8 @@ const Navbar = () => {
   const socialLogo = useSocialLogo(session);
 
   // TODO: Fix typescript error below
-  const address = session?.user?.address || undefined;
-  const username = session?.user?.username || undefined;
+  const address = session?.user?.address;
+  const username = session?.user?.username;
 
   const renderSocialLogo = () => {
     if (socialLogo === "discord") {
