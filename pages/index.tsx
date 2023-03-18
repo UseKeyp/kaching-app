@@ -1,23 +1,22 @@
-import React, { ReactElement, ReactNode, useEffect } from "react";
+import React, { useEffect } from "react";
 import TransferForm from "../forms/TransferForm";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { useFormContext } from "../context/FormContext";
 import ReviewTransaction from "../forms/ReviewForm";
 import Navbar from "../components/Navbar";
-import TransactionType from "../components/TransactionType";
+import TransactionSlider from "../components/TransactionSlider";
 import Confirmation from "../components/Confirmation";
 import Fund from "../components/Fund";
 import CashOut from "../components/CashOut";
 import { Box } from "@chakra-ui/react";
-import Request from "../components/Request";
+// import Request from "../components/Request";
 
 /**
  * @remarks if user selects "send", render Send component, else render "Request"
- * @returns
+ * @returns home page that renders the appropriate component based on user selection
  */
 
-// TODO: if user is not logged in, redirect to login page
 const Home = () => {
   const { type, inReview, confirmation } = useFormContext();
   const session = useSession();
@@ -53,7 +52,7 @@ const Home = () => {
     <>
       <Navbar />
       <Box>
-        <TransactionType />
+        <TransactionSlider />
         {componentLogic()}
       </Box>
     </>

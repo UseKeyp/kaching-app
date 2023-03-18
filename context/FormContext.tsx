@@ -1,6 +1,7 @@
 import React, { createContext, ReactNode, useContext, useState } from "react";
 
 export const FormContext = createContext<{
+  // TODO: Fix types on useState setter functions
   isActiveGoogle: boolean;
   setIsActiveGoogle: any;
   isActiveDiscord: boolean;
@@ -17,6 +18,7 @@ export const FormContext = createContext<{
   setAsset: any;
   username: string | undefined;
   setUsername: any;
+  handleHomePage: any;
 }>({
   isActiveGoogle: true,
   setIsActiveGoogle: null,
@@ -34,8 +36,8 @@ export const FormContext = createContext<{
   setAsset: null,
   username: undefined,
   setUsername: null,
+  handleHomePage: undefined,
 });
-
 interface FormProviderProps {
   children: ReactNode;
 }
@@ -46,8 +48,21 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
   const [isActiveGoogle, setIsActiveGoogle] = useState(true);
   const [isActiveDiscord, setIsActiveDiscord] = useState(false);
   const [amount, setAmount] = useState<number | undefined>();
-  const [asset, setAsset] = useState<string>("");
+  const [asset, setAsset] = useState<string>("MATIC");
   const [username, setUsername] = useState<string | undefined>();
+
+  // TODO: fix return type. Without "return" it throws an error
+  const handleHomePage = () => {
+    setType("send");
+    setInReview(false);
+    setConfirmation(false);
+    setIsActiveGoogle(true);
+    setIsActiveDiscord(false);
+    setAmount(undefined);
+    setAsset("MATIC");
+    setUsername(undefined);
+    return;
+  };
 
   const value = {
     type,
@@ -66,6 +81,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
     setInReview,
     confirmation,
     setConfirmation,
+    handleHomePage,
   };
 
   return <FormContext.Provider value={value}>{children}</FormContext.Provider>;
@@ -89,6 +105,7 @@ export const useFormContext = () => {
     setInReview,
     confirmation,
     setConfirmation,
+    handleHomePage,
   } = useContext(FormContext);
 
   return {
@@ -108,5 +125,6 @@ export const useFormContext = () => {
     setInReview,
     confirmation,
     setConfirmation,
+    handleHomePage,
   };
 };

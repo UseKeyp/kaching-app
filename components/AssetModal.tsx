@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Box,
   Button,
@@ -21,7 +22,7 @@ interface AssetModalProps {
  * @returns modal that renders a list of assets
  */
 const AssetModal: React.FC<AssetModalProps> = ({ setGetAsset }) => {
-  const [selectedAsset, setSelectedAsset] = useState("USDC");
+  const [selectedAsset, setSelectedAsset] = useState("MATIC");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleClickedAsset = (asset: string) => {

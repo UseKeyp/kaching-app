@@ -1,6 +1,6 @@
 import React from "react";
 import { ChakraProvider } from "@chakra-ui/react";
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 import { SessionProvider } from "next-auth/react";
 import HeadMetadata from "../components/HeadMetadata";
 import { theme } from "../theme";

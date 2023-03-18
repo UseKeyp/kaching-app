@@ -17,7 +17,7 @@ const Confirmation = () => {
     <>
       <Navbar />
       <Box>
-        <VStack>
+        <VStack w="450px">
           <Heading as="h1" fontSize="120px">
             Ka-ching
           </Heading>

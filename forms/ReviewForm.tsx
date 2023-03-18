@@ -41,14 +41,11 @@ const ReviewForm = () => {
     <>
       <Box fontWeight="bold" w="full">
         <HStack fontSize="60px" color="formBlueDark">
-          <Button
-            variant="none"
-            fontSize="60px"
-            isDisabled
-            opacity={type === "send" ? 1 : 0.5}
-          >
-            Send
-          </Button>
+          <Box>
+            <Text fontSize="60px" color="formBlueDark" opacity={0.5}>
+              Send
+            </Text>
+          </Box>
           <Button
             variant="none"
             fontSize="60px"

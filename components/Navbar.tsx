@@ -5,10 +5,14 @@ import { signOut, useSession } from "next-auth/react";
 import { FaGoogle, FaDiscord } from "react-icons/fa";
 import { MdArrowDropDown } from "react-icons/md";
 import useSocialLogo from "../hooks/useSocialLogo";
+import { useFormContext } from "../context/FormContext";
+import { useRouter } from "next/router";
 
 const Navbar = () => {
   const [showLogout, setShowLogout] = useState(false);
   const { data: session } = useSession();
+  const router = useRouter();
+  const { handleHomePage } = useFormContext();
   const socialLogo = useSocialLogo(session);
 
   // TODO: Fix typescript error below
@@ -38,7 +42,12 @@ const Navbar = () => {
     >
       <Box w="50%">
         <Link href="/">
-          <Heading as="h1" fontSize="23px" color="pink">
+          <Heading
+            as="h1"
+            fontSize="23px"
+            color="pink"
+            onClick={() => handleHomePage}
+          >
             <Text>Ka-ching</Text>
           </Heading>
         </Link>

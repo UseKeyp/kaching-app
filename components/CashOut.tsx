@@ -2,9 +2,11 @@ import React from "react";
 import { Box, Button, Heading, Image, Text, VStack } from "@chakra-ui/react";
 import UseApi from "../hooks/useApi";
 import { useSession } from "next-auth/react";
+import { useFormContext } from "context/FormContext";
 
 const CashOut = () => {
   const { data: session } = useSession();
+  const { handleHomePage } = useFormContext();
 
   const handleClickCashOut = async (rampType: string) => {
     const request = await UseApi(
@@ -14,6 +16,7 @@ const CashOut = () => {
     );
     if (request?.url) window.location = request?.url;
   };
+
   return (
     <Box px="1rem" w="full" mt="3rem">
       <Heading as="h3">
@@ -43,7 +46,11 @@ const CashOut = () => {
         </Box>
       </VStack>
       <Box w="full" mt="3rem">
-        <Button variant="form" color="formBlueDark">
+        <Button
+          variant="form"
+          color="formBlueDark"
+          onClick={() => handleHomePage}
+        >
           Back
         </Button>
       </Box>

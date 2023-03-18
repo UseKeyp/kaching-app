@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
-import { Box, Button, Flex, HStack, Image, Text } from "@chakra-ui/react";
+import React from "react";
+import { Box, Button, Flex, HStack, Image, Stack } from "@chakra-ui/react";
 import { useFormContext } from "../context/FormContext";
 
 /**
  * @remarks - this component is used to determine the "type" of transaction. When user slides component, if it's within the constraints of 'container' id, the focused component gets brought into 'type' state
  * @returns - div containing scrollable buttons
  */
-const TransactionType = () => {
-  const { setType, type } = useFormContext();
+const TransactionSlider = () => {
+  const { setType, type, inReview, confirmation } = useFormContext();
 
   const handletype = (e: any) => {
     setType(e.target.id);
@@ -56,13 +56,13 @@ const TransactionType = () => {
         setType("fund");
       } else if (type === "fund") {
         container?.scrollBy({
-          left: requestStart && requestStart - 25,
+          left: requestStart && requestStart - 55,
           behavior: "smooth",
         });
         setType("request");
       } else if (type === "request") {
         container?.scrollBy({
-          left: sendStart && sendStart - 55,
+          left: sendStart && sendStart - 100,
           behavior: "smooth",
         });
         setType("send");
@@ -79,7 +79,7 @@ const TransactionType = () => {
         setType("request");
       } else if (type === "request") {
         container?.scrollBy({
-          left: fundStart && fundStart,
+          left: fundStart && fundStart - 55,
           behavior: "smooth",
         });
         setType("fund");
@@ -93,48 +93,46 @@ const TransactionType = () => {
     }
   };
 
-  useEffect(() => {
-    console.log("type:", type);
-  }, [type]);
-
   return (
-    <>
-      <Flex>
-        <Box
-          display={type === "send" ? "none" : "block"}
-          alignSelf="center"
-          zIndex={1}
-          transform="translateX(26px)"
-          onClick={() => handleScroll("left")}
-        >
-          <Image
-            src="arrow-right.gif"
-            alt=""
-            transform="rotate(180deg)"
-            opacity={0.5}
-          />
-        </Box>
-        <HStack
-          id="container"
-          overflowX="scroll"
-          py="1rem"
-          w="450px"
-          spacing="-1.5rem"
-        >
-          {renderButtons()}
-        </HStack>
-        <Box
-          display={type === "cashout" ? "none" : "block"}
-          transform="translateX(-36px)"
-          alignSelf="center"
-          zIndex={1}
-          onClick={() => handleScroll("right")}
-        >
-          <Image src="arrow-right.gif" alt="" opacity={0.5} />
-        </Box>
+    <Flex direction="row" display={inReview || confirmation ? "none" : "flex"}>
+      {/* box for left arrow */}
+      <Box
+        display={type === "send" ? "none" : "block"}
+        alignSelf="center"
+        zIndex={1}
+        transform="translateX(26px)"
+        onClick={() => handleScroll("left")}
+        w="fit-content"
+      >
+        <Image
+          src="arrow-right.gif"
+          alt=""
+          transform="rotate(180deg)"
+          opacity={0.5}
+        />
+      </Box>
+      {/* scrollable buttons */}
+      <HStack
+        id="container"
+        overflowX="scroll"
+        py="1rem"
+        w="450px"
+        spacing="-1.5rem"
+      >
+        {renderButtons()}
+      </HStack>
+      {/* box for right arrow */}
+      <Flex
+        display={type === "cashout" ? "none" : "block"}
+        transform="translateX(-36px)"
+        alignSelf="center"
+        zIndex={1}
+        onClick={() => handleScroll("right")}
+      >
+        <Image src="arrow-right.gif" alt="" opacity={0.5} />
       </Flex>
-    </>
+    </Flex>
   );
 };
 
-export default TransactionType;
+export default TransactionSlider;

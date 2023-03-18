@@ -25,7 +25,7 @@ import { useFormContext } from "../context/FormContext";
  * @returns div containing a form
  */
 const TransferForm = () => {
-  const [getAsset, setGetAsset] = useState("USDC");
+  const [getAsset, setGetAsset] = useState("MATIC");
 
   const {
     // type,
