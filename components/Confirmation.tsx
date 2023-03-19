@@ -20,17 +20,11 @@ const Confirmation = () => {
     setUsername,
     setInReview,
     setConfirmation,
+    handleHomePage,
   } = useFormContext();
 
   const handleViewTx = () => {
     setInReview(true);
-  };
-
-  const handleReturnHome = () => {
-    setAmount();
-    setUsername();
-    setInReview(false);
-    setConfirmation(false);
   };
 
   return (
@@ -75,7 +69,7 @@ const Confirmation = () => {
         </Box>
 
         <Box>
-          <Button onClick={handleReturnHome} variant="form" color="#1499DA">
+          <Button onClick={handleHomePage()} variant="form" color="#1499DA">
             Return
           </Button>
         </Box>

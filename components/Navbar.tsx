@@ -15,8 +15,10 @@ const Navbar = () => {
   const { handleHomePage } = useFormContext();
   const socialLogo = useSocialLogo(session);
 
-  // TODO: Fix typescript error below
+  // TODO: Fix typescript errors below
+  // @ts-ignore
   const address = session?.user?.address;
+  // @ts-ignore
   const username = session?.user?.username;
 
   const renderSocialLogo = () => {
@@ -46,7 +48,7 @@ const Navbar = () => {
             as="h1"
             fontSize="23px"
             color="pink"
-            onClick={() => handleHomePage}
+            onClick={() => handleHomePage()}
           >
             <Text>Ka-ching</Text>
           </Heading>

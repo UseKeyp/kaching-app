@@ -210,7 +210,7 @@ const TransferForm = () => {
         </GridItem>
         <GridItem>
           <Box>
-            <Button onClick={() => handleReivew()} variant="form">
+            <Button onClick={() => handleReivew()} variant="formGray">
               Review
             </Button>
           </Box>

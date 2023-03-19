@@ -3,7 +3,8 @@ import { Session } from "types/Session";
 
 // TODO: fix any type
 const useSocialLogo = (session: Session | any) => {
-  const id = session && session?.data?.user?.id;
+  const id = session && session?.user?.id;
+  console.log(id);
   if (id?.includes("GOOGLE")) {
     return "google";
   } else if (id?.includes("DISCORD")) {

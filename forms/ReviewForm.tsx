@@ -13,6 +13,10 @@ import { useFormContext } from "../context/FormContext";
 import React from "react";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
 
+/**
+ * @remarks - this component lets user review the transaction before sending
+ * @returns - review form that displays the amount, asset, and username of the transaction
+ */
 const ReviewForm = () => {
   const {
     setInReview,
@@ -32,9 +36,9 @@ const ReviewForm = () => {
     setInReview(false);
   };
 
-  const handleSend = async () => {
-    setInReview(false);
+  const handleSend = () => {
     setConfirmation(true);
+    setInReview(false);
   };
 
   return (
@@ -126,11 +130,7 @@ const ReviewForm = () => {
           </GridItem>
           <GridItem>
             <Box w="full">
-              <Button
-                onClick={() => handleSend()}
-                variant="form"
-                color="#1499DA"
-              >
+              <Button onClick={() => handleSend()} variant="formBlue">
                 Send!
               </Button>
             </Box>

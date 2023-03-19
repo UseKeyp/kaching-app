@@ -25,14 +25,39 @@ const Button = defineStyleConfig({
     },
   },
   variants: {
-    form: (props: StyleFunctionProps) => ({
+    formGray: (props: StyleFunctionProps) => ({
       border: "1px",
-      boxShadow: `6px 6px 0px 0px ${props.shadowColor || "socialIconsGray"}`,
+      boxShadow: "4px 4px 0px 0px #B0B6C1, 5px 5px 0px 1px #80858E",
       fontSize: "80px",
       color: "socialIconsGray",
       my: "1rem",
       w: "full",
       h: "fit",
+      _hover: {
+        bgColor: "#fafafa",
+      },
+      _active: {
+        transform: "translateY(2px) translateX(2px)",
+        bgColor: "#fafafa",
+        boxShadow: "0px 0px 0px 0px #B0B6C1, 2px 2px 0px 0px #80858E",
+      },
+    }),
+    formBlue: (props: StyleFunctionProps) => ({
+      border: "1px",
+      boxShadow: "4px 4px 0px 0px #FCBF3B, 5px 5px 0px 1px #FF8643",
+      fontSize: "80px",
+      color: "formBlueDark",
+      my: "1rem",
+      w: "full",
+      h: "fit",
+      _hover: {
+        bgColor: "#fafafa",
+      },
+      _active: {
+        transform: "translateY(2px) translateX(2px)",
+        bgColor: "#fafafa",
+        boxShadow: "0px 0px 0px 0px #FCBF3B, 2px 2px 0px 0px #FF8643",
+      },
     }),
     login: {
       w: "full",
@@ -46,12 +71,6 @@ const Button = defineStyleConfig({
       textAlign: "left",
       justifyContent: "start",
     },
-    // logout: {
-    //   fontSize: "xs",
-    //   color: "loginBtnGray",
-    //   border: "1px solid gray",
-    //   px: "1rem",
-    // },
 
     ramps: (props: StyleFunctionProps) => ({
       w: "full",
@@ -68,7 +87,7 @@ const Button = defineStyleConfig({
   // The default size and variant values
   defaultProps: {
     size: "md",
-    variant: "form",
+    variant: "formGray",
   },
 });
 

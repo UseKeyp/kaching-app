@@ -12,6 +12,8 @@ const CashOut = () => {
     const request = await UseApi(
       "offramps",
       rampType,
+      // TODO: Fix typescript errors below
+      // @ts-ignore
       session?.user?.accessToken
     );
     if (request?.url) window.location = request?.url;
@@ -46,11 +48,7 @@ const CashOut = () => {
         </Box>
       </VStack>
       <Box w="full" mt="3rem">
-        <Button
-          variant="form"
-          color="formBlueDark"
-          onClick={() => handleHomePage}
-        >
+        <Button variant="formBlue" onClick={() => handleHomePage()}>
           Back
         </Button>
       </Box>

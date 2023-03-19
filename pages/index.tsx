@@ -24,12 +24,14 @@ const Home = () => {
 
   const componentLogic = () => {
     if (type === "send") {
-      if (!inReview && !confirmation) {
+      if (confirmation && !inReview) {
+        return <Confirmation />;
+      } else if (!inReview && !confirmation) {
         return <TransferForm />;
       } else if (inReview) {
         return <ReviewTransaction />;
-      } else if (confirmation && !inReview) {
-        return <Confirmation />;
+      } else {
+        return <TransferForm />;
       }
     } else if (type === "request") {
       // TODO: build request component. Replace <TransferForm /> with <Request />

@@ -52,7 +52,8 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
   const [username, setUsername] = useState<string | undefined>();
 
   // TODO: fix return type. Without "return" it throws an error
-  const handleHomePage = () => {
+  const handleHomePage = (): void => {
+    console.log("home");
     setType("send");
     setInReview(false);
     setConfirmation(false);
@@ -61,7 +62,6 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
     setAmount(undefined);
     setAsset("MATIC");
     setUsername(undefined);
-    return;
   };
 
   const value = {

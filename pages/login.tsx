@@ -7,7 +7,6 @@ import { useEffect } from "react";
 const Login = () => {
   const session = useSession();
   const router = useRouter();
-  console.log(session);
 
   useEffect(() => {
     if (session.status === "authenticated") {
