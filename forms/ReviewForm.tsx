@@ -5,7 +5,6 @@ import {
   HStack,
   Link,
   SimpleGrid,
-  Stack,
   Text,
 } from "@chakra-ui/react";
 import { useFormContext } from "../context/FormContext";
@@ -19,31 +18,27 @@ import { FaDiscord, FaGoogle } from "react-icons/fa";
  */
 const ReviewForm = () => {
   const {
-    setInReview,
-    confirmation,
-    setConfirmation,
-    type,
     isActiveGoogle,
     isActiveDiscord,
     amount,
     asset,
     username,
+    setRenderTxPage,
+    setRenderReviewPage,
   } = useFormContext();
 
-  console.log(amount, asset, username);
-
   const handleCancel = () => {
-    setInReview(false);
+    setRenderReviewPage(false);
+    setRenderTxPage(true);
   };
 
-  const handleSend = () => {
-    setConfirmation(true);
-    setInReview(false);
+  const handleSendTx = () => {
+    setRenderReviewPage(false);
   };
 
   return (
     <>
-      <Box fontWeight="bold" w="full">
+      <Box fontWeight="bold" w="450px">
         <HStack fontSize="60px" color="formBlueDark">
           <Box>
             <Text fontSize="60px" color="formBlueDark" opacity={0.5}>
@@ -130,9 +125,11 @@ const ReviewForm = () => {
           </GridItem>
           <GridItem>
             <Box w="full">
-              <Button onClick={() => handleSend()} variant="formBlue">
-                Send!
-              </Button>
+              <Link href="/confirmation">
+                <Button onClick={() => handleSendTx()} variant="formBlue">
+                  Send!
+                </Button>
+              </Link>
             </Box>
           </GridItem>
         </SimpleGrid>

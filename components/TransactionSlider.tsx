@@ -7,7 +7,7 @@ import { useFormContext } from "../context/FormContext";
  * @returns - div containing scrollable buttons
  */
 const TransactionSlider = () => {
-  const { setType, type, inReview, confirmation } = useFormContext();
+  const { setType, type, renderReviewPage } = useFormContext();
 
   const handletype = (e: any) => {
     setType(e.target.id);
@@ -94,7 +94,7 @@ const TransactionSlider = () => {
   };
 
   return (
-    <Flex direction="row" display={inReview || confirmation ? "none" : "flex"}>
+    <Flex direction="row" display={renderReviewPage ? "none" : "flex"}>
       {/* box for left arrow */}
       <Box
         display={type === "send" ? "none" : "block"}

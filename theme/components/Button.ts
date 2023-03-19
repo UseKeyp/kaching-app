@@ -8,7 +8,6 @@ const Button = defineStyleConfig({
     _active: {
       transform: "translateY(2px)",
       bgColor: "#fafafa",
-      // boxShadow: `6px 6px 0px 0px ${props.shadowColor || "socialIconsGray"}`,
     },
   },
 
@@ -84,7 +83,7 @@ const Button = defineStyleConfig({
       py: "2rem",
     }),
   },
-  // The default size and variant values
+
   defaultProps: {
     size: "md",
     variant: "formGray",

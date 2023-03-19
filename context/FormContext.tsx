@@ -6,10 +6,10 @@ export const FormContext = createContext<{
   setIsActiveGoogle: any;
   isActiveDiscord: boolean;
   setIsActiveDiscord: any;
-  inReview: boolean;
-  setInReview: any;
-  confirmation: boolean;
-  setConfirmation: any;
+  renderTxPage: boolean;
+  setRenderTxPage: any;
+  renderReviewPage: boolean;
+  setRenderReviewPage: any;
   type: string;
   setType: any;
   amount: number | undefined;
@@ -24,10 +24,10 @@ export const FormContext = createContext<{
   setIsActiveGoogle: null,
   isActiveDiscord: false,
   setIsActiveDiscord: null,
-  inReview: false,
-  setInReview: null,
-  confirmation: false,
-  setConfirmation: null,
+  renderTxPage: true,
+  setRenderTxPage: null,
+  renderReviewPage: false,
+  setRenderReviewPage: null,
   type: "send",
   setType: null,
   amount: undefined,
@@ -43,8 +43,8 @@ interface FormProviderProps {
 }
 export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
   const [type, setType] = useState("send");
-  const [inReview, setInReview] = useState(false);
-  const [confirmation, setConfirmation] = useState(false);
+  const [renderTxPage, setRenderTxPage] = useState(true);
+  const [renderReviewPage, setRenderReviewPage] = useState(false);
   const [isActiveGoogle, setIsActiveGoogle] = useState(true);
   const [isActiveDiscord, setIsActiveDiscord] = useState(false);
   const [amount, setAmount] = useState<number | undefined>();
@@ -52,11 +52,11 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
   const [username, setUsername] = useState<string | undefined>();
 
   // TODO: fix return type. Without "return" it throws an error
-  const handleHomePage = (): void => {
+  const handleHomePage = () => {
     console.log("home");
     setType("send");
-    setInReview(false);
-    setConfirmation(false);
+    setRenderTxPage(true);
+    setRenderReviewPage(false);
     setIsActiveGoogle(true);
     setIsActiveDiscord(false);
     setAmount(undefined);
@@ -77,10 +77,10 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
     setAsset,
     username,
     setUsername,
-    inReview,
-    setInReview,
-    confirmation,
-    setConfirmation,
+    renderTxPage,
+    setRenderTxPage,
+    renderReviewPage,
+    setRenderReviewPage,
     handleHomePage,
   };
 
@@ -101,10 +101,10 @@ export const useFormContext = () => {
     setAsset,
     username,
     setUsername,
-    inReview,
-    setInReview,
-    confirmation,
-    setConfirmation,
+    renderTxPage,
+    setRenderTxPage,
+    renderReviewPage,
+    setRenderReviewPage,
     handleHomePage,
   } = useContext(FormContext);
 
@@ -121,10 +121,10 @@ export const useFormContext = () => {
     setAsset,
     username,
     setUsername,
-    inReview,
-    setInReview,
-    confirmation,
-    setConfirmation,
+    renderTxPage,
+    setRenderTxPage,
+    renderReviewPage,
+    setRenderReviewPage,
     handleHomePage,
   };
 };

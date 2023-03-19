@@ -1,7 +1,9 @@
 const Link = {
   baseStyle: {
-    textDecoration: "none",
-    cursor: "pointer",
+    _hover: {
+      textDecoration: "none",
+      cursor: "pointer",
+    },
   },
 };
 

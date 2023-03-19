@@ -20,16 +20,13 @@ import { useFormContext } from "../context/FormContext";
 // TODO: refactor inputs so styles are put into custom Chakra theme component
 
 /**
- * @params type - determins if tx is send or receive
- * @params inReview - passed down from Home. If True, user is reviewing transfer before sending. This TransferForm component will be set to hidden
+ * @remarks - this component renders a form that allows user to send a transaction
  * @returns div containing a form
  */
 const TransferForm = () => {
   const [getAsset, setGetAsset] = useState("MATIC");
 
   const {
-    // type,
-    // setType,
     setAmount,
     setAsset,
     isActiveDiscord,
@@ -37,8 +34,9 @@ const TransferForm = () => {
     isActiveGoogle,
     setIsActiveGoogle,
     setUsername,
-    inReview,
-    setInReview,
+    renderReviewPage,
+    setRenderTxPage,
+    setRenderReviewPage,
   } = useFormContext();
 
   const localForm = useForm<FieldValues>();
@@ -48,7 +46,7 @@ const TransferForm = () => {
     setValue,
     watch,
     trigger,
-    formState: { errors, isValid },
+    formState: { errors },
   } = localForm;
   const values = getValues();
   watch();
@@ -69,11 +67,12 @@ const TransferForm = () => {
 
   const handleReivew = async () => {
     const valid = await trigger();
-    if (isValid) {
+    if (valid) {
       setAmount(values.amount),
         setAsset(values.asset),
         setUsername(values.username),
-        setInReview(true);
+        setRenderTxPage(false);
+      setRenderReviewPage(true);
     }
   };
 
@@ -82,28 +81,7 @@ const TransferForm = () => {
   }, [getAsset, setValue]);
 
   return (
-    <Box display={inReview ? "none" : ""} fontWeight="bold">
-      {/* TODO: delete HSTack below after polishing TransactionType component */}
-      {/* <HStack>
-        <Button
-          onClick={() => setType("send")}
-          variant="none"
-          fontSize="60px"
-          color="formBlueDark"
-          opacity={type === "send" ? 1 : 0.5}
-        >
-          Send
-        </Button>
-        <Button
-          onClick={() => setType("request")}
-          variant="none"
-          fontSize="60px"
-          color="formBlueDark"
-          opacity={type === "request" ? 1 : 0.5}
-        >
-          Request
-        </Button>
-      </HStack> */}
+    <Box display={renderReviewPage ? "none" : ""} fontWeight="bold">
       <SimpleGrid columns={1} spacing={0} mb={"1rem"}>
         <GridItem>
           <Input

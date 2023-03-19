@@ -3,13 +3,12 @@ import TransferForm from "../forms/TransferForm";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { useFormContext } from "../context/FormContext";
-import ReviewTransaction from "../forms/ReviewForm";
 import Navbar from "../components/Navbar";
 import TransactionSlider from "../components/TransactionSlider";
-import Confirmation from "../components/Confirmation";
 import Fund from "../components/Fund";
 import CashOut from "../components/CashOut";
 import { Box } from "@chakra-ui/react";
+import ReviewForm from "../forms/ReviewForm";
 // import Request from "../components/Request";
 
 /**
@@ -18,25 +17,21 @@ import { Box } from "@chakra-ui/react";
  */
 
 const Home = () => {
-  const { type, inReview, confirmation } = useFormContext();
+  const { type, renderTxPage, renderReviewPage } = useFormContext();
   const session = useSession();
   const router = useRouter();
 
   const componentLogic = () => {
     if (type === "send") {
-      if (confirmation && !inReview) {
-        return <Confirmation />;
-      } else if (!inReview && !confirmation) {
+      if (renderTxPage) {
         return <TransferForm />;
-      } else if (inReview) {
-        return <ReviewTransaction />;
-      } else {
-        return <TransferForm />;
+      } else if (renderReviewPage) {
+        return <ReviewForm />;
       }
     } else if (type === "request") {
-      // TODO: build request component. Replace <TransferForm /> with <Request />
-      // return <Request />;
+      // TODO: Replace <TransferForm /> with <Request />
       return <TransferForm />;
+      // return <Request />;
     } else if (type === "fund") {
       return <Fund />;
     } else if (type === "cashout") {
