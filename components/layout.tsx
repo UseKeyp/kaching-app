@@ -15,7 +15,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         px={["1rem", "2rem"]}
         pb="1rem"
         w="450px"
-        rounded="xl"
         fontFamily="sharpie"
       >
         {children}
