@@ -16,10 +16,10 @@ interface AppProps {
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   return (
     <ChakraProvider theme={theme}>
+      <Fonts />
       <SessionProvider session={session}>
         <HeadMetadata />
         <FormProvider>
-          <Fonts />
           <Layout>
             <Component {...pageProps} />
           </Layout>
