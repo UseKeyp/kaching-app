@@ -67,12 +67,7 @@ const AssetModal: React.FC<AssetModalProps> = ({ setGetAsset }) => {
         <Modal onClose={onClose} size={"full"} isOpen={isOpen}>
           <ModalOverlay />
           <ModalContent>
-            <ModalBody
-              fontSize="80px"
-              fontFamily="sharpie"
-              fontWeight="extrabold"
-              color="#C2C2C2"
-            >
+            <ModalBody fontSize="80px" fontFamily="sharpie" color="#C2C2C2">
               {renderAssets}
             </ModalBody>
             <ModalFooter>

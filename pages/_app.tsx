@@ -13,8 +13,6 @@ interface AppProps {
   pageProps: any;
 }
 
-console.log(Fonts);
-
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   return (
     <ChakraProvider theme={theme}>
