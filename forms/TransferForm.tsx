@@ -3,7 +3,6 @@ import {
   AlertIcon,
   Box,
   Button,
-  FormErrorMessage,
   GridItem,
   HStack,
   Input,
@@ -50,6 +49,14 @@ const TransferForm = () => {
   } = localForm;
   const values = getValues();
   watch();
+
+  const emailValidation = (val: string) => {
+    if (isActiveGoogle) {
+      return val.includes("@gmail.com") || "must be valid gmail address";
+    } else if (isActiveDiscord) {
+      return val.includes("#") || "must be valid discord address";
+    }
+  };
 
   const handleActiveIcons = (platform: string): void => {
     if (platform === "google") {
@@ -168,6 +175,7 @@ const TransferForm = () => {
                 value: 1,
                 message: "cannot be blank",
               },
+              validate: emailValidation,
             })}
           />
           <ErrorMessage
