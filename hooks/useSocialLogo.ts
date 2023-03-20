@@ -1,4 +1,4 @@
-// import { Session } from "types/Session";
+// import { Session } from "types/session";
 // import type { Session } from "next-auth";
 
 // TODO: fix any type
