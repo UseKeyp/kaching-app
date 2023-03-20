@@ -42,8 +42,8 @@ export const theme = extendTheme({
       },
     },
   },
-  config: {
-    initialColorMode: "light",
-    useSystemColorMode: false,
-  },
+  // config: {
+  //   initialColorMode: "light",
+  //   useSystemColorMode: false,
+  // },
 });

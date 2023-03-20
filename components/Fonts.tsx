@@ -7,7 +7,7 @@ const Fonts = () => (
       font-family: "Sharpie-Variable";
         url("../public/fonts/sharpie/Sharpie-Variable.woff") format("woff"),
         url("../public/fonts/sharpie/Sharpie-Variable.ttf") format("truetype");
-        url("../public/fonts/sharpie/Sharpie-Variable.eot") format("opentype");
+        url("../public/fonts/sharpie/Sharpie-Variable.otf") format("opentype");
       font-weight: 300 900;
       font-display: swap;
       font-style: normal;
@@ -19,7 +19,7 @@ const Fonts = () => (
       src: url("../public/fonts/sharpie/Sharpie-Light.woff2") format("woff2"),
         url("../public/fonts/sharpie/Sharpie-Light.woff") format("woff"),
         url("../public/fonts/sharpie/Sharpie-Light.ttf") format("truetype");
-        url("../public/fonts/sharpie/Sharpie-Light.eot") format("opentype");
+        url("../public/fonts/sharpie/Sharpie-Light.otf") format("opentype");
       font-weight: 300;
       font-display: swap;
       font-style: normal;
@@ -31,7 +31,7 @@ const Fonts = () => (
       src: url("../public/fonts/sharpie/Sharpie-Regular.woff2") format("woff2"),
         url("../public/fonts/sharpie/Sharpie-Regular.woff") format("woff"),
         url("../public/fonts/sharpie/Sharpie-Regular.ttf") format("truetype");
-        url("../public/fonts/sharpie/Sharpie-Regular.eot") format("opentype");
+        url("../public/fonts/sharpie/Sharpie-Regular.otf") format("opentype");
       font-weight: 400;
       font-display: swap;
       font-style: normal;
@@ -43,7 +43,7 @@ const Fonts = () => (
       src: url("../public/fonts/sharpie/Sharpie-Bold.woff2") format("woff2"),
         url("../public/fonts/sharpie/Sharpie-Bold.woff") format("woff"),
         url("../public/fonts/sharpie/Sharpie-Bold.ttf") format("truetype");
-        url("../public/fonts/sharpie/Sharpie-Bold.eot") format("opentype");
+        url("../public/fonts/sharpie/Sharpie-Bold.otf") format("opentype");
       font-weight: 700;
       font-display: swap;
       font-style: normal;
@@ -55,7 +55,7 @@ const Fonts = () => (
       src: url("../public/fonts/sharpie/Sharpie-Extrabold.woff2") format("woff2"),
         url("../public/fonts/sharpie/Sharpie-Extrabold.woff") format("woff"),
         url("../public/fonts/sharpie/Sharpie-Extrabold.ttf") format("truetype");
-        url("../public/fonts/sharpie/Sharpie-Extrabold.eot") format("opentype");
+        url("../public/fonts/sharpie/Sharpie-Extrabold.otf") format("opentype");
       font-weight: 800;
       font-display: swap;
       font-style: normal;
@@ -67,7 +67,7 @@ const Fonts = () => (
       src: url("../public/fonts/sharpie/Sharpie-Black.woff2") format("woff2"),
         url("../public/fonts/sharpie/Sharpie-Black.woff") format("woff"),
         url("../public/fonts/sharpie/Sharpie-Black.ttf") format("truetype");
-        url("../public/fonts/sharpie/Sharpie-Black.eot") format("opentype");
+        url("../public/fonts/sharpie/Sharpie-Black.otf") format("opentype");
       font-weight: 900;
       font-display: swap;
       font-style: normal;
