@@ -27,8 +27,8 @@ export const theme = extendTheme({
     loginBtnGray: "#80858E",
   },
   fonts: {
-    heading: `"sharpie", sans-serif`,
-    body: `"sharpie", sans-serif`,
+    heading: `"sharpie", "Sharpie", sans-serif`,
+    body: `"sharpie", "Sharpie", sans-serif`,
   },
   styles: {
     global: {

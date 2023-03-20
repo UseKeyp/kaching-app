@@ -4,7 +4,7 @@ const Fonts = () => (
   <Global
     styles={`
     @font-face {
-      font-family: "Sharpie-Variable";
+      font-family: "Sharpie;
         url("fonts/sharpie/Sharpie-Variable.woff") format("woff"),
         url("fonts/sharpie/Sharpie-Variable.ttf") format("truetype");
         url("fonts/sharpie/Sharpie-Variable.otf") format("opentype");
@@ -15,7 +15,7 @@ const Fonts = () => (
     }
 
     @font-face {
-      font-family: "Sharpie-Light";
+      font-family: "Sharpi";
       src: url("fonts/sharpie/Sharpie-Light.woff2") format("woff2"),
         url("fonts/sharpie/Sharpie-Light.woff") format("woff"),
         url("fonts/sharpie/Sharpie-Light.ttf") format("truetype");
@@ -27,7 +27,7 @@ const Fonts = () => (
     }
 
     @font-face {
-      font-family: "Sharpie-Regular";
+      font-family: "Sharpie";
       src: url("fonts/sharpie/Sharpie-Regular.woff2") format("woff2"),
         url("fonts/sharpie/Sharpie-Regular.woff") format("woff"),
         url("fonts/sharpie/Sharpie-Regular.ttf") format("truetype");
@@ -39,7 +39,7 @@ const Fonts = () => (
     }
 
     @font-face {
-      font-family: "Sharpie-Bold";
+      font-family: "Sharpie";
       src: url("fonts/sharpie/Sharpie-Bold.woff2") format("woff2"),
         url("fonts/sharpie/Sharpie-Bold.woff") format("woff"),
         url("fonts/sharpie/Sharpie-Bold.ttf") format("truetype");
@@ -51,7 +51,7 @@ const Fonts = () => (
     }
 
     @font-face {
-      font-family: "Sharpie-Extrabold";
+      font-family: "Sharpie";
       src: url("fonts/sharpie/Sharpie-Extrabold.woff2") format("woff2"),
         url("fonts/sharpie/Sharpie-Extrabold.woff") format("woff"),
         url("fonts/sharpie/Sharpie-Extrabold.ttf") format("truetype");
@@ -63,7 +63,7 @@ const Fonts = () => (
     }
 
     @font-face {
-      font-family: "Sharpie-Black";
+      font-family: "Sharpie";
       src: url("fonts/sharpie/Sharpie-Black.woff2") format("woff2"),
         url("fonts/sharpie/Sharpie-Black.woff") format("woff"),
         url("fonts/sharpie/Sharpie-Black.ttf") format("truetype");
