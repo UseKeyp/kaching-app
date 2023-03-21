@@ -58,7 +58,7 @@ const Navbar = () => {
         w="50%"
         alignItems="end"
         spacing={-0.5}
-        fontSize={["0.75rem", "1rem", "1.25rem", "1.25rem"]}
+        fontSize={["0.85rem", "1rem", "1.25rem", "1.25rem"]}
       >
         {session && (
           // HStack houses address and sign out

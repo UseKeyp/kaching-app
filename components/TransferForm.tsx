@@ -94,7 +94,7 @@ const TransferForm = () => {
       px="0.5rem"
     >
       <SimpleGrid columns={1} spacing={"1rem"} mb={".1rem"} mx="0.5rem">
-        <GridItem>
+        <GridItem mb="-1rem">
           <Input
             type="number"
             step={0.1}
@@ -167,7 +167,7 @@ const TransferForm = () => {
             </Box>
           </HStack>
         </GridItem>
-        <GridItem>
+        <GridItem my="-1.5rem">
           <Input
             type={isActiveGoogle ? "email" : "text"}
             placeholder={isActiveGoogle ? "Add Email" : "Add Username"}

@@ -120,6 +120,7 @@ const TransactionSlider = () => {
       </Box>
       {/* scrollable buttons */}
       <HStack
+        pl={type === "send" ? "1rem" : "0rem"}
         id="container"
         overflowX="scroll"
         fontSize="1rem"
