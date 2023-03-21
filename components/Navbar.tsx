@@ -46,7 +46,7 @@ const Navbar = () => {
   return (
     <Flex w="100vw" px="1rem" py="1rem">
       {/* Box houses logo */}
-      <Box w="50%" alignSelf="start">
+      <Box w="45%" alignSelf="start">
         <Link href="/">
           <Heading as="h1" color="pink" onClick={() => handleHomePage()}>
             <Text fontWeight="extrabold">Ka-ching</Text>
@@ -55,7 +55,7 @@ const Navbar = () => {
       </Box>
       {/* VStack houses everything else */}
       <VStack
-        w="50%"
+        w="55%"
         alignItems="end"
         spacing={-0.5}
         fontSize={["0.85rem", "1rem", "1.25rem", "1.25rem"]}
@@ -80,7 +80,7 @@ const Navbar = () => {
               </Tooltip>
             </HStack>
 
-            <Box pl={["0.5rem", "1rem"]} onClick={() => signOut()}>
+            <Box pl={["0.25rem", "1rem"]} onClick={() => signOut()}>
               <Text>Sign Out</Text>
             </Box>
           </HStack>
