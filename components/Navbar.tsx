@@ -44,25 +44,26 @@ const Navbar = () => {
   };
 
   return (
-    <Flex w="100%" py="0.5rem" border="1px">
-      <Box w="50%">
+    <Flex w="100vw" px="1rem" py="1rem">
+      {/* Box houses logo */}
+      <Box w="50%" alignSelf="start">
         <Link href="/">
           <Heading as="h1" color="pink" onClick={() => handleHomePage()}>
             <Text fontWeight="extrabold">Ka-ching</Text>
           </Heading>
         </Link>
       </Box>
-      <VStack w="50%" alignItems="end" spacing={-0.5}>
+      {/* VStack houses everything else */}
+      <VStack
+        w="50%"
+        alignItems="end"
+        spacing={-0.5}
+        fontSize={["0.75rem", "1rem", "1.25rem", "1.25rem"]}
+      >
         {session && (
-          <HStack>
-            <HStack
-              fontSize="1rem"
-              color="#80858E"
-              fontWeight="normal"
-              _hover={{
-                pointer: "cursor",
-              }}
-            >
+          // HStack houses address and sign out
+          <HStack fontWeight="normal" color="loginBtnGray" mb="0.5rem">
+            <HStack>
               <Text>
                 {address?.slice(0, 7)}
                 <span>...</span>
@@ -71,7 +72,7 @@ const Navbar = () => {
               <Tooltip
                 label="Address copied to clipboard"
                 isOpen={openTooltip}
-                placement="bottom-start"
+                placement="bottom-end"
               >
                 <Box onClick={handleCopyAddress}>
                   <RxCopy />
@@ -79,16 +80,15 @@ const Navbar = () => {
               </Tooltip>
             </HStack>
 
-            <Box pl="1rem" rounded="md" onClick={() => signOut()}>
-              <Text fontSize="1rem" fontWeight="normal" color="loginBtnGray">
-                Sign Out
-              </Text>
+            <Box pl={["0.5rem", "1rem"]} onClick={() => signOut()}>
+              <Text>Sign Out</Text>
             </Box>
           </HStack>
         )}
+        {/* HStack houses social logo and username */}
         <HStack>
           <Box>{renderSocialLogo()}</Box>
-          <Text fontSize="1.5rem" fontWeight="medium" color="formBlueDark">
+          <Text fontWeight="medium" color="formBlueDark">
             {username}
           </Text>
         </HStack>

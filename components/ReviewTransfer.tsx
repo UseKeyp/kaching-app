@@ -38,17 +38,17 @@ const ReviewTransfer = () => {
 
   return (
     <>
-      <Box fontWeight="bold">
-        <HStack fontSize="1rem" color="formBlueDark">
+      <Box fontWeight="extrabold" fontSize="5rem" px="0.5rem">
+        <HStack color="formBlueDark">
           <Box>
-            <Text fontSize="1rem" color="formBlueDark" opacity={0.5}>
+            <Text color="formBlueDark" opacity={0.5}>
               Send
             </Text>
           </Box>
           <Button
             variant="none"
-            fontSize="1rem"
             opacity={0.5}
+            fontSize="5rem"
             color="cancelOrange"
             onClick={() => handleCancel()}
           >
@@ -57,23 +57,17 @@ const ReviewTransfer = () => {
         </HStack>
         <SimpleGrid columns={1} spacing={0} mb={"1rem"}>
           <GridItem>
-            <Text fontSize="1.34rem" color="formGreen">
-              {amount}
-            </Text>
+            <Text color="formGreen">{amount}</Text>
           </GridItem>
           <GridItem my={-2}>
             <Box>
-              <Text fontSize="1.34rem" color="assetOrange">
-                {asset}
-              </Text>
+              <Text color="assetOrange">{asset}</Text>
             </Box>
           </GridItem>
           <GridItem my={-2}>
             <HStack justifyContent="start" px="0.5rem">
               <Box mr={"3rem"}>
-                <Text color="loginGray" fontSize="1.34rem">
-                  to
-                </Text>
+                <Text color="loginGray">to</Text>
               </Box>
               <Box
                 display={isActiveGoogle ? "" : "none"}
@@ -119,9 +113,7 @@ const ReviewTransfer = () => {
             </HStack>
           </GridItem>
           <GridItem my={-2}>
-            <Text fontSize="1.34rem" color="formLightBlue">
-              {username}
-            </Text>
+            <Text color="formLightBlue">{username}</Text>
           </GridItem>
           <GridItem>
             <Box w="full">

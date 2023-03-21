@@ -88,8 +88,12 @@ const TransferForm = () => {
   }, [getAsset, setValue]);
 
   return (
-    <Box display={renderReviewPage ? "none" : ""} fontWeight="bold">
-      <SimpleGrid columns={1} spacing={0} mb={".1rem"}>
+    <Box
+      display={renderReviewPage ? "none" : ""}
+      fontWeight="extrabold"
+      px="0.5rem"
+    >
+      <SimpleGrid columns={1} spacing={"1rem"} mb={".1rem"} mx="0.5rem">
         <GridItem>
           <Input
             type="number"
@@ -123,16 +127,15 @@ const TransferForm = () => {
           <AssetModal setGetAsset={setGetAsset} />
         </GridItem>
         <GridItem>
-          <HStack justifyContent="start" px="0.1rem" spacing={".3rem"}>
-            <Box my={"-0.5rem"}>
-              <Text color="loginGray" fontSize="80px">
+          <HStack justifyContent="start" spacing={"1rem"} mb="-2">
+            <Box ml="0.5rem">
+              <Text color="loginGray" fontSize="5rem">
                 to
               </Text>
             </Box>
             <Box textAlign="center" placeSelf="center">
               {/* inner Box serves as a border for FaGoogle */}
               <Box
-                w="min"
                 border="1px"
                 rounded="full"
                 p={3}
@@ -141,14 +144,14 @@ const TransferForm = () => {
               >
                 <FaGoogle
                   color={isActiveGoogle ? "white" : "#C5C8CC"}
-                  fontSize="1rem"
+                  size="2rem"
                   onClick={() => handleActiveIcons("google")}
                 />
               </Box>
             </Box>
             <Box textAlign="center" placeSelf="center">
+              {/* inner Box serves as a border for FaDiscord */}
               <Box
-                w="min"
                 border="1px"
                 rounded="full"
                 p={3}
@@ -157,7 +160,7 @@ const TransferForm = () => {
               >
                 <FaDiscord
                   color={isActiveGoogle ? "#C5C8CC" : "white"}
-                  fontSize="1rem"
+                  size="2rem"
                   onClick={() => handleActiveIcons("discord")}
                 />
               </Box>

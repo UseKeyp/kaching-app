@@ -23,17 +23,22 @@ const Confirmation = () => {
   return (
     <>
       <Navbar />
-      <VStack fontWeight="bold">
-        <Heading
-          as="h1"
-          fontSize="2rem"
-          lineHeight="2rem"
-          fontWeight="extrabold"
+      <VStack fontWeight="extrabold" px="0.5rem" fontSize={["3rem"]}>
+        <Box
+          w="full"
+          // py="3rem"
         >
-          Ka-ching
-        </Heading>
+          <Heading
+            w="full"
+            as="h1"
+            fontSize={["6rem", "8rem"]}
+            fontWeight="extrabold"
+          >
+            Ka-ching
+          </Heading>
+        </Box>
         <Stack w="full" spacing={"-0.75rem"} pb="3rem">
-          <HStack fontSize="0.5rem">
+          <HStack>
             <Text color="formGreen">
               {/* {asset === "USDC" ? "$" : null}
               {amount} */}
@@ -42,12 +47,10 @@ const Confirmation = () => {
             <Text color="assetOrange">{/* {asset} */}</Text>
           </HStack>
           <Box>
-            <Text color="loginGray" fontSize="0.5rem">
-              Sent to
-            </Text>
+            <Text color="loginGray">Sent to</Text>
           </Box>
           <Box>
-            <Text color="formBlueDark" fontSize="0.5rem">
+            <Text color="formBlueDark">
               {/* {username} */}
               user@gmail.com
             </Text>
@@ -55,14 +58,10 @@ const Confirmation = () => {
         </Stack>
         <Stack w="full" spacing={"-0.75rem"}>
           <Box>
-            <Text color="lightGray" fontSize="0.5rem">
-              Transaction Sent!
-            </Text>
+            <Text color="lightGray">Transaction Sent!</Text>
           </Box>
           <Box onClick={handleViewTx}>
-            <Text color="formBlueDark" fontSize="0.5rem">
-              View
-            </Text>
+            <Text color="formBlueDark">View</Text>
           </Box>
 
           <Box>

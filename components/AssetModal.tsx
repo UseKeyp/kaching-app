@@ -41,8 +41,6 @@ const AssetModal: React.FC<AssetModalProps> = ({ setGetAsset }) => {
     return (
       <Box
         onClick={() => handleClickedAsset(asset)}
-        fontSize="1.34rem"
-        fontWeight="extra"
         key={asset}
         color={selectedAsset === asset ? "assetOrange" : "#C2C2C2"}
       >
@@ -55,10 +53,12 @@ const AssetModal: React.FC<AssetModalProps> = ({ setGetAsset }) => {
     <>
       <Button
         onClick={() => onOpen()}
-        fontSize="1.34rem"
+        fontSize="5rem"
+        fontWeight="extrabold"
         color="assetOrange"
         variant="none"
         mt={6}
+        mb={-5}
         p={0}
       >
         {selectedAsset}
@@ -67,24 +67,11 @@ const AssetModal: React.FC<AssetModalProps> = ({ setGetAsset }) => {
         <Modal onClose={onClose} size={"full"} isOpen={isOpen}>
           <ModalOverlay />
           <ModalContent>
-            <ModalBody
-              fontSize="1.34rem"
-              fontFamily="sharpie"
-              fontWeight="bold"
-              color="#C2C2C2"
-            >
+            <ModalBody fontSize="5rem" fontWeight="extrabold" color="#C2C2C2">
               {renderAssets}
             </ModalBody>
             <ModalFooter>
-              <Button
-                onClick={() => handleDone()}
-                color="#1499DA"
-                border="solid #1499DA 1px"
-                fontSize="1.34rem"
-                lineHeight="96px"
-                py={"3rem"}
-                w="full"
-              >
+              <Button onClick={() => handleDone()} variant="formBlue">
                 Done
               </Button>
             </ModalFooter>

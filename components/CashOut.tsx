@@ -21,13 +21,12 @@ const CashOut = () => {
 
   return (
     <Box px="1rem" w="full" mt="3rem">
-      <Heading as="h3">
-        <Text fontSize="0.5rem" color="socialIconsGray">
-          Withdraw from your Wallet
-        </Text>
-      </Heading>
-      <VStack spacing="1.5rem" mt="1.5rem">
-        {/* <Box w="full">
+      <Box border="1px" h="100vh" alignContent="space-around">
+        <Heading as="h3">
+          <Text color="socialIconsGray">Withdraw from your Wallet</Text>
+        </Heading>
+        <VStack spacing="1.5rem" mt="1.5rem">
+          {/* <Box w="full">
           <Button
             variant="ramps"
             color="#22272F"
@@ -36,21 +35,22 @@ const CashOut = () => {
             <Image src={"payment-ramp.svg"} alt="Ramp" />
           </Button>
         </Box> */}
-        <Box w="full">
-          <Button
-            variant="ramps"
-            color="#4A4D53"
-            onClick={() => handleClickCashOut("COINBASE")}
-          >
-            <Image src={"payment-coinbase.svg"} alt="" />
-            <Text ml="1rem">Coinbase</Text>
+          <Box w="full">
+            <Button
+              variant="ramps"
+              color="#4A4D53"
+              onClick={() => handleClickCashOut("COINBASE")}
+            >
+              <Image src={"payment-coinbase.svg"} alt="" />
+              <Text ml="1rem">Coinbase</Text>
+            </Button>
+          </Box>
+        </VStack>
+        <Box w="full" mt="3rem">
+          <Button variant="formBlue" onClick={() => handleHomePage()}>
+            Back
           </Button>
         </Box>
-      </VStack>
-      <Box w="full" mt="3rem">
-        <Button variant="formBlue" onClick={() => handleHomePage()}>
-          Back
-        </Button>
       </Box>
     </Box>
   );
