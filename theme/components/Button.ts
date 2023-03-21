@@ -4,7 +4,7 @@ const Button = defineStyleConfig({
   baseStyle: {
     fontWeight: "bold",
     borderRadius: "lg",
-    fontSize: "80px",
+    fontSize: "4rem",
     _active: {
       transform: "translateY(2px)",
       bgColor: "#fafafa",
@@ -27,7 +27,7 @@ const Button = defineStyleConfig({
     formGray: (props: StyleFunctionProps) => ({
       border: "1px",
       boxShadow: "4px 4px 0px 0px #B0B6C1, 5px 5px 0px 1px #80858E",
-      fontSize: "80px",
+      fontSize: "4rem",
       color: "socialIconsGray",
       my: "1rem",
       w: "full",
@@ -44,7 +44,7 @@ const Button = defineStyleConfig({
     formBlue: (props: StyleFunctionProps) => ({
       border: "1px",
       boxShadow: "4px 4px 0px 0px #FCBF3B, 5px 5px 0px 1px #FF8643",
-      fontSize: "80px",
+      fontSize: "4rem",
       color: "formBlueDark",
       my: "1rem",
       w: "full",

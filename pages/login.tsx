@@ -18,13 +18,13 @@ const Login = () => {
     <>
       <Box textAlign="center" fontFamily="inter">
         <Heading as="h1" color="pink">
-          <Text fontSize="120px" fontFamily="sharpie">
+          <Text fontSize="2rem" fontFamily="sharpie">
             Kaching
           </Text>
         </Heading>
 
         <Box my={"2rem"}>
-          <Text textAlign="center" fontSize="120px">
+          <Text textAlign="center" fontSize="2rem">
             👋
           </Text>
         </Box>

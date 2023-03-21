@@ -23,7 +23,8 @@ const TransactionSlider = () => {
             onClick={handletype}
             id={value.toLowerCase().replace(" ", "")}
             variant="none"
-            fontSize="60px"
+            fontSize="5rem"
+            fontWeight="extrabold"
             color="formBlueDark"
             opacity={type === value.toLowerCase().replace(" ", "") ? 1 : 0.5}
           >
@@ -56,7 +57,7 @@ const TransactionSlider = () => {
         setType("fund");
       } else if (type === "fund") {
         container?.scrollBy({
-          left: requestStart && requestStart - 55,
+          left: requestStart && requestStart,
           behavior: "smooth",
         });
         setType("request");
@@ -73,13 +74,13 @@ const TransactionSlider = () => {
     if (dir === "right") {
       if (type === "send") {
         container?.scrollBy({
-          left: requestStart && requestStart - 25,
+          left: requestStart && requestStart + 25,
           behavior: "smooth",
         });
         setType("request");
       } else if (type === "request") {
         container?.scrollBy({
-          left: fundStart && fundStart - 55,
+          left: fundStart && fundStart,
           behavior: "smooth",
         });
         setType("fund");
@@ -94,13 +95,18 @@ const TransactionSlider = () => {
   };
 
   return (
-    <Flex direction="row" display={renderReviewPage ? "none" : "flex"}>
-      {/* box for left arrow */}
+    <Flex
+      display={renderReviewPage ? "none" : "flex"}
+      direction="row"
+      px="1rem"
+      py="1rem"
+    >
+      {/* left arrow clickable image */}
       <Box
         display={type === "send" ? "none" : "block"}
         alignSelf="center"
+        // transform="translateX(-0.5rem)"
         zIndex={1}
-        transform="translateX(26px)"
         onClick={() => handleScroll("left")}
         w="fit-content"
       >
@@ -109,27 +115,33 @@ const TransactionSlider = () => {
           alt=""
           transform="rotate(180deg)"
           opacity={0.5}
+          w={["6rem", "3rem"]}
         />
       </Box>
       {/* scrollable buttons */}
       <HStack
         id="container"
         overflowX="scroll"
+        fontSize="1rem"
         py="1rem"
-        w="450px"
-        spacing="-1.5rem"
+        mx="-2rem"
       >
         {renderButtons()}
       </HStack>
       {/* box for right arrow */}
       <Flex
         display={type === "cashout" ? "none" : "block"}
-        transform="translateX(-36px)"
+        transform="translateX(0.5rem)"
         alignSelf="center"
         zIndex={1}
         onClick={() => handleScroll("right")}
       >
-        <Image src="arrow-right.gif" alt="" opacity={0.5} />
+        <Image
+          src="arrow-right.gif"
+          alt=""
+          opacity={0.5}
+          w={["6rem", "3rem"]}
+        />
       </Flex>
     </Flex>
   );

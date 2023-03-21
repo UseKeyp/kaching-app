@@ -2,7 +2,6 @@ import React from "react";
 import { ChakraProvider } from "@chakra-ui/react";
 import Layout from "../components/layout";
 import { SessionProvider } from "next-auth/react";
-import HeadMetadata from "../components/HeadMetadata";
 import { theme } from "../theme";
 import { FormProvider } from "../context/FormContext";
 import Fonts from "../components/Fonts";
@@ -18,7 +17,6 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
     <ChakraProvider theme={theme}>
       <Fonts />
       <SessionProvider session={session}>
-        <HeadMetadata />
         <FormProvider>
           <Layout>
             <Component {...pageProps} />

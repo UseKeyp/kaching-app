@@ -3,6 +3,7 @@ const Tooltip = {
     bg: "white",
     color: "pink",
     rounded: "md",
+    fontSize: "1rem",
   },
 };
 

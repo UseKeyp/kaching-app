@@ -16,7 +16,7 @@ import { FaDiscord, FaGoogle } from "react-icons/fa";
  * @remarks - this component lets user review the transaction before sending
  * @returns - review form that displays the amount, asset, and username of the transaction
  */
-const ReviewForm = () => {
+const ReviewTransfer = () => {
   const {
     isActiveGoogle,
     isActiveDiscord,
@@ -38,17 +38,17 @@ const ReviewForm = () => {
 
   return (
     <>
-      <Box fontWeight="bold" w="450px">
-        <HStack fontSize="60px" color="formBlueDark">
+      <Box fontWeight="extrabold" fontSize="5rem" px="0.5rem">
+        <HStack color="formBlueDark">
           <Box>
-            <Text fontSize="60px" color="formBlueDark" opacity={0.5}>
+            <Text color="formBlueDark" opacity={0.5}>
               Send
             </Text>
           </Box>
           <Button
             variant="none"
-            fontSize="60px"
             opacity={0.5}
+            fontSize="5rem"
             color="cancelOrange"
             onClick={() => handleCancel()}
           >
@@ -57,23 +57,17 @@ const ReviewForm = () => {
         </HStack>
         <SimpleGrid columns={1} spacing={0} mb={"1rem"}>
           <GridItem>
-            <Text fontSize="80px" color="formGreen">
-              {amount}
-            </Text>
+            <Text color="formGreen">{amount}</Text>
           </GridItem>
           <GridItem my={-2}>
             <Box>
-              <Text fontSize="80px" color="assetOrange">
-                {asset}
-              </Text>
+              <Text color="assetOrange">{asset}</Text>
             </Box>
           </GridItem>
           <GridItem my={-2}>
             <HStack justifyContent="start" px="0.5rem">
               <Box mr={"3rem"}>
-                <Text color="loginGray" fontSize="80px">
-                  to
-                </Text>
+                <Text color="loginGray">to</Text>
               </Box>
               <Box
                 display={isActiveGoogle ? "" : "none"}
@@ -119,9 +113,7 @@ const ReviewForm = () => {
             </HStack>
           </GridItem>
           <GridItem my={-2}>
-            <Text fontSize="80px" color="formLightBlue">
-              {username}
-            </Text>
+            <Text color="formLightBlue">{username}</Text>
           </GridItem>
           <GridItem>
             <Box w="full">
@@ -138,4 +130,4 @@ const ReviewForm = () => {
   );
 };
 
-export default ReviewForm;
+export default ReviewTransfer;
