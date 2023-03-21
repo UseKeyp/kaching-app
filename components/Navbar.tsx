@@ -1,17 +1,23 @@
 import React, { useState } from "react";
-import { Box, Heading, HStack, Text, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  HStack,
+  Text,
+  VStack,
+  Flex,
+  Tooltip,
+} from "@chakra-ui/react";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import { FaGoogle, FaDiscord } from "react-icons/fa";
-import { MdArrowDropDown } from "react-icons/md";
 import useSocialLogo from "../hooks/useSocialLogo";
 import { useFormContext } from "../context/FormContext";
-import { useRouter } from "next/router";
+import { RxCopy } from "react-icons/rx";
 
 const Navbar = () => {
-  const [showLogout, setShowLogout] = useState(false);
+  const [openTooltip, setOpenTooltip] = useState(false);
   const { data: session } = useSession();
-  const router = useRouter();
   const { handleHomePage } = useFormContext();
   const socialLogo = useSocialLogo(session);
 
@@ -21,75 +27,73 @@ const Navbar = () => {
   // @ts-ignore
   const username = session?.user?.username;
 
+  const handleCopyAddress = () => {
+    navigator.clipboard.writeText(address);
+    setOpenTooltip(true);
+    setTimeout(() => {
+      setOpenTooltip(false);
+    }, 1000);
+  };
+
   const renderSocialLogo = () => {
     if (socialLogo === "discord") {
-      return <FaDiscord color="#4E65F3" />;
+      return <FaDiscord color="#4E65F3" size="1.5rem" />;
     } else if (socialLogo === "google") {
-      return <FaGoogle />;
+      return <FaGoogle color="black" size="1.5rem" />;
     } else return;
   };
 
-  const handleShowLogout = () => {
-    setShowLogout(!showLogout);
-  };
-
   return (
-    <HStack
-      py="1rem"
-      px="1rem"
-      justifyContent="space-between"
-      w="full"
-      mb="1.5rem"
-      fontSize="23px"
-    >
+    <Flex w="100%" py="0.5rem" border="1px">
       <Box w="50%">
         <Link href="/">
-          <Heading
-            as="h1"
-            fontSize="23px"
-            color="pink"
-            onClick={() => handleHomePage()}
-          >
-            <Text>Ka-ching</Text>
+          <Heading as="h1" color="pink" onClick={() => handleHomePage()}>
+            <Text fontWeight="extrabold">Ka-ching</Text>
           </Heading>
         </Link>
       </Box>
       <VStack w="50%" alignItems="end" spacing={-0.5}>
+        {session && (
+          <HStack>
+            <HStack
+              fontSize="1rem"
+              color="#80858E"
+              fontWeight="normal"
+              _hover={{
+                pointer: "cursor",
+              }}
+            >
+              <Text>
+                {address?.slice(0, 7)}
+                <span>...</span>
+                {address?.slice(-6)}
+              </Text>
+              <Tooltip
+                label="Address copied to clipboard"
+                isOpen={openTooltip}
+                placement="bottom-start"
+              >
+                <Box onClick={handleCopyAddress}>
+                  <RxCopy />
+                </Box>
+              </Tooltip>
+            </HStack>
+
+            <Box pl="1rem" rounded="md" onClick={() => signOut()}>
+              <Text fontSize="1rem" fontWeight="normal" color="loginBtnGray">
+                Sign Out
+              </Text>
+            </Box>
+          </HStack>
+        )}
         <HStack>
-          {renderSocialLogo()}
-          <Text fontSize="23px" color="pink">
+          <Box>{renderSocialLogo()}</Box>
+          <Text fontSize="1.5rem" fontWeight="medium" color="formBlueDark">
             {username}
           </Text>
         </HStack>
-        {session && (
-          <>
-            <Box>
-              <HStack>
-                <Box mr={-2} onClick={handleShowLogout}>
-                  <MdArrowDropDown color="#80858E" />
-                </Box>
-                <Text fontSize="12px" color="#80858E" textAlign="right">
-                  {address?.slice(0, 7)}
-                  <span>...</span>
-                  {address?.slice(-6)}
-                </Text>
-              </HStack>
-            </Box>
-            <Box
-              display={showLogout ? "block" : "none"}
-              border="1px solid gray"
-              px={2}
-              rounded="md"
-              onClick={() => signOut()}
-            >
-              <Text fontSize="xs" color="loginBtnGray">
-                Sign out
-              </Text>
-            </Box>
-          </>
-        )}
       </VStack>
-    </HStack>
+    </Flex>
   );
 };
 

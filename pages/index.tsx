@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import TransferForm from "../forms/TransferForm";
+import TransferForm from "../components/TransferForm";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { useFormContext } from "../context/FormContext";
@@ -8,7 +8,8 @@ import TransactionSlider from "../components/TransactionSlider";
 import Fund from "../components/Fund";
 import CashOut from "../components/CashOut";
 import { Box } from "@chakra-ui/react";
-import ReviewForm from "../forms/ReviewForm";
+import ReviewTransfer from "../components/ReviewTransfer";
+
 // import Request from "../components/Request";
 
 /**
@@ -21,12 +22,14 @@ const Home = () => {
   const session = useSession();
   const router = useRouter();
 
+  console.log(session);
+
   const componentLogic = () => {
     if (type === "send") {
       if (renderTxPage) {
         return <TransferForm />;
       } else if (renderReviewPage) {
-        return <ReviewForm />;
+        return <ReviewTransfer />;
       }
     } else if (type === "request") {
       // TODO: Replace <TransferForm /> with <Request />

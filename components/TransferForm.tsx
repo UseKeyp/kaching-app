@@ -13,7 +13,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import React, { useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
-import AssetModal from "../components/AssetModal";
+import AssetModal from "./AssetModal";
 import { useFormContext } from "../context/FormContext";
 
 // TODO: refactor inputs so styles are put into custom Chakra theme component
@@ -89,7 +89,7 @@ const TransferForm = () => {
 
   return (
     <Box display={renderReviewPage ? "none" : ""} fontWeight="bold">
-      <SimpleGrid columns={1} spacing={0} mb={"1rem"}>
+      <SimpleGrid columns={1} spacing={0} mb={".1rem"}>
         <GridItem>
           <Input
             type="number"
@@ -109,7 +109,7 @@ const TransferForm = () => {
             name="amount"
             render={({ message }) => {
               return (
-                <Box mb={"1rem"}>
+                <Box mb={".1rem"}>
                   <Alert status="error" variant="left-accent">
                     <AlertIcon />
                     {message}
@@ -123,7 +123,7 @@ const TransferForm = () => {
           <AssetModal setGetAsset={setGetAsset} />
         </GridItem>
         <GridItem>
-          <HStack justifyContent="start" px="0.5rem" spacing={"3rem"}>
+          <HStack justifyContent="start" px="0.1rem" spacing={".3rem"}>
             <Box my={"-0.5rem"}>
               <Text color="loginGray" fontSize="80px">
                 to
@@ -141,7 +141,7 @@ const TransferForm = () => {
               >
                 <FaGoogle
                   color={isActiveGoogle ? "white" : "#C5C8CC"}
-                  fontSize="56px"
+                  fontSize="1rem"
                   onClick={() => handleActiveIcons("google")}
                 />
               </Box>
@@ -157,7 +157,7 @@ const TransferForm = () => {
               >
                 <FaDiscord
                   color={isActiveGoogle ? "#C5C8CC" : "white"}
-                  fontSize="56px"
+                  fontSize="1rem"
                   onClick={() => handleActiveIcons("discord")}
                 />
               </Box>

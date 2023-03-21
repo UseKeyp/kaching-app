@@ -26,14 +26,14 @@ const Confirmation = () => {
       <VStack fontWeight="bold">
         <Heading
           as="h1"
-          fontSize="120px"
-          lineHeight="120px"
+          fontSize="2rem"
+          lineHeight="2rem"
           fontWeight="extrabold"
         >
           Ka-ching
         </Heading>
         <Stack w="full" spacing={"-0.75rem"} pb="3rem">
-          <HStack fontSize="32px">
+          <HStack fontSize="0.5rem">
             <Text color="formGreen">
               {/* {asset === "USDC" ? "$" : null}
               {amount} */}
@@ -42,12 +42,12 @@ const Confirmation = () => {
             <Text color="assetOrange">{/* {asset} */}</Text>
           </HStack>
           <Box>
-            <Text color="loginGray" fontSize="32px">
+            <Text color="loginGray" fontSize="0.5rem">
               Sent to
             </Text>
           </Box>
           <Box>
-            <Text color="formBlueDark" fontSize="32px">
+            <Text color="formBlueDark" fontSize="0.5rem">
               {/* {username} */}
               user@gmail.com
             </Text>
@@ -55,12 +55,12 @@ const Confirmation = () => {
         </Stack>
         <Stack w="full" spacing={"-0.75rem"}>
           <Box>
-            <Text color="lightGray" fontSize="32px">
+            <Text color="lightGray" fontSize="0.5rem">
               Transaction Sent!
             </Text>
           </Box>
           <Box onClick={handleViewTx}>
-            <Text color="formBlueDark" fontSize="32px">
+            <Text color="formBlueDark" fontSize="0.5rem">
               View
             </Text>
           </Box>

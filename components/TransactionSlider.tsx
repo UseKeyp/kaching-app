@@ -23,7 +23,7 @@ const TransactionSlider = () => {
             onClick={handletype}
             id={value.toLowerCase().replace(" ", "")}
             variant="none"
-            fontSize="60px"
+            fontSize="1rem"
             color="formBlueDark"
             opacity={type === value.toLowerCase().replace(" ", "") ? 1 : 0.5}
           >
@@ -94,13 +94,17 @@ const TransactionSlider = () => {
   };
 
   return (
-    <Flex direction="row" display={renderReviewPage ? "none" : "flex"}>
+    <Flex
+      direction="row"
+      display={renderReviewPage ? "none" : "flex"}
+      border="1px"
+    >
       {/* box for left arrow */}
       <Box
         display={type === "send" ? "none" : "block"}
         alignSelf="center"
         zIndex={1}
-        transform="translateX(26px)"
+        transform="translateX(0.5rem)"
         onClick={() => handleScroll("left")}
         w="fit-content"
       >
@@ -115,16 +119,17 @@ const TransactionSlider = () => {
       <HStack
         id="container"
         overflowX="scroll"
-        py="1rem"
-        w="450px"
-        spacing="-1.5rem"
+        fontSize="1rem"
+        // py="1rem"
+        // w="100vh"
+        // spacing="-.1rem"
       >
         {renderButtons()}
       </HStack>
       {/* box for right arrow */}
       <Flex
         display={type === "cashout" ? "none" : "block"}
-        transform="translateX(-36px)"
+        transform="translateX(-0.5rem)"
         alignSelf="center"
         zIndex={1}
         onClick={() => handleScroll("right")}

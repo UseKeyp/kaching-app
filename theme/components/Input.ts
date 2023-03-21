@@ -8,17 +8,17 @@ const Input = helpers.defineMultiStyleConfig({
     field: {
       bg: "white",
       fontWeight: "bold",
-      py: "3.5rem",
+      py: ".1rem",
       _placeholder: {
-        px: "0.5rem",
+        px: "0.1rem",
       },
     },
   }),
   variants: {
     default: (props: StyleFunctionProps) => ({
       field: {
-        fontSize: "80px",
-        px: "0.5rem",
+        fontSize: "1.34rem",
+        px: "0.1rem",
         color: props.color,
         _placeholder: {
           color: props.color,

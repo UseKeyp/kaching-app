@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
-import { Flex } from "@chakra-ui/react";
+import { Flex, VStack } from "@chakra-ui/react";
+import HeadMetadata from "./HeadMetadata";
 
 interface LayoutProps {
   children: ReactNode;
@@ -7,19 +8,21 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <>
-      <Flex
-        direction="column"
+    <div>
+      <HeadMetadata />
+      <VStack
         alignItems="start"
-        justifyContent="space-between"
-        px={["1rem", "2rem"]}
+        px={["0.5rem", "1rem"]}
         pb="1rem"
-        w="450px"
+        fontSize="60px"
+        fontWeight="extrabold"
         fontFamily="sharpie"
+        border="4px solid red"
+        // w="100vh"
       >
         {children}
-      </Flex>
-    </>
+      </VStack>
+    </div>
   );
 };
 

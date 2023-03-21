@@ -39,7 +39,7 @@ const Fund = () => {
   return (
     <Box px="1rem" w="full" mt="3rem">
       <Heading as="h3">
-        <Text fontSize="32px" color="socialIconsGray">
+        <Text fontSize="0.5rem" color="socialIconsGray">
           Fund your Wallet
         </Text>
       </Heading>
