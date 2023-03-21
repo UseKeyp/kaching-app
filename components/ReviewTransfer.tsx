@@ -39,7 +39,7 @@ const ReviewTransfer = () => {
   return (
     <>
       <Box fontWeight="extrabold" fontSize="5rem" px="0.5rem">
-        <HStack color="formBlueDark">
+        <HStack color="formBlueDark" fontSize={["4rem", "5rem"]}>
           <Box>
             <Text color="formBlueDark" opacity={0.5}>
               Send
@@ -48,7 +48,7 @@ const ReviewTransfer = () => {
           <Button
             variant="none"
             opacity={0.5}
-            fontSize="5rem"
+            fontSize={["4rem", "5rem"]}
             color="cancelOrange"
             onClick={() => handleCancel()}
           >
