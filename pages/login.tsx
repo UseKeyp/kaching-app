@@ -16,19 +16,23 @@ const Login = () => {
 
   return (
     <>
-      <Box textAlign="center" fontFamily="inter">
-        <Heading as="h1" color="pink">
-          <Text fontSize="2rem" fontFamily="sharpie">
-            Kaching
-          </Text>
+      <Box textAlign="center" fontFamily="inter" px="0.5rem">
+        <Heading as="h1" color="pink" fontSize="5rem" fontWeight="extrabold">
+          <Text fontFamily="sharpie">Kaching</Text>
         </Heading>
 
         <Box my={"2rem"}>
-          <Text textAlign="center" fontSize="2rem">
+          <Text textAlign="center" fontSize="5rem">
             👋
           </Text>
         </Box>
-        <Stack direction="column" m="auto" spacing={3} textAlign="left">
+        <Stack
+          direction="column"
+          m="auto"
+          spacing={3}
+          textAlign="left"
+          px={[0, "5rem", "10rem", "20rem"]}
+        >
           <Box w="full" textAlign="left" color="loginGray">
             Log in with
           </Box>
