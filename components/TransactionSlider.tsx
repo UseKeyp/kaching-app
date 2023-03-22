@@ -41,7 +41,7 @@ const TransactionSlider = () => {
       direction="row"
       mx="-1rem"
     >
-      <Box zIndex={1} w="5rem">
+      <Box zIndex={1} w={["5rem"]}>
         <Image src="fade.png" alt="" w="100%" h="full" />
       </Box>
       <HStack overflowX="scroll" py="2rem" spacing={-6} mx="-4">
