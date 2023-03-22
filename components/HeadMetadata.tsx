@@ -11,30 +11,9 @@ const HeadMetadata = () => {
       <link rel="icon" href="/favicon.ico" />
       <link
         href="fonts/sharpie/Sharpie-Variable.woff2"
-        rel="prefetch"
-        as="style"
-        type="text/css"
-        crossOrigin="anonymous"
-      />
-      <link
-        href="fonts/sharpie/Sharpie-Regular.woff2"
-        rel="prefetch"
-        as="style"
-        type="text/css"
-        crossOrigin="anonymous"
-      />
-      <link
-        href="fonts/sharpie/Sharpie-Bold.woff2"
-        rel="prefetch"
-        as="style"
-        type="text/css"
-        crossOrigin="anonymous"
-      />
-      <link
-        href="fonts/sharpie/Sharpie-Extrabold.woff2"
-        rel="prefetch"
-        as="style"
-        type="text/css"
+        rel="preload"
+        as="font"
+        type="font/woff2"
         crossOrigin="anonymous"
       />
       <title>Ka-ching</title>

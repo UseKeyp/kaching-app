@@ -88,12 +88,8 @@ const TransferForm = () => {
   }, [getAsset, setValue]);
 
   return (
-    <Box
-      display={renderReviewPage ? "none" : ""}
-      fontWeight="extrabold"
-      px="0.5rem"
-    >
-      <SimpleGrid columns={1} spacing={"1rem"} mb={".1rem"} mx="0.5rem">
+    <Box display={renderReviewPage ? "none" : ""} fontWeight="extrabold">
+      <SimpleGrid columns={1} spacing={"1rem"} mb={".1rem"}>
         <GridItem mb="-1rem">
           <Input
             type="number"

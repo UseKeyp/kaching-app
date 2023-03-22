@@ -9,7 +9,6 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import Navbar from "components/Navbar";
 
 /**
  * @remarks - this component displays the transaction confirmation
@@ -21,59 +20,56 @@ const Confirmation = () => {
   };
 
   return (
-    <>
-      <Navbar />
-      <VStack fontWeight="extrabold" px="0.5rem" fontSize={["3rem"]}>
-        <Box
+    <VStack fontWeight="extrabold" px="0.5rem" fontSize={["3rem"]}>
+      <Box
+        w="full"
+        // py="3rem"
+      >
+        <Heading
           w="full"
-          // py="3rem"
+          as="h1"
+          fontSize={["6rem", "8rem"]}
+          fontWeight="extrabold"
         >
-          <Heading
-            w="full"
-            as="h1"
-            fontSize={["6rem", "8rem"]}
-            fontWeight="extrabold"
-          >
-            Ka-ching
-          </Heading>
-        </Box>
-        <Stack w="full" spacing={"-0.75rem"} pb="3rem">
-          <HStack>
-            <Text color="formGreen">
-              {/* {asset === "USDC" ? "$" : null}
+          Ka-ching
+        </Heading>
+      </Box>
+      <Stack w="full" spacing={"-0.75rem"} pb="3rem">
+        <HStack>
+          <Text color="formGreen">
+            {/* {asset === "USDC" ? "$" : null}
               {amount} */}
-              5 MATIC
-            </Text>
-            <Text color="assetOrange">{/* {asset} */}</Text>
-          </HStack>
-          <Box>
-            <Text color="loginGray">Sent to</Text>
-          </Box>
-          <Box>
-            <Text color="formBlueDark">
-              {/* {username} */}
-              user@gmail.com
-            </Text>
-          </Box>
-        </Stack>
-        <Stack w="full" spacing={"-0.75rem"}>
-          <Box>
-            <Text color="lightGray">Transaction Sent!</Text>
-          </Box>
-          <Box onClick={handleViewTx}>
-            <Text color="formBlueDark">View</Text>
-          </Box>
+            5 MATIC
+          </Text>
+          <Text color="assetOrange">{/* {asset} */}</Text>
+        </HStack>
+        <Box>
+          <Text color="loginGray">Sent to</Text>
+        </Box>
+        <Box>
+          <Text color="formBlueDark">
+            {/* {username} */}
+            user@gmail.com
+          </Text>
+        </Box>
+      </Stack>
+      <Stack w="full" spacing={"-0.75rem"}>
+        <Box>
+          <Text color="lightGray">Transaction Sent!</Text>
+        </Box>
+        <Box onClick={handleViewTx}>
+          <Text color="formBlueDark">View</Text>
+        </Box>
 
-          <Box>
-            <Link href="/">
-              <Button variant="formBlue" color="#1499DA">
-                Return
-              </Button>
-            </Link>
-          </Box>
-        </Stack>
-      </VStack>
-    </>
+        <Box>
+          <Link href="/">
+            <Button variant="formBlue" color="#1499DA">
+              Return
+            </Button>
+          </Link>
+        </Box>
+      </Stack>
+    </VStack>
   );
 };
 

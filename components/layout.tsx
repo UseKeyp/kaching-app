@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
-import { Box, VStack } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import HeadMetadata from "./HeadMetadata";
+import Navbar from "./Navbar";
 
 interface LayoutProps {
   children: ReactNode;
@@ -10,6 +11,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <>
       <HeadMetadata />
+
       <Box
         alignItems="start"
         maxW="100vw"
@@ -17,8 +19,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         pb="1rem"
         fontSize="1rem"
         fontWeight="extrabold"
-        fontFamily="sharpie"
+        fontFamily="Sharpie"
+        px="0.5rem"
       >
+        <Navbar />
         {children}
       </Box>
     </>
