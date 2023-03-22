@@ -8,8 +8,9 @@ const Input = helpers.defineMultiStyleConfig({
     field: {
       bg: "white",
       fontWeight: "extrabold",
+      px: "0.25rem",
       _placeholder: {
-        px: "0.5rem",
+        px: "0.25rem",
       },
     },
   },

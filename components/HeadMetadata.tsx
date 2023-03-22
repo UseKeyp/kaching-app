@@ -16,7 +16,7 @@ const HeadMetadata = () => {
         type="font/woff2"
         crossOrigin="anonymous"
       />
-      <title>Ka-ching</title>
+      <title>Kaching</title>
     </Head>
   );
 };

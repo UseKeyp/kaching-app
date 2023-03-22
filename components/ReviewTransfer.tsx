@@ -3,6 +3,7 @@ import {
   Button,
   GridItem,
   HStack,
+  Image,
   Link,
   SimpleGrid,
   Text,
@@ -69,48 +70,25 @@ const ReviewTransfer = () => {
           </GridItem>
           <GridItem my={-2}>
             <HStack justifyContent="start" px="0.5rem">
-              <Box mr={"3rem"}>
+              <Box mr={"1rem"}>
                 <Text color="loginGray">To</Text>
               </Box>
-              <Box
-                display={isActiveGoogle ? "" : "none"}
-                w="34%"
-                textAlign="center"
-                placeSelf="center"
-              >
-                {/* inner Box serves as a border for FaGoogle */}
-                <Box
-                  w="min"
-                  border="1px"
-                  rounded="full"
-                  p={3}
-                  borderColor="socialIconsGray"
-                  bg={isActiveGoogle ? "socialIconsGray" : "white"}
-                >
-                  <FaGoogle
-                    color={isActiveGoogle ? "white" : "socialIconsGray"}
-                    fontSize="56px"
-                  />
-                </Box>
-              </Box>
-              <Box
-                display={isActiveDiscord ? "" : "none"}
-                w="34%"
-                textAlign="center"
-                placeSelf="center"
-              >
-                <Box
-                  w="min"
-                  border="1px"
-                  rounded="full"
-                  p={3}
-                  borderColor="socialIconsGray"
-                  bg={isActiveDiscord ? "socialIconsGray" : "white"}
-                >
-                  <FaDiscord
-                    color={isActiveDiscord ? "white" : "socialIconsGray"}
-                    fontSize="56px"
-                  />
+              <Box textAlign="center" placeSelf="center">
+                {/* vector bg image*/}
+                <Image
+                  src={"social-bg-dark.svg"}
+                  alt=""
+                  ml="0.15rem"
+                  w="4rem"
+                  color="black"
+                />
+                <Box position="absolute" mt="-3.15rem" ml="1rem">
+                  {/* discord logo */}
+                  {isActiveDiscord ? (
+                    <FaDiscord color="white" size="2.25rem" />
+                  ) : (
+                    <FaGoogle color="white" size="2.25rem" />
+                  )}
                 </Box>
               </Box>
             </HStack>
