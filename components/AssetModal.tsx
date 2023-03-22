@@ -70,10 +70,12 @@ const AssetModal: React.FC<AssetModalProps> = ({ setGetAsset }) => {
             <ModalBody fontSize="5rem" fontWeight="extrabold" color="#C2C2C2">
               {renderAssets}
             </ModalBody>
-            <ModalFooter>
-              <Button onClick={() => handleDone()} variant="formBlue">
-                Done
-              </Button>
+            <ModalFooter mx="-1.5rem" mb="-1.5rem">
+              <Box w="full">
+                <Button onClick={() => handleDone()} variant="formBlue">
+                  Done
+                </Button>
+              </Box>
             </ModalFooter>
           </ModalContent>
         </Modal>

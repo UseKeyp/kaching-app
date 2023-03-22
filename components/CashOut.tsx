@@ -20,11 +20,7 @@ const CashOut = () => {
   };
 
   return (
-    <Box
-      // px="1rem"
-      w="full"
-      mt="3rem"
-    >
+    <Box w="full" mt="3rem">
       <Box h="100vh" alignContent="space-around">
         <Heading as="h3">
           <Text color="socialIconsGray">Withdraw from your Wallet</Text>

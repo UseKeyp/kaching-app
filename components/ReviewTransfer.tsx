@@ -8,7 +8,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useFormContext } from "../context/FormContext";
-
 import React from "react";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
 
@@ -38,8 +37,12 @@ const ReviewTransfer = () => {
 
   return (
     <>
-      <Box fontWeight="extrabold" fontSize="5rem" px="0.5rem">
-        <HStack color="formBlueDark" fontSize={["4rem", "5rem"]}>
+      <Box fontWeight="extrabold" fontSize="5rem">
+        <HStack
+          color="formBlueDark"
+          fontSize={["4rem", "5rem"]}
+          justifyContent="space-between"
+        >
           <Box>
             <Text color="formBlueDark" opacity={0.5}>
               Send
@@ -67,7 +70,7 @@ const ReviewTransfer = () => {
           <GridItem my={-2}>
             <HStack justifyContent="start" px="0.5rem">
               <Box mr={"3rem"}>
-                <Text color="loginGray">to</Text>
+                <Text color="loginGray">To</Text>
               </Box>
               <Box
                 display={isActiveGoogle ? "" : "none"}
@@ -116,9 +119,9 @@ const ReviewTransfer = () => {
             <Text color="formLightBlue">{username}</Text>
           </GridItem>
           <GridItem>
-            <Box w="full">
+            <Box mx="-1.5rem" mt="2rem">
               <Link href="/confirmation">
-                <Button onClick={() => handleSendTx()} variant="formBlue">
+                <Button onClick={() => handleSendTx()} variant="formGreen">
                   Send!
                 </Button>
               </Link>

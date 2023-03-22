@@ -3,8 +3,8 @@ import { defineStyleConfig, StyleFunctionProps } from "@chakra-ui/react";
 const Button = defineStyleConfig({
   baseStyle: {
     fontWeight: "bold",
-    borderRadius: "lg",
     fontSize: "4rem",
+    rounded: "none",
     _active: {
       transform: "translateY(2px)",
       bgColor: "#fafafa",
@@ -26,6 +26,36 @@ const Button = defineStyleConfig({
   variants: {
     formGray: (props: StyleFunctionProps) => ({
       border: "1px",
+      fontSize: "5rem",
+      bg: "socialIconsGray",
+      borderTop: "8px solid #E9EBED",
+      color: "white",
+      w: "full",
+      px: "-4rem",
+      h: "fit",
+    }),
+    formBlue: (props: StyleFunctionProps) => ({
+      border: "1px",
+      fontSize: "5rem",
+      bg: "formBlueDark",
+      borderTop: "8px solid #89DCFF",
+      color: "white",
+      w: "full",
+      px: "-4rem",
+      h: "fit",
+    }),
+    formGreen: (props: StyleFunctionProps) => ({
+      border: "1px",
+      fontSize: "5rem",
+      bg: "#5DBA14",
+      borderTop: "8px solid #99DA67",
+      color: "white",
+      w: "full",
+      px: "-4rem",
+      h: "fit",
+    }),
+    formGrayOld: (props: StyleFunctionProps) => ({
+      border: "1px",
       boxShadow: "4px 4px 0px 0px #B0B6C1, 5px 5px 0px 1px #80858E",
       fontSize: "4rem",
       color: "socialIconsGray",
@@ -41,23 +71,6 @@ const Button = defineStyleConfig({
         boxShadow: "0px 0px 0px 0px #B0B6C1, 2px 2px 0px 0px #80858E",
       },
     }),
-    formBlue: (props: StyleFunctionProps) => ({
-      border: "1px",
-      boxShadow: "4px 4px 0px 0px #FCBF3B, 5px 5px 0px 1px #FF8643",
-      fontSize: "4rem",
-      color: "formBlueDark",
-      my: "1rem",
-      w: "full",
-      h: "fit",
-      _hover: {
-        bgColor: "#fafafa",
-      },
-      _active: {
-        transform: "translateY(2px) translateX(2px)",
-        bgColor: "#fafafa",
-        boxShadow: "0px 0px 0px 0px #FCBF3B, 2px 2px 0px 0px #FF8643",
-      },
-    }),
     login: {
       w: "full",
       color: "loginBtnGray",
@@ -69,6 +82,7 @@ const Button = defineStyleConfig({
       borderColor: "#E5E7EB",
       textAlign: "left",
       justifyContent: "start",
+      borderRadius: "lg",
     },
 
     ramps: (props: StyleFunctionProps) => ({

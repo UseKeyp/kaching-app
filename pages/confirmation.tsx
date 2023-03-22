@@ -60,15 +60,16 @@ const Confirmation = () => {
         <Box onClick={handleViewTx}>
           <Text color="formBlueDark">View</Text>
         </Box>
-
-        <Box>
-          <Link href="/">
-            <Button variant="formBlue" color="#1499DA">
-              Return
-            </Button>
-          </Link>
-        </Box>
       </Stack>
+      <Box
+        w="full"
+        // mx="-1.5rem"
+        mt="2rem"
+      >
+        <Link href="/">
+          <Button variant="formBlue">Return</Button>
+        </Link>
+      </Box>
     </VStack>
   );
 };

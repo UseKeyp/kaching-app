@@ -20,7 +20,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         fontSize="1rem"
         fontWeight="extrabold"
         fontFamily="Sharpie"
-        px="0.5rem"
+        px="1rem"
+        h="100vh"
       >
         <Navbar />
         {children}

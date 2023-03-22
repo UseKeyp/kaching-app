@@ -8,6 +8,7 @@ import {
   Input,
   SimpleGrid,
   Text,
+  Image,
 } from "@chakra-ui/react";
 import { ErrorMessage } from "@hookform/error-message";
 import React, { useEffect, useState } from "react";
@@ -59,16 +60,12 @@ const TransferForm = () => {
   };
 
   const handleActiveIcons = (platform: string): void => {
-    if (platform === "google") {
-      if (!isActiveGoogle) {
-        setIsActiveGoogle(true);
-        setIsActiveDiscord(false);
-      } else null;
-    } else if (platform === "discord") {
-      if (!isActiveDiscord) {
-        setIsActiveDiscord(true);
-        setIsActiveGoogle(false);
-      } else null;
+    if (platform === "google" && !isActiveGoogle) {
+      setIsActiveGoogle(true);
+      setIsActiveDiscord(false);
+    } else if (platform === "discord" && !isActiveDiscord) {
+      setIsActiveDiscord(true);
+      setIsActiveGoogle(false);
     }
   };
 
@@ -88,7 +85,12 @@ const TransferForm = () => {
   }, [getAsset, setValue]);
 
   return (
-    <Box display={renderReviewPage ? "none" : ""} fontWeight="extrabold">
+    <Box
+      display={renderReviewPage ? "none" : "flex"}
+      flexDirection="column"
+      justifyContent="space-between"
+      h="80vh"
+    >
       <SimpleGrid columns={1} spacing={"1rem"} mb={".1rem"}>
         <GridItem mb="-1rem">
           <Input
@@ -96,6 +98,7 @@ const TransferForm = () => {
             step={0.1}
             placeholder="0.00"
             color="formGreen"
+            autoComplete="off"
             {...register("amount", {
               required: {
                 value: true,
@@ -126,37 +129,43 @@ const TransferForm = () => {
           <HStack justifyContent="start" spacing={"1rem"} mb="-2">
             <Box ml="0.5rem">
               <Text color="loginGray" fontSize="5rem">
-                to
+                To
               </Text>
             </Box>
             <Box textAlign="center" placeSelf="center">
-              {/* inner Box serves as a border for FaGoogle */}
-              <Box
-                border="1px"
-                rounded="full"
-                p={3}
-                borderColor="socialIconsGray"
-                bg={isActiveGoogle ? "socialIconsGray" : "white"}
-              >
+              {/* vector bg image*/}
+              <Image
+                src={
+                  isActiveGoogle ? "social-bg-dark.svg" : "social-bg-light.svg"
+                }
+                alt=""
+                w="4rem"
+              />
+              <Box position="absolute" mt="-3.15rem" ml=".9rem">
+                {/* Google logo */}
                 <FaGoogle
-                  color={isActiveGoogle ? "white" : "#C5C8CC"}
-                  size="2rem"
+                  color="white"
+                  size="2.25rem"
                   onClick={() => handleActiveIcons("google")}
                 />
               </Box>
             </Box>
             <Box textAlign="center" placeSelf="center">
-              {/* inner Box serves as a border for FaDiscord */}
-              <Box
-                border="1px"
-                rounded="full"
-                p={3}
-                borderColor="socialIconsGray"
-                bg={isActiveGoogle ? "white" : "#C5C8CC"}
-              >
+              {/* vector bg image*/}
+              <Image
+                src={
+                  isActiveDiscord ? "social-bg-dark.svg" : "social-bg-light.svg"
+                }
+                alt=""
+                ml="0.15rem"
+                w="4rem"
+                color="black"
+              />
+              <Box position="absolute" mt="-3.15rem" ml="1rem">
+                {/* discord logo */}
                 <FaDiscord
-                  color={isActiveGoogle ? "#C5C8CC" : "white"}
-                  size="2rem"
+                  color="white"
+                  size="2.25rem"
                   onClick={() => handleActiveIcons("discord")}
                 />
               </Box>
@@ -166,8 +175,9 @@ const TransferForm = () => {
         <GridItem my="-1.5rem">
           <Input
             type={isActiveGoogle ? "email" : "text"}
-            placeholder={isActiveGoogle ? "Add Email" : "Add Username"}
+            placeholder={isActiveGoogle ? "Add Gmail" : "Discord Username"}
             color="#89DCFF"
+            autoComplete="off"
             {...register("username", {
               required: "cannot be blank",
               minLength: {
@@ -193,14 +203,12 @@ const TransferForm = () => {
             }}
           />
         </GridItem>
-        <GridItem>
-          <Box>
-            <Button onClick={() => handleReivew()} variant="formGray">
-              Review
-            </Button>
-          </Box>
-        </GridItem>
       </SimpleGrid>
+      <Box mx="-1.5rem" mt="2rem">
+        <Button onClick={() => handleReivew()} variant="formGray">
+          Review
+        </Button>
+      </Box>
     </Box>
   );
 };

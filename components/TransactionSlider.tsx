@@ -36,12 +36,14 @@ const TransactionSlider = () => {
   };
 
   return (
-    <Flex
-      display={renderReviewPage ? "none" : "flex"}
-      direction="row"
-      py="1rem"
-    >
-      <HStack id="container" overflowX="scroll" fontSize="1rem" py="1rem">
+    <Flex display={renderReviewPage ? "none" : "flex"} direction="row">
+      <HStack
+        id="container"
+        overflowX="scroll"
+        fontSize="1rem"
+        py="2rem"
+        spacing={-6}
+      >
         {renderButtons()}
       </HStack>
     </Flex>
