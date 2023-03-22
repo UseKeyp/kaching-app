@@ -89,10 +89,10 @@ const TransferForm = () => {
       display={renderReviewPage ? "none" : "flex"}
       flexDirection="column"
       justifyContent="space-between"
-      h="80vh"
+      // h="80vh"
     >
       <SimpleGrid columns={1} spacing={"1rem"} mb={".1rem"}>
-        <GridItem mb="-1.5rem">
+        <GridItem my="-1rem">
           <Input
             type="number"
             step={0.1}
