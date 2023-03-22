@@ -92,7 +92,7 @@ const TransferForm = () => {
       h="80vh"
     >
       <SimpleGrid columns={1} spacing={"1rem"} mb={".1rem"}>
-        <GridItem mb="-1rem">
+        <GridItem mb="-1.5rem">
           <Input
             type="number"
             step={0.1}
@@ -107,20 +107,22 @@ const TransferForm = () => {
               validate: (n) => n > 0 || "Value must be greater than 0",
             })}
           />
-          <ErrorMessage
-            errors={errors}
-            name="amount"
-            render={({ message }) => {
-              return (
-                <Box mb={".1rem"}>
-                  <Alert status="error" variant="left-accent">
-                    <AlertIcon />
-                    {message}
-                  </Alert>
-                </Box>
-              );
-            }}
-          />
+          <Box mt="-1.5rem" mb="1rem">
+            <ErrorMessage
+              errors={errors}
+              name="amount"
+              render={({ message }) => {
+                return (
+                  <Box mb={".1rem"}>
+                    <Alert status="error" variant="left-accent">
+                      <AlertIcon />
+                      {message}
+                    </Alert>
+                  </Box>
+                );
+              }}
+            />
+          </Box>
         </GridItem>
         <GridItem px={"0.5rem"}>
           <AssetModal setGetAsset={setGetAsset} />
@@ -187,21 +189,25 @@ const TransferForm = () => {
               validate: emailValidation,
             })}
           />
-          <ErrorMessage
-            errors={errors}
-            name="username"
-            render={({ message }) => {
-              return (
-                <Box>
-                  <Alert status="error" variant="left-accent">
-                    <AlertIcon />
-                    <Text mr={1}>{isActiveGoogle ? "Email" : "Username"}</Text>
-                    {message}
-                  </Alert>
-                </Box>
-              );
-            }}
-          />
+          <Box mt="-1.5rem" mb="1rem">
+            <ErrorMessage
+              errors={errors}
+              name="username"
+              render={({ message }) => {
+                return (
+                  <Box>
+                    <Alert status="error" variant="left-accent">
+                      <AlertIcon />
+                      <Text mr={1}>
+                        {isActiveGoogle ? "Email" : "Username"}
+                      </Text>
+                      {message}
+                    </Alert>
+                  </Box>
+                );
+              }}
+            />
+          </Box>
         </GridItem>
       </SimpleGrid>
       <Box mx="-1.5rem" mt="2rem">

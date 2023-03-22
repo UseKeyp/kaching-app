@@ -1,9 +1,9 @@
 import React from "react";
-import { Box, Button, Flex, HStack, Image, Stack } from "@chakra-ui/react";
+import { Box, Button, Flex, HStack, Image } from "@chakra-ui/react";
 import { useFormContext } from "../context/FormContext";
 
 /**
- * @remarks - this component is used to determine the "type" of transaction. When user slides component, if it's within the constraints of 'container' id, the focused component gets brought into 'type' state
+ * @remarks - this component is used to determine the "type" of transaction
  * @returns - div containing scrollable buttons
  */
 const TransactionSlider = () => {
@@ -36,16 +36,20 @@ const TransactionSlider = () => {
   };
 
   return (
-    <Flex display={renderReviewPage ? "none" : "flex"} direction="row">
-      <HStack
-        id="container"
-        overflowX="scroll"
-        fontSize="1rem"
-        py="2rem"
-        spacing={-6}
-      >
+    <Flex
+      display={renderReviewPage ? "none" : "flex"}
+      direction="row"
+      mx="-1rem"
+    >
+      <Box zIndex={1} w="5rem">
+        <Image src="fade.png" alt="" w="100%" h="full" />
+      </Box>
+      <HStack overflowX="scroll" py="2rem" spacing={-6} mx="-4">
         {renderButtons()}
       </HStack>
+      <Box zIndex={1}>
+        <Image src="fade.png" alt="" transform="rotateY(180deg)" h="full" />
+      </Box>
     </Flex>
   );
 };
