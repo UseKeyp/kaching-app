@@ -3,7 +3,6 @@ import TransferForm from "../components/TransferForm";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { useFormContext } from "../context/FormContext";
-import Navbar from "../components/Navbar";
 import TransactionSlider from "../components/TransactionSlider";
 import Fund from "../components/Fund";
 import CashOut from "../components/CashOut";
@@ -49,13 +48,10 @@ const Home = () => {
   }, [session, router]);
 
   return (
-    <>
-      <Navbar />
-      <Box>
-        <TransactionSlider />
-        {componentLogic()}
-      </Box>
-    </>
+    <Box>
+      <TransactionSlider />
+      {componentLogic()}
+    </Box>
   );
 };
 

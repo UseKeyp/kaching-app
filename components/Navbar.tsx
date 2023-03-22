@@ -44,7 +44,7 @@ const Navbar = () => {
   };
 
   return (
-    <Flex w="100vw" px="1rem" py="1rem">
+    <Flex w="100%" py="1rem">
       {/* Box houses logo */}
       <Box w="45%" alignSelf="start">
         <Link href="/">

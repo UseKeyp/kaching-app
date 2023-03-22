@@ -4,6 +4,11 @@ import Button from "./components/Button";
 import Input from "./components/Input";
 import Link from "./components/Link";
 import Tooltip from "./components/Tooltip";
+// import localFont from "@next/font/local";
+
+// const sharpie = localFont({
+//   src: "../public/fonts/sharpie/Sharpie-Variable.woff2",
+// });
 
 export const theme = extendTheme({
   components: {
@@ -20,6 +25,8 @@ export const theme = extendTheme({
     formBlueDark: "#1499DA",
     formLightBlue: "#89DCFF",
     socialIconsGray: "#C5C8CC",
+    socialIconsGrayBorder: "#E9EBED",
+    socialIconsDarkGrayBg: "#4A4D53",
     cancelOrange: "#FFB489",
     assetOrange: "#F4AB00",
     lightGray: "#B0B6C1",
@@ -27,8 +34,8 @@ export const theme = extendTheme({
     loginBtnGray: "#80858E",
   },
   fonts: {
-    heading: `"sharpie", "Sharpie", sans-serif`,
-    body: `"sharpie", "Sharpie", sans-serif`,
+    heading: `"Sharpie", sans-serif`,
+    body: `"Sharpie", sans-serif`,
   },
   styles: {
     global: {

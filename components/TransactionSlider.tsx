@@ -14,7 +14,7 @@ const TransactionSlider = () => {
   };
 
   const renderButtons = () => {
-    const btnValues = ["Send", "Request", "Fund", "Cash Out"];
+    const btnValues = ["Send", "Request", "Fund", "Cash Out", "Play"];
 
     return btnValues.map((value) => {
       return (
@@ -35,115 +35,17 @@ const TransactionSlider = () => {
     });
   };
 
-  const handleScroll = (dir: string) => {
-    const container = document.getElementById("container");
-    const send = document.getElementById("send");
-    const request = document.getElementById("request");
-    const fund = document.getElementById("fund");
-    const cashOut = document.getElementById("cashout");
-
-    const sendStart = send?.getBoundingClientRect().left;
-    const requestStart = request?.getBoundingClientRect().left;
-    const fundStart = fund?.getBoundingClientRect().left;
-    const cashOutStart = cashOut?.getBoundingClientRect().left;
-
-    // left click actions
-    if (dir === "left") {
-      if (type === "cashout") {
-        container?.scrollBy({
-          left: fundStart,
-          behavior: "smooth",
-        });
-        setType("fund");
-      } else if (type === "fund") {
-        container?.scrollBy({
-          left: requestStart && requestStart,
-          behavior: "smooth",
-        });
-        setType("request");
-      } else if (type === "request") {
-        container?.scrollBy({
-          left: sendStart && sendStart - 100,
-          behavior: "smooth",
-        });
-        setType("send");
-      }
-    }
-
-    // right click actions
-    if (dir === "right") {
-      if (type === "send") {
-        container?.scrollBy({
-          left: requestStart && requestStart + 25,
-          behavior: "smooth",
-        });
-        setType("request");
-      } else if (type === "request") {
-        container?.scrollBy({
-          left: fundStart && fundStart,
-          behavior: "smooth",
-        });
-        setType("fund");
-      } else if (type === "fund") {
-        container?.scrollBy({
-          left: cashOutStart,
-          behavior: "smooth",
-        });
-        setType("cashout");
-      }
-    }
-  };
-
   return (
-    <Flex
-      display={renderReviewPage ? "none" : "flex"}
-      direction="row"
-      px="1rem"
-      py="1rem"
-    >
-      {/* left arrow clickable image */}
-      <Box
-        display={type === "send" ? "none" : "block"}
-        alignSelf="center"
-        // transform="translateX(-0.5rem)"
-        zIndex={1}
-        onClick={() => handleScroll("left")}
-        w="fit-content"
-      >
-        <Image
-          src="arrow-right.gif"
-          alt=""
-          transform="rotate(180deg)"
-          opacity={0.5}
-          w={["6rem", "3rem"]}
-        />
-      </Box>
-      {/* scrollable buttons */}
+    <Flex display={renderReviewPage ? "none" : "flex"} direction="row">
       <HStack
-        pl={type === "send" ? "1rem" : "0rem"}
         id="container"
         overflowX="scroll"
         fontSize="1rem"
-        py="1rem"
-        mx="-2rem"
+        py="2rem"
+        spacing={-6}
       >
         {renderButtons()}
       </HStack>
-      {/* box for right arrow */}
-      <Flex
-        display={type === "cashout" ? "none" : "block"}
-        transform="translateX(0.5rem)"
-        alignSelf="center"
-        zIndex={1}
-        onClick={() => handleScroll("right")}
-      >
-        <Image
-          src="arrow-right.gif"
-          alt=""
-          opacity={0.5}
-          w={["6rem", "3rem"]}
-        />
-      </Flex>
     </Flex>
   );
 };
