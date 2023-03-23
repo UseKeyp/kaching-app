@@ -19,12 +19,10 @@ const Login = () => {
   const router = useRouter();
 
   const handleGoogleLogin = () => {
-    setActiveBtn("google");
     signIn("keyp", undefined, "login_provider=GOOGLE");
   };
 
   const handleDiscordLogin = () => {
-    setActiveBtn("discord");
     signIn("keyp", undefined, "login_provider=DISCORD");
   };
 
@@ -62,12 +60,17 @@ const Login = () => {
           >
             Signup or Login with
           </Box>
-          <HStack alignContent="center">
+          <HStack
+            onMouseEnter={() => setActiveBtn("google")}
+            onMouseLeave={() => setActiveBtn("")}
+          >
             <Button
               variant="login"
               onClick={() => handleGoogleLogin()}
-              bg={activeBtn === "google" ? "googleBlue" : "white"}
-              color={activeBtn === "google" ? "white" : "loginBtnGray"}
+              _hover={{
+                bg: "googleBlue",
+                color: "white",
+              }}
             >
               <Image
                 src={
@@ -87,12 +90,17 @@ const Login = () => {
               <Text ml="1rem">Google</Text>
             </Button>
           </HStack>
-          <Box>
+          <HStack
+            onMouseEnter={() => setActiveBtn("discord")}
+            onMouseLeave={() => setActiveBtn("")}
+          >
             <Button
               variant="login"
               onClick={() => handleDiscordLogin()}
-              bg={activeBtn === "discord" ? "discordBlue" : "white"}
-              color={activeBtn === "discord" ? "white" : "loginBtnGray"}
+              _hover={{
+                bg: "discordBlue",
+                color: "white",
+              }}
             >
               <Image
                 src={
@@ -103,7 +111,13 @@ const Login = () => {
                 alt=""
                 w="2.5rem"
               />
-              <Box position="absolute" ml="0.65rem">
+              <Box
+                position="absolute"
+                ml="0.65rem"
+                _hover={{
+                  color: "#5865F2",
+                }}
+              >
                 <FaDiscord
                   color={activeBtn === "discord" ? "#5865F2" : "white"}
                   size="1.25rem"
@@ -111,7 +125,7 @@ const Login = () => {
               </Box>
               <Text ml="1rem">Discord</Text>
             </Button>
-          </Box>
+          </HStack>
           <Box>
             <Text color="#B0B6C1" fontSize="0.75rem" fontFamily="inter">
               Powered by 🍩 Keyp
