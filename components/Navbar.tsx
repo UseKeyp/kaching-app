@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, useEffect, useState } from "react";
 import {
   Box,
   Heading,
@@ -15,7 +15,15 @@ import useSocialLogo from "../hooks/useSocialLogo";
 import { useFormContext } from "../context/FormContext";
 import { RxCopy } from "react-icons/rx";
 
-const Navbar = () => {
+interface NavbarProps {
+  setNavHeight: Dispatch<number>;
+}
+/**
+ *
+ * @param setNavHeight - sets the height of the navbar. Index.tsx takes this value and passes it to other components to calculate the height of the page
+ * @returns - navbar component
+ */
+const Navbar: React.FC<NavbarProps> = ({ setNavHeight }) => {
   const [openTooltip, setOpenTooltip] = useState(false);
   const { data: session } = useSession();
   const { handleHomePage } = useFormContext();
@@ -43,8 +51,13 @@ const Navbar = () => {
     } else return;
   };
 
+  useEffect(() => {
+    const navHeight = document.getElementById("navbar")?.clientHeight;
+    setNavHeight(navHeight || 0);
+  }, [setNavHeight]);
+
   return (
-    <Flex w="100%" py="1rem">
+    <Flex w="100%" py="1rem" id="navbar">
       {/* Box houses logo */}
       <Box w="45%" alignSelf="start">
         <Link href="/">

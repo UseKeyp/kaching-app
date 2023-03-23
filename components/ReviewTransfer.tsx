@@ -12,13 +12,16 @@ import { useFormContext } from "../context/FormContext";
 import React from "react";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
 
+interface TransferTransferProps {
+  navHeight: number | undefined;
+}
 /**
  * @remarks - this component lets user review the transaction before sending
+ * @param navHeight - height of the navbar. This is used to calculate the height of the page, so the button is always at the bottom
  * @returns - review form that displays the amount, asset, and username of the transaction
  */
-const ReviewTransfer = () => {
+const ReviewTransfer: React.FC<TransferTransferProps> = ({ navHeight }) => {
   const {
-    isActiveGoogle,
     isActiveDiscord,
     amount,
     asset,
@@ -38,74 +41,80 @@ const ReviewTransfer = () => {
 
   return (
     <>
-      <Box fontWeight="extrabold" fontSize="5rem">
-        <HStack
-          color="formBlueDark"
-          fontSize={["4rem", "5rem"]}
-          justifyContent="space-between"
-        >
-          <Box>
-            <Text color="formBlueDark" opacity={0.5}>
-              Send
-            </Text>
-          </Box>
-          <Button
-            variant="none"
-            opacity={0.5}
+      <Box
+        display="flex"
+        flexDirection="column"
+        justifyContent="space-between"
+        h={`calc(100vh - ${navHeight}px)`}
+      >
+        <Box fontWeight="extrabold" fontSize="5rem">
+          <HStack
+            color="formBlueDark"
             fontSize={["4rem", "5rem"]}
-            color="cancelOrange"
-            onClick={() => handleCancel()}
+            justifyContent="space-between"
           >
-            Cancel
-          </Button>
-        </HStack>
-        <SimpleGrid columns={1} spacing={0} mb={"1rem"}>
-          <GridItem>
-            <Text color="formGreen">{amount}</Text>
-          </GridItem>
-          <GridItem my={-2}>
             <Box>
-              <Text color="assetOrange">{asset}</Text>
+              <Text color="formBlueDark" opacity={0.5}>
+                Send
+              </Text>
             </Box>
-          </GridItem>
-          <GridItem my={-2}>
-            <HStack justifyContent="start" px="0.5rem">
-              <Box mr={"1rem"}>
-                <Text color="loginGray">To</Text>
+            <Button
+              variant="none"
+              opacity={0.5}
+              fontSize={["4rem", "5rem"]}
+              color="cancelOrange"
+              onClick={() => handleCancel()}
+            >
+              Cancel
+            </Button>
+          </HStack>
+          <SimpleGrid columns={1} spacing={0} mb={"1rem"}>
+            <GridItem>
+              <Text color="formGreen">{amount}</Text>
+            </GridItem>
+            <GridItem my={-2}>
+              <Box>
+                <Text color="assetOrange">{asset}</Text>
               </Box>
-              <Box textAlign="center" placeSelf="center">
-                {/* vector bg image*/}
-                <Image
-                  src={"social-bg-dark.svg"}
-                  alt=""
-                  ml="0.15rem"
-                  w="4rem"
-                  color="black"
-                />
-                <Box position="absolute" mt="-3.15rem" ml="1rem">
-                  {/* discord logo */}
-                  {isActiveDiscord ? (
-                    <FaDiscord color="white" size="2.25rem" />
-                  ) : (
-                    <FaGoogle color="white" size="2.25rem" />
-                  )}
+            </GridItem>
+            <GridItem my={-2}>
+              <HStack justifyContent="start" px="0.5rem">
+                <Box mr={"1rem"}>
+                  <Text color="loginGray">To</Text>
                 </Box>
-              </Box>
-            </HStack>
-          </GridItem>
-          <GridItem my={-2}>
-            <Text color="formLightBlue">{username}</Text>
-          </GridItem>
-          <GridItem>
-            <Box mx="-1.5rem" mt="2rem">
-              <Link href="/confirmation">
-                <Button onClick={() => handleSendTx()} variant="formGreen">
-                  Send!
-                </Button>
-              </Link>
-            </Box>
-          </GridItem>
-        </SimpleGrid>
+                <Box textAlign="center" placeSelf="center">
+                  {/* vector bg image*/}
+                  <Image
+                    src={"social-bg-dark.svg"}
+                    alt=""
+                    ml="0.15rem"
+                    w="4rem"
+                    color="black"
+                    mt="-4"
+                  />
+                  <Box mt="-3.15rem" ml="1rem">
+                    {/* discord logo */}
+                    {isActiveDiscord ? (
+                      <FaDiscord color="white" size="2.25rem" />
+                    ) : (
+                      <FaGoogle color="white" size="2.25rem" />
+                    )}
+                  </Box>
+                </Box>
+              </HStack>
+            </GridItem>
+            <GridItem my={-2}>
+              <Text color="formLightBlue">{username}</Text>
+            </GridItem>
+          </SimpleGrid>
+        </Box>
+        <Box mt="1rem" mx="-1.5rem" mb="-1rem">
+          <Link href="/confirmation">
+            <Button onClick={() => handleSendTx()} variant="formGreen">
+              Send!
+            </Button>
+          </Link>
+        </Box>
       </Box>
     </>
   );

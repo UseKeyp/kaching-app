@@ -35,7 +35,12 @@ const Login = () => {
   return (
     <>
       <Box textAlign="center" fontFamily="sharpie" px="0.5rem">
-        <Heading as="h1" color="pink" fontSize="8rem" fontWeight="extrabold">
+        <Heading
+          as="h1"
+          color="pink"
+          fontSize={["5.5rem", "8rem"]}
+          fontWeight="extrabold"
+        >
           <Text fontFamily="sharpie">Kaching</Text>
         </Heading>
 
