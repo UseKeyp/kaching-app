@@ -1,13 +1,15 @@
 import React, { ReactNode } from "react";
-import { Box, Flex } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import HeadMetadata from "./HeadMetadata";
-import Navbar from "./Navbar";
+import { useSession } from "next-auth/react";
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const { data: session } = useSession();
+
   return (
     <>
       <HeadMetadata />
@@ -21,9 +23,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         fontFamily="Sharpie"
         px="1rem"
         h="100vh"
-        // h="100%"
+        overflowY="auto"
       >
-        <Navbar />
         {children}
       </Box>
     </>

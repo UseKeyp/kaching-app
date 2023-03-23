@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import TransferForm from "../components/TransferForm";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
@@ -8,6 +8,7 @@ import Fund from "../components/Fund";
 import CashOut from "../components/CashOut";
 import { Box } from "@chakra-ui/react";
 import ReviewTransfer from "../components/ReviewTransfer";
+import Navbar from "components/Navbar";
 
 // import Request from "../components/Request";
 
@@ -17,22 +18,27 @@ import ReviewTransfer from "../components/ReviewTransfer";
  */
 
 const Home = () => {
+  // TODO: use navHeight to calculate the height of the page. Subtract navHeight from 100vh to get the height of the page. This will align btn at the bottom
+  const [navHeight, setNavHeight] = useState<number>();
+  const [txSliderHeight, setTxSliderHeight] = useState<number>(0);
   const { type, renderTxPage, renderReviewPage } = useFormContext();
   const session = useSession();
   const router = useRouter();
 
-  console.log(session);
-
   const componentLogic = () => {
     if (type === "send") {
       if (renderTxPage) {
-        return <TransferForm />;
+        return (
+          <TransferForm navHeight={navHeight} txSliderHeight={txSliderHeight} />
+        );
       } else if (renderReviewPage) {
-        return <ReviewTransfer />;
+        return <ReviewTransfer navHeight={navHeight} />;
       }
     } else if (type === "request") {
       // TODO: Replace <TransferForm /> with <Request />
-      return <TransferForm />;
+      return (
+        <TransferForm navHeight={navHeight} txSliderHeight={txSliderHeight} />
+      );
       // return <Request />;
     } else if (type === "fund") {
       return <Fund />;
@@ -49,7 +55,8 @@ const Home = () => {
 
   return (
     <Box>
-      <TransactionSlider />
+      <Navbar setNavHeight={setNavHeight} />
+      <TransactionSlider setTxSliderHeight={setTxSliderHeight} />
       {componentLogic()}
     </Box>
   );
