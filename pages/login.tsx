@@ -37,7 +37,7 @@ const Login = () => {
   return (
     <>
       <Box textAlign="center" fontFamily="sharpie" px="0.5rem">
-        <Heading as="h1" color="pink" fontSize="5rem" fontWeight="extrabold">
+        <Heading as="h1" color="pink" fontSize="8rem" fontWeight="extrabold">
           <Text fontFamily="sharpie">Kaching</Text>
         </Heading>
 
@@ -51,7 +51,7 @@ const Login = () => {
           m="auto"
           spacing={3}
           textAlign="left"
-          px={[0, "5rem", "10rem", "20rem"]}
+          px={[0, 0, "10rem", "20rem"]}
         >
           <Box
             w="full"
