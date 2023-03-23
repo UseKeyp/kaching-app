@@ -71,11 +71,7 @@ const Confirmation = () => {
             </Box>
           </Stack>
         </VStack>
-        <Box
-          mt="1rem"
-          mx="-1.5rem"
-          // mb="-0.5rem"
-        >
+        <Box mt="1rem" mx="-1.5rem" mb="-1.5rem">
           <Link href="/">
             <Button variant="formBlue">Return</Button>
           </Link>
