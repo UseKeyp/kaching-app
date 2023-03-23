@@ -2,6 +2,7 @@ import { defineStyleConfig, StyleFunctionProps } from "@chakra-ui/react";
 
 const Button = defineStyleConfig({
   baseStyle: {
+    fontFamily: "Sharpie",
     fontWeight: "bold",
     fontSize: "4rem",
     rounded: "none",
@@ -74,15 +75,15 @@ const Button = defineStyleConfig({
     login: {
       w: "full",
       color: "loginBtnGray",
-      fontFamily: "Inter",
       fontWeight: "normal",
-      fontSize: "15px",
-      lineHeight: "20.8px",
+      fontSize: "2.5rem",
       border: "1px",
       borderColor: "#E5E7EB",
       textAlign: "left",
       justifyContent: "start",
       borderRadius: "lg",
+      h: "fit",
+      rounded: "md",
     },
 
     ramps: (props: StyleFunctionProps) => ({

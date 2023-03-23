@@ -20,7 +20,8 @@ export const theme = extendTheme({
   },
   colors: {
     pink: "#F5287E",
-    discordBlue: "#4E65F3",
+    discordBlue: "#5865F2",
+    googleBlue: "#4285F4",
     formGreen: "#5DBA14",
     formBlueDark: "#1499DA",
     formLightBlue: "#89DCFF",
