@@ -113,7 +113,7 @@ const Login = () => {
             </Button>
           </Box>
           <Box>
-            <Text color="#B0B6C1" fontSize="9px">
+            <Text color="#B0B6C1" fontSize="0.75rem" fontFamily="inter">
               Powered by 🍩 Keyp
             </Text>
           </Box>
