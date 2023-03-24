@@ -4,7 +4,7 @@ import Layout from "../components/layout";
 import { SessionProvider } from "next-auth/react";
 import { theme } from "../theme";
 import { FormProvider } from "../context/FormContext";
-import { SizeProvider } from "context/sizeContext";
+import { SizeProvider } from "../context/SizeContext";
 import Fonts from "../components/Fonts";
 import "@fontsource/inter";
 

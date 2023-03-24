@@ -9,7 +9,6 @@ import CashOut from "../components/CashOut";
 import { Box } from "@chakra-ui/react";
 import ReviewTransfer from "../components/ReviewTransfer";
 import Navbar from "components/Navbar";
-import { useSizeProvider } from "context/sizeContext";
 
 // import Request from "../components/Request";
 
@@ -20,7 +19,6 @@ import { useSizeProvider } from "context/sizeContext";
 
 const Home = () => {
   const { type, renderTxPage, renderReviewPage } = useFormContext();
-  const { navHeight, txSliderHeight } = useSizeProvider();
   const session = useSession();
   const router = useRouter();
 

@@ -1,7 +1,7 @@
-import React, { Dispatch, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Box, Button, Flex, HStack, Image } from "@chakra-ui/react";
 import { useFormContext } from "../context/FormContext";
-import { useSizeProvider } from "context/sizeContext";
+import { useSizeProvider } from "../context/SizeContext";
 
 /**
  * @remarks - this component is used to determine the "type" of transaction
