@@ -30,7 +30,7 @@ const CashOut = () => {
         <Heading as="h3">
           <Text color="socialIconsGray">Withdraw from your Wallet</Text>
         </Heading>
-        <VStack spacing="1.5rem" mt="1.5rem">
+        <VStack spacing="1.5rem" mt="2.5rem">
           {/* <Box w="full">
           <Button
             variant="ramps"

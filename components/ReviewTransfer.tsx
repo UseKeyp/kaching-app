@@ -19,6 +19,7 @@ import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
  */
 const ReviewTransfer = () => {
   const {
+    type,
     isActiveDiscord,
     amount,
     asset,
@@ -102,7 +103,7 @@ const ReviewTransfer = () => {
       <Box mt="1rem" mx="-1.5rem" mb="-1rem">
         <Link href="/confirmation">
           <Button onClick={() => handleSendTx()} variant="formGreen">
-            Send!
+            {type === "send" ? "Send!" : "Request!"}
           </Button>
         </Link>
       </Box>

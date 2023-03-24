@@ -9,7 +9,6 @@ import CashOut from "../components/CashOut";
 import { Box } from "@chakra-ui/react";
 import ReviewTransfer from "../components/ReviewTransfer";
 import Navbar from "components/Navbar";
-// import Request from "../components/Request";
 
 /**
  * @remarks if user selects "send", render Send component, else render "Request"
@@ -22,16 +21,12 @@ const Home = () => {
   const router = useRouter();
 
   const componentLogic = () => {
-    if (type === "send") {
+    if (type === "send" || type === "request") {
       if (renderTxPage) {
         return <TransferForm />;
       } else if (renderReviewPage) {
         return <ReviewTransfer />;
       }
-    } else if (type === "request") {
-      // TODO: Replace <TransferForm /> with <Request />
-      return <TransferForm />;
-      // return <Request />;
     } else if (type === "fund") {
       return <Fund />;
     } else if (type === "cashout") {

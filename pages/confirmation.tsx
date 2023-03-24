@@ -11,14 +11,17 @@ import {
 } from "@chakra-ui/react";
 import Navbar from "components/Navbar";
 import ButtonSpacingWrapper from "components/ButtonSpacingWrapper";
+import { useFormContext } from "context/FormContext";
 
 /**
  * @remarks - this component displays the transaction confirmation. ButtonSpacingWrapper is used place "Return" button at the bottom of the page
  * @returns - confirmation page that displays the amount, asset, and username of the transaction
  */
 const Confirmation = () => {
+  const { type } = useFormContext();
+  // TODO: add link to transaction in block explorer
   const handleViewTx = () => {
-    // TODO: add link to transaction in block explorer
+    null;
   };
 
   return (
@@ -46,10 +49,13 @@ const Confirmation = () => {
               <Text color="assetOrange">{/* {asset} */}</Text>
             </HStack>
             <Box>
-              <Text color="loginGray">Sent to</Text>
+              <Text color="loginGray">
+                {type === "send" ? "Sent to" : "Request from"}
+              </Text>
             </Box>
             <Box>
               <Text color="formBlueDark">
+                {/* TODO: fix with dynamic value */}
                 {/* {username} */}
                 user@gmail.com
               </Text>
@@ -57,11 +63,15 @@ const Confirmation = () => {
           </Stack>
           <Stack w="full" spacing={"-0.75rem"}>
             <Box>
-              <Text color="lightGray">Transaction Sent!</Text>
+              <Text color="lightGray">
+                {type === "send" ? "Transaction Sent!" : "Request Sent!"}
+              </Text>
             </Box>
-            <Box onClick={handleViewTx}>
-              <Text color="formBlueDark">View</Text>
-            </Box>
+            {type === "send" && (
+              <Box onClick={handleViewTx}>
+                <Text color="formBlueDark">View</Text>
+              </Box>
+            )}
           </Stack>
         </VStack>
         <Box mt="1rem" mx="-1.5rem" mb="-1.5rem">
