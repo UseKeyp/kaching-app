@@ -42,12 +42,12 @@ const Fund = () => {
   };
 
   return (
-    <ButtonSpacingWrapper isTransactionSlider={false}>
-      <Box>
+    <ButtonSpacingWrapper isTransactionSlider={true}>
+      <Box mt="1rem">
         <Heading as="h3">
           <Text color="socialIconsGray">Fund your Wallet</Text>
         </Heading>
-        <VStack spacing="1.5rem" mt="1.5rem">
+        <VStack spacing="1.5rem" mt="2.5rem">
           <Box w="full">
             <Button
               variant="ramps"

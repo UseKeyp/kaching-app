@@ -9,7 +9,6 @@ import CashOut from "../components/CashOut";
 import { Box } from "@chakra-ui/react";
 import ReviewTransfer from "../components/ReviewTransfer";
 import Navbar from "components/Navbar";
-
 // import Request from "../components/Request";
 
 /**

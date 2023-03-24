@@ -4,6 +4,7 @@ const Tooltip = {
     color: "pink",
     rounded: "md",
     fontSize: "1rem",
+    fontFamily: "inter",
   },
 };
 

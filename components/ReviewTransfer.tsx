@@ -99,7 +99,7 @@ const ReviewTransfer = () => {
           </GridItem>
         </SimpleGrid>
       </Box>
-      <Box mt={["1rem"]} mx="-1.5rem" mb="-1rem">
+      <Box mt="1rem" mx="-1.5rem" mb="-1rem">
         <Link href="/confirmation">
           <Button onClick={() => handleSendTx()} variant="formGreen">
             Send!
