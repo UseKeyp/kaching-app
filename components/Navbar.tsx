@@ -14,7 +14,7 @@ import { FaGoogle, FaDiscord } from "react-icons/fa";
 import useSocialLogo from "../hooks/useSocialLogo";
 import { useFormContext } from "../context/FormContext";
 import { RxCopy } from "react-icons/rx";
-import { useSizeProvider } from "context/sizeContext";
+import { useSizeProvider } from "../context/SizeContext";
 
 /**
  *

@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { Box } from "@chakra-ui/react";
-import { useSizeProvider } from "context/sizeContext";
+import { useSizeProvider } from "../context/SizeContext";
 
 interface ButtonSpacingWrapperProps {
   children: ReactNode;
