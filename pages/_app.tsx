@@ -4,6 +4,7 @@ import Layout from "../components/layout";
 import { SessionProvider } from "next-auth/react";
 import { theme } from "../theme";
 import { FormProvider } from "../context/FormContext";
+import { SizeProvider } from "context/sizeContext";
 import Fonts from "../components/Fonts";
 import "@fontsource/inter";
 
@@ -17,11 +18,13 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
     <ChakraProvider theme={theme}>
       <Fonts />
       <SessionProvider session={session}>
-        <FormProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </FormProvider>
+        <SizeProvider>
+          <FormProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </FormProvider>
+        </SizeProvider>
       </SessionProvider>
     </ChakraProvider>
   );

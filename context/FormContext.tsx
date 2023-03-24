@@ -38,9 +38,11 @@ export const FormContext = createContext<{
   setUsername: null,
   handleHomePage: undefined,
 });
+
 interface FormProviderProps {
   children: ReactNode;
 }
+
 export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
   const [type, setType] = useState("send");
   const [renderTxPage, setRenderTxPage] = useState(true);

@@ -9,6 +9,7 @@ import CashOut from "../components/CashOut";
 import { Box } from "@chakra-ui/react";
 import ReviewTransfer from "../components/ReviewTransfer";
 import Navbar from "components/Navbar";
+import { useSizeProvider } from "context/sizeContext";
 
 // import Request from "../components/Request";
 
@@ -18,27 +19,21 @@ import Navbar from "components/Navbar";
  */
 
 const Home = () => {
-  // TODO: use navHeight to calculate the height of the page. Subtract navHeight from 100vh to get the height of the page. This will align btn at the bottom
-  const [navHeight, setNavHeight] = useState<number>();
-  const [txSliderHeight, setTxSliderHeight] = useState<number>(0);
   const { type, renderTxPage, renderReviewPage } = useFormContext();
+  const { navHeight, txSliderHeight } = useSizeProvider();
   const session = useSession();
   const router = useRouter();
 
   const componentLogic = () => {
     if (type === "send") {
       if (renderTxPage) {
-        return (
-          <TransferForm navHeight={navHeight} txSliderHeight={txSliderHeight} />
-        );
+        return <TransferForm />;
       } else if (renderReviewPage) {
-        return <ReviewTransfer navHeight={navHeight} />;
+        return <ReviewTransfer />;
       }
     } else if (type === "request") {
       // TODO: Replace <TransferForm /> with <Request />
-      return (
-        <TransferForm navHeight={navHeight} txSliderHeight={txSliderHeight} />
-      );
+      return <TransferForm />;
       // return <Request />;
     } else if (type === "fund") {
       return <Fund />;
@@ -55,8 +50,8 @@ const Home = () => {
 
   return (
     <Box>
-      <Navbar setNavHeight={setNavHeight} />
-      <TransactionSlider setTxSliderHeight={setTxSliderHeight} />
+      <Navbar />
+      <TransactionSlider />
       {componentLogic()}
     </Box>
   );

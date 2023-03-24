@@ -14,20 +14,20 @@ import { FaGoogle, FaDiscord } from "react-icons/fa";
 import useSocialLogo from "../hooks/useSocialLogo";
 import { useFormContext } from "../context/FormContext";
 import { RxCopy } from "react-icons/rx";
+import { useSizeProvider } from "context/sizeContext";
 
-interface NavbarProps {
-  setNavHeight: Dispatch<number>;
-}
 /**
  *
  * @param setNavHeight - sets the height of the navbar. Index.tsx takes this value and passes it to other components to calculate the height of the page
  * @returns - navbar component
  */
-const Navbar: React.FC<NavbarProps> = ({ setNavHeight }) => {
+const Navbar = () => {
   const [openTooltip, setOpenTooltip] = useState(false);
   const { data: session } = useSession();
   const { handleHomePage } = useFormContext();
   const socialLogo = useSocialLogo(session);
+
+  const { setNavHeight } = useSizeProvider();
 
   // TODO: Fix typescript errors below
   // @ts-ignore
