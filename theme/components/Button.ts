@@ -55,23 +55,23 @@ const Button = defineStyleConfig({
       px: "-4rem",
       h: "fit",
     }),
-    formGrayOld: (props: StyleFunctionProps) => ({
-      border: "1px",
-      boxShadow: "4px 4px 0px 0px #B0B6C1, 5px 5px 0px 1px #80858E",
-      fontSize: "4rem",
-      color: "socialIconsGray",
-      my: "1rem",
-      w: "full",
-      h: "fit",
-      _hover: {
-        bgColor: "#fafafa",
-      },
-      _active: {
-        transform: "translateY(2px) translateX(2px)",
-        bgColor: "#fafafa",
-        boxShadow: "0px 0px 0px 0px #B0B6C1, 2px 2px 0px 0px #80858E",
-      },
-    }),
+    // formGrayOld: (props: StyleFunctionProps) => ({
+    //   border: "1px",
+    //   boxShadow: "4px 4px 0px 0px #B0B6C1, 5px 5px 0px 1px #80858E",
+    //   fontSize: "4rem",
+    //   color: "socialIconsGray",
+    //   my: "1rem",
+    //   w: "full",
+    //   h: "fit",
+    //   _hover: {
+    //     bgColor: "#fafafa",
+    //   },
+    //   _active: {
+    //     transform: "translateY(2px) translateX(2px)",
+    //     bgColor: "#fafafa",
+    //     boxShadow: "0px 0px 0px 0px #B0B6C1, 2px 2px 0px 0px #80858E",
+    //   },
+    // }),
     login: {
       w: "full",
       color: "loginBtnGray",
@@ -98,7 +98,6 @@ const Button = defineStyleConfig({
       py: "2rem",
     }),
   },
-
   defaultProps: {
     size: "md",
     variant: "formGray",

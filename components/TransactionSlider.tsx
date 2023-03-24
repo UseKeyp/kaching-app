@@ -1,19 +1,16 @@
 import React, { Dispatch, useEffect } from "react";
 import { Box, Button, Flex, HStack, Image } from "@chakra-ui/react";
 import { useFormContext } from "../context/FormContext";
+import { useSizeProvider } from "context/sizeContext";
 
-interface TransactionSliderProps {
-  setTxSliderHeight: Dispatch<number>;
-}
 /**
  * @remarks - this component is used to determine the "type" of transaction
  * @param setTxSliderHeight - sets the height of the transaction slider. Index.tsx takes this value and passes it to other components to calculate the height of the page
  * @returns - div containing scrollable buttons
  */
-const TransactionSlider: React.FC<TransactionSliderProps> = ({
-  setTxSliderHeight,
-}) => {
+const TransactionSlider = () => {
   const { setType, type, renderReviewPage } = useFormContext();
+  const { setTxSliderHeight } = useSizeProvider();
 
   const handletype = (e: any) => {
     setType(e.target.id);

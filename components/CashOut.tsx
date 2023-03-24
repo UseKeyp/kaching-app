@@ -3,7 +3,12 @@ import { Box, Button, Heading, Image, Text, VStack } from "@chakra-ui/react";
 import UseApi from "../hooks/useApi";
 import { useSession } from "next-auth/react";
 import { useFormContext } from "context/FormContext";
+import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
 
+/**
+ * @remarks - this component lets user withdraw from their wallet. ButtonSpacingWrapper is used place "Back" button at the bottom of the page
+ * @returns - CashOut component that displays offramps for users to withdraw from their wallet
+ */
 const CashOut = () => {
   const { data: session } = useSession();
   const { handleHomePage } = useFormContext();
@@ -20,7 +25,7 @@ const CashOut = () => {
   };
 
   return (
-    <Box w="full" mt="3rem">
+    <ButtonSpacingWrapper isTransactionSlider={true}>
       <Box h="100vh" alignContent="space-around">
         <Heading as="h3">
           <Text color="socialIconsGray">Withdraw from your Wallet</Text>
@@ -46,13 +51,13 @@ const CashOut = () => {
             </Button>
           </Box>
         </VStack>
-        <Box w="full" mt="3rem">
-          <Button variant="formBlue" onClick={() => handleHomePage()}>
-            Back
-          </Button>
-        </Box>
       </Box>
-    </Box>
+      <Box mt="1rem" mx="-1.5rem" mb="-1rem">
+        <Button variant="formBlue" onClick={() => handleHomePage()}>
+          Back
+        </Button>
+      </Box>
+    </ButtonSpacingWrapper>
   );
 };
 

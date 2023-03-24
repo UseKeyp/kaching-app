@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Button,
-  Flex,
   Heading,
   HStack,
   Link,
@@ -11,27 +10,21 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import Navbar from "components/Navbar";
+import ButtonSpacingWrapper from "components/ButtonSpacingWrapper";
 
 /**
- * @remarks - this component displays the transaction confirmation
+ * @remarks - this component displays the transaction confirmation. ButtonSpacingWrapper is used place "Return" button at the bottom of the page
  * @returns - confirmation page that displays the amount, asset, and username of the transaction
  */
 const Confirmation = () => {
-  // TODO: use navHeight to calculate the height of the page. Subtract navHeight from 100vh to get the height of the page. This will align btn at the bottom
-  const [navHeight, setNavHeight] = useState<number>();
   const handleViewTx = () => {
     // TODO: add link to transaction in block explorer
   };
 
   return (
     <>
-      <Navbar setNavHeight={setNavHeight} />
-      <Box
-        display="flex"
-        flexDirection="column"
-        justifyContent="space-between"
-        h={`calc(100vh - ${navHeight}px)`}
-      >
+      <Navbar />
+      <ButtonSpacingWrapper isTransactionSlider={false}>
         <VStack fontWeight="extrabold" fontSize="3rem">
           <Box w="full">
             <Heading
@@ -76,7 +69,7 @@ const Confirmation = () => {
             <Button variant="formBlue">Return</Button>
           </Link>
         </Box>
-      </Box>
+      </ButtonSpacingWrapper>
     </>
   );
 };
