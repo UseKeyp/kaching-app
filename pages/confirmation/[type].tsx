@@ -11,14 +11,16 @@ import {
 } from "@chakra-ui/react";
 import Navbar from "components/Navbar";
 import ButtonSpacingWrapper from "components/ButtonSpacingWrapper";
-import { useFormContext } from "context/FormContext";
+import { useRouter } from "next/router";
 
 /**
  * @remarks - this component displays the transaction confirmation. ButtonSpacingWrapper is used place "Return" button at the bottom of the page
  * @returns - confirmation page that displays the amount, asset, and username of the transaction
  */
 const Confirmation = () => {
-  const { type } = useFormContext();
+  const router = useRouter();
+  const type = router.query.type;
+
   // TODO: add link to transaction in block explorer
   const handleViewTx = () => {
     null;
@@ -50,7 +52,7 @@ const Confirmation = () => {
             </HStack>
             <Box>
               <Text color="loginGray">
-                {type === "send" ? "Sent to" : "Request from"}
+                {type === "send" ? "Sent to" : "Request send to"}
               </Text>
             </Box>
             <Box>

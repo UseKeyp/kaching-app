@@ -101,7 +101,7 @@ const ReviewTransfer = () => {
         </SimpleGrid>
       </Box>
       <Box mt="1rem" mx="-1.5rem" mb="-1rem">
-        <Link href="/confirmation">
+        <Link href={`/confirmation/${type === "send" ? "send" : "request"}`}>
           <Button onClick={() => handleSendTx()} variant="formGreen">
             {type === "send" ? "Send!" : "Request!"}
           </Button>
