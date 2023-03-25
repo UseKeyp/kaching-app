@@ -30,6 +30,7 @@ const ReviewTransfer = () => {
     username,
     setRenderTxPage,
     setRenderReviewPage,
+    setIsConfirming,
   } = useFormContext();
   const { data: session } = useSession();
 
@@ -61,9 +62,11 @@ const ReviewTransfer = () => {
 
   const handleSendTx = (type: string) => {
     setRenderReviewPage(false);
+    setIsConfirming(true);
     if (type === "send") {
-      // transfer API call
+      // transfer endpoint API call
     } else if (type === "request") {
+      // call sendEmail nodemailer function
     }
   };
 

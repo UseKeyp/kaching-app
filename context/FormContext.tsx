@@ -10,6 +10,8 @@ export const FormContext = createContext<{
   setRenderTxPage: any;
   renderReviewPage: boolean;
   setRenderReviewPage: any;
+  isConfirming: boolean;
+  setIsConfirming: any;
   type: string;
   setType: any;
   amount: number | undefined;
@@ -28,6 +30,8 @@ export const FormContext = createContext<{
   setRenderTxPage: null,
   renderReviewPage: false,
   setRenderReviewPage: null,
+  isConfirming: false,
+  setIsConfirming: null,
   type: "send",
   setType: null,
   amount: undefined,
@@ -47,6 +51,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
   const [type, setType] = useState("send");
   const [renderTxPage, setRenderTxPage] = useState(true);
   const [renderReviewPage, setRenderReviewPage] = useState(false);
+  const [isConfirming, setIsConfirming] = useState(false);
   const [isActiveGoogle, setIsActiveGoogle] = useState(true);
   const [isActiveDiscord, setIsActiveDiscord] = useState(false);
   const [amount, setAmount] = useState<number | undefined>();
@@ -55,7 +60,6 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
 
   // TODO: fix return type. Without "return" it throws an error
   const handleHomePage = () => {
-    console.log("home");
     setType("send");
     setRenderTxPage(true);
     setRenderReviewPage(false);
@@ -83,6 +87,8 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
     setRenderTxPage,
     renderReviewPage,
     setRenderReviewPage,
+    isConfirming,
+    setIsConfirming,
     handleHomePage,
   };
 
@@ -107,6 +113,8 @@ export const useFormContext = () => {
     setRenderTxPage,
     renderReviewPage,
     setRenderReviewPage,
+    isConfirming,
+    setIsConfirming,
     handleHomePage,
   } = useContext(FormContext);
 
@@ -127,6 +135,8 @@ export const useFormContext = () => {
     setRenderTxPage,
     renderReviewPage,
     setRenderReviewPage,
+    isConfirming,
+    setIsConfirming,
     handleHomePage,
   };
 };

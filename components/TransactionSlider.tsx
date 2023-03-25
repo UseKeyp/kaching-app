@@ -9,7 +9,7 @@ import { useSizeProvider } from "../context/SizeContext";
  * @returns - div containing scrollable buttons
  */
 const TransactionSlider = () => {
-  const { setType, type, renderReviewPage } = useFormContext();
+  const { setType, type, renderReviewPage, isConfirming } = useFormContext();
   const { setTxSliderHeight } = useSizeProvider();
 
   const handletype = (e: any) => {
@@ -51,7 +51,7 @@ const TransactionSlider = () => {
 
   return (
     <Flex
-      display={renderReviewPage ? "none" : "flex"}
+      display={renderReviewPage || isConfirming ? "none" : "flex"}
       direction="row"
       mx="-1rem"
       id="txSlider"
