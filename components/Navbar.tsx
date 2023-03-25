@@ -57,8 +57,8 @@ const Navbar = () => {
   }, [setNavHeight]);
 
   return (
-    <Flex w="100%" py="1rem" id="navbar">
-      {/* Box houses logo */}
+    <Flex w="100%" py="1rem" id="navbar" fontWeight="medium">
+      {/* Box holds logo */}
       <Box w="45%" alignSelf="start">
         <Link href="/">
           <Heading as="h1" color="pink" onClick={() => handleHomePage()}>
@@ -66,7 +66,7 @@ const Navbar = () => {
           </Heading>
         </Link>
       </Box>
-      {/* VStack houses everything else */}
+      {/* VStack holds everything else */}
       <VStack
         w="55%"
         alignItems="end"
@@ -74,8 +74,8 @@ const Navbar = () => {
         fontSize={["0.85rem", "1rem", "1.25rem", "1.25rem"]}
       >
         {session && (
-          // HStack houses address and sign out
-          <HStack fontWeight="normal" color="loginBtnGray" mb="0.5rem">
+          // HStack holds address and sign out
+          <HStack color="loginBtnGray" mb="0.5rem">
             <HStack>
               <Text>
                 {address?.slice(0, 7)}
@@ -98,12 +98,10 @@ const Navbar = () => {
             </Box>
           </HStack>
         )}
-        {/* HStack houses social logo and username */}
+        {/* HStack holds social logo and username */}
         <HStack>
           <Box>{renderSocialLogo()}</Box>
-          <Text fontWeight="medium" color="formBlueDark">
-            {username}
-          </Text>
+          <Text color="formBlueDark">{username}</Text>
         </HStack>
       </VStack>
     </Flex>

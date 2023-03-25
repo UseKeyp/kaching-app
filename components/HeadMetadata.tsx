@@ -12,7 +12,7 @@ const HeadMetadata = () => {
       <link rel="icon" href="/favicon.ico" />
       <link
         rel="preload"
-        href="fonts/sharpie/Sharpie-Variable.woff2"
+        href="fonts/sharpie/Sharpie-Extrabold.woff2"
         as="font"
         type="font/woff2"
         crossOrigin="anonymous"

@@ -46,12 +46,12 @@ const ReviewTransfer = () => {
   console.log(fromEmail);
 
   // TODO: replace variables with: { amount, asset, fromEmail, username }
-  const sendMail = useNodeMailer(
-    5,
-    "USDC",
-    "starrmikeh@gmail.com",
-    "starrmikeh@gmail.com"
-  );
+  // const sendMail = useNodeMailer(
+  //   5,
+  //   "USDC",
+  //   "starrmikeh@gmail.com",
+  //   "starrmikeh@gmail.com"
+  // );
 
   const handleCancel = () => {
     setRenderReviewPage(false);

@@ -17,7 +17,13 @@ const TransactionSlider = () => {
   };
 
   const renderButtons = () => {
-    const btnValues = ["Send", "Request", "Fund", "Cash Out", "Play"];
+    const btnValues = [
+      "Send",
+      "Request",
+      "Fund",
+      "Cash Out",
+      // "Play"
+    ];
 
     return btnValues.map((value) => {
       return (

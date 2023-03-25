@@ -1,15 +1,28 @@
 import React, { ReactNode } from "react";
 import { Box } from "@chakra-ui/react";
 import HeadMetadata from "./HeadMetadata";
-import { useSession } from "next-auth/react";
+import localFont from "@next/font/local";
+
+export const sharpie = localFont({
+  src: [
+    {
+      path: "../public/fonts/sharpie/Sharpie-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/sharpie/Sharpie-Extrabold.woff2",
+      weight: "800",
+      style: "normal",
+    },
+  ],
+});
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const { data: session } = useSession();
-
   return (
     <>
       <HeadMetadata />
