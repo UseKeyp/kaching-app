@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useFormContext } from "../context/FormContext";
-import React from "react";
+import React, { useState } from "react";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
 import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
 import useNodeMailer from "hooks/useNodemailer";
@@ -21,6 +21,7 @@ import UseApi from "hooks/useApi";
  * @returns - review form that displays the amount, asset, and username of the transaction
  */
 const ReviewTransfer = () => {
+  const [fromEmail, setFromEmail] = useState<string>();
   const {
     type,
     isActiveDiscord,
@@ -33,17 +34,17 @@ const ReviewTransfer = () => {
   const { data: session } = useSession();
 
   const getFromEmail = async () => {
-    const request = await UseApi(
+    const fetchData = await UseApi(
       "users",
       // @ts-ignore
       session?.user?.id,
       // @ts-ignore
       session?.user?.accessToken
     );
-    if (request?.url) window.location = request?.url;
+    const email = fetchData?.email;
+    setFromEmail(email);
   };
-  const fromEmail = getFromEmail();
-  console.log(fromEmail);
+  getFromEmail();
 
   // TODO: replace variables with: { amount, asset, fromEmail, username }
   // const sendMail = useNodeMailer(

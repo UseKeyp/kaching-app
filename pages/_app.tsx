@@ -6,8 +6,23 @@ import { theme } from "../theme";
 import { FormProvider } from "../context/FormContext";
 import { SizeProvider } from "../context/SizeContext";
 import Fonts from "../components/Fonts";
-// import { sharpie } from "../components/layout";
 import "@fontsource/inter";
+// import localFont from "@next/font/local";
+
+// const sharpie = localFont({
+//   src: [
+//     {
+//       path: "../public/fonts/sharpie/Sharpie-Regular.woff2",
+//       weight: "400",
+//     },
+//     {
+//       path: "../public/fonts/sharpie/Sharpie-Extrabold.woff2",
+//       weight: "800",
+//     },
+//   ],
+//   preload: true,
+//   display: "swap",
+// });
 
 interface AppProps {
   Component: any;
