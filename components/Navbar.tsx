@@ -1,4 +1,4 @@
-import React, { Dispatch, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Heading,
@@ -62,7 +62,7 @@ const Navbar = () => {
       <Box w="45%" alignSelf="start">
         <Link href="/">
           <Heading as="h1" color="pink" onClick={() => handleHomePage()}>
-            <Text fontWeight="extrabold">Ka-ching</Text>
+            <Text fontWeight="extrabold">Kaching</Text>
           </Heading>
         </Link>
       </Box>

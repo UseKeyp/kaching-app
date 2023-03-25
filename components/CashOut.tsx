@@ -17,7 +17,7 @@ const CashOut = () => {
     const request = await UseApi(
       "offramps",
       rampType,
-      // TODO: Fix typescript errors below
+      // TODO: Fix typescript errors belo
       // @ts-ignore
       session?.user?.accessToken
     );

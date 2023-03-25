@@ -8,10 +8,13 @@ import {
   SimpleGrid,
   Text,
 } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 import { useFormContext } from "../context/FormContext";
 import React from "react";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
 import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
+import useNodeMailer from "hooks/useNodemailer";
+import UseApi from "hooks/useApi";
 
 /**
  * @remarks - this component lets user review the transaction before sending. ButtonSpacingWrapper is used place "Send" button at the bottom of the page
@@ -27,14 +30,40 @@ const ReviewTransfer = () => {
     setRenderTxPage,
     setRenderReviewPage,
   } = useFormContext();
+  const { data: session } = useSession();
+
+  const getFromEmail = async () => {
+    const request = await UseApi(
+      "users",
+      // @ts-ignore
+      session?.user?.id,
+      // @ts-ignore
+      session?.user?.accessToken
+    );
+    if (request?.url) window.location = request?.url;
+  };
+  const fromEmail = getFromEmail();
+  console.log(fromEmail);
+
+  // TODO: replace variables with: { amount, asset, fromEmail, username }
+  const sendMail = useNodeMailer(
+    5,
+    "USDC",
+    "starrmikeh@gmail.com",
+    "starrmikeh@gmail.com"
+  );
 
   const handleCancel = () => {
     setRenderReviewPage(false);
     setRenderTxPage(true);
   };
 
-  const handleSendTx = () => {
+  const handleSendTx = (type: string) => {
     setRenderReviewPage(false);
+    if (type === "send") {
+      // transfer API call
+    } else if (type === "request") {
+    }
   };
 
   return (
@@ -102,7 +131,7 @@ const ReviewTransfer = () => {
       </Box>
       <Box mt="1rem" mx="-1.5rem" mb="-1rem">
         <Link href={`/confirmation/${type === "send" ? "send" : "request"}`}>
-          <Button onClick={() => handleSendTx()} variant="formGreen">
+          <Button onClick={() => handleSendTx(type)} variant="formGreen">
             {type === "send" ? "Send!" : "Request!"}
           </Button>
         </Link>

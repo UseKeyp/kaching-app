@@ -6,17 +6,17 @@ const HeadMetadata = () => {
       <meta content="width=device-width, initial-scale=1" name="viewport" />
       <meta
         name="description"
-        content="Log in with Google, Discord or Chess and send cryptocurrency"
+        content="Log in with Google or Discord to send crypto"
       />
+      <title>Kaching</title>
       <link rel="icon" href="/favicon.ico" />
       <link
-        href="fonts/sharpie/Sharpie-Variable.woff2"
         rel="preload"
+        href="fonts/sharpie/Sharpie-Variable.woff2"
         as="font"
         type="font/woff2"
         crossOrigin="anonymous"
       />
-      <title>Kaching</title>
     </Head>
   );
 };
