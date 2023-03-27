@@ -8,32 +8,71 @@ import {
   SimpleGrid,
   Text,
 } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 import { useFormContext } from "../context/FormContext";
-import React from "react";
+import React, { useState } from "react";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
 import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
+import UseKeypApi from "hooks/useKeypApi";
+import requestFunds from "../lib/api";
 
 /**
  * @remarks - this component lets user review the transaction before sending. ButtonSpacingWrapper is used place "Send" button at the bottom of the page
  * @returns - review form that displays the amount, asset, and username of the transaction
  */
 const ReviewTransfer = () => {
+  const [fromEmail, setFromEmail] = useState<string>();
   const {
+    type,
     isActiveDiscord,
     amount,
     asset,
     username,
     setRenderTxPage,
     setRenderReviewPage,
+    setIsConfirming,
   } = useFormContext();
+  const { data: session } = useSession();
+
+  const getFromEmail = async () => {
+    const fetchData = await UseKeypApi(
+      "users",
+      // @ts-ignore
+      session?.user?.id,
+      // @ts-ignore
+      session?.user?.accessToken
+    );
+    const email = fetchData?.email;
+    setFromEmail(email);
+    console.log(fromEmail);
+  };
+  getFromEmail();
 
   const handleCancel = () => {
     setRenderReviewPage(false);
     setRenderTxPage(true);
   };
 
-  const handleSendTx = () => {
+  const handleSendTx = async (type: string) => {
     setRenderReviewPage(false);
+    setIsConfirming(true);
+    if (type === "send") {
+      // transfer endpoint API call
+    } else if (type === "request") {
+      if (fromEmail) {
+        try {
+          // console.log(amount, asset, fromEmail, username);
+          await requestFunds({
+            amount: amount?.toString(),
+            asset,
+            fromEmail,
+            username,
+          });
+        } catch (err) {
+          console.log("catch FAIL", err);
+        }
+      }
+    }
   };
 
   return (
@@ -46,7 +85,7 @@ const ReviewTransfer = () => {
         >
           <Box>
             <Text color="formBlueDark" opacity={0.5}>
-              Send
+              {type === "send" ? "Send" : "Request"}
             </Text>
           </Box>
           <Button
@@ -100,9 +139,17 @@ const ReviewTransfer = () => {
         </SimpleGrid>
       </Box>
       <Box mt="1rem" mx="-1.5rem" mb="-1rem">
-        <Link href="/confirmation">
-          <Button onClick={() => handleSendTx()} variant="formGreen">
-            Send!
+        <Link
+          href={`/confirmation/${
+            type === "send" ? "send" : "request"
+          }?amount=${amount}?asset=${asset}?fromEmail=${fromEmail}?username=${username}`}
+        >
+          <Button
+            onClick={() => handleSendTx(type)}
+            variant="formGreen"
+            isDisabled={type === "request" ? !fromEmail : false}
+          >
+            {type === "send" ? "Send!" : "Request!"}
           </Button>
         </Link>
       </Box>

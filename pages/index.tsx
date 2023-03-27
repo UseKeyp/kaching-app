@@ -9,7 +9,7 @@ import CashOut from "../components/CashOut";
 import { Box } from "@chakra-ui/react";
 import ReviewTransfer from "../components/ReviewTransfer";
 import Navbar from "components/Navbar";
-// import Request from "../components/Request";
+import Loading from "components/Loading";
 
 /**
  * @remarks if user selects "send", render Send component, else render "Request"
@@ -17,21 +17,19 @@ import Navbar from "components/Navbar";
  */
 
 const Home = () => {
-  const { type, renderTxPage, renderReviewPage } = useFormContext();
+  const [isLoading, setIsLoading] = useState(true);
+  const { type, renderTxPage, renderReviewPage, isConfirming } =
+    useFormContext();
   const session = useSession();
   const router = useRouter();
 
   const componentLogic = () => {
-    if (type === "send") {
+    if (type === "send" || type === "request") {
       if (renderTxPage) {
         return <TransferForm />;
       } else if (renderReviewPage) {
         return <ReviewTransfer />;
       }
-    } else if (type === "request") {
-      // TODO: Replace <TransferForm /> with <Request />
-      return <TransferForm />;
-      // return <Request />;
     } else if (type === "fund") {
       return <Fund />;
     } else if (type === "cashout") {
@@ -40,16 +38,31 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (session.status !== "authenticated") {
+    if (session.status === "unauthenticated") {
       router.push("/login");
+    } else if (session.status === "loading") {
+      setIsLoading(true);
+    } else if (session.status === "authenticated") {
+      setIsLoading(false);
     }
   }, [session, router]);
 
   return (
     <Box>
-      <Navbar />
-      <TransactionSlider />
-      {componentLogic()}
+      {isLoading && <Loading displayText={"loading..."} />}
+      {isLoading && isConfirming && type === "send" && (
+        <Loading displayText="Preparing transaction..." />
+      )}
+      {isLoading && isConfirming && type === "request" && (
+        <Loading displayText="Preparing request..." />
+      )}
+      {!isLoading && !isConfirming && (
+        <>
+          <Navbar />
+          <TransactionSlider />
+          {componentLogic()}
+        </>
+      )}
     </Box>
   );
 };

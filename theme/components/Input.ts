@@ -11,6 +11,7 @@ const Input = helpers.defineMultiStyleConfig({
       px: "0.25rem",
       _placeholder: {
         px: "0.25rem",
+        fontWeight: "extrabold",
       },
     },
   },

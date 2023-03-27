@@ -1576,10 +1576,10 @@
   dependencies:
     glob "7.1.7"
 
-"@next/font@13.0.3":
-  version "13.0.3"
-  resolved "https://registry.yarnpkg.com/@next/font/-/font-13.0.3.tgz#e483422262e33d0f195685dbaf4399576ecfe719"
-  integrity sha512-J3bZooNyhzhRshEJZlc4Kagfx6f8LQkPdCsP0nZm63dAUaoeMaQRidFFhbL68WZ3S5XleVfpGYypZuBSyJqYtw==
+"@next/font@13.2.0":
+  version "13.2.0"
+  resolved "https://registry.yarnpkg.com/@next/font/-/font-13.2.0.tgz#677b3fc67243bccbae94d7d1e96a494be98206c4"
+  integrity sha512-pWoegIxqegV+9+gFmRCZao6xhA2m3kKS34lMXqShJ5ibRuyHkP/tfDE82LzYZmVQ3p51ZrkwTugNwy/ohiE2cA==
 
 "@next/swc-android-arm-eabi@13.0.3":
   version "13.0.3"
@@ -5166,6 +5166,11 @@ node-releases@^2.0.8:
   version "2.0.10"
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-2.0.10.tgz#c311ebae3b6a148c89b1813fd7c4d3c024ef537f"
   integrity sha512-5GFldHPXVG/YZmFzJvKK2zDSzPKhEp0+ZR5SVaoSag9fsL5YgHbUHDfnG5494ISANDcK4KwPXAx2xqVEydmd7w==
+
+nodemailer@^6.9.1:
+  version "6.9.1"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.9.1.tgz#8249d928a43ed85fec17b13d2870c8f758a126ed"
+  integrity sha512-qHw7dOiU5UKNnQpXktdgQ1d3OFgRAekuvbJLcdG5dnEo/GtcTHRYM7+UfJARdOFU9WUQO8OiIamgWPmiSFHYAA==
 
 normalize-path@^3.0.0, normalize-path@~3.0.0:
   version "3.0.0"

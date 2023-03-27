@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Button, Heading, Image, Text, VStack } from "@chakra-ui/react";
-import UseApi from "../hooks/useApi";
+import UseKeypApi from "../hooks/useKeypApi";
 import { useSession } from "next-auth/react";
 import { useFormContext } from "context/FormContext";
 import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
@@ -14,10 +14,10 @@ const CashOut = () => {
   const { handleHomePage } = useFormContext();
 
   const handleClickCashOut = async (rampType: string) => {
-    const request = await UseApi(
+    const request = await UseKeypApi(
       "offramps",
       rampType,
-      // TODO: Fix typescript errors below
+      // TODO: Fix typescript errors belo
       // @ts-ignore
       session?.user?.accessToken
     );
@@ -30,7 +30,7 @@ const CashOut = () => {
         <Heading as="h3">
           <Text color="socialIconsGray">Withdraw from your Wallet</Text>
         </Heading>
-        <VStack spacing="1.5rem" mt="1.5rem">
+        <VStack spacing="1.5rem" mt="2.5rem">
           {/* <Box w="full">
           <Button
             variant="ramps"

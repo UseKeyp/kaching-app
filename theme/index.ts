@@ -4,11 +4,7 @@ import Button from "./components/Button";
 import Input from "./components/Input";
 import Link from "./components/Link";
 import Tooltip from "./components/Tooltip";
-// import localFont from "@next/font/local";
-
-// const sharpie = localFont({
-//   src: "../public/fonts/sharpie/Sharpie-Variable.woff2",
-// });
+import sharpie from "../components/layout";
 
 export const theme = extendTheme({
   components: {

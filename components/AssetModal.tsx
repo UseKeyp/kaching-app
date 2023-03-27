@@ -30,7 +30,6 @@ const AssetModal: React.FC<AssetModalProps> = ({ setGetAsset }) => {
   };
 
   const handleDone = () => {
-    console.log("handleDone");
     setGetAsset(selectedAsset);
     onClose();
   };
