@@ -13,7 +13,6 @@ import Navbar from "components/Navbar";
 import ButtonSpacingWrapper from "components/ButtonSpacingWrapper";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import { useFormContext } from "context/FormContext";
 import Loading from "components/Loading";
 
 /**
@@ -24,6 +23,7 @@ const Confirmation = () => {
   const [isLoading, setIsLoading] = useState(true);
   const session = useSession();
   const router = useRouter();
+  console.log(router);
   const type = router.query.type;
 
   // TODO: add link to transaction in block explorer
@@ -50,12 +50,7 @@ const Confirmation = () => {
           <ButtonSpacingWrapper isTransactionSlider={false}>
             <VStack fontWeight="extrabold" fontSize="3rem">
               <Box w="full">
-                <Heading
-                  w="full"
-                  as="h1"
-                  fontSize={["6rem", "8rem"]}
-                  fontWeight="extrabold"
-                >
+                <Heading w="full" as="h1" fontSize={["6rem", "8rem"]}>
                   Kaching
                 </Heading>
               </Box>

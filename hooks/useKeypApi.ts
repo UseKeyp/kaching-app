@@ -8,7 +8,7 @@ const KEYP_API_BASE_URL = "https://api.usekeyp.com/v1";
  * @param endpointType - possible endpoints: onramps | offramps | users | usersbalance | tokensTransfers | tokensBalance
  * @returns
  */
-const UseApi = async (
+const UseKeypApi = async (
   endpointType: string,
   variables: string,
   accessToken: string
@@ -27,7 +27,7 @@ const UseApi = async (
     url: `${KEYP_API_BASE_URL}/${endpoint}`,
   })
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       return response.data;
     })
     .catch((error) => {
@@ -38,4 +38,4 @@ const UseApi = async (
   return fetchData;
 };
 
-export default UseApi;
+export default UseKeypApi;

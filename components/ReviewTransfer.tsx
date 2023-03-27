@@ -13,8 +13,8 @@ import { useFormContext } from "../context/FormContext";
 import React, { useState } from "react";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
 import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
-import useNodeMailer from "hooks/useNodemailer";
-import UseApi from "hooks/useApi";
+import UseKeypApi from "hooks/useKeypApi";
+import requestFunds from "../lib/api";
 
 /**
  * @remarks - this component lets user review the transaction before sending. ButtonSpacingWrapper is used place "Send" button at the bottom of the page
@@ -35,7 +35,7 @@ const ReviewTransfer = () => {
   const { data: session } = useSession();
 
   const getFromEmail = async () => {
-    const fetchData = await UseApi(
+    const fetchData = await UseKeypApi(
       "users",
       // @ts-ignore
       session?.user?.id,
@@ -44,29 +44,34 @@ const ReviewTransfer = () => {
     );
     const email = fetchData?.email;
     setFromEmail(email);
+    console.log(fromEmail);
   };
   getFromEmail();
-
-  // TODO: replace variables with: { amount, asset, fromEmail, username }
-  // const sendMail = useNodeMailer(
-  //   5,
-  //   "USDC",
-  //   "starrmikeh@gmail.com",
-  //   "starrmikeh@gmail.com"
-  // );
 
   const handleCancel = () => {
     setRenderReviewPage(false);
     setRenderTxPage(true);
   };
 
-  const handleSendTx = (type: string) => {
+  const handleSendTx = async (type: string) => {
     setRenderReviewPage(false);
     setIsConfirming(true);
     if (type === "send") {
       // transfer endpoint API call
     } else if (type === "request") {
-      // call sendEmail nodemailer function
+      if (fromEmail) {
+        try {
+          // console.log(amount, asset, fromEmail, username);
+          await requestFunds({
+            amount: amount?.toString(),
+            asset,
+            fromEmail,
+            username,
+          });
+        } catch (err) {
+          console.log("catch FAIL", err);
+        }
+      }
     }
   };
 
@@ -80,7 +85,7 @@ const ReviewTransfer = () => {
         >
           <Box>
             <Text color="formBlueDark" opacity={0.5}>
-              Send
+              {type === "send" ? "Send" : "Request"}
             </Text>
           </Box>
           <Button
@@ -134,8 +139,16 @@ const ReviewTransfer = () => {
         </SimpleGrid>
       </Box>
       <Box mt="1rem" mx="-1.5rem" mb="-1rem">
-        <Link href={`/confirmation/${type === "send" ? "send" : "request"}`}>
-          <Button onClick={() => handleSendTx(type)} variant="formGreen">
+        <Link
+          href={`/confirmation/${
+            type === "send" ? "send" : "request"
+          }?amount=${amount}?asset=${asset}?fromEmail=${fromEmail}?username=${username}`}
+        >
+          <Button
+            onClick={() => handleSendTx(type)}
+            variant="formGreen"
+            isDisabled={type === "request" ? !fromEmail : false}
+          >
             {type === "send" ? "Send!" : "Request!"}
           </Button>
         </Link>

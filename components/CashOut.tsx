@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Button, Heading, Image, Text, VStack } from "@chakra-ui/react";
-import UseApi from "../hooks/useApi";
+import UseKeypApi from "../hooks/useKeypApi";
 import { useSession } from "next-auth/react";
 import { useFormContext } from "context/FormContext";
 import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
@@ -14,7 +14,7 @@ const CashOut = () => {
   const { handleHomePage } = useFormContext();
 
   const handleClickCashOut = async (rampType: string) => {
-    const request = await UseApi(
+    const request = await UseKeypApi(
       "offramps",
       rampType,
       // TODO: Fix typescript errors belo
