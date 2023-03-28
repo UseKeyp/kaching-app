@@ -14,7 +14,8 @@ import React, { useState } from "react";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
 import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
 import UseKeypApi from "hooks/useKeypApi";
-import requestFunds from "../lib/api";
+import UseNodeMailer from "../hooks/useNodemailer";
+// import requestFunds from "../lib/requestFunds";
 
 /**
  * @remarks - this component lets user review the transaction before sending. ButtonSpacingWrapper is used place "Send" button at the bottom of the page
@@ -57,19 +58,20 @@ const ReviewTransfer = () => {
     setRenderReviewPage(false);
     setIsConfirming(true);
     if (type === "send") {
-      // transfer endpoint API call
     } else if (type === "request") {
       if (fromEmail) {
+        const data = {
+          amount,
+          asset,
+          fromEmail,
+          username,
+        };
         try {
-          // console.log(amount, asset, fromEmail, username);
-          await requestFunds({
-            amount: amount?.toString(),
-            asset,
-            fromEmail,
-            username,
-          });
+          await UseNodeMailer(data);
+          return;
         } catch (err) {
           console.log("catch FAIL", err);
+          return err;
         }
       }
     }
@@ -139,19 +141,19 @@ const ReviewTransfer = () => {
         </SimpleGrid>
       </Box>
       <Box mt="1rem" mx="-1.5rem" mb="-1rem">
-        <Link
+        {/* <Link
           href={`/confirmation/${
             type === "send" ? "send" : "request"
           }?amount=${amount}?asset=${asset}?fromEmail=${fromEmail}?username=${username}`}
+        > */}
+        <Button
+          onClick={() => handleSendTx(type)}
+          variant="formGreen"
+          isDisabled={type === "request" ? !fromEmail : false}
         >
-          <Button
-            onClick={() => handleSendTx(type)}
-            variant="formGreen"
-            isDisabled={type === "request" ? !fromEmail : false}
-          >
-            {type === "send" ? "Send!" : "Request!"}
-          </Button>
-        </Link>
+          {type === "send" ? "Send!" : "Request!"}
+        </Button>
+        {/* </Link> */}
       </Box>
     </ButtonSpacingWrapper>
   );

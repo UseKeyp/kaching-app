@@ -31,8 +31,8 @@
     ".next/types/**/*.ts",
     "src/pages/_app.js",
     "src/pages/login.js",
-    "pages/api/auth/auth/[...nextauth].js",
-    "pages/api/auth/requestFunds.ts"
+    "pages/api/auth/[...nextauth].js",
+    "pages/request.js"
   ],
   "exclude": ["node_modules"]
 }
