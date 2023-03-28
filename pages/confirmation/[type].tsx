@@ -23,8 +23,10 @@ const Confirmation = () => {
   const [isLoading, setIsLoading] = useState(true);
   const session = useSession();
   const router = useRouter();
-  console.log(router);
+
   const type = router.query.type;
+  const query = router.query;
+  console.log(query);
 
   // TODO: add link to transaction in block explorer
   const handleViewTx = () => {
@@ -56,24 +58,16 @@ const Confirmation = () => {
               </Box>
               <Stack w="full" spacing={"-0.75rem"} pb="3rem">
                 <HStack>
-                  <Text color="formGreen">
-                    {/* {asset === "USDC" ? "$" : null}
-              {amount} */}
-                    5 MATIC
-                  </Text>
-                  <Text color="assetOrange">{/* {asset} */}</Text>
+                  <Text color="formGreen">{query.amount}</Text>
+                  <Text color="assetOrange">{query.asset}</Text>
                 </HStack>
                 <Box>
                   <Text color="loginGray">
-                    {type === "send" ? "Sent to" : "Request send to"}
+                    {type === "send" ? "Sent to" : "Request sent to:"}
                   </Text>
                 </Box>
                 <Box>
-                  <Text color="formBlueDark">
-                    {/* TODO: fix with dynamic value */}
-                    {/* {username} */}
-                    user@gmail.com
-                  </Text>
+                  <Text color="formBlueDark">{query.username}</Text>
                 </Box>
               </Stack>
               <Stack w="full" spacing={"-0.75rem"}>
