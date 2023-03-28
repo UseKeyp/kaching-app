@@ -15,6 +15,7 @@ import { FaDiscord, FaGoogle } from "react-icons/fa";
 import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
 import UseKeypApi from "hooks/useKeypApi";
 import UseNodeMailer from "../hooks/useNodemailer";
+import { useRouter } from "next/router";
 // import requestFunds from "../lib/requestFunds";
 
 /**
@@ -34,6 +35,7 @@ const ReviewTransfer = () => {
     setIsConfirming,
   } = useFormContext();
   const { data: session } = useSession();
+  const router = useRouter();
 
   const getFromEmail = async () => {
     const fetchData = await UseKeypApi(
@@ -45,7 +47,6 @@ const ReviewTransfer = () => {
     );
     const email = fetchData?.email;
     setFromEmail(email);
-    console.log(fromEmail);
   };
   getFromEmail();
 
@@ -58,6 +59,14 @@ const ReviewTransfer = () => {
     setRenderReviewPage(false);
     setIsConfirming(true);
     if (type === "send") {
+      router.push({
+        pathname: "/confirmation/send",
+        query: {
+          amount,
+          asset,
+          username,
+        },
+      });
     } else if (type === "request") {
       if (fromEmail) {
         const data = {
@@ -68,6 +77,14 @@ const ReviewTransfer = () => {
         };
         try {
           await UseNodeMailer(data);
+          router.push({
+            pathname: "/confirmation/request",
+            query: {
+              amount,
+              asset,
+              username,
+            },
+          });
           return;
         } catch (err) {
           console.log("catch FAIL", err);

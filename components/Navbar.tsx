@@ -15,6 +15,7 @@ import useSocialLogo from "../hooks/useSocialLogo";
 import { useFormContext } from "../context/FormContext";
 import { RxCopy } from "react-icons/rx";
 import { useSizeProvider } from "../context/SizeContext";
+import { useRouter } from "next/router";
 
 /**
  *
@@ -26,6 +27,7 @@ const Navbar = () => {
   const { data: session } = useSession();
   const { handleHomePage } = useFormContext();
   const socialLogo = useSocialLogo(session);
+  const router = useRouter();
 
   const { setNavHeight } = useSizeProvider();
 
@@ -34,6 +36,11 @@ const Navbar = () => {
   const address = session?.user?.address;
   // @ts-ignore
   const username = session?.user?.username;
+
+  const handleNavigateHome = () => {
+    router.push("/");
+    handleHomePage();
+  };
 
   const handleCopyAddress = () => {
     navigator.clipboard.writeText(address);
@@ -60,11 +67,9 @@ const Navbar = () => {
     <Flex w="100%" py="1rem" id="navbar" fontWeight="medium">
       {/* Box holds logo */}
       <Box w="45%" alignSelf="start">
-        <Link href="/">
-          <Heading as="h1" color="pink" onClick={() => handleHomePage()}>
-            <Text fontWeight="extrabold">Kaching</Text>
-          </Heading>
-        </Link>
+        <Heading as="h1" color="pink" onClick={() => handleNavigateHome()}>
+          <Text fontWeight="extrabold">Kaching</Text>
+        </Heading>
       </Box>
       {/* VStack holds everything else */}
       <VStack
