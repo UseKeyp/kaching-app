@@ -13,7 +13,7 @@ import { useFormContext } from "../context/FormContext";
 import React, { useState } from "react";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
 import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
-import UseKeypApi from "hooks/useKeypApi";
+import UseKeypApi from "../hooks/useKeypApi";
 import UseNodeMailer from "../hooks/useNodemailer";
 import { useRouter } from "next/router";
 // import requestFunds from "../lib/requestFunds";

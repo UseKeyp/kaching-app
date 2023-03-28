@@ -8,8 +8,8 @@ import Fund from "../components/Fund";
 import CashOut from "../components/CashOut";
 import { Box } from "@chakra-ui/react";
 import ReviewTransfer from "../components/ReviewTransfer";
-import Navbar from "components/Navbar";
-import Loading from "components/Loading";
+import Navbar from "../components/Navbar";
+import Loading from "../components/Loading";
 
 /**
  * @remarks if user selects "send", render Send component, else render "Request"

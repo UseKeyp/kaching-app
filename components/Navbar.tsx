@@ -8,7 +8,6 @@ import {
   Flex,
   Tooltip,
 } from "@chakra-ui/react";
-import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import { FaGoogle, FaDiscord } from "react-icons/fa";
 import useSocialLogo from "../hooks/useSocialLogo";
@@ -28,6 +27,7 @@ const Navbar = () => {
   const { handleHomePage } = useFormContext();
   const socialLogo = useSocialLogo(session);
   const router = useRouter();
+  console.log(router);
 
   const { setNavHeight } = useSizeProvider();
 
@@ -38,8 +38,11 @@ const Navbar = () => {
   const username = session?.user?.username;
 
   const handleNavigateHome = () => {
-    router.push("/");
-    handleHomePage();
+    if (router.pathname === "/") {
+      router.reload();
+    } else {
+      router.push("/");
+    }
   };
 
   const handleCopyAddress = () => {

@@ -9,11 +9,11 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import Navbar from "components/Navbar";
-import ButtonSpacingWrapper from "components/ButtonSpacingWrapper";
+import Navbar from "../../components/Navbar";
+import ButtonSpacingWrapper from "../../components/ButtonSpacingWrapper";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import Loading from "components/Loading";
+import Loading from "../../components/Loading";
 
 /**
  * @remarks - this component displays the transaction confirmation. ButtonSpacingWrapper is used place "Return" button at the bottom of the page
