@@ -1,4 +1,4 @@
-import { MailData } from "types/MailData";
+import { MailData } from "../types/MailData";
 
 /**
  *
@@ -6,7 +6,8 @@ import { MailData } from "types/MailData";
  * @returns
  */
 export const mailData = (data: MailData) => {
-  let emailUrl = `<a href=kaching.money?from=${data.fromEmail}&to=${data.username}&amount=${data.amount}&asset=${data.asset}>Click here</a>`;
+  // let emailUrl = `<a href="https://kaching.money?amount=${data.amount}&asset=${data.asset}&username=${data.username}">Click here</a>`;
+  let emailUrl = `<a href="https://kaching.money">Click here</a>`;
 
   return {
     from: data.fromEmail,

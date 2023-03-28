@@ -26,7 +26,6 @@ const Confirmation = () => {
 
   const type = router.query.type;
   const query = router.query;
-  console.log(query);
 
   // TODO: add link to transaction in block explorer
   const handleViewTx = () => {

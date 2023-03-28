@@ -87,7 +87,7 @@ const ReviewTransfer = () => {
           });
           return;
         } catch (err) {
-          console.log("catch FAIL", err);
+          console.log(err);
           return err;
         }
       }

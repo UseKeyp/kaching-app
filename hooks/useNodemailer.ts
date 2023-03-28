@@ -1,4 +1,4 @@
-import { MailData } from "types/MailData";
+import { MailData } from "../types/MailData";
 
 /**
  * @remarks - hook gets called when a user requests funds from another user. Hook sends a request to the server to send an email to the user who is being requested funds from. Hook gets called in ReviewTransfer component after user confirms inputs.
@@ -10,7 +10,7 @@ import { MailData } from "types/MailData";
  * @returns hook with a fetch request to the server to send an email to the user who is being requested funds from.
  */
 const UseNodemailer = async (data: MailData) => {
-  console.log(data);
+  // console.log(data);
 
   return await fetch("/api/auth/request", {
     method: "POST",
@@ -21,7 +21,7 @@ const UseNodemailer = async (data: MailData) => {
     body: JSON.stringify(data),
   }).then((res) => {
     if (res.ok) {
-      // console.log("response ok");
+      console.log("response ok");
       return res.json();
     } else {
       throw new Error("Failed to send message");

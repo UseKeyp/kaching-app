@@ -27,7 +27,6 @@ const Navbar = () => {
   const { handleHomePage } = useFormContext();
   const socialLogo = useSocialLogo(session);
   const router = useRouter();
-  console.log(router);
 
   const { setNavHeight } = useSizeProvider();
 
@@ -40,6 +39,7 @@ const Navbar = () => {
   const handleNavigateHome = () => {
     if (router.pathname === "/") {
       router.reload();
+      handleHomePage();
     } else {
       router.push("/");
     }
