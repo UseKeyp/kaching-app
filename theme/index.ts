@@ -26,6 +26,7 @@ export const theme = extendTheme({
     socialIconsDarkGrayBg: "#4A4D53",
     cancelOrange: "#FFB489",
     assetOrange: "#F4AB00",
+    errorOrange: "#FF8643",
     lightGray: "#B0B6C1",
     loginGray: "#63676F",
     loginBtnGray: "#80858E",

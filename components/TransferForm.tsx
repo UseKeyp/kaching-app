@@ -1,6 +1,4 @@
 import {
-  Alert,
-  AlertIcon,
   Box,
   Button,
   GridItem,
@@ -46,6 +44,7 @@ const TransferForm = () => {
     trigger,
     formState: { errors },
   } = localForm;
+
   const values = getValues();
   watch();
 
@@ -85,35 +84,41 @@ const TransferForm = () => {
   return (
     <ButtonSpacingWrapper isTransactionSlider={true}>
       <SimpleGrid columns={1} spacing={"1rem"}>
-        <GridItem my="-1rem">
-          <Input
-            type="number"
-            step={0.1}
-            placeholder="0.00"
-            color="formGreen"
-            autoComplete="off"
-            {...register("amount", {
-              required: {
-                value: true,
-                message: `Enter asset amount`,
-              },
-              validate: (n) => n > 0 || "Value must be greater than 0",
-            })}
-          />
-          <Box mt="-1.5rem" mb="1rem">
+        <GridItem>
+          <Box color="errorOrange" fontWeight="normal" fontSize="1.25rem">
             <ErrorMessage
               errors={errors}
               name="amount"
               render={({ message }) => {
+                console.log(message.length);
                 return (
-                  <Box mb={".1rem"}>
-                    <Alert status="error" variant="left-accent">
-                      <AlertIcon />
-                      {message}
-                    </Alert>
+                  <Box
+                    display={message ? "block" : "none"}
+                    ml="0.5rem"
+                    mb="-2rem"
+                    position="relative"
+                    zIndex={1}
+                  >
+                    {message}
                   </Box>
                 );
               }}
+            />
+          </Box>
+          <Box position="relative" mt={errors.amount ? "-2rem" : "0"}>
+            <Input
+              type="number"
+              step={0.1}
+              placeholder="0.00"
+              color="formGreen"
+              autoComplete="off"
+              {...register("amount", {
+                required: {
+                  value: true,
+                  message: `Enter asset amount`,
+                },
+                validate: (n) => n > 0 || "Value must be greater than 0",
+              })}
             />
           </Box>
         </GridItem>
@@ -168,38 +173,41 @@ const TransferForm = () => {
             </Box>
           </HStack>
         </GridItem>
-        <GridItem my="-1.5rem">
-          <Input
-            type={isActiveGoogle ? "email" : "text"}
-            placeholder={isActiveGoogle ? "Add Gmail" : "Discord Username"}
-            color="#89DCFF"
-            autoComplete="off"
-            {...register("username", {
-              required: "cannot be blank",
-              minLength: {
-                value: 1,
-                message: "cannot be blank",
-              },
-              validate: emailValidation,
-            })}
-          />
-          <Box mt="-1.5rem" mb="1rem">
+        <GridItem>
+          <Box color="errorOrange" fontWeight="normal" fontSize="1.25rem">
             <ErrorMessage
               errors={errors}
               name="username"
               render={({ message }) => {
                 return (
-                  <Box>
-                    <Alert status="error" variant="left-accent">
-                      <AlertIcon />
-                      <Text mr={1}>
-                        {isActiveGoogle ? "Email" : "Username"}
-                      </Text>
-                      {message}
-                    </Alert>
+                  <Box
+                    display={message ? "block" : "none"}
+                    mt={message ? "-1rem" : "0"}
+                    ml="0.5rem"
+                    mb="-2rem"
+                    position="relative"
+                    zIndex={1}
+                  >
+                    {isActiveGoogle ? "Email" : "Username"} {message}
                   </Box>
                 );
               }}
+            />
+          </Box>
+          <Box position="relative" mt={!errors.username ? "-2rem" : "-1rem"}>
+            <Input
+              type={isActiveGoogle ? "email" : "text"}
+              placeholder={isActiveGoogle ? "Add Gmail" : "Discord Username"}
+              color="#89DCFF"
+              autoComplete="off"
+              {...register("username", {
+                required: "cannot be blank",
+                minLength: {
+                  value: 1,
+                  message: "cannot be blank",
+                },
+                validate: emailValidation,
+              })}
             />
           </Box>
         </GridItem>
