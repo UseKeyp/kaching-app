@@ -4,7 +4,6 @@ import {
   GridItem,
   HStack,
   Image,
-  Link,
   SimpleGrid,
   Text,
 } from "@chakra-ui/react";
@@ -19,8 +18,8 @@ import { useRouter } from "next/router";
 // import requestFunds from "../lib/requestFunds";
 
 /**
- * @remarks - this component lets user review the transaction before sending. ButtonSpacingWrapper is used place "Send" button at the bottom of the page
- * @returns - review form that displays the amount, asset, and username of the transaction
+ * @remarks - this component lets user review the transaction before sending. ButtonSpacingWrapper is used place "Send" button at the bottom of the page. If useKeypApi fails and this app cannot find a truthy value for `fromEmail`, the 'Request!' button will be set to disabled.
+ * @returns - review form that displays the amount, asset, and username of the transaction.
  */
 const ReviewTransfer = () => {
   const [fromEmail, setFromEmail] = useState<string>();

@@ -1,31 +1,26 @@
 import { createMultiStyleConfigHelpers } from "@chakra-ui/styled-system";
 import type { StyleFunctionProps } from "@chakra-ui/styled-system";
-
 const helpers = createMultiStyleConfigHelpers(["field"]);
 
 const Input = helpers.defineMultiStyleConfig({
-  baseStyle: {
+  baseStyle: (props: StyleFunctionProps) => ({
     field: {
-      bg: "white",
+      py: "4rem",
+      h: "fit",
+      mb: "-1.5rem",
       fontWeight: "extrabold",
-      px: "0.25rem",
       _placeholder: {
+        fontSize: "5rem",
+        color: props.color,
         px: "0.25rem",
-        fontWeight: "extrabold",
       },
     },
-  },
+  }),
   variants: {
     default: (props: StyleFunctionProps) => ({
       field: {
         fontSize: "5rem",
-        // TODO: if py < 3.7, text disappears. Figure out this idiosyncrasy
-        py: "4rem",
-        px: "0.5rem",
-        color: props.color,
-        _placeholder: {
-          color: props.color,
-        },
+        px: ".5rem",
       },
     }),
   },
