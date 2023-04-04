@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+import { useRouter } from "next/router";
 import {
   Box,
   Button,
@@ -9,15 +11,11 @@ import {
 } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useFormContext } from "../context/FormContext";
-import React, { useState } from "react";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
 import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
 import UseKeypApi from "../hooks/useKeypApi";
 import UseNodeMailer from "../hooks/useNodemailer";
-import { useRouter } from "next/router";
-import { Transfers } from "../types/Transfers";
 import { tokenAddresses } from "../utils/tokenAddresses";
-// import requestFunds from "../lib/requestFunds";
 
 /**
  * @remarks - this component lets user review the transaction before sending. ButtonSpacingWrapper is used place "Send" button at the bottom of the page. If useKeypApi fails and this app cannot find a truthy value for `fromEmail`, the 'Request!' button will be set to disabled.
@@ -25,6 +23,7 @@ import { tokenAddresses } from "../utils/tokenAddresses";
  */
 const ReviewTransfer = () => {
   const [fromEmail, setFromEmail] = useState<string>();
+  const [toUserId, setToUserId] = useState<string>();
   const {
     type,
     isActiveDiscord,
@@ -38,18 +37,36 @@ const ReviewTransfer = () => {
   const { data: session } = useSession();
   const router = useRouter();
 
+  const ACCESS_TOKEN = process.env.NEXT_PUBLIC_TOKEN_SECRET;
+
+  // console.log(session?.user);
+
   const getFromEmail = async () => {
     const fetchData = await UseKeypApi(
+      session?.user?.accessToken,
       "users",
-      // @ts-ignore
-      session?.user?.id,
-      // @ts-ignore
-      session?.user?.accessToken
+      session?.user?.id
     );
     const email = fetchData?.email;
     setFromEmail(email);
   };
-  getFromEmail();
+
+  if (type === "request") {
+    getFromEmail();
+  }
+
+  // gets user ID from email
+  const getToUserId = async () => {
+    const fetchData = await UseKeypApi(
+      // session?.user?.accessToken,
+      ACCESS_TOKEN,
+      "users",
+      // TODO: replace with dynamically generated user id which is taken from user email
+      "GOOGLE-108069800288055528830"
+    );
+    const userId = fetchData?.userId;
+    setToUserId(userId);
+  };
 
   const handleSendTransaction = async (
     toUserId: string,
@@ -57,7 +74,6 @@ const ReviewTransfer = () => {
     amount: string
   ) => {
     const request = await UseKeypApi(
-      // @ts-ignore
       session?.user?.accessToken,
       "tokenTransfers",
       null,
@@ -75,7 +91,12 @@ const ReviewTransfer = () => {
   const handleSendTx = async (type: string) => {
     setRenderReviewPage(false);
     setIsConfirming(true);
-    if (type === "send") {
+    if (type === "send" && asset && amount) {
+      handleSendTransaction(
+        "GOOGLE-108069800288055528830",
+        asset,
+        amount.toString()
+      );
       router.push({
         pathname: "/confirmation/send",
         query: {
@@ -121,7 +142,7 @@ const ReviewTransfer = () => {
       <Box fontWeight="extrabold" fontSize="5rem">
         <HStack
           color="formBlueDark"
-          fontSize={["4rem", "5rem"]}
+          fontSize={["3.5rem", "5rem"]}
           justifyContent="space-between"
         >
           <Box>
@@ -132,7 +153,7 @@ const ReviewTransfer = () => {
           <Button
             variant="none"
             opacity={0.5}
-            fontSize={["4rem", "5rem"]}
+            fontSize={["3.5rem", "5rem"]}
             color="cancelOrange"
             onClick={() => handleCancel()}
           >

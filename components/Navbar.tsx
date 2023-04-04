@@ -30,11 +30,8 @@ const Navbar = () => {
 
   const { setNavHeight } = useSizeProvider();
 
-  // TODO: Fix typescript errors below
-  // @ts-ignore
-  const address = session?.user?.address;
-  // @ts-ignore
-  const username = session?.user?.username;
+  const address = session && session.user.address;
+  const username = session && session.user.username;
 
   const handleNavigateHome = () => {
     if (router.pathname === "/") {
@@ -46,7 +43,7 @@ const Navbar = () => {
   };
 
   const handleCopyAddress = () => {
-    navigator.clipboard.writeText(address);
+    navigator.clipboard.writeText(address || "");
     setOpenTooltip(true);
     setTimeout(() => {
       setOpenTooltip(false);

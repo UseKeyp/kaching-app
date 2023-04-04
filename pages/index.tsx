@@ -23,6 +23,8 @@ const Home = () => {
   const session = useSession();
   const router = useRouter();
 
+  console.log(session);
+
   const componentLogic = () => {
     if (type === "send" || type === "request") {
       if (renderTxPage) {
@@ -38,11 +40,11 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (session.status === "unauthenticated") {
+    if (session && session.status === "unauthenticated") {
       router.push("/login");
-    } else if (session.status === "loading") {
+    } else if (session && session.status === "loading") {
       setIsLoading(true);
-    } else if (session.status === "authenticated") {
+    } else if (session && session.status === "authenticated") {
       setIsLoading(false);
     }
   }, [session, router]);

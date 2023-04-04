@@ -24,10 +24,8 @@ const Fund = () => {
   const { handleHomePage } = useFormContext();
 
   const handleCopyAddress = () => {
-    // TODO: Fix typescript errors below
-    // @ts-ignore
-    const address = session && session?.address;
-    navigator.clipboard.writeText(address);
+    const address = session && session.user.address;
+    navigator.clipboard.writeText(address || "");
     setOpenTooltip(true);
     setTimeout(() => {
       setOpenTooltip(false);
@@ -36,8 +34,7 @@ const Fund = () => {
 
   const handleClickFund = async (rampType: string) => {
     const request = await UseKeypApi(
-      // @ts-ignore
-      session?.accessToken,
+      session && session.user.accessToken,
       "onramps",
       rampType
     );

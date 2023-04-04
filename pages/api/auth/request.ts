@@ -1,7 +1,8 @@
 const nodemailer = require("nodemailer");
+import { NextApiRequest, NextApiResponse } from "next";
 import { mailData } from "../../../utils/nodemailer";
 
-const request = (req, res) => {
+const request = (req: NextApiRequest, res: NextApiResponse) => {
   const data = req.body;
 
   const transporter = nodemailer.createTransport({

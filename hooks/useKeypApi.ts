@@ -13,7 +13,7 @@ const KEYP_API_BASE_URL = "https://api.usekeyp.com/v1";
  * @returns
  */
 const UseKeypApi = async (
-  accessToken: string,
+  accessToken: string | undefined | null,
   endpointType: string,
   variables?: string | null,
   data?: Transfers

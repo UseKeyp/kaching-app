@@ -15,8 +15,6 @@ const CashOut = () => {
 
   const handleClickCashOut = async (rampType: string) => {
     const request = await UseKeypApi(
-      // TODO: Fix typescript errors
-      // @ts-ignore
       session?.user?.accessToken,
       "offramps",
       rampType

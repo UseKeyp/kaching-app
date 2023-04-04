@@ -1,8 +1,9 @@
 import NextAuth from "next-auth";
+import { OAuthConfig } from "next-auth/providers";
 
 const KEYP_APP_DOMAIN = "https://app.usekeyp.com";
 
-const KeypProvider = {
+const KeypProvider: OAuthConfig<any> = {
   id: "keyp",
   name: "Keyp",
   type: "oauth",

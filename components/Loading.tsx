@@ -11,7 +11,7 @@ const Loading: React.FC<LoadingProps> = ({ displayText }) => {
       <Box w="5rem" m="auto">
         <Image src="keyp_spinner.svg" alt="" />
       </Box>
-      <Box fontSize="3rem" color="pink" fontWeight="bold">
+      <Box fontSize="3rem" color="pink">
         <Text>{displayText}</Text>
       </Box>
     </Box>

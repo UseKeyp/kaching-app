@@ -21,7 +21,7 @@ import Loading from "../../components/Loading";
  */
 const Confirmation = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const session = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
 
   const type = router.query.type;
@@ -33,11 +33,11 @@ const Confirmation = () => {
   };
 
   useEffect(() => {
-    if (session.status === "unauthenticated") {
+    if (session && session.status === "unauthenticated") {
       router.push("/login");
-    } else if (session.status === "loading") {
+    } else if (session && session.status === "loading") {
       setIsLoading(true);
-    } else if (session.status === "authenticated") {
+    } else if (session && session.status === "authenticated") {
       setIsLoading(false);
     }
   }, [session, router]);

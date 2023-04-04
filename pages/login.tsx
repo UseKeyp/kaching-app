@@ -15,7 +15,7 @@ import { FaDiscord, FaGoogle } from "react-icons/fa";
 
 const Login = () => {
   const [activeBtn, setActiveBtn] = useState<string>();
-  const session = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
 
   const handleGoogleLogin = () => {
@@ -27,7 +27,7 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (session.status === "authenticated") {
+    if (session && session.status === "authenticated") {
       router.push("/");
     }
   }, [session, router]);
