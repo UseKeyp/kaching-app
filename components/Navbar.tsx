@@ -7,9 +7,9 @@ import {
   VStack,
   Flex,
   Tooltip,
+  Image,
 } from "@chakra-ui/react";
 import { signOut, useSession } from "next-auth/react";
-import { FaGoogle, FaDiscord } from "react-icons/fa";
 import useSocialLogo from "../hooks/useSocialLogo";
 import { useFormContext } from "../context/FormContext";
 import { RxCopy } from "react-icons/rx";
@@ -55,9 +55,9 @@ const Navbar = () => {
 
   const renderSocialLogo = () => {
     if (socialLogo === "discord") {
-      return <FaDiscord color="#4E65F3" size="1.5rem" />;
+      return <Image src="discord-color.svg" alt="" />;
     } else if (socialLogo === "google") {
-      return <FaGoogle color="black" size="1.5rem" />;
+      return <Image src="google-color.svg" alt="" />;
     } else return;
   };
 

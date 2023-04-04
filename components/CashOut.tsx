@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Button, Heading, Image, Text, VStack } from "@chakra-ui/react";
 import UseKeypApi from "../hooks/useKeypApi";
 import { useSession } from "next-auth/react";
-import { useFormContext } from "context/FormContext";
+import { useFormContext } from "../context/FormContext";
 import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
 
 /**
@@ -15,11 +15,11 @@ const CashOut = () => {
 
   const handleClickCashOut = async (rampType: string) => {
     const request = await UseKeypApi(
-      "offramps",
-      rampType,
-      // TODO: Fix typescript errors belo
+      // TODO: Fix typescript errors
       // @ts-ignore
-      session?.user?.accessToken
+      session?.user?.accessToken,
+      "offramps",
+      rampType
     );
     if (request?.url) window.location = request?.url;
   };

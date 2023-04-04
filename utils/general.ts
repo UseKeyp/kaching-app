@@ -1,4 +1,10 @@
-export const endpointLogic = (endpoint: string, variables: string) => {
+/**
+ *
+ * @param endpoint - value getting passed into Keyp api
+ * @param variables
+ * @returns
+ */
+export const endpointLogic = (endpoint: string, variables?: string | null) => {
   let endpointValue: string;
   switch (endpoint) {
     case "onramps":
@@ -13,7 +19,7 @@ export const endpointLogic = (endpoint: string, variables: string) => {
     case "usersbalance":
       endpointValue = `users/${variables}/balance`;
       break;
-    case "tokensTransfers":
+    case "tokenTransfers":
       endpointValue = "tokens/transfers";
       break;
     case "tokensBalance":
@@ -27,7 +33,7 @@ export const endpointLogic = (endpoint: string, variables: string) => {
 
 export const requestType = (endpoint: string) => {
   let type: string;
-  if (endpoint === "tokensTransfers") {
+  if (endpoint === "tokenTransfers") {
     type = "POST";
   } else {
     type = "GET";

@@ -10,8 +10,8 @@ import {
 } from "@chakra-ui/react";
 import { RxCopy } from "react-icons/rx";
 import { useSession } from "next-auth/react";
-import UseApi from "../hooks/useKeypApi";
-import { useFormContext } from "context/FormContext";
+import UseKeypApi from "../hooks/useKeypApi";
+import { useFormContext } from "../context/FormContext";
 import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
 
 /**
@@ -35,9 +35,12 @@ const Fund = () => {
   };
 
   const handleClickFund = async (rampType: string) => {
-    // TODO: Fix typescript errors below
-    // @ts-ignore
-    const request = await UseApi("onramps", rampType, session?.accessToken);
+    const request = await UseKeypApi(
+      // @ts-ignore
+      session?.accessToken,
+      "onramps",
+      rampType
+    );
     if (request?.url) window.location = request?.url;
   };
 

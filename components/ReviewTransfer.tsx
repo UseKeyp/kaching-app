@@ -15,6 +15,8 @@ import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
 import UseKeypApi from "../hooks/useKeypApi";
 import UseNodeMailer from "../hooks/useNodemailer";
 import { useRouter } from "next/router";
+import { Transfers } from "../types/Transfers";
+import { tokenAddresses } from "../utils/tokenAddresses";
 // import requestFunds from "../lib/requestFunds";
 
 /**
@@ -49,9 +51,25 @@ const ReviewTransfer = () => {
   };
   getFromEmail();
 
-  const handleCancel = () => {
-    setRenderReviewPage(false);
-    setRenderTxPage(true);
+  const handleSendTransaction = async (
+    toUserId: string,
+    token: string,
+    amount: string
+  ) => {
+    const request = await UseKeypApi(
+      // @ts-ignore
+      session?.user?.accessToken,
+      "tokenTransfers",
+      null,
+      {
+        toAddress: "",
+        toUserId,
+        tokenAddress: tokenAddresses[token],
+        tokenType: "ERC20",
+        amount,
+      }
+    );
+    if (request?.url) window.location = request?.url;
   };
 
   const handleSendTx = async (type: string) => {
@@ -91,6 +109,11 @@ const ReviewTransfer = () => {
         }
       }
     }
+  };
+
+  const handleCancel = () => {
+    setRenderReviewPage(false);
+    setRenderTxPage(true);
   };
 
   return (
