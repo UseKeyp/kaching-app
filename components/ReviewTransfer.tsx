@@ -16,6 +16,7 @@ import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
 import UseKeypApi from "../hooks/useKeypApi";
 import UseNodeMailer from "../hooks/useNodemailer";
 import { tokenAddresses } from "../utils/tokenAddresses";
+import { Info, TransferData } from "types/restAPI";
 
 /**
  * @remarks - this component lets user review the transaction before sending. ButtonSpacingWrapper is used place "Send" button at the bottom of the page. If useKeypApi fails and this app cannot find a truthy value for `fromEmail`, the 'Request!' button will be set to disabled.
@@ -23,6 +24,8 @@ import { tokenAddresses } from "../utils/tokenAddresses";
  */
 const ReviewTransfer = () => {
   const [fromEmail, setFromEmail] = useState<string>();
+  const [hash, setHash] = useState<string | undefined>();
+  const [txFail, setTxFail] = useState(false);
 
   const {
     type,
@@ -34,30 +37,30 @@ const ReviewTransfer = () => {
     setRenderReviewPage,
     setIsConfirming,
   } = useFormContext();
+  const [sendingTx, setSendingTx] = useState(false);
   const { data: session } = useSession();
   const router = useRouter();
 
   const accessToken = session && session.user.accessToken;
-  console.log(session?.user);
 
   /**
-   * @remarks calls /oauth/me endpoint on Keyp API in order to get email address
-   * @returns promise with OAuthMe type
+   * @remarks calls `users/:user` endpoint on Keyp API to get email address
+   * @returns promise with user data
    */
-  const getUserData = async (): Promise<any> => {
+  const getUserData = async (): Promise<Info> => {
     let userData = await UseKeypApi({
       accessToken,
       method: "GET",
       endpoints: "users",
       urlParams1: session?.user.id,
     });
-    console.log(userData);
+    // TODO: email property doesn't exist until API gets fixed
     setFromEmail(userData.email);
     return userData;
   };
 
   const userData = getUserData();
-  console.log(userData);
+  console.log(userData, fromEmail);
 
   /**
    * @remarks - makes POST request to /tokens/transfers endpoint. If `toUserId` is provided, `toAddress` can be an empty string
@@ -69,8 +72,8 @@ const ReviewTransfer = () => {
     toUserId: string,
     token: string,
     amount: string
-  ) => {
-    const request = await UseKeypApi({
+  ): Promise<TransferData> => {
+    const request: TransferData = await UseKeypApi({
       accessToken,
       method: "POST",
       endpoints: "tokens",
@@ -83,59 +86,90 @@ const ReviewTransfer = () => {
         amount,
       },
     });
-    console.log(request);
+    return request;
     // if (request?.url) {
     //   window.location = request?.url;
     // }
   };
 
-  const handleSendTx = async (type: string) => {
-    setRenderReviewPage(false);
-    setIsConfirming(true);
-    if (type === "send" && asset && amount) {
-      handleTokenTransfer(
-        "GOOGLE-108069800288055528830",
+  const handleSendTx = async () => {
+    if (asset && amount) {
+      const req = await handleTokenTransfer(
+        "DISCORD-438246122352410664",
         asset,
         amount.toString()
       );
+
+      if (req.status === "SUCCESS") {
+        // setHash(req.hash);
+        console.log(req);
+        router.push({
+          pathname: "/confirmation/send",
+          query: {
+            amount,
+            asset,
+            username,
+            hash: req.hash,
+          },
+        });
+      } else {
+        setSendingTx(false);
+        setTxFail(true);
+      }
+    }
+  };
+
+  const handleRequest = async () => {
+    const data = {
+      amount,
+      asset,
+      fromEmail,
+      username,
+    };
+    try {
+      await UseNodeMailer(data);
       router.push({
-        pathname: "/confirmation/send",
+        pathname: "/confirmation/request",
         query: {
           amount,
           asset,
           username,
         },
       });
+      return;
+    } catch (err) {
+      setSendingTx(false);
+      console.log(err);
+      return err;
+    }
+  };
+
+  const handleTxType = () => {
+    setSendingTx(true);
+    // setRenderReviewPage(false);
+    // setIsConfirming(true);
+    if (type === "send") {
+      handleSendTx();
     } else if (type === "request") {
-      if (fromEmail) {
-        const data = {
-          amount,
-          asset,
-          fromEmail,
-          username,
-        };
-        try {
-          await UseNodeMailer(data);
-          router.push({
-            pathname: "/confirmation/request",
-            query: {
-              amount,
-              asset,
-              username,
-            },
-          });
-          return;
-        } catch (err) {
-          console.log(err);
-          return err;
-        }
-      }
+      handleRequest();
     }
   };
 
   const handleCancel = () => {
     setRenderReviewPage(false);
     setRenderTxPage(true);
+  };
+
+  const disabledButtonLogic = () => {
+    if (type === "request") {
+      if (!fromEmail) {
+        return true;
+      }
+    } else if (type === "send") {
+      if (txFail) {
+        return true;
+      }
+    }
   };
 
   return (
@@ -202,19 +236,15 @@ const ReviewTransfer = () => {
         </SimpleGrid>
       </Box>
       <Box mt="1rem" mx="-1.5rem" mb="-1rem">
-        {/* <Link
-          href={`/confirmation/${
-            type === "send" ? "send" : "request"
-          }?amount=${amount}?asset=${asset}?fromEmail=${fromEmail}?username=${username}`}
-        > */}
         <Button
-          onClick={() => handleSendTx(type)}
+          onClick={() => handleTxType()}
           variant="formGreen"
-          isDisabled={type === "request" ? !fromEmail : false}
+          isDisabled={disabledButtonLogic()}
+          isLoading={sendingTx}
+          loadingText={type === "request" ? "Requesting..." : "Sending..."}
         >
           {type === "send" ? "Send!" : "Request!"}
         </Button>
-        {/* </Link> */}
       </Box>
     </ButtonSpacingWrapper>
   );

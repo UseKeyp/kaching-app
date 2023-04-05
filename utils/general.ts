@@ -43,3 +43,6 @@ export const generateEndpointUrl = (
   }
   return queryString;
 };
+
+export const blockExplorerLink = (hash: string) =>
+  `https://polygonscan.com/tx/${hash}`;

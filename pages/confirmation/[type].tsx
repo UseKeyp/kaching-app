@@ -14,6 +14,7 @@ import ButtonSpacingWrapper from "../../components/ButtonSpacingWrapper";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import Loading from "../../components/Loading";
+import { blockExplorerLink } from "utils/general";
 
 /**
  * @remarks - this component displays the transaction confirmation. ButtonSpacingWrapper is used place "Return" button at the bottom of the page
@@ -21,16 +22,12 @@ import Loading from "../../components/Loading";
  */
 const Confirmation = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const { data: session } = useSession();
+  const session = useSession();
   const router = useRouter();
 
   const type = router.query.type;
   const query = router.query;
-
-  // TODO: add link to transaction in block explorer
-  const handleViewTx = () => {
-    null;
-  };
+  console.log(query);
 
   useEffect(() => {
     if (session && session.status === "unauthenticated") {
@@ -76,8 +73,15 @@ const Confirmation = () => {
                   </Text>
                 </Box>
                 {type === "send" && (
-                  <Box onClick={handleViewTx}>
-                    <Text color="formBlueDark">View</Text>
+                  <Box>
+                    <Text color="formBlueDark">
+                      <Link
+                        href={blockExplorerLink(query.hash?.toString() || "")}
+                        target="_blank"
+                      >
+                        View
+                      </Link>
+                    </Text>
                   </Box>
                 )}
               </Stack>

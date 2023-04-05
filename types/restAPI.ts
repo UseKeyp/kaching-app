@@ -11,3 +11,9 @@ export interface Info {
     [k: string]: string;
   };
 }
+
+export interface TransferData {
+  error: string;
+  hash: string;
+  status: "FAILED" | "SUCCESS";
+}
