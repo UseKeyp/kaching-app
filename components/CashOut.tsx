@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Button, Heading, Image, Text, VStack } from "@chakra-ui/react";
 import UseKeypApi from "../hooks/useKeypApi";
 import { useSession } from "next-auth/react";
@@ -10,23 +10,29 @@ import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
  * @returns - CashOut component that displays offramps for users to withdraw from their wallet
  */
 const CashOut = () => {
+  const [coinbaseLoading, setCoinbaseLoading] = useState(false);
   const { data: session } = useSession();
   const { handleHomePage } = useFormContext();
 
   const handleClickCashOut = async (rampType: string) => {
-    const request = await UseKeypApi(
-      session?.user?.accessToken,
-      "offramps",
-      rampType
-    );
+    const request = await UseKeypApi({
+      accessToken: session?.user?.accessToken,
+      method: "GET",
+      endpoints: "ramps",
+      urlParams1: "off",
+      urlParams2: rampType,
+    });
     if (request?.url) window.location = request?.url;
+    return request.url || null;
   };
 
   return (
     <ButtonSpacingWrapper isTransactionSlider={true}>
-      <Box h="100vh" alignContent="space-around">
+      <Box w={["full", "full", "80%", "50%"]} mx="auto">
         <Heading as="h3">
-          <Text color="socialIconsGray">Withdraw from your Wallet</Text>
+          <Text color="socialIconsGray" textAlign="center">
+            Withdraw from your Wallet
+          </Text>
         </Heading>
         <VStack spacing="1.5rem" mt="2.5rem">
           {/* <Box w="full">
@@ -42,7 +48,12 @@ const CashOut = () => {
             <Button
               variant="ramps"
               color="#4A4D53"
-              onClick={() => handleClickCashOut("COINBASE")}
+              isLoading={coinbaseLoading}
+              loadingText="Loading"
+              onClick={() => {
+                handleClickCashOut("COINBASE");
+                setCoinbaseLoading(true);
+              }}
             >
               <Image src={"payment-coinbase.svg"} alt="" />
               <Text ml="1rem">Coinbase</Text>

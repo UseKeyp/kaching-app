@@ -1,25 +1,36 @@
 import axios from "axios";
+import { UrlParams1, Endpoints } from "types/keypEndpoints";
 import { Transfers } from "../types/Transfers";
-import { endpointLogic, requestType } from "../utils/general";
+import { generateEndpointUrl } from "../utils/general";
 
-const KEYP_API_BASE_URL = "https://api.usekeyp.com/v1";
+interface UseKeypApiProps {
+  accessToken: string | undefined | null;
+  method: "GET" | "POST";
+  endpoints: Endpoints;
+  urlParams1?: UrlParams1;
+  urlParams2?: string;
+  data?: Transfers;
+}
 
 /**
  * @remarks - This hook is used to fetch data from the Keyp API
  * @param accessToken - passed into headers
- * @param endpointType - possible endpoints: onramps | offramps | users | usersbalance | tokenTransfers | tokensBalance
- * @param variables - get passed into endpoint URL
+ * @param method - request type
+ * @param endpoints - endpoint
+ * @param urlParam1
+ * @param urlParam2
  * @param data - (optional) arguments for request data
  * @returns
  */
-const UseKeypApi = async (
-  accessToken: string | undefined | null,
-  endpointType: string,
-  variables?: string | null,
-  data?: Transfers
-) => {
-  const endpoint = endpointLogic(endpointType, variables);
-  const method = requestType(endpointType);
+const UseKeypApi = async ({
+  accessToken,
+  method,
+  endpoints,
+  urlParams1,
+  urlParams2,
+  data,
+}: UseKeypApiProps) => {
+  const endpoint = generateEndpointUrl(endpoints, urlParams1, urlParams2);
 
   const headers = {
     "Content-type": "application/json",
@@ -29,7 +40,7 @@ const UseKeypApi = async (
   const fetchData = await axios({
     method,
     headers,
-    url: `${KEYP_API_BASE_URL}/${endpoint}`,
+    url: endpoint,
     data,
   })
     .then((response) => {

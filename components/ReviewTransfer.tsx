@@ -23,7 +23,7 @@ import { tokenAddresses } from "../utils/tokenAddresses";
  */
 const ReviewTransfer = () => {
   const [fromEmail, setFromEmail] = useState<string>();
-  const [toUserId, setToUserId] = useState<string>();
+
   const {
     type,
     isActiveDiscord,
@@ -37,62 +37,63 @@ const ReviewTransfer = () => {
   const { data: session } = useSession();
   const router = useRouter();
 
-  const ACCESS_TOKEN = process.env.NEXT_PUBLIC_TOKEN_SECRET;
+  const accessToken = session && session.user.accessToken;
+  console.log(session?.user);
 
-  // console.log(session?.user);
-
-  const getFromEmail = async () => {
-    const fetchData = await UseKeypApi(
-      session?.user?.accessToken,
-      "users",
-      session?.user?.id
-    );
-    const email = fetchData?.email;
-    setFromEmail(email);
+  /**
+   * @remarks calls /oauth/me endpoint on Keyp API in order to get email address
+   * @returns promise with OAuthMe type
+   */
+  const getUserData = async (): Promise<any> => {
+    let userData = await UseKeypApi({
+      accessToken,
+      method: "GET",
+      endpoints: "users",
+      urlParams1: session?.user.id,
+    });
+    console.log(userData);
+    setFromEmail(userData.email);
+    return userData;
   };
 
-  if (type === "request") {
-    getFromEmail();
-  }
+  const userData = getUserData();
+  console.log(userData);
 
-  // gets user ID from email
-  const getToUserId = async () => {
-    const fetchData = await UseKeypApi(
-      // session?.user?.accessToken,
-      ACCESS_TOKEN,
-      "users",
-      // TODO: replace with dynamically generated user id which is taken from user email
-      "GOOGLE-108069800288055528830"
-    );
-    const userId = fetchData?.userId;
-    setToUserId(userId);
-  };
-
-  const handleSendTransaction = async (
+  /**
+   * @remarks - makes POST request to /tokens/transfers endpoint. If `toUserId` is provided, `toAddress` can be an empty string
+   * @param toUserId - username should be format `GOOGLE-1098204....` or `DISCORD-109245...`
+   * @param token - ERC20 token address
+   * @param amount - token amount
+   */
+  const handleTokenTransfer = async (
     toUserId: string,
     token: string,
     amount: string
   ) => {
-    const request = await UseKeypApi(
-      session?.user?.accessToken,
-      "tokenTransfers",
-      null,
-      {
+    const request = await UseKeypApi({
+      accessToken,
+      method: "POST",
+      endpoints: "tokens",
+      urlParams1: "transfers",
+      data: {
         toAddress: "",
         toUserId,
         tokenAddress: tokenAddresses[token],
         tokenType: "ERC20",
         amount,
-      }
-    );
-    if (request?.url) window.location = request?.url;
+      },
+    });
+    console.log(request);
+    // if (request?.url) {
+    //   window.location = request?.url;
+    // }
   };
 
   const handleSendTx = async (type: string) => {
     setRenderReviewPage(false);
     setIsConfirming(true);
     if (type === "send" && asset && amount) {
-      handleSendTransaction(
+      handleTokenTransfer(
         "GOOGLE-108069800288055528830",
         asset,
         amount.toString()

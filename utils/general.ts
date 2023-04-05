@@ -1,42 +1,45 @@
+import { Endpoints, UrlParams1 } from "types/keypEndpoints";
+
 /**
  *
- * @param endpoint - value getting passed into Keyp api
- * @param variables
- * @returns
+ * @param endpoints - value getting passed into Keyp api
+ * @param urlParams1
+ * @param urlParams2
+ * @returns endpoint to be passed into Keyp API. Return value gets stored in queryString variable
  */
-export const endpointLogic = (endpoint: string, variables?: string | null) => {
-  let endpointValue: string;
-  switch (endpoint) {
-    case "onramps":
-      endpointValue = `ramps/on/${variables}`;
-      break;
-    case "offramps":
-      endpointValue = `ramps/off/${variables}`;
-      break;
-    case "users":
-      endpointValue = `users/${variables}`;
-      break;
-    case "usersbalance":
-      endpointValue = `users/${variables}/balance`;
-      break;
-    case "tokenTransfers":
-      endpointValue = "tokens/transfers";
-      break;
-    case "tokensBalance":
-      endpointValue = `tokens/balance/${variables}`;
-      break;
-    default:
-      return null;
-  }
-  return endpointValue;
-};
+export const generateEndpointUrl = (
+  endpoint: Endpoints,
+  urlParams1?: UrlParams1,
+  urlParams2?: string
+) => {
+  const KEYP_BASE_URL_V1 = "https://api.usekeyp.com/v1";
 
-export const requestType = (endpoint: string) => {
-  let type: string;
-  if (endpoint === "tokenTransfers") {
-    type = "POST";
-  } else {
-    type = "GET";
+  let queryString = "";
+  switch (endpoint) {
+    case "ramps":
+      if (urlParams1 === "on") {
+        queryString = `${KEYP_BASE_URL_V1}/ramps/on/${urlParams2}`;
+        break;
+      } else if (urlParams1 === "off") {
+        queryString = `${KEYP_BASE_URL_V1}/ramps/off/${urlParams2}`;
+        break;
+      }
+    case "users":
+      if (urlParams2 === "balance") {
+        queryString = `${KEYP_BASE_URL_V1}/users/${urlParams1}/balance`;
+        break;
+      } else {
+        queryString = `${KEYP_BASE_URL_V1}/users/${urlParams1}`;
+        break;
+      }
+    case "tokens":
+      if (urlParams1 === "transfers") {
+        queryString = `${KEYP_BASE_URL_V1}/tokens/transfers`;
+        break;
+      } else if (urlParams1 === "balance") {
+        queryString = `${KEYP_BASE_URL_V1}/balance/${urlParams2}`;
+        break;
+      }
   }
-  return type;
+  return queryString;
 };

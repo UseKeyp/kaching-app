@@ -19,6 +19,7 @@ import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
  * @returns - Fund component that displays offramps for users to fund their wallet
  */
 const Fund = () => {
+  const [rampLoading, setRampLoading] = useState(false);
   const [openTooltip, setOpenTooltip] = useState(false);
   const { data: session } = useSession();
   const { handleHomePage } = useFormContext();
@@ -33,26 +34,34 @@ const Fund = () => {
   };
 
   const handleClickFund = async (rampType: string) => {
-    const request = await UseKeypApi(
-      session && session.user.accessToken,
-      "onramps",
-      rampType
-    );
+    const request = await UseKeypApi({
+      accessToken: session?.user?.accessToken,
+      method: "GET",
+      endpoints: "ramps",
+      urlParams1: "on",
+      urlParams2: rampType,
+    });
     if (request?.url) window.location = request?.url;
+    return request.url || null;
   };
 
   return (
     <ButtonSpacingWrapper isTransactionSlider={true}>
-      <Box mt="1rem">
+      <Box w={["full", "full", "80%", "50%"]} mx="auto">
         <Heading as="h3">
-          <Text color="socialIconsGray">Fund your Wallet</Text>
+          <Text color="socialIconsGray" textAlign="center">
+            Fund your Wallet
+          </Text>
         </Heading>
         <VStack spacing="1.5rem" mt="2.5rem">
           <Box w="full">
             <Button
               variant="ramps"
               color="#22272F"
-              onClick={() => handleClickFund("RAMP_NETWORK")}
+              onClick={() => {
+                handleClickFund("RAMP_NETWORK");
+                setRampLoading(true);
+              }}
             >
               <Image src={"payment-ramp.svg"} alt="Ramp" />
             </Button>

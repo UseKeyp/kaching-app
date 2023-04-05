@@ -15,8 +15,10 @@ import { FaDiscord, FaGoogle } from "react-icons/fa";
 
 const Login = () => {
   const [activeBtn, setActiveBtn] = useState<string>();
-  const { data: session } = useSession();
+  const session = useSession();
   const router = useRouter();
+
+  console.log(session);
 
   const handleGoogleLogin = () => {
     signIn("keyp", undefined, "login_provider=GOOGLE");
