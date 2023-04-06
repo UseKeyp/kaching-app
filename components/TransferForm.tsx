@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Box,
   Button,
@@ -9,23 +10,23 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { ErrorMessage } from "@hookform/error-message";
-import React, { useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
 import AssetModal from "./AssetModal";
 import { useFormContext } from "../context/FormContext";
 import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
+import AssetBalance from "./AssetBalance";
 
 /**
  * @remarks - this component renders a form that allows user to send a transaction. ButtonSpacingWrapper is used to make sure the Review button stays at the bottom of the page
  * @returns div containing a form
  */
 const TransferForm = () => {
-  const [getAsset, setGetAsset] = useState("MATIC");
-
   const {
     setAmount,
     setAsset,
+    asset,
+    amount,
     isActiveDiscord,
     setIsActiveDiscord,
     isActiveGoogle,
@@ -77,10 +78,6 @@ const TransferForm = () => {
     }
   };
 
-  useEffect(() => {
-    setValue("asset", getAsset);
-  }, [getAsset, setValue]);
-
   return (
     <ButtonSpacingWrapper isTransactionSlider={true}>
       <SimpleGrid columns={1} spacing={"1rem"}>
@@ -90,7 +87,6 @@ const TransferForm = () => {
               errors={errors}
               name="amount"
               render={({ message }) => {
-                console.log(message.length);
                 return (
                   <Box
                     display={message ? "block" : "none"}
@@ -110,7 +106,7 @@ const TransferForm = () => {
               type="number"
               step={0.1}
               placeholder="0.00"
-              color="formGreen"
+              color={errors.amount ? "errorEmailRed" : "formGreen"}
               autoComplete="off"
               {...register("amount", {
                 required: {
@@ -122,8 +118,11 @@ const TransferForm = () => {
             />
           </Box>
         </GridItem>
-        <GridItem px={"0.5rem"}>
-          <AssetModal setGetAsset={setGetAsset} />
+        <GridItem px={"0.5rem"} py={1}>
+          <HStack>
+            <AssetModal />
+            <AssetBalance />
+          </HStack>
         </GridItem>
         <GridItem>
           <HStack justifyContent="start" spacing={"1rem"} mb="-2">
@@ -198,7 +197,7 @@ const TransferForm = () => {
             <Input
               type={isActiveGoogle ? "email" : "text"}
               placeholder={isActiveGoogle ? "Add Gmail" : "Discord Username"}
-              color="#89DCFF"
+              color={errors.username ? "errorEmailRed" : "#89DCFF"}
               autoComplete="off"
               {...register("username", {
                 required: "cannot be blank",

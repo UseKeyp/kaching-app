@@ -11,12 +11,10 @@ import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
  */
 const CashOut = () => {
   const [coinbaseLoading, setCoinbaseLoading] = useState(false);
-  const { data: session } = useSession();
   const { handleHomePage } = useFormContext();
 
   const handleClickCashOut = async (rampType: string) => {
     const request = await UseKeypApi({
-      accessToken: session?.user?.accessToken,
       method: "GET",
       endpoints: "ramps",
       urlParams1: "off",

@@ -21,7 +21,7 @@ export const FormContext = createContext<{
   setType: Dispatch<string>;
   amount: number | undefined;
   setAmount: Dispatch<number | undefined>;
-  asset: string | undefined;
+  asset: string;
   setAsset: Dispatch<string>;
   username: string | undefined;
   setUsername: Dispatch<string | undefined>;
@@ -41,7 +41,7 @@ export const FormContext = createContext<{
   setType: useState,
   amount: undefined,
   setAmount: useState,
-  asset: undefined,
+  asset: "MATIC",
   setAsset: useState,
   username: undefined,
   setUsername: useState,

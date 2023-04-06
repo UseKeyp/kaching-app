@@ -10,7 +10,7 @@ import { Endpoints, UrlParams1 } from "types/keypEndpoints";
 export const generateEndpointUrl = (
   endpoint: Endpoints,
   urlParams1?: UrlParams1,
-  urlParams2?: string
+  urlParams2?: string | null
 ) => {
   const KEYP_BASE_URL_V1 = "https://api.usekeyp.com/v1";
 
@@ -26,10 +26,10 @@ export const generateEndpointUrl = (
       }
     case "users":
       if (urlParams2 === "balance") {
-        queryString = `${KEYP_BASE_URL_V1}/users/${urlParams1}/balance`;
+        queryString = `${KEYP_BASE_URL_V1}/users/${urlParams1}/balance/${urlParams2}`;
         break;
       } else {
-        queryString = `${KEYP_BASE_URL_V1}/users/${urlParams1}`;
+        queryString = `${KEYP_BASE_URL_V1}/users/${urlParams1}/balance`;
         break;
       }
     case "tokens":
@@ -46,3 +46,9 @@ export const generateEndpointUrl = (
 
 export const blockExplorerLink = (hash: string) =>
   `https://polygonscan.com/tx/${hash}`;
+
+export const supportedAssets: { [k: string]: string } = {
+  ETH: "0x",
+  DAI: "0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063",
+  USDC: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+};

@@ -24,7 +24,6 @@ import { Info, TransferData } from "types/restAPI";
  */
 const ReviewTransfer = () => {
   const [fromEmail, setFromEmail] = useState<string>();
-  const [hash, setHash] = useState<string | undefined>();
   const [txFail, setTxFail] = useState(false);
 
   const {
@@ -35,13 +34,11 @@ const ReviewTransfer = () => {
     username,
     setRenderTxPage,
     setRenderReviewPage,
-    setIsConfirming,
+    // setIsConfirming,
   } = useFormContext();
   const [sendingTx, setSendingTx] = useState(false);
-  const { data: session } = useSession();
   const router = useRouter();
-
-  const accessToken = session && session.user.accessToken;
+  const { data: session } = useSession();
 
   /**
    * @remarks calls `users/:user` endpoint on Keyp API to get email address
@@ -49,7 +46,6 @@ const ReviewTransfer = () => {
    */
   const getUserData = async (): Promise<Info> => {
     let userData = await UseKeypApi({
-      accessToken,
       method: "GET",
       endpoints: "users",
       urlParams1: session?.user.id,
@@ -74,7 +70,6 @@ const ReviewTransfer = () => {
     amount: string
   ): Promise<TransferData> => {
     const request: TransferData = await UseKeypApi({
-      accessToken,
       method: "POST",
       endpoints: "tokens",
       urlParams1: "transfers",
@@ -87,9 +82,6 @@ const ReviewTransfer = () => {
       },
     });
     return request;
-    // if (request?.url) {
-    //   window.location = request?.url;
-    // }
   };
 
   const handleSendTx = async () => {
@@ -99,10 +91,8 @@ const ReviewTransfer = () => {
         asset,
         amount.toString()
       );
-
       if (req.status === "SUCCESS") {
-        // setHash(req.hash);
-        console.log(req);
+        // console.log(req);
         router.push({
           pathname: "/confirmation/send",
           query: {
