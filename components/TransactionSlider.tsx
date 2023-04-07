@@ -20,7 +20,7 @@ const TransactionSlider = () => {
     "Fund",
     "Cash Out",
   ];
-  const { setType, type } = useFormContext();
+  const { setType, type, renderReviewPage, isConfirming } = useFormContext();
   const { setTxSliderHeight } = useSizeProvider();
   const scrollRef = useRef(null);
 
@@ -77,7 +77,7 @@ const TransactionSlider = () => {
 
   return (
       <Flex
-          display={"fixed"}
+          display={renderReviewPage || isConfirming ? "none" : "fixed"}
           ref={scrollRef}
           px={["0rem", "0rem", "5rem"]}
           overflowX="scroll"
