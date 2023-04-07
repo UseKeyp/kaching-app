@@ -55,7 +55,6 @@ const AssetModal = () => {
         fontWeight="extrabold"
         color="assetOrange"
         variant="none"
-        mt={6}
         mb={-5}
         p={0}
       >

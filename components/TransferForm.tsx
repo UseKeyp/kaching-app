@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -22,6 +22,7 @@ import AssetBalance from "./AssetBalance";
  * @returns div containing a form
  */
 const TransferForm = () => {
+  const [balanceError, setBalanceError] = useState(false);
   const {
     setAmount,
     setAsset,
@@ -99,7 +100,22 @@ const TransferForm = () => {
               }}
             />
           </Box>
-          <Box position="relative" mt={errors.amount ? "-2rem" : "0"}>
+
+          <Box position="relative" mt={balanceError ? "1rem" : 0}>
+            <Box
+              display={balanceError ? "block" : "none"}
+              mt={balanceError ? "-1rem" : "0"}
+              ml="0.5rem"
+              mb="-2rem"
+              position="relative"
+              zIndex={1}
+              fontSize="20px"
+              fontWeight="normal"
+            >
+              <Text color="errorOrange">
+                {balanceError ? "Insufficient balance" : null}
+              </Text>
+            </Box>
             <Input
               type="number"
               step={0.1}
@@ -111,15 +127,18 @@ const TransferForm = () => {
                   value: true,
                   message: `Enter asset amount`,
                 },
+                onChange: (e) => setAmount(e.target.value),
                 validate: (n) => n > 0 || "Value must be greater than 0",
               })}
             />
           </Box>
         </GridItem>
-        <GridItem px={"0.5rem"} py={1}>
-          <HStack>
+        <GridItem px={"0.5rem"} py={1} alignContent="center">
+          <HStack spacing="1rem">
             <AssetModal />
-            <AssetBalance />
+            <Box pt={3}>
+              <AssetBalance setBalanceError={setBalanceError} />
+            </Box>
           </HStack>
         </GridItem>
         <GridItem>
