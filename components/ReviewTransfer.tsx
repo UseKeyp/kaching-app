@@ -182,7 +182,7 @@ const ReviewTransfer = () => {
 
   return (
     <ButtonSpacingWrapper isTransactionSlider={false}>
-      <Box fontWeight="extrabold" fontSize="5rem">
+      <Box fontWeight="extrabold" fontSize="5rem" px={[0, 0, "5rem"]}>
         <HStack
           color="formBlueDark"
           fontSize={["3.5rem", "5rem"]}

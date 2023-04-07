@@ -1,10 +1,10 @@
 import { Box, HStack, Image, Text } from "@chakra-ui/react";
 import { useFormContext } from "context/FormContext";
-import React, { useEffect } from "react";
+import React from "react";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
 
 /**
- * @remarks component gets rendered onto TransferForm component
+ * @remarks component gets rendered onto TransferForm component. Nested boxes are in place for styling purposes
  * @returns component that lets user select whether to enter Google or Discord username
  */
 const ToPlatformSelection = () => {
@@ -17,10 +17,6 @@ const ToPlatformSelection = () => {
       setPlatform("discord");
     }
   };
-
-  useEffect(() => {
-    console.log(platform);
-  }, [platform]);
 
   return (
     <HStack justifyContent="start" spacing={"1rem"} mb="-2">
