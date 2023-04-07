@@ -24,8 +24,8 @@ import AssetBalance from "./AssetBalance";
 const TransferForm = () => {
   const [balanceError, setBalanceError] = useState(false);
   const {
+    type,
     setAmount,
-    setAsset,
     isActiveDiscord,
     setIsActiveDiscord,
     isActiveGoogle,
@@ -67,13 +67,18 @@ const TransferForm = () => {
     }
   };
 
-  const handleReivew = async () => {
-    const valid = await trigger();
-    if (valid) {
+  const handleReivew = async (): Promise<void> => {
+    const stateUpdates = () => {
       setAmount(values.amount),
         setUsername(values.username),
         setRenderTxPage(false);
       setRenderReviewPage(true);
+    };
+    const valid = await trigger();
+    if (type === "send" && valid) {
+      stateUpdates();
+    } else if (type === "request") {
+      stateUpdates();
     }
   };
 

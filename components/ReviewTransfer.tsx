@@ -16,14 +16,20 @@ import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
 import UseKeypApi from "../hooks/useKeypApi";
 import UseNodeMailer from "../hooks/useNodemailer";
 import { tokenAddresses } from "../utils/tokenAddresses";
-import { Info, TransferData } from "types/restAPI";
+import { TransferData } from "types/restAPI";
+
+interface HandleRequestProps {
+  amount: number | undefined;
+  asset: string;
+  fromEmail: string | undefined;
+  username: string | undefined;
+}
 
 /**
  * @remarks - this component lets user review the transaction before sending. ButtonSpacingWrapper is used place "Send" button at the bottom of the page. If useKeypApi fails and this app cannot find a truthy value for `fromEmail`, the 'Request!' button will be set to disabled.
  * @returns - review form that displays the amount, asset, and username of the transaction.
  */
 const ReviewTransfer = () => {
-  const [fromEmail, setFromEmail] = useState<string>();
   const [txFail, setTxFail] = useState(false);
 
   const {
@@ -41,23 +47,28 @@ const ReviewTransfer = () => {
   const [sendingTx, setSendingTx] = useState(false);
   const router = useRouter();
   const { data: session } = useSession();
+  // TODO: remove || after fixing email on session
+  const fromEmail = session?.user.email || "";
 
-  /**
-   * @remarks calls `users/:user` endpoint on Keyp API to get email address
-   * @returns promise with user data
-   */
-  const getUserData = async (): Promise<Info> => {
-    let userData = await UseKeypApi({
-      accessToken: session?.user.accessToken,
-      method: "GET",
-      endpoints: "users",
-      urlParams1: session?.user.id,
-    });
-    // TODO: email property doesn't exist until API gets fixed
-    setFromEmail(userData.email);
-    return userData;
-  };
-  getUserData();
+  console.log(session);
+
+  // CODE BELOW IS DEPRECATED - CAN MORE EASILY GET EMAIL FROM SESSION
+  // /**
+  //  * @remarks calls `users/:user` endpoint on Keyp API to get email address
+  //  * @returns promise with user data
+  //  */
+  // const getUserData = async (): Promise<Info> => {
+  //   let userData = await UseKeypApi({
+  //     accessToken: session?.user.accessToken,
+  //     method: "GET",
+  //     endpoints: "users",
+  //     urlParams1: session?.user.id,
+  //   });
+  //   // TODO: email property doesn't exist until API gets fixed
+  //   setFromEmail(userData.email);
+  //   return userData;
+  // };
+  // getUserData();
   // console.log(getUserData());
 
   /**
@@ -89,9 +100,8 @@ const ReviewTransfer = () => {
   };
 
   const handleSendTx = async () => {
-    console.log(asset, amount, username);
     if (asset && amount && username) {
-      console.log("attempting transfer...");
+      // console.log("attempting transfer...");
       const req = await handleTokenTransfer(username, asset, amount.toString());
       if (req.status === "SUCCESS") {
         console.log(req);
@@ -112,8 +122,13 @@ const ReviewTransfer = () => {
     }
   };
 
-  // when user requests funds from another user, Nodemailer sends an email
-  const handleRequest = async () => {
+  // when user requests funds from another user, Nodemailer sends an email to user
+  const handleRequest = async ({
+    amount,
+    asset,
+    fromEmail,
+    username,
+  }: HandleRequestProps) => {
     const data = {
       amount,
       asset,
@@ -133,7 +148,7 @@ const ReviewTransfer = () => {
       return;
     } catch (err) {
       setSendingTx(false);
-      console.log(err);
+      // console.log(err);
       return err;
     }
   };
@@ -145,7 +160,7 @@ const ReviewTransfer = () => {
     if (type === "send") {
       await handleSendTx();
     } else if (type === "request") {
-      handleRequest();
+      handleRequest({ amount, asset, fromEmail, username });
     }
   };
 
@@ -158,14 +173,10 @@ const ReviewTransfer = () => {
   };
 
   const disabledButtonLogic = () => {
-    if (type === "request") {
-      if (!fromEmail) {
-        return true;
-      }
-    } else if (type === "send") {
-      if (txFail) {
-        return true;
-      }
+    if (type === "request" && !fromEmail) {
+      return true;
+    } else if (type === "send" && txFail) {
+      return true;
     }
   };
 
