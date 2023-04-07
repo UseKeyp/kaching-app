@@ -11,10 +11,8 @@ import {
 } from "@chakra-ui/react";
 import { signOut, useSession } from "next-auth/react";
 import useSocialLogo from "../hooks/useSocialLogo";
-import { useFormContext } from "../context/FormContext";
 import { RxCopy } from "react-icons/rx";
 import { useSizeProvider } from "../context/SizeContext";
-import { useRouter } from "next/router";
 
 /**
  *
@@ -24,9 +22,7 @@ import { useRouter } from "next/router";
 const Navbar = () => {
   const [openTooltip, setOpenTooltip] = useState(false);
   const { data: session } = useSession();
-  const { handleHomePage } = useFormContext();
   const socialLogo = useSocialLogo(session);
-  const router = useRouter();
 
   const { setNavHeight } = useSizeProvider();
 

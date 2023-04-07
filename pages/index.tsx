@@ -24,8 +24,6 @@ const Home = () => {
   const session = useSession();
   const router = useRouter();
 
-  // console.log(session);
-
   const componentLogic = () => {
     if (type === "send" || type === "request") {
       if (renderTxPage) {
@@ -42,6 +40,7 @@ const Home = () => {
     }
   };
 
+  // control flow below is used to prevent flickering of components
   useEffect(() => {
     if (session && session.status === "unauthenticated") {
       router.push("/login");

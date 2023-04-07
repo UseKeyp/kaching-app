@@ -17,6 +17,7 @@ import UseKeypApi from "../hooks/useKeypApi";
 import UseNodeMailer from "../hooks/useNodemailer";
 import { tokenAddresses } from "../utils/tokenAddresses";
 import { TransferData } from "types/restAPI";
+import { TransferError } from "types/keypEndpoints";
 
 interface HandleRequestProps {
   amount: number | undefined;
@@ -31,6 +32,7 @@ interface HandleRequestProps {
  */
 const ReviewTransfer = () => {
   const [txFail, setTxFail] = useState(false);
+  const [responseError, setResponseError] = useState<TransferError | null>();
 
   const {
     type,
@@ -88,12 +90,19 @@ const ReviewTransfer = () => {
       endpoints: "tokens",
       urlParams1: "transfers",
       data: {
-        toUsername: toUserId,
+        toUserUsername: toUserId,
         toUserProviderType: platform === "discord" ? "DISCORD" : "GOOGLE",
         tokenAddress: tokenAddresses[token],
         tokenType: "ERC20",
         amount,
       },
+    });
+    console.log("data", {
+      toUserUsername: toUserId,
+      toUserProviderType: platform === "discord" ? "DISCORD" : "GOOGLE",
+      tokenAddress: tokenAddresses[token],
+      tokenType: "ERC20",
+      amount,
     });
 
     return request;
@@ -101,8 +110,8 @@ const ReviewTransfer = () => {
 
   const handleSendTx = async () => {
     if (asset && amount && username) {
-      // console.log("attempting transfer...");
       const req = await handleTokenTransfer(username, asset, amount.toString());
+      console.log(req);
       if (req.status === "SUCCESS") {
         console.log(req);
         router.push({
@@ -114,10 +123,10 @@ const ReviewTransfer = () => {
             hash: req.hash,
           },
         });
+        return req;
       } else {
-        console.log("fail");
+        setResponseError(req);
         setSendingTx(false);
-        setTxFail(true);
       }
     }
   };
@@ -175,10 +184,13 @@ const ReviewTransfer = () => {
   const disabledButtonLogic = () => {
     if (type === "request" && !fromEmail) {
       return true;
-    } else if (type === "send" && txFail) {
-      return true;
     }
+    // else if (type === "send" && txFail) {
+    //   return true;
+    // }
   };
+
+  console.log(responseError?.error);
 
   return (
     <ButtonSpacingWrapper isTransactionSlider={false}>
@@ -244,6 +256,18 @@ const ReviewTransfer = () => {
         </SimpleGrid>
       </Box>
       <Box mt="1rem" mx="-1.5rem" mb="-1rem">
+        {responseError?.error && (
+          <Box
+            w="80%"
+            m="auto"
+            textAlign="center"
+            fontSize="26px"
+            fontWeight="normal"
+            color="errorOrange"
+          >
+            <Text>{responseError.error}</Text>
+          </Box>
+        )}
         <Button
           onClick={() => handleTxType()}
           variant="formGreen"

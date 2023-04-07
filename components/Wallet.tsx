@@ -11,6 +11,7 @@ const Wallet = () => {
 
   const renderBalances = () => {
     const assetsList = assets && Object.values(assets);
+
     if (assetsList && assetsList.length > 1) {
       return assetsList?.map((asset: any) => {
         return (
@@ -20,8 +21,7 @@ const Wallet = () => {
           </HStack>
         );
       });
-    }
-    if (assetsList && assetsList.length === 0) {
+    } else if (assetsList && assetsList.length === 0) {
       return (
         <Box>
           <Text>No balance to display</Text>
@@ -44,13 +44,11 @@ const Wallet = () => {
     axios
       .get(URL, options)
       .then((response) => {
-        console.log("response", Object.values(response.data));
+        // console.log("response", Object.values(response.data));
         setAssets(response.data);
         setIsLoading(false);
       })
-      .catch((error) => {
-        console.error(error);
-      });
+      .catch((error) => console.error(error));
     // eslint-disable-next-line
   }, [assets]);
 
@@ -62,9 +60,6 @@ const Wallet = () => {
       justifyContent="start"
       mt="2rem"
     >
-      <Heading as="h2" color="socialIconsGray">
-        Tokens
-      </Heading>
       {isLoading && (
         <VStack>
           <Text fontSize="2rem" color="pink" fontWeight="normal">
@@ -73,9 +68,16 @@ const Wallet = () => {
           <Image src="keyp_spinner.svg" alt="" w="3rem" />
         </VStack>
       )}
-      <VStack spacing="0.5rem" fontSize="60px" color="loginGray">
-        {renderBalances()}
-      </VStack>
+      {!isLoading && (
+        <>
+          <Heading as="h2" color="socialIconsGray">
+            Tokens
+          </Heading>
+          <VStack spacing="0.5rem" fontSize="60px" color="loginGray">
+            {renderBalances()}
+          </VStack>
+        </>
+      )}
     </Box>
   );
 };
