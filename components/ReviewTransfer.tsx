@@ -30,7 +30,9 @@ const ReviewTransfer = () => {
     type,
     isActiveDiscord,
     amount,
+    setAmount,
     asset,
+    setAsset,
     username,
     setRenderTxPage,
     setRenderReviewPage,
@@ -145,7 +147,10 @@ const ReviewTransfer = () => {
     }
   };
 
+  // resetting setAsset ensures that `asset` in AssetBalance component renders correctly
   const handleCancel = () => {
+    setAmount(0);
+    setAsset("MATIC");
     setRenderReviewPage(false);
     setRenderTxPage(true);
   };
