@@ -6,12 +6,9 @@ import {
   HStack,
   Input,
   SimpleGrid,
-  Text,
-  Image,
 } from "@chakra-ui/react";
 import { ErrorMessage } from "@hookform/error-message";
 import { FieldValues, useForm } from "react-hook-form";
-import { FaDiscord, FaGoogle } from "react-icons/fa";
 import AssetModal from "./AssetModal";
 import { useFormContext } from "../context/FormContext";
 import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
@@ -29,7 +26,6 @@ const TransferForm = () => {
     type,
     setAmount,
     platform,
-    setPlatform,
     setUsername,
     setRenderTxPage,
     setRenderReviewPage,
@@ -57,10 +53,10 @@ const TransferForm = () => {
     }
   };
 
-  const handleReivew = async (): Promise<void> => {
+  const handleReview = async (): Promise<void> => {
     const stateUpdates = () => {
-      setAmount(values.amount),
-        setUsername(values.username),
+      setAmount(values.amount);
+        setUsername(values.username);
         setRenderTxPage(false);
       setRenderReviewPage(true);
     };
@@ -180,7 +176,7 @@ const TransferForm = () => {
         </GridItem>
       </SimpleGrid>
       <Box mt="2rem" mx="-1.5rem" mb="-1.0rem">
-        <Button onClick={() => handleReivew()} variant="formGray">
+        <Button onClick={() => handleReview()} variant="formGray">
           Review
         </Button>
       </Box>

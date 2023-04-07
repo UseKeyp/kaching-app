@@ -91,7 +91,7 @@ const Login = () => {
               <Box position="absolute" ml="0.65rem">
                 <FaGoogle
                   color={activeBtn === "google" ? "#4285F4" : "white"}
-                  size="1.25rem"
+                  size="20px"
                 />
               </Box>
               <Text ml="1rem">Google</Text>
@@ -127,7 +127,7 @@ const Login = () => {
               >
                 <FaDiscord
                   color={activeBtn === "discord" ? "#5865F2" : "white"}
-                  size="1.25rem"
+                  size="20px"
                 />
               </Box>
               <Text ml="1rem">Discord</Text>
