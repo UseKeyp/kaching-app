@@ -18,3 +18,9 @@ export type UserBalance = {
     chainId: number;
   };
 };
+
+export type TransferError = {
+  status: "FAILED" | "SUCCESS";
+  hash: string;
+  error: string;
+};

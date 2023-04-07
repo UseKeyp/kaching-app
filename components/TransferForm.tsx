@@ -173,7 +173,7 @@ const TransferForm = () => {
                   value: 1,
                   message: "cannot be blank",
                 },
-                validate: emailValidation,
+                // validate: emailValidation,
               })}
             />
           </Box>
