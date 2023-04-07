@@ -34,12 +34,7 @@ const Navbar = () => {
   const username = session && session.user.username;
 
   const handleNavigateHome = () => {
-    if (router.pathname === "/") {
-      router.reload();
-      handleHomePage();
-    } else {
-      router.push("/");
-    }
+    window.location.href = "/";
   };
 
   const handleCopyAddress = () => {
