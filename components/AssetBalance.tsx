@@ -17,6 +17,7 @@ interface AssetBalanceProps {
 const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
   const [userAssets, setUserAssets] = useState<UserBalance | undefined>();
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
   const { asset, amount } = useFormContext();
   const { data: session } = useSession();
   const tokenAddress = supportedAssets[asset];
@@ -80,6 +81,10 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
         setIsLoading(false);
       })
       .catch((error) => {
+        if (error?.response?.status === 401) {
+          setError('Authentication error. Please log in again.')
+        }
+        setIsLoading(false);
         console.error(error);
       });
     // eslint-disable-next-line
@@ -103,7 +108,7 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
       )}
       <Text
         display={isLoading ? "none" : "block"}
-      >{`${"$"}${displayBalance} ${asset}`}</Text>
+      >{displayBalance ? `${"$"}${displayBalance} ${asset}` : `${error || 'Error'}`}</Text>
     </Box>
   );
 };
