@@ -7,10 +7,8 @@ import React, {
 } from "react";
 
 export const FormContext = createContext<{
-  isActiveGoogle: boolean;
-  setIsActiveGoogle: Dispatch<boolean>;
-  isActiveDiscord: boolean;
-  setIsActiveDiscord: Dispatch<boolean>;
+  platform: string;
+  setPlatform: Dispatch<"google" | "discord">;
   renderTxPage: boolean;
   setRenderTxPage: Dispatch<boolean>;
   renderReviewPage: boolean;
@@ -27,10 +25,8 @@ export const FormContext = createContext<{
   setUsername: Dispatch<string | undefined>;
   handleHomePage: any;
 }>({
-  isActiveGoogle: true,
-  setIsActiveGoogle: useState,
-  isActiveDiscord: false,
-  setIsActiveDiscord: useState,
+  platform: "google",
+  setPlatform: useState,
   renderTxPage: true,
   setRenderTxPage: useState,
   renderReviewPage: false,
@@ -57,8 +53,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
   const [renderTxPage, setRenderTxPage] = useState(true);
   const [renderReviewPage, setRenderReviewPage] = useState(false);
   const [isConfirming, setIsConfirming] = useState(false);
-  const [isActiveGoogle, setIsActiveGoogle] = useState(true);
-  const [isActiveDiscord, setIsActiveDiscord] = useState(false);
+  const [platform, setPlatform] = useState<"google" | "discord">("google");
   const [amount, setAmount] = useState<number | undefined>();
   const [asset, setAsset] = useState<string>("USDC");
   const [username, setUsername] = useState<string | undefined>();
@@ -68,8 +63,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
     setType("send");
     setRenderTxPage(true);
     setRenderReviewPage(false);
-    setIsActiveGoogle(true);
-    setIsActiveDiscord(false);
+    setPlatform("google");
     setAmount(undefined);
     setAsset("USDC");
     setUsername(undefined);
@@ -78,10 +72,8 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
   const value = {
     type,
     setType,
-    isActiveGoogle,
-    setIsActiveGoogle,
-    isActiveDiscord,
-    setIsActiveDiscord,
+    platform,
+    setPlatform,
     amount,
     setAmount,
     asset,
@@ -104,10 +96,8 @@ export const useFormContext = () => {
   const {
     type,
     setType,
-    isActiveGoogle,
-    setIsActiveGoogle,
-    isActiveDiscord,
-    setIsActiveDiscord,
+    platform,
+    setPlatform,
     amount,
     setAmount,
     asset,
@@ -126,10 +116,8 @@ export const useFormContext = () => {
   return {
     type,
     setType,
-    isActiveGoogle,
-    setIsActiveGoogle,
-    isActiveDiscord,
-    setIsActiveDiscord,
+    platform,
+    setPlatform,
     amount,
     setAmount,
     asset,

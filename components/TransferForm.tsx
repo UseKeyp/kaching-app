@@ -17,6 +17,7 @@ import { useFormContext } from "../context/FormContext";
 import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
 import AssetBalance from "./AssetBalance";
 import { inputColorLogicErrors } from "utils/general";
+import ToPlatformSelection from "./ToPlatformSelection";
 
 /**
  * @remarks - this component renders a form that allows user to send a transaction. ButtonSpacingWrapper is used to make sure the Review button stays at the bottom of the page
@@ -27,10 +28,8 @@ const TransferForm = () => {
   const {
     type,
     setAmount,
-    isActiveDiscord,
-    setIsActiveDiscord,
-    isActiveGoogle,
-    setIsActiveGoogle,
+    platform,
+    setPlatform,
     setUsername,
     setRenderTxPage,
     setRenderReviewPage,
@@ -51,20 +50,10 @@ const TransferForm = () => {
   watch();
 
   const emailValidation = (val: string) => {
-    if (isActiveGoogle) {
+    if (platform === "google") {
       return val.includes("@gmail.com") || "must be valid gmail address";
-    } else if (isActiveDiscord) {
+    } else {
       return val.includes("#") || "must be valid discord address";
-    }
-  };
-
-  const handleActiveIcons = (platform: string): void => {
-    if (platform === "google" && !isActiveGoogle) {
-      setIsActiveGoogle(true);
-      setIsActiveDiscord(false);
-    } else if (platform === "discord" && !isActiveDiscord) {
-      setIsActiveDiscord(true);
-      setIsActiveGoogle(false);
     }
   };
 
@@ -139,7 +128,7 @@ const TransferForm = () => {
           </Box>
         </GridItem>
         <GridItem px={"0.5rem"} py={1} alignContent="center">
-          <HStack spacing="1rem">
+          <HStack spacing="1rem" justifyContent="space-between">
             <AssetModal />
             <Box pt={3}>
               <AssetBalance setBalanceError={setBalanceError} />
@@ -147,52 +136,7 @@ const TransferForm = () => {
           </HStack>
         </GridItem>
         <GridItem>
-          <HStack justifyContent="start" spacing={"1rem"} mb="-2">
-            <Box ml="0.5rem">
-              <Text color="loginGray" fontSize="5rem">
-                To
-              </Text>
-            </Box>
-            <Box textAlign="center" placeSelf="center">
-              {/* vector bg image*/}
-              <Image
-                src={
-                  isActiveGoogle ? "social-bg-dark.svg" : "social-bg-light.svg"
-                }
-                alt=""
-                w="4rem"
-                mt="-4"
-              />
-              <Box mt="-3.15rem" ml=".9rem">
-                {/* Google logo */}
-                <FaGoogle
-                  color="white"
-                  size="2.25rem"
-                  onClick={() => handleActiveIcons("google")}
-                />
-              </Box>
-            </Box>
-            <Box textAlign="center" placeSelf="center">
-              {/* vector bg image*/}
-              <Image
-                src={
-                  isActiveDiscord ? "social-bg-dark.svg" : "social-bg-light.svg"
-                }
-                alt=""
-                ml="0.15rem"
-                w="4rem"
-                mt="-4"
-              />
-              <Box mt="-3.15rem" ml="1rem">
-                {/* discord logo */}
-                <FaDiscord
-                  color="white"
-                  size="2.25rem"
-                  onClick={() => handleActiveIcons("discord")}
-                />
-              </Box>
-            </Box>
-          </HStack>
+          <ToPlatformSelection />
         </GridItem>
         <GridItem>
           <Box color="errorOrange" fontWeight="normal" fontSize="1.25rem">
@@ -209,7 +153,7 @@ const TransferForm = () => {
                     position="relative"
                     zIndex={1}
                   >
-                    {isActiveGoogle ? "Email" : "Username"} {message}
+                    {platform === "google" ? "Email" : "Username"} {message}
                   </Box>
                 );
               }}
@@ -217,8 +161,10 @@ const TransferForm = () => {
           </Box>
           <Box position="relative" mt={!errors.username ? "-2rem" : "-1rem"}>
             <Input
-              type={isActiveGoogle ? "email" : "text"}
-              placeholder={isActiveGoogle ? "Add Gmail" : "Discord Username"}
+              type={platform === "google" ? "email" : "text"}
+              placeholder={
+                platform === "google" ? "Add Gmail" : "Discord Username"
+              }
               color={errors.username ? "errorEmailRed" : "#89DCFF"}
               autoComplete="off"
               {...register("username", {
