@@ -1,7 +1,6 @@
-import { Box, HStack, Image, Spinner, Text } from "@chakra-ui/react";
+import { Box, HStack, Image, Text } from "@chakra-ui/react";
 import axios from "axios";
 import { useFormContext } from "context/FormContext";
-// import UseTokenBalance from "hooks/useTokenBalance";
 import { useSession } from "next-auth/react";
 import React, { Dispatch, useEffect, useState } from "react";
 import { UserBalance } from "types/keypEndpoints";
