@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+import { useRouter } from "next/router";
 import {
   Box,
   Button,
@@ -9,13 +11,12 @@ import {
 } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useFormContext } from "../context/FormContext";
-import React, { useState } from "react";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
 import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
 import UseKeypApi from "../hooks/useKeypApi";
 import UseNodeMailer from "../hooks/useNodemailer";
-import { useRouter } from "next/router";
-// import requestFunds from "../lib/requestFunds";
+import { tokenAddresses } from "../utils/tokenAddresses";
+import { Info, TransferData } from "types/restAPI";
 
 /**
  * @remarks - this component lets user review the transaction before sending. ButtonSpacingWrapper is used place "Send" button at the bottom of the page. If useKeypApi fails and this app cannot find a truthy value for `fromEmail`, the 'Request!' button will be set to disabled.
@@ -23,6 +24,8 @@ import { useRouter } from "next/router";
  */
 const ReviewTransfer = () => {
   const [fromEmail, setFromEmail] = useState<string>();
+  const [txFail, setTxFail] = useState(false);
+
   const {
     type,
     isActiveDiscord,
@@ -31,64 +34,130 @@ const ReviewTransfer = () => {
     username,
     setRenderTxPage,
     setRenderReviewPage,
-    setIsConfirming,
+    // setIsConfirming,
   } = useFormContext();
-  const { data: session } = useSession();
+  const [sendingTx, setSendingTx] = useState(false);
   const router = useRouter();
+  const { data: session } = useSession();
 
-  const getFromEmail = async () => {
-    const fetchData = await UseKeypApi(
-      "users",
-      // @ts-ignore
-      session?.user?.id,
-      // @ts-ignore
-      session?.user?.accessToken
-    );
-    const email = fetchData?.email;
-    setFromEmail(email);
-  };
-  getFromEmail();
-
-  const handleCancel = () => {
-    setRenderReviewPage(false);
-    setRenderTxPage(true);
+  /**
+   * @remarks calls `users/:user` endpoint on Keyp API to get email address
+   * @returns promise with user data
+   */
+  const getUserData = async (): Promise<Info> => {
+    let userData = await UseKeypApi({
+      method: "GET",
+      endpoints: "users",
+      urlParams1: session?.user.id,
+    });
+    // TODO: email property doesn't exist until API gets fixed
+    setFromEmail(userData.email);
+    return userData;
   };
 
-  const handleSendTx = async (type: string) => {
-    setRenderReviewPage(false);
-    setIsConfirming(true);
-    if (type === "send") {
+  const userData = getUserData();
+  console.log(userData, fromEmail);
+
+  /**
+   * @remarks - makes POST request to /tokens/transfers endpoint. If `toUserId` is provided, `toAddress` can be an empty string
+   * @param toUserId - username should be format `GOOGLE-1098204....` or `DISCORD-109245...`
+   * @param token - ERC20 token address
+   * @param amount - token amount
+   */
+  const handleTokenTransfer = async (
+    toUserId: string,
+    token: string,
+    amount: string
+  ): Promise<TransferData> => {
+    const request: TransferData = await UseKeypApi({
+      method: "POST",
+      endpoints: "tokens",
+      urlParams1: "transfers",
+      data: {
+        toAddress: "",
+        toUserId,
+        tokenAddress: tokenAddresses[token],
+        tokenType: "ERC20",
+        amount,
+      },
+    });
+    return request;
+  };
+
+  const handleSendTx = async () => {
+    if (asset && amount) {
+      const req = await handleTokenTransfer(
+        "DISCORD-438246122352410664",
+        asset,
+        amount.toString()
+      );
+      if (req.status === "SUCCESS") {
+        // console.log(req);
+        router.push({
+          pathname: "/confirmation/send",
+          query: {
+            amount,
+            asset,
+            username,
+            hash: req.hash,
+          },
+        });
+      } else {
+        setSendingTx(false);
+        setTxFail(true);
+      }
+    }
+  };
+
+  const handleRequest = async () => {
+    const data = {
+      amount,
+      asset,
+      fromEmail,
+      username,
+    };
+    try {
+      await UseNodeMailer(data);
       router.push({
-        pathname: "/confirmation/send",
+        pathname: "/confirmation/request",
         query: {
           amount,
           asset,
           username,
         },
       });
+      return;
+    } catch (err) {
+      setSendingTx(false);
+      console.log(err);
+      return err;
+    }
+  };
+
+  const handleTxType = () => {
+    setSendingTx(true);
+    // setRenderReviewPage(false);
+    // setIsConfirming(true);
+    if (type === "send") {
+      handleSendTx();
     } else if (type === "request") {
-      if (fromEmail) {
-        const data = {
-          amount,
-          asset,
-          fromEmail,
-          username,
-        };
-        try {
-          await UseNodeMailer(data);
-          router.push({
-            pathname: "/confirmation/request",
-            query: {
-              amount,
-              asset,
-              username,
-            },
-          });
-          return;
-        } catch (err) {
-          console.log(err);
-          return err;
-        }
+      handleRequest();
+    }
+  };
+
+  const handleCancel = () => {
+    setRenderReviewPage(false);
+    setRenderTxPage(true);
+  };
+
+  const disabledButtonLogic = () => {
+    if (type === "request") {
+      if (!fromEmail) {
+        return true;
+      }
+    } else if (type === "send") {
+      if (txFail) {
+        return true;
       }
     }
   };
@@ -98,7 +167,7 @@ const ReviewTransfer = () => {
       <Box fontWeight="extrabold" fontSize="5rem">
         <HStack
           color="formBlueDark"
-          fontSize={["4rem", "5rem"]}
+          fontSize={["3.5rem", "5rem"]}
           justifyContent="space-between"
         >
           <Box>
@@ -109,7 +178,7 @@ const ReviewTransfer = () => {
           <Button
             variant="none"
             opacity={0.5}
-            fontSize={["4rem", "5rem"]}
+            fontSize={["3.5rem", "5rem"]}
             color="cancelOrange"
             onClick={() => handleCancel()}
           >
@@ -157,19 +226,15 @@ const ReviewTransfer = () => {
         </SimpleGrid>
       </Box>
       <Box mt="1rem" mx="-1.5rem" mb="-1rem">
-        {/* <Link
-          href={`/confirmation/${
-            type === "send" ? "send" : "request"
-          }?amount=${amount}?asset=${asset}?fromEmail=${fromEmail}?username=${username}`}
-        > */}
         <Button
-          onClick={() => handleSendTx(type)}
+          onClick={() => handleTxType()}
           variant="formGreen"
-          isDisabled={type === "request" ? !fromEmail : false}
+          isDisabled={disabledButtonLogic()}
+          isLoading={sendingTx}
+          loadingText={type === "request" ? "Requesting..." : "Sending..."}
         >
           {type === "send" ? "Send!" : "Request!"}
         </Button>
-        {/* </Link> */}
       </Box>
     </ButtonSpacingWrapper>
   );

@@ -1,45 +1,50 @@
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import React, {
+  createContext,
+  Dispatch,
+  ReactNode,
+  useContext,
+  useState,
+} from "react";
 
 export const FormContext = createContext<{
-  // TODO: Fix types on useState setter functions
   isActiveGoogle: boolean;
-  setIsActiveGoogle: any;
+  setIsActiveGoogle: Dispatch<boolean>;
   isActiveDiscord: boolean;
-  setIsActiveDiscord: any;
+  setIsActiveDiscord: Dispatch<boolean>;
   renderTxPage: boolean;
-  setRenderTxPage: any;
+  setRenderTxPage: Dispatch<boolean>;
   renderReviewPage: boolean;
-  setRenderReviewPage: any;
+  setRenderReviewPage: Dispatch<boolean>;
   isConfirming: boolean;
-  setIsConfirming: any;
+  setIsConfirming: Dispatch<boolean>;
   type: string;
-  setType: any;
+  setType: Dispatch<string>;
   amount: number | undefined;
-  setAmount: any;
-  asset: string | undefined;
-  setAsset: any;
+  setAmount: Dispatch<number | undefined>;
+  asset: string;
+  setAsset: Dispatch<string>;
   username: string | undefined;
-  setUsername: any;
+  setUsername: Dispatch<string | undefined>;
   handleHomePage: any;
 }>({
   isActiveGoogle: true,
-  setIsActiveGoogle: null,
+  setIsActiveGoogle: useState,
   isActiveDiscord: false,
-  setIsActiveDiscord: null,
+  setIsActiveDiscord: useState,
   renderTxPage: true,
-  setRenderTxPage: null,
+  setRenderTxPage: useState,
   renderReviewPage: false,
-  setRenderReviewPage: null,
+  setRenderReviewPage: useState,
   isConfirming: false,
-  setIsConfirming: null,
+  setIsConfirming: useState,
   type: "send",
-  setType: null,
+  setType: useState,
   amount: undefined,
-  setAmount: null,
-  asset: undefined,
-  setAsset: null,
+  setAmount: useState,
+  asset: "MATIC",
+  setAsset: useState,
   username: undefined,
-  setUsername: null,
+  setUsername: useState,
   handleHomePage: undefined,
 });
 

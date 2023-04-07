@@ -1,7 +1,9 @@
 const nodemailer = require("nodemailer");
+import { NextApiRequest, NextApiResponse } from "next";
+import { Errors, Info } from "types/restAPI";
 import { mailData } from "../../../utils/nodemailer";
 
-const request = (req, res) => {
+const request = (req: NextApiRequest, res: NextApiResponse) => {
   const data = req.body;
 
   const transporter = nodemailer.createTransport({
@@ -15,7 +17,8 @@ const request = (req, res) => {
     },
   });
 
-  transporter.sendMail(mailData(data), function (err, info) {
+  // TODO: add Types to err and info
+  transporter.sendMail(mailData(data), function (err: Errors, info: Info) {
     if (err) {
       console.log(err);
       return res.status(400).json({ message: "Bad request" });

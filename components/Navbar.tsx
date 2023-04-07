@@ -7,9 +7,9 @@ import {
   VStack,
   Flex,
   Tooltip,
+  Image,
 } from "@chakra-ui/react";
 import { signOut, useSession } from "next-auth/react";
-import { FaGoogle, FaDiscord } from "react-icons/fa";
 import useSocialLogo from "../hooks/useSocialLogo";
 import { useFormContext } from "../context/FormContext";
 import { RxCopy } from "react-icons/rx";
@@ -30,11 +30,8 @@ const Navbar = () => {
 
   const { setNavHeight } = useSizeProvider();
 
-  // TODO: Fix typescript errors below
-  // @ts-ignore
-  const address = session?.user?.address;
-  // @ts-ignore
-  const username = session?.user?.username;
+  const address = session && session.user.address;
+  const username = session && session.user.username;
 
   const handleNavigateHome = () => {
     if (router.pathname === "/") {
@@ -46,7 +43,7 @@ const Navbar = () => {
   };
 
   const handleCopyAddress = () => {
-    navigator.clipboard.writeText(address);
+    navigator.clipboard.writeText(address || "");
     setOpenTooltip(true);
     setTimeout(() => {
       setOpenTooltip(false);
@@ -55,9 +52,9 @@ const Navbar = () => {
 
   const renderSocialLogo = () => {
     if (socialLogo === "discord") {
-      return <FaDiscord color="#4E65F3" size="1.5rem" />;
+      return <Image src="discord-color.svg" alt="" />;
     } else if (socialLogo === "google") {
-      return <FaGoogle color="black" size="1.5rem" />;
+      return <Image src="google-color.svg" alt="" />;
     } else return;
   };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Spinner, Text } from "@chakra-ui/react";
+import { Box, Image, Text } from "@chakra-ui/react";
 
 interface LoadingProps {
   displayText: string;
@@ -8,8 +8,10 @@ interface LoadingProps {
 const Loading: React.FC<LoadingProps> = ({ displayText }) => {
   return (
     <Box textAlign="center" h="80vh" py="25vh">
-      <Spinner color="pink" emptyColor="gray.100" size="xl" />
-      <Box fontSize="3rem" color="pink" fontWeight="normal">
+      <Box w="5rem" m="auto">
+        <Image src="keyp_spinner.svg" alt="" />
+      </Box>
+      <Box fontSize="3rem" color="pink">
         <Text>{displayText}</Text>
       </Box>
     </Box>

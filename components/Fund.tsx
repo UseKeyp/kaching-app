@@ -10,8 +10,8 @@ import {
 } from "@chakra-ui/react";
 import { RxCopy } from "react-icons/rx";
 import { useSession } from "next-auth/react";
-import UseApi from "../hooks/useKeypApi";
-import { useFormContext } from "context/FormContext";
+import UseKeypApi from "../hooks/useKeypApi";
+import { useFormContext } from "../context/FormContext";
 import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
 
 /**
@@ -19,15 +19,14 @@ import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
  * @returns - Fund component that displays offramps for users to fund their wallet
  */
 const Fund = () => {
+  const [rampLoading, setRampLoading] = useState(false);
   const [openTooltip, setOpenTooltip] = useState(false);
   const { data: session } = useSession();
   const { handleHomePage } = useFormContext();
 
   const handleCopyAddress = () => {
-    // TODO: Fix typescript errors below
-    // @ts-ignore
-    const address = session && session?.address;
-    navigator.clipboard.writeText(address);
+    const address = session && session.user.address;
+    navigator.clipboard.writeText(address || "");
     setOpenTooltip(true);
     setTimeout(() => {
       setOpenTooltip(false);
@@ -35,24 +34,33 @@ const Fund = () => {
   };
 
   const handleClickFund = async (rampType: string) => {
-    // TODO: Fix typescript errors below
-    // @ts-ignore
-    const request = await UseApi("onramps", rampType, session?.accessToken);
+    const request = await UseKeypApi({
+      method: "GET",
+      endpoints: "ramps",
+      urlParams1: "on",
+      urlParams2: rampType,
+    });
     if (request?.url) window.location = request?.url;
+    return request.url || null;
   };
 
   return (
     <ButtonSpacingWrapper isTransactionSlider={true}>
-      <Box mt="1rem">
+      <Box w={["full", "full", "80%", "50%"]} mx="auto">
         <Heading as="h3">
-          <Text color="socialIconsGray">Fund your Wallet</Text>
+          <Text color="socialIconsGray" textAlign="center">
+            Fund your Wallet
+          </Text>
         </Heading>
         <VStack spacing="1.5rem" mt="2.5rem">
           <Box w="full">
             <Button
               variant="ramps"
               color="#22272F"
-              onClick={() => handleClickFund("RAMP_NETWORK")}
+              onClick={() => {
+                handleClickFund("RAMP_NETWORK");
+                setRampLoading(true);
+              }}
             >
               <Image src={"payment-ramp.svg"} alt="Ramp" />
             </Button>

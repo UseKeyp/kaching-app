@@ -18,6 +18,8 @@ const Login = () => {
   const session = useSession();
   const router = useRouter();
 
+  console.log(session);
+
   const handleGoogleLogin = () => {
     signIn("keyp", undefined, "login_provider=GOOGLE");
   };
@@ -27,7 +29,7 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (session.status === "authenticated") {
+    if (session && session.status === "authenticated") {
       router.push("/");
     }
   }, [session, router]);
