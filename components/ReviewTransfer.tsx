@@ -147,7 +147,7 @@ const ReviewTransfer = () => {
     }
   };
 
-  // resetting setAsset ensures that `asset` in AssetBalance component renders correctly
+  // resetting setAsset ensures that `displayBalance` in AssetBalance component renders correctly
   const handleCancel = () => {
     setAmount(0);
     setAsset("MATIC");
