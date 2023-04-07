@@ -102,9 +102,9 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
           <Image src="keyp_spinner.svg" alt="" w="1.5rem" />
         </HStack>
       )}
-      <Text display={isLoading ? "none" : "block"}>{`${
-        asset === "USDC" ? "$" : ""
-      }${displayBalance} ${asset}`}</Text>
+      <Text
+        display={isLoading ? "none" : "block"}
+      >{`${"$"}${displayBalance} ${asset}`}</Text>
     </Box>
   );
 };
