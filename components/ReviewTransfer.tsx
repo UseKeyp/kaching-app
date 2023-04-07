@@ -34,7 +34,7 @@ const ReviewTransfer = () => {
 
   const {
     type,
-    isActiveDiscord,
+    platform,
     amount,
     setAmount,
     asset,
@@ -52,7 +52,7 @@ const ReviewTransfer = () => {
 
   console.log(session);
 
-  // CODE BELOW IS DEPRECATED - CAN MORE EASILY GET EMAIL FROM SESSION
+  // CODE BELOW IS DEPRECATED - CAN MORE EASILY GET EMAIL FROM SESSION. DELETE WHEN session.user.email IS FIXED
   // /**
   //  * @remarks calls `users/:user` endpoint on Keyp API to get email address
   //  * @returns promise with user data
@@ -89,7 +89,7 @@ const ReviewTransfer = () => {
       urlParams1: "transfers",
       data: {
         toUsername: toUserId,
-        toUserProviderType: isActiveDiscord ? "DISCORD" : "GOOGLE",
+        toUserProviderType: platform === "discord" ? "DISCORD" : "GOOGLE",
         tokenAddress: tokenAddresses[token],
         tokenType: "ERC20",
         amount,
@@ -229,7 +229,7 @@ const ReviewTransfer = () => {
                 />
                 <Box mt="-3.15rem" ml="1rem">
                   {/* discord logo */}
-                  {isActiveDiscord ? (
+                  {platform === "discord" ? (
                     <FaDiscord color="white" size="2.25rem" />
                   ) : (
                     <FaGoogle color="white" size="2.25rem" />
