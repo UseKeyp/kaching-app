@@ -1,7 +1,7 @@
 import { Box, HStack, Image, Text } from "@chakra-ui/react";
 import axios from "axios";
 import { useFormContext } from "context/FormContext";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import React, { Dispatch, useEffect, useState } from "react";
 import { UserBalance } from "types/keypEndpoints";
 import { supportedAssets } from "utils/general";
@@ -17,7 +17,6 @@ interface AssetBalanceProps {
 const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
   const [userAssets, setUserAssets] = useState<UserBalance | undefined>();
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState('');
   const { asset, amount } = useFormContext();
   const { data: session } = useSession();
   const tokenAddress = supportedAssets[asset];
@@ -82,7 +81,7 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
       })
       .catch((error) => {
         if (error?.response?.status === 401) {
-          setError('Authentication error. Please log in again.')
+          signOut()
         }
         setIsLoading(false);
         console.error(error);
@@ -108,7 +107,7 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
       )}
       <Text
         display={isLoading ? "none" : "block"}
-      >{displayBalance ? `${"$"}${displayBalance} ${asset}` : `${error || 'Error'}`}</Text>
+      >{displayBalance ? `${"$"}${displayBalance} ${asset}` : 'Error'}</Text>
     </Box>
   );
 };
