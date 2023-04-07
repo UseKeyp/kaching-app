@@ -47,6 +47,7 @@ export const generateEndpointUrl = (
 export const blockExplorerLink = (hash: string) =>
   `https://polygonscan.com/tx/${hash}`;
 
+// TODO: replace ETH address with WETH on Polygon
 export const supportedAssets: { [k: string]: string } = {
   ETH: "0x",
   DAI: "0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063",

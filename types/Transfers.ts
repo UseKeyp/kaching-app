@@ -1,7 +1,7 @@
 export type Transfers = {
-  toAddress: string;
-  toUserId: string;
+  toUsername: string;
+  toUserProviderType: "GOOGLE" | "DISCORD";
   tokenAddress: string;
-  tokenType: string;
+  tokenType: "ERC20";
   amount: string;
 };

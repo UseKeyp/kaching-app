@@ -5,6 +5,7 @@ import { Transfers } from "../types/Transfers";
 import { generateEndpointUrl } from "../utils/general";
 
 interface UseKeypApiProps {
+  accessToken: string | undefined;
   method: "GET" | "POST";
   endpoints: Endpoints;
   urlParams1?: UrlParams1;
@@ -14,6 +15,7 @@ interface UseKeypApiProps {
 
 /**
  * @remarks - This hook is used to fetch data from the Keyp API
+ * @param accessToken - from session
  * @param method - request type
  * @param endpoints - endpoint
  * @param urlParam1
@@ -22,14 +24,13 @@ interface UseKeypApiProps {
  * @returns
  */
 const UseKeypApi = async ({
+  accessToken,
   method,
   endpoints,
   urlParams1,
   urlParams2,
   data,
 }: UseKeypApiProps) => {
-  const { data: session } = useSession();
-  const accessToken = session?.user.accessToken;
   const endpoint = generateEndpointUrl(endpoints, urlParams1, urlParams2);
 
   const headers = {

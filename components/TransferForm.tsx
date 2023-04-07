@@ -71,7 +71,6 @@ const TransferForm = () => {
     const valid = await trigger();
     if (valid) {
       setAmount(values.amount),
-        setAsset(values.asset),
         setUsername(values.username),
         setRenderTxPage(false);
       setRenderReviewPage(true);

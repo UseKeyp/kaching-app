@@ -48,6 +48,7 @@ const ReviewTransfer = () => {
    */
   const getUserData = async (): Promise<Info> => {
     let userData = await UseKeypApi({
+      accessToken: session?.user.accessToken,
       method: "GET",
       endpoints: "users",
       urlParams1: session?.user.id,
@@ -56,9 +57,8 @@ const ReviewTransfer = () => {
     setFromEmail(userData.email);
     return userData;
   };
-
-  const userData = getUserData();
-  console.log(userData, fromEmail);
+  getUserData();
+  // console.log(getUserData());
 
   /**
    * @remarks - makes POST request to /tokens/transfers endpoint. If `toUserId` is provided, `toAddress` can be an empty string
@@ -72,29 +72,29 @@ const ReviewTransfer = () => {
     amount: string
   ): Promise<TransferData> => {
     const request: TransferData = await UseKeypApi({
+      accessToken: session?.user.accessToken,
       method: "POST",
       endpoints: "tokens",
       urlParams1: "transfers",
       data: {
-        toAddress: "",
-        toUserId,
+        toUsername: toUserId,
+        toUserProviderType: isActiveDiscord ? "DISCORD" : "GOOGLE",
         tokenAddress: tokenAddresses[token],
         tokenType: "ERC20",
         amount,
       },
     });
+
     return request;
   };
 
   const handleSendTx = async () => {
-    if (asset && amount) {
-      const req = await handleTokenTransfer(
-        "DISCORD-438246122352410664",
-        asset,
-        amount.toString()
-      );
+    console.log(asset, amount, username);
+    if (asset && amount && username) {
+      console.log("attempting transfer...");
+      const req = await handleTokenTransfer(username, asset, amount.toString());
       if (req.status === "SUCCESS") {
-        // console.log(req);
+        console.log(req);
         router.push({
           pathname: "/confirmation/send",
           query: {
@@ -105,12 +105,14 @@ const ReviewTransfer = () => {
           },
         });
       } else {
+        console.log("fail");
         setSendingTx(false);
         setTxFail(true);
       }
     }
   };
 
+  // when user requests funds from another user, Nodemailer sends an email
   const handleRequest = async () => {
     const data = {
       amount,
@@ -136,12 +138,12 @@ const ReviewTransfer = () => {
     }
   };
 
-  const handleTxType = () => {
+  const handleTxType = async () => {
     setSendingTx(true);
     // setRenderReviewPage(false);
     // setIsConfirming(true);
     if (type === "send") {
-      handleSendTx();
+      await handleSendTx();
     } else if (type === "request") {
       handleRequest();
     }
@@ -150,7 +152,7 @@ const ReviewTransfer = () => {
   // resetting setAsset ensures that `displayBalance` in AssetBalance component renders correctly
   const handleCancel = () => {
     setAmount(0);
-    setAsset("MATIC");
+    setAsset("USDC");
     setRenderReviewPage(false);
     setRenderTxPage(true);
   };
