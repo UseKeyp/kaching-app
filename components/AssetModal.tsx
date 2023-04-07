@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Button,
@@ -25,6 +25,7 @@ const AssetModal = () => {
 
   const handleClickedAsset = (asset: string) => {
     setSelectedAsset(asset);
+    setAsset(asset);
   };
 
   const handleDone = () => {

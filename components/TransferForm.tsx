@@ -25,8 +25,6 @@ const TransferForm = () => {
   const {
     setAmount,
     setAsset,
-    asset,
-    amount,
     isActiveDiscord,
     setIsActiveDiscord,
     isActiveGoogle,

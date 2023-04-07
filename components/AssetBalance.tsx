@@ -17,7 +17,24 @@ const AssetBalance = () => {
   const [userAssets, setUserAssets] = useState<UserBalance | undefined>();
   const { asset, amount } = useFormContext();
   const { data: session } = useSession();
+  const tokenAddress = supportedAssets[asset];
 
+  const balance = () => {
+    if (userAssets) {
+      if (asset === "MATIC") {
+        let formattedAsset = userAssets["ETH"]?.formatted;
+        console.log(formattedAsset);
+        return Number(formattedAsset).toFixed(4);
+      } else {
+        let { ...address } = userAssets;
+        let formattedAsset = Object.values(address)[0].formatted;
+        return Number(formattedAsset).toFixed(4);
+      }
+    } else {
+      return null;
+    }
+  };
+  console.log(balance());
   // const getTokenBalance = () => {
   //   let userBalance = UseTokenBalance(asset);
   //   return userBalance;
@@ -28,7 +45,6 @@ const AssetBalance = () => {
   useEffect(() => {
     const ACCESS_TOKEN = session?.user.accessToken;
     const userId = session?.user.id;
-    const tokenAddress = supportedAssets[asset];
 
     const options = {
       headers: {
@@ -41,22 +57,14 @@ const AssetBalance = () => {
     axios
       .get(asset === "MATIC" ? urlMATIC : urlNotMATIC, options)
       .then((response) => {
-        // console.log(response.data);
+        console.log("response", Object.values(response.data));
         setUserAssets(response.data);
-        console.log(userAssets);
       })
       .catch((error) => {
         console.error(error);
       });
-  }, [asset, , session?.user.accessToken, session?.user.id, userAssets]);
-
-  // const balance = () => {
-  //   if (asset === "MATIC") {
-  //     return userBalance["ETH"]["formatted"];
-  //   } else {
-  //     return null;
-  //   }
-  // };
+    // eslint-disable-next-line
+  }, [asset]);
 
   // const displayError = (): boolean | null => {
   //   if (!amount) {
@@ -72,7 +80,7 @@ const AssetBalance = () => {
   return (
     <VStack border="1px" p={1}>
       <Text>Your Balance</Text>
-      {/* <Text>{`${asset === "usdc" && "$"}${balance()}`}</Text> */}
+      <Text>{`${asset === "USDC" ? "$" : ""}${balance() || 0} ${asset}`}</Text>
     </VStack>
   );
 };
