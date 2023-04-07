@@ -89,7 +89,7 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
   return (
     <Box
       color="loginBtnGray"
-      fontSize="1.5rem"
+      fontSize={asset.length > 4 ? "0.95rem" : ["1.25rem", "1.5rem"]}
       fontWeight="normal"
       textAlign="right"
       mt={0}

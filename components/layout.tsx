@@ -11,7 +11,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <>
       <HeadMetadata />
       <Box
-        py={[0, 0, "2rem"]}
+        py={[0, 0, "1rem"]}
         alignItems="start"
         maxW="100vw"
         maxH="100vh"
