@@ -55,6 +55,7 @@ const TransactionSlider = () => {
       direction="row"
       mx="-1rem"
       id="txSlider"
+      px={[0, 0, "5rem"]}
     >
       <Box zIndex={1} w={["5rem", "5rem", "5rem", "3rem"]}>
         <Image src="fade.png" alt="" w="100%" h="full" />

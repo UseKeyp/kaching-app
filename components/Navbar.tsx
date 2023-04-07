@@ -64,7 +64,13 @@ const Navbar = () => {
   }, [setNavHeight]);
 
   return (
-    <Flex w="100%" py="1rem" id="navbar" fontWeight="medium">
+    <Flex
+      w="100%"
+      py="1rem"
+      id="navbar"
+      fontWeight="medium"
+      px={[0, 0, "5rem"]}
+    >
       {/* Box holds logo */}
       <Box w="45%" alignSelf="start">
         <Heading as="h1" color="pink" onClick={() => handleNavigateHome()}>

@@ -41,6 +41,7 @@ const AssetModal = () => {
         onClick={() => handleClickedAsset(asset)}
         key={asset}
         color={selectedAsset === asset ? "assetOrange" : "#C2C2C2"}
+        px={[0, 0, "5rem"]}
       >
         <Text>{asset}</Text>
       </Box>

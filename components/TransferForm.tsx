@@ -82,7 +82,7 @@ const TransferForm = () => {
 
   return (
     <ButtonSpacingWrapper isTransactionSlider={true}>
-      <SimpleGrid columns={1} spacing={"1rem"}>
+      <SimpleGrid columns={1} spacing={"1rem"} px={[0, 0, "5rem"]}>
         <GridItem>
           <Box
             display={type === "request" ? "none" : "block"}
