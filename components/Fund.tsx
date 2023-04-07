@@ -47,7 +47,12 @@ const Fund = () => {
 
   return (
     <ButtonSpacingWrapper isTransactionSlider={true}>
-      <Box w={["full", "full", "80%", "50%"]} mx="auto" px={[0, 0, "5rem"]}>
+      <Box
+        w={["full", "full", "80%", "50%"]}
+        mx="auto"
+        px={[0, 0, "5rem"]}
+        mt="2rem"
+      >
         <Heading as="h3">
           <Text color="socialIconsGray" textAlign="center">
             Fund your Wallet

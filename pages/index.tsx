@@ -10,6 +10,7 @@ import { Box } from "@chakra-ui/react";
 import ReviewTransfer from "../components/ReviewTransfer";
 import Navbar from "../components/Navbar";
 import Loading from "../components/Loading";
+import Wallet from "components/Wallet";
 
 /**
  * @remarks if user selects "send", render Send component, else render "Request"
@@ -32,6 +33,8 @@ const Home = () => {
       } else if (renderReviewPage) {
         return <ReviewTransfer />;
       }
+    } else if (type === "wallet") {
+      return <Wallet />;
     } else if (type === "fund") {
       return <Fund />;
     } else if (type === "cashout") {
