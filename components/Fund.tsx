@@ -35,6 +35,7 @@ const Fund = () => {
 
   const handleClickFund = async (rampType: string) => {
     const request = await UseKeypApi({
+      accessToken: session?.user.accessToken,
       method: "GET",
       endpoints: "ramps",
       urlParams1: "on",
