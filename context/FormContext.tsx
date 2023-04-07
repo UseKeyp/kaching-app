@@ -18,7 +18,7 @@ export const FormContext = createContext<{
   isConfirming: boolean;
   setIsConfirming: Dispatch<boolean>;
   type: string;
-  setType: Dispatch<string>;
+  setType: Dispatch<"send" | "request">;
   amount: number | undefined;
   setAmount: Dispatch<number | undefined>;
   asset: string;
@@ -53,7 +53,7 @@ interface FormProviderProps {
 }
 
 export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
-  const [type, setType] = useState("send");
+  const [type, setType] = useState<"send" | "request">("send");
   const [renderTxPage, setRenderTxPage] = useState(true);
   const [renderReviewPage, setRenderReviewPage] = useState(false);
   const [isConfirming, setIsConfirming] = useState(false);

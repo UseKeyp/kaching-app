@@ -16,6 +16,7 @@ import AssetModal from "./AssetModal";
 import { useFormContext } from "../context/FormContext";
 import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
 import AssetBalance from "./AssetBalance";
+import { inputColorLogicErrors } from "utils/general";
 
 /**
  * @remarks - this component renders a form that allows user to send a transaction. ButtonSpacingWrapper is used to make sure the Review button stays at the bottom of the page
@@ -94,7 +95,12 @@ const TransferForm = () => {
     <ButtonSpacingWrapper isTransactionSlider={true}>
       <SimpleGrid columns={1} spacing={"1rem"}>
         <GridItem>
-          <Box color="errorOrange" fontWeight="normal" fontSize="1.25rem">
+          <Box
+            display={type === "request" ? "none" : "block"}
+            color="errorOrange"
+            fontWeight="normal"
+            fontSize="1.25rem"
+          >
             <ErrorMessage
               errors={errors}
               name="amount"
@@ -119,7 +125,7 @@ const TransferForm = () => {
               type="number"
               step={0.1}
               placeholder="0.00"
-              color={errors.amount ? "errorEmailRed" : "formGreen"}
+              color={inputColorLogicErrors(errors, type)}
               autoComplete="off"
               {...register("amount", {
                 required: {
