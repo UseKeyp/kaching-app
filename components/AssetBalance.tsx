@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, HStack, Image, Spinner, Text } from "@chakra-ui/react";
 import axios from "axios";
 import { useFormContext } from "context/FormContext";
 // import UseTokenBalance from "hooks/useTokenBalance";
@@ -17,6 +17,7 @@ interface AssetBalanceProps {
  */
 const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
   const [userAssets, setUserAssets] = useState<UserBalance | undefined>();
+  const [isLoading, setIsLoading] = useState(true);
   const { asset, amount } = useFormContext();
   const { data: session } = useSession();
   const tokenAddress = supportedAssets[asset];
@@ -39,7 +40,7 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
   const displayBalance = balance();
 
   /**
-   * @remarks - pass boolean to parent component TransferForm. If balance < amount, return true and display error message in TransferForm
+   * @remarks - pass boolean to parent component TransferForm. If balance < amount, return true and display error message in TransferForm. Loading indicator shows if API call lags
    * @param amount - user generated asset amount from input. Taken from FormContext
    * @param balance - balance of asset
    * @returns boolean value comparing amount to balance
@@ -76,6 +77,7 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
       .then((response) => {
         console.log("response", Object.values(response.data));
         setUserAssets(response.data);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error(error);
@@ -84,9 +86,22 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
   }, [asset, tokenAddress]);
 
   return (
-    <Box fontSize="1.5rem" fontWeight="normal" textAlign="right" mt={0}>
+    <Box
+      color="loginBtnGray"
+      fontSize="1.5rem"
+      fontWeight="normal"
+      textAlign="right"
+      mt={0}
+    >
       <Text color="socialIconsGray">Your Balance</Text>
-      <Text color="loginBtnGray">{`${
+
+      {isLoading && (
+        <HStack>
+          <Text>Loading...</Text>
+          <Image src="keyp_spinner.svg" alt="" w="1.5rem" />
+        </HStack>
+      )}
+      <Text display={isLoading ? "none" : "block"}>{`${
         asset === "USDC" ? "$" : ""
       }${displayBalance} ${asset}`}</Text>
     </Box>

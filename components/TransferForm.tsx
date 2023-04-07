@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -39,7 +39,8 @@ const TransferForm = () => {
   const {
     getValues,
     register,
-    setValue,
+    setError,
+    clearErrors,
     watch,
     trigger,
     formState: { errors },
@@ -77,6 +78,14 @@ const TransferForm = () => {
     }
   };
 
+  useEffect(() => {
+    if (balanceError) {
+      setError("amount", { type: "custom", message: "Insufficient balance" });
+    } else {
+      clearErrors("amount");
+    }
+  }, [balanceError, setError, clearErrors]);
+
   return (
     <ButtonSpacingWrapper isTransactionSlider={true}>
       <SimpleGrid columns={1} spacing={"1rem"}>
@@ -102,20 +111,6 @@ const TransferForm = () => {
           </Box>
 
           <Box position="relative" mt={balanceError ? "1rem" : 0}>
-            <Box
-              display={balanceError ? "block" : "none"}
-              mt={balanceError ? "-1rem" : "0"}
-              ml="0.5rem"
-              mb="-2rem"
-              position="relative"
-              zIndex={1}
-              fontSize="20px"
-              fontWeight="normal"
-            >
-              <Text color="errorOrange">
-                {balanceError ? "Insufficient balance" : null}
-              </Text>
-            </Box>
             <Input
               type="number"
               step={0.1}
