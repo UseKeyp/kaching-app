@@ -23,7 +23,7 @@ const Home = () => {
   const session = useSession();
   const router = useRouter();
 
-  console.log(session);
+  // console.log(session);
 
   const componentLogic = () => {
     if (type === "send" || type === "request") {

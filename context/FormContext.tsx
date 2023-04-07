@@ -41,7 +41,7 @@ export const FormContext = createContext<{
   setType: useState,
   amount: undefined,
   setAmount: useState,
-  asset: "MATIC",
+  asset: "USDC",
   setAsset: useState,
   username: undefined,
   setUsername: useState,
@@ -60,7 +60,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
   const [isActiveGoogle, setIsActiveGoogle] = useState(true);
   const [isActiveDiscord, setIsActiveDiscord] = useState(false);
   const [amount, setAmount] = useState<number | undefined>();
-  const [asset, setAsset] = useState<string>("MATIC");
+  const [asset, setAsset] = useState<string>("USDC");
   const [username, setUsername] = useState<string | undefined>();
 
   // TODO: fix return type. Without "return" it throws an error
@@ -71,7 +71,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
     setIsActiveGoogle(true);
     setIsActiveDiscord(false);
     setAmount(undefined);
-    setAsset("MATIC");
+    setAsset("USDC");
     setUsername(undefined);
   };
 

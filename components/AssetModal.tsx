@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Box,
   Button,
@@ -19,7 +19,7 @@ import { useFormContext } from "context/FormContext";
  * @returns modal that renders a list of assets
  */
 const AssetModal = () => {
-  const [selectedAsset, setSelectedAsset] = useState("MATIC");
+  const [selectedAsset, setSelectedAsset] = useState("USDC");
   const { setAsset } = useFormContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
