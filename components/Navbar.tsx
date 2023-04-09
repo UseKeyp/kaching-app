@@ -95,7 +95,7 @@ const Navbar = () => {
               </Tooltip>
             </HStack>
 
-            <Box pl={["0.25rem", "1rem"]} onClick={() => signOut()}>
+            <Box pl={["0.25rem", "1rem"]} onClick={() => signOut()} cursor="pointer" _hover={{ opacity: 0.5 }}>
               <Text>Sign Out</Text>
             </Box>
           </HStack>

@@ -1,49 +1,74 @@
-import React, { useEffect } from "react";
-import { Box, Button, Flex, HStack, Image } from "@chakra-ui/react";
+import React, { useEffect, useRef } from "react";
+import { Box, Button, Flex } from "@chakra-ui/react";
 import { useFormContext } from "../context/FormContext";
 import { useSizeProvider } from "../context/SizeContext";
 
 /**
  * @remarks - this component is used to determine the "type" of transaction
- * @param setTxSliderHeight - sets the height of the transaction slider. Index.tsx takes this value and passes it to other components to calculate the height of the page
  * @returns - div containing scrollable buttons
  */
 const TransactionSlider = () => {
+  const cleanedBtnValues = [
+    "send",
+    "request",
+    "fund",
+    "cashout",
+    ];
+  const btnValues = [
+    "Send",
+    "Request",
+    "Fund",
+    "Cash Out",
+  ];
   const { setType, type, renderReviewPage, isConfirming } = useFormContext();
   const { setTxSliderHeight } = useSizeProvider();
+  const scrollRef = useRef(null);
 
-  const handletype = (e: any) => {
-    setType(e.target.id);
+  const handleType = (value: any) => {
+    const currentIndex = cleanedBtnValues.indexOf(type);
+    const newIndex = cleanedBtnValues.indexOf(value.toLowerCase().replace(" ", ""));
+    if (currentIndex > newIndex) {
+        // @ts-ignore
+        scrollRef.current.scrollLeft -= 275;
+    } else if (currentIndex === newIndex) {
+
+    } else {
+      if (newIndex === 3) {
+        // Cash Out needs more scroll
+        // @ts-ignore
+        scrollRef.current.scrollLeft += 255;
+      } else {
+        // @ts-ignore
+        scrollRef.current.scrollLeft += 235;
+      }
+    }
+    setType(value.toLowerCase().replace(" ", ""));
   };
 
   const renderButtons = () => {
-    const btnValues = [
-      "Send",
-      "Wallet",
-      "Request",
-      "Fund",
-      "Cash Out",
-      // "Play"
-    ];
-
-    return btnValues.map((value) => {
-      return (
-        <Box key={value}>
-          <Button
-            onClick={handletype}
-            id={value.toLowerCase().replace(" ", "")}
-            variant="none"
-            fontSize="5rem"
-            fontWeight="extrabold"
-            color="formBlueDark"
-            opacity={type === value.toLowerCase().replace(" ", "") ? 1 : 0.5}
-          >
-            {value}
-          </Button>
-        </Box>
-      );
-    });
+    return (
+        <Flex >
+          {btnValues.map((value) => (
+              <Box key={value}>
+                <Button
+                    py={"4rem"}
+                    onClick={() => handleType(value)}
+                    id={value.toLowerCase().replace(" ", "")}
+                    variant="none"
+                    fontSize="5rem"
+                    fontWeight="extrabold"
+                    color="formBlueDark"
+                    opacity={type === value.toLowerCase().replace(" ", "") ? 1 : 0.5}
+                >
+                  {value}
+                </Button>
+              </Box>
+          ))}
+        </Flex>
+    );
   };
+
+
 
   useEffect(() => {
     const txSliderHeight = document.getElementById("txSlider")?.clientHeight;
@@ -51,24 +76,25 @@ const TransactionSlider = () => {
   }, [setTxSliderHeight]);
 
   return (
-    <Flex
-      display={renderReviewPage || isConfirming ? "none" : "flex"}
-      direction="row"
-      mx="-1rem"
-      id="txSlider"
-      px={[0, 0, "5rem"]}
-    >
-      <Box zIndex={1} w={["5rem", "5rem", "5rem", "3rem"]}>
-        <Image src="fade.png" alt="" w="100%" h="full" />
-      </Box>
-      <HStack overflowX="scroll" py="2rem" spacing={-6} mx="-4">
-        {renderButtons()}
-      </HStack>
-      <Box zIndex={1}>
-        <Image src="fade.png" alt="" transform="rotateY(180deg)" h="full" />
-      </Box>
-    </Flex>
+      <Flex
+          display={renderReviewPage || isConfirming ? "none" : "fixed"}
+          ref={scrollRef}
+          px={["0rem", "0rem", "5rem"]}
+          overflowX="scroll"
+          direction="row"
+          id="txSlider"
+      >
+        <Flex
+            flex={1}
+            justifyContent="center"
+            alignItems="center"
+            position="relative"
+        >
+          {renderButtons()}
+        </Flex>
+      </Flex>
   );
+
 };
 
 export default TransactionSlider;

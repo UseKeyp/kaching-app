@@ -1,7 +1,7 @@
 import { Box, HStack, Image, Text } from "@chakra-ui/react";
 import axios from "axios";
 import { useFormContext } from "context/FormContext";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import React, { Dispatch, useEffect, useState } from "react";
 import { UserBalance } from "types/keypEndpoints";
 import { supportedAssets } from "utils/general";
@@ -25,7 +25,6 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
     if (userAssets) {
       if (asset === "MATIC") {
         let formattedAsset = userAssets["ETH"]?.formatted;
-        console.log(formattedAsset);
         return Number(formattedAsset).toFixed(4);
       } else {
         let { ...address } = userAssets;
@@ -38,26 +37,29 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
   };
   const displayBalance = balance();
 
-  /**
-   * @remarks - pass boolean to parent component TransferForm. If balance < amount, return true and display error message in TransferForm. Loading indicator shows if API call lags
-   * @param amount - user generated asset amount from input. Taken from FormContext
-   * @param balance - balance of asset
-   * @returns boolean value comparing amount to balance
-   */
-  const compareBalanceToInput = (
-    amount: number | undefined,
-    balance: number
-  ): void => {
-    if (amount && displayBalance) {
-      if (balance < amount) {
-        setBalanceError(true);
-      } else {
-        setBalanceError(false);
+  useEffect(() => {
+    /**
+     * @remarks - pass boolean to parent component TransferForm. If balance < amount, return true and display error message in TransferForm. Loading indicator shows if API call lags
+     * @param amount - user generated asset amount from input. Taken from FormContext
+     * @param balance - balance of asset
+     * @returns boolean value comparing amount to balance
+     */
+    const compareBalanceToInput = (
+        amount: number | undefined,
+        balance: number
+    ): void => {
+      if (amount && displayBalance) {
+        if (balance < amount) {
+          setBalanceError(true);
+        } else {
+          setBalanceError(false);
+        }
       }
-    }
-  };
+    };
 
-  compareBalanceToInput(amount, Number(displayBalance));
+    compareBalanceToInput(amount, Number(displayBalance));
+  }, [amount, displayBalance, setBalanceError])
+
 
   useEffect(() => {
     const ACCESS_TOKEN = session?.user.accessToken;
@@ -75,11 +77,14 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
     axios
       .get(asset === "MATIC" ? urlMATIC : urlNotMATIC, options)
       .then((response) => {
-        console.log("response", Object.values(response.data));
         setUserAssets(response.data);
         setIsLoading(false);
       })
       .catch((error) => {
+        if (error?.response?.status === 401) {
+          signOut()
+        }
+        setIsLoading(false);
         console.error(error);
       });
     // eslint-disable-next-line
@@ -103,7 +108,7 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
       )}
       <Text
         display={isLoading ? "none" : "block"}
-      >{`${"$"}${displayBalance} ${asset}`}</Text>
+      >{displayBalance ? `${"$"}${displayBalance} ${asset}` : 'Error'}</Text>
     </Box>
   );
 };

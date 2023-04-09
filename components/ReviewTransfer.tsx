@@ -242,9 +242,9 @@ const ReviewTransfer = () => {
                 <Box mt="-3.15rem" ml="1rem">
                   {/* discord logo */}
                   {platform === "discord" ? (
-                    <FaDiscord color="white" size="2.25rem" />
+                    <FaDiscord color="white" size="36px" />
                   ) : (
-                    <FaGoogle color="white" size="2.25rem" />
+                    <FaGoogle color="white" size="36px" />
                   )}
                 </Box>
               </Box>

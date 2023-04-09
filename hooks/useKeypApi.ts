@@ -1,6 +1,5 @@
 import axios from "axios";
-import { useSession } from "next-auth/react";
-import { UrlParams1, Endpoints } from "types/keypEndpoints";
+import { Endpoints, UrlParams1 } from "types/keypEndpoints";
 import { Transfers } from "../types/Transfers";
 import { generateEndpointUrl } from "../utils/general";
 
@@ -18,8 +17,8 @@ interface UseKeypApiProps {
  * @param accessToken - from session
  * @param method - request type
  * @param endpoints - endpoint
- * @param urlParam1
- * @param urlParam2
+ * @param urlParams1
+ * @param urlParams2
  * @param data - (optional) arguments for request data
  * @returns
  */
@@ -38,22 +37,20 @@ const UseKeypApi = async ({
     Authorization: "Bearer " + accessToken,
   };
 
-  const fetchData = await axios({
+  return await axios({
     method,
     headers,
     url: endpoint,
     data,
   })
-    .then((response) => {
-      console.log(response.data);
-      return response.data;
-    })
-    .catch((error) => {
-      console.error(error);
-      return error;
-    });
-
-  return fetchData;
+      .then((response) => {
+        console.log(response.data);
+        return response.data;
+      })
+      .catch((error) => {
+        console.error(error);
+        return error;
+      });
 };
 
 export default UseKeypApi;
