@@ -8,37 +8,25 @@ import { useSizeProvider } from "../context/SizeContext";
  * @returns - div containing scrollable buttons
  */
 const TransactionSlider = () => {
-  const cleanedBtnValues = [
-    "send",
-    "request",
-    "fund",
-    "cashout",
-    ];
-  const btnValues = [
-    "Send",
-    "Request",
-    "Fund",
-    "Cash Out",
-  ];
+  const cleanedBtnValues = ["send", "wallet", "request", "fund", "cashout"];
+  const btnValues = ["Send", "Wallet", "Request", "Fund", "Cash Out"];
   const { setType, type, renderReviewPage, isConfirming } = useFormContext();
   const { setTxSliderHeight } = useSizeProvider();
-  const scrollRef = useRef(null);
+  const scrollRef = useRef<HTMLHeadingElement>(null!);
 
   const handleType = (value: any) => {
     const currentIndex = cleanedBtnValues.indexOf(type);
-    const newIndex = cleanedBtnValues.indexOf(value.toLowerCase().replace(" ", ""));
+    const newIndex = cleanedBtnValues.indexOf(
+      value.toLowerCase().replace(" ", "")
+    );
     if (currentIndex > newIndex) {
-        // @ts-ignore
-        scrollRef.current.scrollLeft -= 275;
+      scrollRef.current.scrollLeft -= 275;
     } else if (currentIndex === newIndex) {
-
     } else {
       if (newIndex === 3) {
         // Cash Out needs more scroll
-        // @ts-ignore
         scrollRef.current.scrollLeft += 255;
       } else {
-        // @ts-ignore
         scrollRef.current.scrollLeft += 235;
       }
     }
@@ -47,28 +35,26 @@ const TransactionSlider = () => {
 
   const renderButtons = () => {
     return (
-        <Flex >
-          {btnValues.map((value) => (
-              <Box key={value}>
-                <Button
-                    py={"4rem"}
-                    onClick={() => handleType(value)}
-                    id={value.toLowerCase().replace(" ", "")}
-                    variant="none"
-                    fontSize="5rem"
-                    fontWeight="extrabold"
-                    color="formBlueDark"
-                    opacity={type === value.toLowerCase().replace(" ", "") ? 1 : 0.5}
-                >
-                  {value}
-                </Button>
-              </Box>
-          ))}
-        </Flex>
+      <Flex>
+        {btnValues.map((value) => (
+          <Box key={value}>
+            <Button
+              py={"4rem"}
+              onClick={() => handleType(value)}
+              id={value.toLowerCase().replace(" ", "")}
+              variant="none"
+              fontSize="5rem"
+              fontWeight="extrabold"
+              color="formBlueDark"
+              opacity={type === value.toLowerCase().replace(" ", "") ? 1 : 0.5}
+            >
+              {value}
+            </Button>
+          </Box>
+        ))}
+      </Flex>
     );
   };
-
-
 
   useEffect(() => {
     const txSliderHeight = document.getElementById("txSlider")?.clientHeight;
@@ -76,25 +62,24 @@ const TransactionSlider = () => {
   }, [setTxSliderHeight]);
 
   return (
+    <Flex
+      display={renderReviewPage || isConfirming ? "none" : "block"}
+      ref={scrollRef}
+      px={["0rem", "0rem", "5rem"]}
+      overflowX="scroll"
+      direction="row"
+      id="txSlider"
+    >
       <Flex
-          display={renderReviewPage || isConfirming ? "none" : "fixed"}
-          ref={scrollRef}
-          px={["0rem", "0rem", "5rem"]}
-          overflowX="scroll"
-          direction="row"
-          id="txSlider"
+        flex={1}
+        justifyContent="center"
+        alignItems="center"
+        position="relative"
       >
-        <Flex
-            flex={1}
-            justifyContent="center"
-            alignItems="center"
-            position="relative"
-        >
-          {renderButtons()}
-        </Flex>
+        {renderButtons()}
       </Flex>
+    </Flex>
   );
-
 };
 
 export default TransactionSlider;

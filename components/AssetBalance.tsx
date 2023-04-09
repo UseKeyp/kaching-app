@@ -45,8 +45,8 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
      * @returns boolean value comparing amount to balance
      */
     const compareBalanceToInput = (
-        amount: number | undefined,
-        balance: number
+      amount: number | undefined,
+      balance: number
     ): void => {
       if (amount && displayBalance) {
         if (balance < amount) {
@@ -58,8 +58,7 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
     };
 
     compareBalanceToInput(amount, Number(displayBalance));
-  }, [amount, displayBalance, setBalanceError])
-
+  }, [amount, displayBalance, setBalanceError]);
 
   useEffect(() => {
     const ACCESS_TOKEN = session?.user.accessToken;
@@ -82,7 +81,7 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
       })
       .catch((error) => {
         if (error?.response?.status === 401) {
-          signOut()
+          signOut();
         }
         setIsLoading(false);
         console.error(error);
@@ -106,9 +105,9 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
           <Image src="keyp_spinner.svg" alt="" w="1.5rem" />
         </HStack>
       )}
-      <Text
-        display={isLoading ? "none" : "block"}
-      >{displayBalance ? `${"$"}${displayBalance} ${asset}` : 'Error'}</Text>
+      <Text display={isLoading ? "none" : "block"}>
+        {displayBalance ? `${"$"}${displayBalance} ${asset}` : "Error"}
+      </Text>
     </Box>
   );
 };
