@@ -17,7 +17,7 @@ interface AssetBalanceProps {
 const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
   const [userAssets, setUserAssets] = useState<UserBalance | undefined>();
   const [isLoading, setIsLoading] = useState(true);
-  const { asset, amount } = useFormContext();
+  const { type, asset, amount } = useFormContext();
   const { data: session } = useSession();
   const tokenAddress = supportedAssets[asset];
 
@@ -49,7 +49,7 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
       balance: number
     ): void => {
       if (amount && displayBalance) {
-        if (balance < amount) {
+        if (balance < amount && type === "send") {
           setBalanceError(true);
         } else {
           setBalanceError(false);
@@ -58,7 +58,7 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
     };
 
     compareBalanceToInput(amount, Number(displayBalance));
-  }, [amount, displayBalance, setBalanceError]);
+  }, [type, amount, displayBalance, setBalanceError]);
 
   useEffect(() => {
     const ACCESS_TOKEN = session?.user.accessToken;

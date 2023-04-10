@@ -82,7 +82,9 @@ const Fund = () => {
                 color="formBlueDark"
                 onClick={handleCopyAddress}
               >
-                <RxCopy />
+                <Box>
+                  <RxCopy />
+                </Box>
                 <Text ml="1rem">Copy Address</Text>
               </Button>
             </Tooltip>

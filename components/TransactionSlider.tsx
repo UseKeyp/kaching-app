@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Box, Button, Flex } from "@chakra-ui/react";
+import { Box, Button, Flex, HStack, useMediaQuery } from "@chakra-ui/react";
 import { useFormContext } from "../context/FormContext";
 import { useSizeProvider } from "../context/SizeContext";
 
@@ -8,13 +8,16 @@ import { useSizeProvider } from "../context/SizeContext";
  * @returns - div containing scrollable buttons
  */
 const TransactionSlider = () => {
-  const cleanedBtnValues = ["send", "wallet", "request", "fund", "cashout"];
-  const btnValues = ["Send", "Wallet", "Request", "Fund", "Cash Out"];
   const { setType, type, renderReviewPage, isConfirming } = useFormContext();
   const { setTxSliderHeight } = useSizeProvider();
   const scrollRef = useRef<HTMLHeadingElement>(null!);
 
-  const handleType = (value: any) => {
+  const [isLargerThan375] = useMediaQuery("(min-width: 375px)");
+
+  const cleanedBtnValues = ["send", "wallet", "request", "fund", "cashout"];
+  const btnValues = ["Send", "Wallet", "Request", "Fund", "Cash Out"];
+
+  const handleType = (value: string) => {
     const currentIndex = cleanedBtnValues.indexOf(type);
     const newIndex = cleanedBtnValues.indexOf(
       value.toLowerCase().replace(" ", "")
@@ -22,8 +25,9 @@ const TransactionSlider = () => {
     if (currentIndex > newIndex) {
       scrollRef.current.scrollLeft -= 275;
     } else if (currentIndex === newIndex) {
+      null;
     } else {
-      if (newIndex === 3) {
+      if (newIndex === 4) {
         // Cash Out needs more scroll
         scrollRef.current.scrollLeft += 255;
       } else {
@@ -35,7 +39,10 @@ const TransactionSlider = () => {
 
   const renderButtons = () => {
     return (
-      <Flex>
+      <HStack
+        spacing={"-1.5rem"}
+        // overflowX={isLargerThan375 ? undefined : "scroll"}
+      >
         {btnValues.map((value) => (
           <Box key={value}>
             <Button
@@ -52,11 +59,12 @@ const TransactionSlider = () => {
             </Button>
           </Box>
         ))}
-      </Flex>
+      </HStack>
     );
   };
 
   useEffect(() => {
+    // calculation below is used for page formatting
     const txSliderHeight = document.getElementById("txSlider")?.clientHeight;
     setTxSliderHeight(txSliderHeight || 0);
   }, [setTxSliderHeight]);
@@ -66,18 +74,12 @@ const TransactionSlider = () => {
       display={renderReviewPage || isConfirming ? "none" : "block"}
       ref={scrollRef}
       px={["0rem", "0rem", "5rem"]}
-      overflowX="scroll"
+      overflow="hidden"
       direction="row"
       id="txSlider"
+      position="relative"
     >
-      <Flex
-        flex={1}
-        justifyContent="center"
-        alignItems="center"
-        position="relative"
-      >
-        {renderButtons()}
-      </Flex>
+      {renderButtons()}
     </Flex>
   );
 };
