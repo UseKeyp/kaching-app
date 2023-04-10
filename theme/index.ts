@@ -46,6 +46,9 @@ export const theme = extendTheme({
         bg: "white",
         overflowX: "hidden",
       },
+      "&::-webkit-scrollbar": {
+        display: "none",
+      },
     },
   },
 });
