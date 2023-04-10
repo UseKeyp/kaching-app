@@ -1,7 +1,8 @@
 import axios from "axios";
 import { endpointLogic, requestType } from "../utils/general";
 
-const KEYP_API_BASE_URL = "https://api.usekeyp.com/v1";
+const KEYP_API_DOMAIN = process.env.NEXT_PUBLIC_KEYP_API_DOMAIN || "https://api.usekeyp.com"; 
+const KEYP_API_BASE_URL = `${KEYP_API_DOMAIN}/v1`;
 
 /**
  * @remarks - This hook is used to fetch data from the Keyp API
