@@ -106,7 +106,9 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
         </HStack>
       )}
       <Text display={isLoading ? "none" : "block"}>
-        {displayBalance ? `${"$"}${displayBalance} ${asset}` : "Error"}
+        {displayBalance
+          ? `${"$"}${displayBalance !== "NaN" ? displayBalance : ""} ${asset}`
+          : "Error"}
       </Text>
     </Box>
   );

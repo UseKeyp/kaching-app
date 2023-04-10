@@ -23,7 +23,6 @@ import { KEYP_BASE_URL_V1 } from "utils/general";
 interface HandleRequestProps {
   amount: number | undefined;
   asset: string;
-  fromEmail: string | undefined;
   username: string | undefined;
 }
 
@@ -48,8 +47,6 @@ const ReviewTransfer = () => {
   const [sendingTx, setSendingTx] = useState(false);
   const router = useRouter();
   const { data: session } = useSession();
-  // TODO: remove || after fixing email on session
-  const fromEmail = session?.user.email || "";
 
   /**
    * @remarks - makes POST request to /tokens/transfers endpoint. If `toUserId` is provided, `toAddress` can be an empty string
@@ -112,13 +109,11 @@ const ReviewTransfer = () => {
   const handleRequest = async ({
     amount,
     asset,
-    fromEmail,
     username,
   }: HandleRequestProps) => {
     const data = {
       amount,
       asset,
-      fromEmail,
       username,
     };
     try {
@@ -143,7 +138,7 @@ const ReviewTransfer = () => {
     if (type === "send") {
       await handleSendTx();
     } else if (type === "request") {
-      handleRequest({ amount, asset, fromEmail, username });
+      handleRequest({ amount, asset, username });
     }
   };
 
@@ -155,16 +150,7 @@ const ReviewTransfer = () => {
     setRenderTxPage(true);
   };
 
-  const disabledButtonLogic = () => {
-    if (type === "request" && !fromEmail) {
-      return true;
-    }
-    // else if (type === "send" && txFail) {
-    //   return true;
-    // }
-  };
-
-  console.log(responseError?.error);
+  // console.log(responseError?.error);
 
   return (
     <ButtonSpacingWrapper isTransactionSlider={false}>
@@ -245,7 +231,6 @@ const ReviewTransfer = () => {
         <Button
           onClick={() => handleTxType()}
           variant="formGreen"
-          isDisabled={disabledButtonLogic()}
           isLoading={sendingTx}
           loadingText={type === "request" ? "Requesting..." : "Sending..."}
         >

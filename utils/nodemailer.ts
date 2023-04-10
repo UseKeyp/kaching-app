@@ -1,20 +1,17 @@
 import { MailData } from "../types/MailData";
 
-/**
- *
- * @param data - object containing data to be sent in email, including username, amount, asset, and fromEmail
- * @returns
- */
 export const mailData = (data: MailData) => {
   // let emailUrl = `<a href="https://kaching.money?amount=${data.amount}&asset=${data.asset}&username=${data.username}">Click here</a>`;
+
+  const fromEmail = "kaching.money.app@gmail.com";
   let emailUrl = `<a href="https://kaching.money">Click here</a>`;
 
   return {
-    from: data.fromEmail,
+    from: fromEmail,
 
     to: data.username,
 
-    subject: `${data.fromEmail} has requested ${data.amount} ${data.asset}`,
+    subject: `${data.username} has requested ${data.amount} ${data.asset}`,
 
     text: `${data.username} is requesting ${data.amount} ${data.asset} from you! ${emailUrl} to sign into Kaching and send your payments.`,
 
