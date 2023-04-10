@@ -6,7 +6,7 @@ const HeadMetadata = () => {
       <meta content="width=device-width, initial-scale=1" name="viewport" />
       <meta
         name="description"
-        content="Log in with Google or Discord to send crypto"
+        content="Log in with Gmail or Discord, send crypto to your friends and family"
       />
       <title>Kaching</title>
       <link rel="icon" href="/favicon.ico" />

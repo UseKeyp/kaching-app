@@ -5,13 +5,10 @@ import { MailData } from "../types/MailData";
  * @param data - takes in an object with properties set in UseNodeMailerProps:
  * @param data.amount - amount of funds being requested.
  * @param data.asset - asset of funds being requested.
- * @param data.fromEmail - email of user who is requesting funds. Gets taken from the user's session.
  * @param data.username - username of user who is being requested funds from.
  * @returns hook with a fetch request to the server to send an email to the user who is being requested funds from.
  */
 const UseNodemailer = async (data: MailData) => {
-  // console.log(data);
-
   return await fetch("/api/auth/request", {
     method: "POST",
     headers: {
