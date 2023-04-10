@@ -1,7 +1,10 @@
 import NextAuth from "next-auth";
 import { OAuthConfig } from "next-auth/providers";
 
-const KEYP_APP_DOMAIN = "https://app.usekeyp.com";
+const KEYP_API_DOMAIN =
+  process.env.NEXT_PUBLIC_KEYP_API_DOMAIN || "https://api.usekeyp.com";
+
+// Default redirect URL: http://localhost:3000/api/auth/callback/keyp
 
 const KeypProvider: OAuthConfig<any> = {
   id: "keyp",
@@ -9,7 +12,7 @@ const KeypProvider: OAuthConfig<any> = {
   type: "oauth",
   version: "2.0",
   clientId: process.env.NEXT_PUBLIC_KEYP_CLIENT_ID,
-  wellKnown: `${KEYP_APP_DOMAIN}/oauth/.well-known/openid-configuration`,
+  wellKnown: `${KEYP_API_DOMAIN}/oauth/.well-known/openid-configuration`,
   checks: ["pkce"],
   authorization: { params: { scope: "openid email" } },
   client: { token_endpoint_auth_method: "none" },

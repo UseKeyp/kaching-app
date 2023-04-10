@@ -1,5 +1,8 @@
 import { Endpoints, UrlParams1 } from "types/keypEndpoints";
 
+const KEYP_API_DOMAIN = process.env.NEXT_PUBLIC_KEYP_API_DOMAIN || "https://api.usekeyp.com"; 
+const KEYP_BASE_URL_V1 = `${KEYP_API_DOMAIN}/v1`;
+
 /**
  *
  * @param endpoints - value getting passed into Keyp api
@@ -12,8 +15,6 @@ export const generateEndpointUrl = (
   urlParams1?: UrlParams1,
   urlParams2?: string | null
 ) => {
-  const KEYP_BASE_URL_V1 = "https://api.usekeyp.com/v1";
-
   let queryString = "";
   switch (endpoint) {
     case "ramps":
