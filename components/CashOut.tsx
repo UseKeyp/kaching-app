@@ -4,6 +4,7 @@ import UseKeypApi from "../hooks/useKeypApi";
 import { useSession } from "next-auth/react";
 import { useFormContext } from "../context/FormContext";
 import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
+import { KEYP_BASE_URL_V1 } from "utils/general";
 
 /**
  * @remarks - this component lets user withdraw from their wallet. ButtonSpacingWrapper is used place "Back" button at the bottom of the page
@@ -18,9 +19,7 @@ const CashOut = () => {
     const request = await UseKeypApi({
       accessToken: session?.user.accessToken,
       method: "GET",
-      endpoints: "ramps",
-      urlParams1: "off",
-      urlParams2: rampType,
+      endpointUrl: `${KEYP_BASE_URL_V1}/ramps/off/${rampType}`,
     });
     if (request?.url) window.location = request?.url;
     return request.url || null;

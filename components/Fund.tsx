@@ -13,7 +13,7 @@ import { useSession } from "next-auth/react";
 import UseKeypApi from "../hooks/useKeypApi";
 import { useFormContext } from "../context/FormContext";
 import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
-
+import { KEYP_BASE_URL_V1 } from "utils/general";
 /**
  * @remarks - this component lets user fund their wallet. ButtonSpacingWrapper is used place "Back" button at the bottom of the page
  * @returns - Fund component that displays offramps for users to fund their wallet
@@ -37,9 +37,7 @@ const Fund = () => {
     const request = await UseKeypApi({
       accessToken: session?.user.accessToken,
       method: "GET",
-      endpoints: "ramps",
-      urlParams1: "on",
-      urlParams2: rampType,
+      endpointUrl: `${KEYP_BASE_URL_V1}/ramps/on/${rampType}`,
     });
     if (request?.url) window.location = request?.url;
     return request.url || null;

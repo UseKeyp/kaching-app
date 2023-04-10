@@ -18,6 +18,7 @@ import UseNodeMailer from "../hooks/useNodemailer";
 import { tokenAddresses } from "../utils/tokenAddresses";
 import { TransferData } from "types/restAPI";
 import { TransferError } from "types/keypEndpoints";
+import { KEYP_BASE_URL_V1 } from "utils/general";
 
 interface HandleRequestProps {
   amount: number | undefined;
@@ -31,7 +32,6 @@ interface HandleRequestProps {
  * @returns - review form that displays the amount, asset, and username of the transaction.
  */
 const ReviewTransfer = () => {
-  const [txFail, setTxFail] = useState(false);
   const [responseError, setResponseError] = useState<TransferError | null>();
 
   const {
@@ -44,34 +44,12 @@ const ReviewTransfer = () => {
     username,
     setRenderTxPage,
     setRenderReviewPage,
-    // setIsConfirming,
   } = useFormContext();
   const [sendingTx, setSendingTx] = useState(false);
   const router = useRouter();
   const { data: session } = useSession();
   // TODO: remove || after fixing email on session
   const fromEmail = session?.user.email || "";
-
-  console.log(session);
-
-  // CODE BELOW IS DEPRECATED - CAN MORE EASILY GET EMAIL FROM SESSION. DELETE WHEN session.user.email IS FIXED
-  // /**
-  //  * @remarks calls `users/:user` endpoint on Keyp API to get email address
-  //  * @returns promise with user data
-  //  */
-  // const getUserData = async (): Promise<Info> => {
-  //   let userData = await UseKeypApi({
-  //     accessToken: session?.user.accessToken,
-  //     method: "GET",
-  //     endpoints: "users",
-  //     urlParams1: session?.user.id,
-  //   });
-  //   // TODO: email property doesn't exist until API gets fixed
-  //   setFromEmail(userData.email);
-  //   return userData;
-  // };
-  // getUserData();
-  // console.log(getUserData());
 
   /**
    * @remarks - makes POST request to /tokens/transfers endpoint. If `toUserId` is provided, `toAddress` can be an empty string
@@ -87,8 +65,7 @@ const ReviewTransfer = () => {
     const request: TransferData = await UseKeypApi({
       accessToken: session?.user.accessToken,
       method: "POST",
-      endpoints: "tokens",
-      urlParams1: "transfers",
+      endpointUrl: `${KEYP_BASE_URL_V1}/tokens/transfers`,
       data: {
         toUserUsername: toUserId,
         toUserProviderType: platform === "discord" ? "DISCORD" : "GOOGLE",
@@ -157,15 +134,12 @@ const ReviewTransfer = () => {
       return;
     } catch (err) {
       setSendingTx(false);
-      // console.log(err);
       return err;
     }
   };
 
   const handleTxType = async () => {
     setSendingTx(true);
-    // setRenderReviewPage(false);
-    // setIsConfirming(true);
     if (type === "send") {
       await handleSendTx();
     } else if (type === "request") {
