@@ -40,7 +40,8 @@ const TransactionSlider = () => {
     return (
       <HStack
         spacing={"-1.5rem"}
-        overflowX={isLargerThan400 ? undefined : "scroll"}
+        // overflowX={isLargerThan400 ? undefined : "scroll"}
+        overflowX="scroll"
       >
         {btnValues.map((value) => (
           <Box key={value}>
