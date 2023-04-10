@@ -48,7 +48,7 @@ interface FormProviderProps {
   children: ReactNode;
 }
 
-export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
+export const FormProvider = ({ children }: FormProviderProps) => {
   const [type, setType] = useState("send");
   const [renderTxPage, setRenderTxPage] = useState(true);
   const [renderReviewPage, setRenderReviewPage] = useState(false);

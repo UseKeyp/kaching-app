@@ -41,7 +41,7 @@ const TransactionSlider = () => {
     return (
       <HStack
         spacing={"-1.5rem"}
-        overflowX={isLargerThan375 ? undefined : "scroll"}
+        // overflowX={isLargerThan375 ? undefined : "scroll"}
       >
         {btnValues.map((value) => (
           <Box key={value}>
@@ -76,7 +76,7 @@ const TransactionSlider = () => {
       px={["0rem", "0rem", "5rem"]}
       overflow="hidden"
       direction="row"
-      // id="txSlider"
+      id="txSlider"
       position="relative"
     >
       {renderButtons()}

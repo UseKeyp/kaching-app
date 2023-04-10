@@ -47,25 +47,29 @@ const TransferForm = () => {
 
   const emailValidation = (val: string) => {
     if (platform === "google") {
-      return val.includes("@gmail.com") || "must be valid gmail address";
+      return val.includes("@") || "must be valid gmail address";
     } else {
       return val.includes("#") || "must be valid discord address";
     }
   };
 
   const handleReview = async (): Promise<void> => {
-    const stateUpdates = () => {
-      setAmount(values.amount);
+    const valid = await trigger();
+    if (valid) {
+      const stateUpdates = () => {
+        setAmount(values.amount);
         setUsername(values.username);
         setRenderTxPage(false);
-      setRenderReviewPage(true);
-    };
-    const valid = await trigger();
-    if (type === "send" && valid) {
-      stateUpdates();
-    } else if (type === "request") {
-      stateUpdates();
+        setRenderReviewPage(true);
+      };
+
+      if (type === "send") {
+        stateUpdates();
+      } else if (type === "request") {
+        stateUpdates();
+      }
     }
+    return;
   };
 
   useEffect(() => {
@@ -80,12 +84,7 @@ const TransferForm = () => {
     <ButtonSpacingWrapper isTransactionSlider={true}>
       <SimpleGrid columns={1} spacing={"1rem"} px={[0, 0, "5rem"]}>
         <GridItem>
-          <Box
-            display={type === "request" ? "none" : "block"}
-            color="errorOrange"
-            fontWeight="normal"
-            fontSize="1.25rem"
-          >
+          <Box color="errorOrange" fontWeight="normal" fontSize="1.25rem">
             <ErrorMessage
               errors={errors}
               name="amount"
@@ -169,7 +168,7 @@ const TransferForm = () => {
                   value: 1,
                   message: "cannot be blank",
                 },
-                // validate: emailValidation,
+                validate: emailValidation,
               })}
             />
           </Box>

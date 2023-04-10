@@ -1,25 +1,31 @@
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import React, {
+  createContext,
+  Dispatch,
+  ReactNode,
+  useContext,
+  useState,
+} from "react";
 
 /**
  * @remarks - this context is used to store state that holds the height of Navbar and TransactionSlider components
  */
 export const SizeContext = createContext<{
   navHeight: number;
-  setNavHeight: any;
+  setNavHeight: Dispatch<number>;
   txSliderHeight: number;
-  setTxSliderHeight: any;
+  setTxSliderHeight: Dispatch<number>;
 }>({
   navHeight: 0,
-  setNavHeight: null,
+  setNavHeight: useState,
   txSliderHeight: 0,
-  setTxSliderHeight: null,
+  setTxSliderHeight: useState,
 });
 
 interface SizeProviderProps {
   children: ReactNode;
 }
 
-export const SizeProvider: React.FC<SizeProviderProps> = ({ children }) => {
+export const SizeProvider = ({ children }: SizeProviderProps) => {
   const [navHeight, setNavHeight] = useState(0);
   const [txSliderHeight, setTxSliderHeight] = useState(0);
 
