@@ -45,6 +45,7 @@ export const theme = extendTheme({
         m: 0,
         p: 0,
         bg: "white",
+        overflowX: "hidden",
       },
     },
   },

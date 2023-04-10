@@ -6,7 +6,6 @@ import { theme } from "../theme";
 import { FormProvider } from "../context/FormContext";
 import { SizeProvider } from "../context/SizeContext";
 import Fonts from "../components/Fonts";
-import "./_app.css"
 import "@fontsource/inter";
 interface AppProps {
   Component: any;

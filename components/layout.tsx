@@ -13,7 +13,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <Box
         py={[0, 0, "1rem"]}
         alignItems="start"
-        maxW="100vw"
+        maxW="100%"
         maxH="100vh"
         pb="1rem"
         fontSize="1rem"
@@ -22,6 +22,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         px="1rem"
         h="100vh"
         overflowY="auto"
+        overflowX="hidden"
       >
         {children}
       </Box>
