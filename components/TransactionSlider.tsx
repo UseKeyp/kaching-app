@@ -1,5 +1,11 @@
 import React, { useEffect, useRef } from "react";
-import { Box, Button, Flex, HStack, useMediaQuery } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  HStack,
+  // useMediaQuery
+} from "@chakra-ui/react";
 import { useFormContext } from "../context/FormContext";
 import { useSizeProvider } from "../context/SizeContext";
 
@@ -11,7 +17,7 @@ const TransactionSlider = () => {
   const { setType, type, renderReviewPage, isConfirming } = useFormContext();
   const { setTxSliderHeight } = useSizeProvider();
   const scrollRef = useRef<HTMLHeadingElement>(null!);
-  const [isLargerThan400] = useMediaQuery("(min-width: 400px)");
+  // const [isLargerThan400] = useMediaQuery("(min-width: 400px)");
 
   const cleanedBtnValues = ["send", "wallet", "request", "fund", "cashout"];
   const btnValues = ["Send", "Wallet", "Request", "Fund", "Cash Out"];

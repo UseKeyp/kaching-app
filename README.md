@@ -1,9 +1,31 @@
 # Kaching
 
-Sign onto Google or Discord and send crypto.
+## Descripton
 
-Kaching uses Keyp (https://www.usekeyp.com/) to let users send crypto to one another.
+Kaching is a web application that allows users to send and receive cryptocurrencies on the Polygon network. It integrates with Keyp's API (https://docs.usekeyp.com/api), a non-custodial wallet service that uses OAuth2 to grant third-party applications access to user resources without exposing their login credentials. Kaching creates a non-custodial wallet on the Polygon network using Keyp's service, ensuring that the user's private keys are never exposed to Keyp.
+How to Use Kaching
 
-By signing into Kaching with Google or Discord, you can create a non-custodial wallet on Polygon network.
+## How to Use Kaching
 
-Kaching or Keyp will NEVER have access to your private keys. You can extract your private keys from your Keyp account at https://app.usekeyp.com/.
+To use Kaching, simply sign in using your Google or Discord account. You will be redirected to Keyp's authorization page to grant Kaching permission to send and receive crypto on your behalf. If you do not have a wallet, Kaching will create one for you.
+
+Kaching's key features are:
+
+### Send - allows you to send cryptocurrency to other users who have also created accounts with Keyp.
+
+### Wallet - displays your wallet balances and transaction history.
+
+### Request - lets you request crypto payment from other users. An email will be sent to the requested user with the amount and asset requested.
+
+### Fund - allows you to fund your wallet with popular onramps.
+
+### Cash out - lets you offramp your funds to popular offramps.
+
+## Installation
+
+Kaching is a web application that does not require installation. Simply navigate to https://kaching.money/ to start using the application.
+Support
+
+## License
+
+GNU General Public License v3.0
