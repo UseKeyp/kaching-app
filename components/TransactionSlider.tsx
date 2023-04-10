@@ -19,8 +19,20 @@ const TransactionSlider = () => {
   const scrollRef = useRef<HTMLHeadingElement>(null!);
   // const [isLargerThan400] = useMediaQuery("(min-width: 400px)");
 
-  const cleanedBtnValues = ["send", "wallet", "request", "fund", "cashout"];
-  const btnValues = ["Send", "Wallet", "Request", "Fund", "Cash Out"];
+  const cleanedBtnValues = [
+    "send",
+    "wallet",
+    // "request",
+    "fund",
+    "cashout",
+  ];
+  const btnValues = [
+    "Send",
+    "Wallet",
+    // "Request",
+    "Fund",
+    "Cash Out",
+  ];
 
   const handleType = (value: string) => {
     const currentIndex = cleanedBtnValues.indexOf(type);

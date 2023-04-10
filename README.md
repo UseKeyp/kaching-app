@@ -11,15 +11,13 @@ To use Kaching, simply sign in using your Google or Discord account. You will be
 
 Kaching's key features are:
 
-1. Send - allows you to send cryptocurrency to other users who have also created accounts with Keyp.
+- Send - allows you to send cryptocurrency to other users who have also created accounts with Keyp.
 
-2. Wallet - displays your wallet balances and transaction history.
+- Wallet - displays your wallet balances and transaction history.
 
-3. Request - lets you request crypto payment from other users. An email will be sent to the requested user with the amount and asset requested.
+- Fund - allows you to fund your wallet with popular onramps.
 
-4. Fund - allows you to fund your wallet with popular onramps.
-
-5. Cash out - lets you offramp your funds to popular offramps.
+- Cash out - lets you offramp your funds to popular offramps.
 
 ## Installation
 

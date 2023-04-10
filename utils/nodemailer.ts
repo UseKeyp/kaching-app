@@ -1,8 +1,6 @@
 import { MailData } from "../types/MailData";
 
 export const mailData = (data: MailData) => {
-  // let emailUrl = `<a href="https://kaching.money?amount=${data.amount}&asset=${data.asset}&username=${data.username}">Click here</a>`;
-
   const fromEmail = "kaching.money.app@gmail.com";
   let emailUrl = `<a href="https://kaching.money">Click here</a>`;
 
