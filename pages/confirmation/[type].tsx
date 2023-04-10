@@ -14,6 +14,7 @@ import ButtonSpacingWrapper from "../../components/ButtonSpacingWrapper";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import Loading from "../../components/Loading";
+import { blockExplorerLink } from "utils/general";
 
 /**
  * @remarks - this component displays the transaction confirmation. ButtonSpacingWrapper is used place "Return" button at the bottom of the page
@@ -26,18 +27,14 @@ const Confirmation = () => {
 
   const type = router.query.type;
   const query = router.query;
-
-  // TODO: add link to transaction in block explorer
-  const handleViewTx = () => {
-    null;
-  };
+  console.log(query);
 
   useEffect(() => {
-    if (session.status === "unauthenticated") {
+    if (session && session.status === "unauthenticated") {
       router.push("/login");
-    } else if (session.status === "loading") {
+    } else if (session && session.status === "loading") {
       setIsLoading(true);
-    } else if (session.status === "authenticated") {
+    } else if (session && session.status === "authenticated") {
       setIsLoading(false);
     }
   }, [session, router]);
@@ -49,7 +46,7 @@ const Confirmation = () => {
         <>
           <Navbar />
           <ButtonSpacingWrapper isTransactionSlider={false}>
-            <VStack fontWeight="extrabold" fontSize="3rem">
+            <VStack fontWeight="extrabold" fontSize="3rem" px={[0, 0, "5rem"]}>
               <Box w="full">
                 <Heading w="full" as="h1" fontSize={["6rem", "8rem"]}>
                   Kaching
@@ -76,8 +73,15 @@ const Confirmation = () => {
                   </Text>
                 </Box>
                 {type === "send" && (
-                  <Box onClick={handleViewTx}>
-                    <Text color="formBlueDark">View</Text>
+                  <Box>
+                    <Text color="formBlueDark">
+                      <Link
+                        href={blockExplorerLink(query.hash?.toString() || "")}
+                        target="_blank"
+                      >
+                        View
+                      </Link>
+                    </Text>
                   </Box>
                 )}
               </Stack>

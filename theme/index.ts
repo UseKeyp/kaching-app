@@ -4,7 +4,6 @@ import Button from "./components/Button";
 import Input from "./components/Input";
 import Link from "./components/Link";
 import Tooltip from "./components/Tooltip";
-import sharpie from "../components/layout";
 
 export const theme = extendTheme({
   components: {
@@ -27,6 +26,7 @@ export const theme = extendTheme({
     cancelOrange: "#FFB489",
     assetOrange: "#F4AB00",
     errorOrange: "#FF8643",
+    errorEmailRed: "#E45200",
     lightGray: "#B0B6C1",
     loginGray: "#63676F",
     loginBtnGray: "#80858E",
@@ -44,6 +44,7 @@ export const theme = extendTheme({
         m: 0,
         p: 0,
         bg: "white",
+        overflowX: "hidden",
       },
     },
   },

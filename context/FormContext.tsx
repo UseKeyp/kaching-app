@@ -1,45 +1,46 @@
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import React, {
+  createContext,
+  Dispatch,
+  ReactNode,
+  useContext,
+  useState,
+} from "react";
 
 export const FormContext = createContext<{
-  // TODO: Fix types on useState setter functions
-  isActiveGoogle: boolean;
-  setIsActiveGoogle: any;
-  isActiveDiscord: boolean;
-  setIsActiveDiscord: any;
+  platform: string;
+  setPlatform: Dispatch<"google" | "discord">;
   renderTxPage: boolean;
-  setRenderTxPage: any;
+  setRenderTxPage: Dispatch<boolean>;
   renderReviewPage: boolean;
-  setRenderReviewPage: any;
+  setRenderReviewPage: Dispatch<boolean>;
   isConfirming: boolean;
-  setIsConfirming: any;
+  setIsConfirming: Dispatch<boolean>;
   type: string;
-  setType: any;
+  setType: Dispatch<string>;
   amount: number | undefined;
-  setAmount: any;
-  asset: string | undefined;
-  setAsset: any;
+  setAmount: Dispatch<number | undefined>;
+  asset: string;
+  setAsset: Dispatch<string>;
   username: string | undefined;
-  setUsername: any;
+  setUsername: Dispatch<string | undefined>;
   handleHomePage: any;
 }>({
-  isActiveGoogle: true,
-  setIsActiveGoogle: null,
-  isActiveDiscord: false,
-  setIsActiveDiscord: null,
+  platform: "google",
+  setPlatform: useState,
   renderTxPage: true,
-  setRenderTxPage: null,
+  setRenderTxPage: useState,
   renderReviewPage: false,
-  setRenderReviewPage: null,
+  setRenderReviewPage: useState,
   isConfirming: false,
-  setIsConfirming: null,
+  setIsConfirming: useState,
   type: "send",
-  setType: null,
+  setType: useState,
   amount: undefined,
-  setAmount: null,
-  asset: undefined,
-  setAsset: null,
+  setAmount: useState,
+  asset: "USDC",
+  setAsset: useState,
   username: undefined,
-  setUsername: null,
+  setUsername: useState,
   handleHomePage: undefined,
 });
 
@@ -47,15 +48,14 @@ interface FormProviderProps {
   children: ReactNode;
 }
 
-export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
+export const FormProvider = ({ children }: FormProviderProps) => {
   const [type, setType] = useState("send");
   const [renderTxPage, setRenderTxPage] = useState(true);
   const [renderReviewPage, setRenderReviewPage] = useState(false);
   const [isConfirming, setIsConfirming] = useState(false);
-  const [isActiveGoogle, setIsActiveGoogle] = useState(true);
-  const [isActiveDiscord, setIsActiveDiscord] = useState(false);
+  const [platform, setPlatform] = useState<"google" | "discord">("google");
   const [amount, setAmount] = useState<number | undefined>();
-  const [asset, setAsset] = useState<string>("MATIC");
+  const [asset, setAsset] = useState<string>("USDC");
   const [username, setUsername] = useState<string | undefined>();
 
   // TODO: fix return type. Without "return" it throws an error
@@ -63,20 +63,17 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
     setType("send");
     setRenderTxPage(true);
     setRenderReviewPage(false);
-    setIsActiveGoogle(true);
-    setIsActiveDiscord(false);
+    setPlatform("google");
     setAmount(undefined);
-    setAsset("MATIC");
+    setAsset("USDC");
     setUsername(undefined);
   };
 
   const value = {
     type,
     setType,
-    isActiveGoogle,
-    setIsActiveGoogle,
-    isActiveDiscord,
-    setIsActiveDiscord,
+    platform,
+    setPlatform,
     amount,
     setAmount,
     asset,
@@ -99,10 +96,8 @@ export const useFormContext = () => {
   const {
     type,
     setType,
-    isActiveGoogle,
-    setIsActiveGoogle,
-    isActiveDiscord,
-    setIsActiveDiscord,
+    platform,
+    setPlatform,
     amount,
     setAmount,
     asset,
@@ -121,10 +116,8 @@ export const useFormContext = () => {
   return {
     type,
     setType,
-    isActiveGoogle,
-    setIsActiveGoogle,
-    isActiveDiscord,
-    setIsActiveDiscord,
+    platform,
+    setPlatform,
     amount,
     setAmount,
     asset,

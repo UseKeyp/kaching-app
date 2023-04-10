@@ -1,42 +1,56 @@
 import axios from "axios";
-import { endpointLogic, requestType } from "../utils/general";
+import { Endpoints, UrlParams1 } from "types/keypEndpoints";
+import { Transfers } from "../types/Transfers";
+import { generateEndpointUrl } from "../utils/general";
 
-const KEYP_API_DOMAIN = process.env.NEXT_PUBLIC_KEYP_API_DOMAIN || "https://api.usekeyp.com"; 
-const KEYP_API_BASE_URL = `${KEYP_API_DOMAIN}/v1`;
+interface UseKeypApiProps {
+  accessToken: string | undefined;
+  method: "GET" | "POST";
+  endpoints: Endpoints;
+  urlParams1?: UrlParams1;
+  urlParams2?: string | null;
+  data?: Transfers;
+}
 
 /**
  * @remarks - This hook is used to fetch data from the Keyp API
- * @param endpointType - possible endpoints: onramps | offramps | users | usersbalance | tokensTransfers | tokensBalance
+ * @param accessToken - from session
+ * @param method - request type
+ * @param endpoints - endpoint
+ * @param urlParams1
+ * @param urlParams2
+ * @param data - (optional) arguments for request data
  * @returns
  */
-const UseKeypApi = async (
-  endpointType: string,
-  variables: string,
-  accessToken: string
-) => {
-  const endpoint = endpointLogic(endpointType, variables);
-  const method = requestType(endpointType);
+const UseKeypApi = async ({
+  accessToken,
+  method,
+  endpoints,
+  urlParams1,
+  urlParams2,
+  data,
+}: UseKeypApiProps) => {
+  const endpoint = generateEndpointUrl(endpoints, urlParams1, urlParams2);
 
   const headers = {
     "Content-type": "application/json",
     Authorization: "Bearer " + accessToken,
   };
 
-  const fetchData = await axios({
+  return await axios({
     method,
     headers,
-    url: `${KEYP_API_BASE_URL}/${endpoint}`,
+    url: endpoint,
+    data,
   })
-    .then((response) => {
-      // console.log(response);
-      return response.data;
-    })
-    .catch((error) => {
-      console.error(error);
-      return error;
-    });
-
-  return fetchData;
+      .then((response) => {
+        console.log(response.data);
+        return response.data;
+      })
+      .catch((error) => {
+        console.error(error);
+        return error;
+      });
 };
 
 export default UseKeypApi;

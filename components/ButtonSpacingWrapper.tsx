@@ -18,12 +18,13 @@ const ButtonSpacingWrapper: React.FC<ButtonSpacingWrapperProps> = ({
   isTransactionSlider,
 }) => {
   const { navHeight, txSliderHeight } = useSizeProvider();
+
   return (
     <Box
       display="flex"
       flexDirection="column"
       justifyContent="space-between"
-      h={`calc(100vh - ${navHeight}px - ${
+      h={`calc(98vh - ${navHeight}px - ${
         isTransactionSlider ? txSliderHeight : 0
       }px)`}
     >

@@ -7,14 +7,12 @@ import {
   VStack,
   Flex,
   Tooltip,
+  Image,
 } from "@chakra-ui/react";
 import { signOut, useSession } from "next-auth/react";
-import { FaGoogle, FaDiscord } from "react-icons/fa";
 import useSocialLogo from "../hooks/useSocialLogo";
-import { useFormContext } from "../context/FormContext";
 import { RxCopy } from "react-icons/rx";
 import { useSizeProvider } from "../context/SizeContext";
-import { useRouter } from "next/router";
 
 /**
  *
@@ -24,29 +22,19 @@ import { useRouter } from "next/router";
 const Navbar = () => {
   const [openTooltip, setOpenTooltip] = useState(false);
   const { data: session } = useSession();
-  const { handleHomePage } = useFormContext();
   const socialLogo = useSocialLogo(session);
-  const router = useRouter();
 
   const { setNavHeight } = useSizeProvider();
 
-  // TODO: Fix typescript errors below
-  // @ts-ignore
-  const address = session?.user?.address;
-  // @ts-ignore
-  const username = session?.user?.username;
+  const address = session && session.user.address;
+  const username = session && session.user.username;
 
   const handleNavigateHome = () => {
-    if (router.pathname === "/") {
-      router.reload();
-      handleHomePage();
-    } else {
-      router.push("/");
-    }
+    window.location.href = "/";
   };
 
   const handleCopyAddress = () => {
-    navigator.clipboard.writeText(address);
+    navigator.clipboard.writeText(address || "");
     setOpenTooltip(true);
     setTimeout(() => {
       setOpenTooltip(false);
@@ -55,9 +43,9 @@ const Navbar = () => {
 
   const renderSocialLogo = () => {
     if (socialLogo === "discord") {
-      return <FaDiscord color="#4E65F3" size="1.5rem" />;
+      return <Image src="discord-color.svg" alt="" />;
     } else if (socialLogo === "google") {
-      return <FaGoogle color="black" size="1.5rem" />;
+      return <Image src="google-color.svg" alt="" />;
     } else return;
   };
 
@@ -67,7 +55,13 @@ const Navbar = () => {
   }, [setNavHeight]);
 
   return (
-    <Flex w="100%" py="1rem" id="navbar" fontWeight="medium">
+    <Flex
+      w="100%"
+      py="1rem"
+      id="navbar"
+      fontWeight="medium"
+      px={[0, 0, "5rem"]}
+    >
       {/* Box holds logo */}
       <Box w="45%" alignSelf="start">
         <Heading as="h1" color="pink" onClick={() => handleNavigateHome()}>
@@ -101,7 +95,7 @@ const Navbar = () => {
               </Tooltip>
             </HStack>
 
-            <Box pl={["0.25rem", "1rem"]} onClick={() => signOut()}>
+            <Box pl={["0.25rem", "1rem"]} onClick={() => signOut()} cursor="pointer" _hover={{ opacity: 0.5 }}>
               <Text>Sign Out</Text>
             </Box>
           </HStack>

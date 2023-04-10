@@ -1,11 +1,12 @@
 import NextAuth from "next-auth";
+import { OAuthConfig } from "next-auth/providers";
 
 const KEYP_API_DOMAIN =
   process.env.NEXT_PUBLIC_KEYP_API_DOMAIN || "https://api.usekeyp.com";
 
 // Default redirect URL: http://localhost:3000/api/auth/callback/keyp
 
-const KeypProvider = {
+const KeypProvider: OAuthConfig<any> = {
   id: "keyp",
   name: "Keyp",
   type: "oauth",
