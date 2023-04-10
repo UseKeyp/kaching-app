@@ -12,7 +12,7 @@ const TransactionSlider = () => {
   const { setTxSliderHeight } = useSizeProvider();
   const scrollRef = useRef<HTMLHeadingElement>(null!);
 
-  const [isLargerThan375] = useMediaQuery("(min-width: 375px)");
+  const [isLargerThan400] = useMediaQuery("(min-width: 400px)");
 
   const cleanedBtnValues = ["send", "wallet", "request", "fund", "cashout"];
   const btnValues = ["Send", "Wallet", "Request", "Fund", "Cash Out"];
@@ -41,7 +41,7 @@ const TransactionSlider = () => {
     return (
       <HStack
         spacing={"-1.5rem"}
-        overflowX={isLargerThan375 ? undefined : "scroll"}
+        overflowX={isLargerThan400 ? undefined : "scroll"}
       >
         {btnValues.map((value) => (
           <Box key={value}>
