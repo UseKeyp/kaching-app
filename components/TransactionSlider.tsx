@@ -11,7 +11,6 @@ const TransactionSlider = () => {
   const { setType, type, renderReviewPage, isConfirming } = useFormContext();
   const { setTxSliderHeight } = useSizeProvider();
   const scrollRef = useRef<HTMLHeadingElement>(null!);
-
   const [isLargerThan400] = useMediaQuery("(min-width: 400px)");
 
   const cleanedBtnValues = ["send", "wallet", "request", "fund", "cashout"];
@@ -46,7 +45,7 @@ const TransactionSlider = () => {
         {btnValues.map((value) => (
           <Box key={value}>
             <Button
-              py={"4rem"}
+              py={"3rem"}
               onClick={() => handleType(value)}
               id={value.toLowerCase().replace(" ", "")}
               variant="none"
