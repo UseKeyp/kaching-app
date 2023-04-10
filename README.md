@@ -13,8 +13,7 @@ Kaching's key features are:
 
 -Send - allows you to send cryptocurrency to other users who have also created accounts with Keyp.
 -Wallet - displays your wallet balances and transaction history.
--Request - lets you request crypto payment from other users. An email will be sent to the requested user with the amount and sset requested.
-
+-Request - lets you request crypto payment from other users. An email will be sent to the requested user with the amount and asset requested.
 -Fund - allows you to fund your wallet with popular onramps.
 -Cash out - lets you offramp your funds to popular offramps.
 
