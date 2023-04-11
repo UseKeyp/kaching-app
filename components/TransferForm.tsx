@@ -82,29 +82,35 @@ const TransferForm = () => {
 
   return (
     <ButtonSpacingWrapper isTransactionSlider={true}>
-      <SimpleGrid columns={1} spacing={"1rem"} px={[0, 0, "5rem"]}>
+      <SimpleGrid columns={1} spacing={"1rem"} px={[0, 0, "5rem"]} maxH="74vh">
+        {/* Asset box */}
         <GridItem>
-          <Box color="errorOrange" fontWeight="normal" fontSize="1.25rem">
-            <ErrorMessage
-              errors={errors}
-              name="amount"
-              render={({ message }) => {
-                return (
-                  <Box
-                    display={message ? "block" : "none"}
-                    ml="0.5rem"
-                    mb="-2rem"
-                    position="relative"
-                    zIndex={1}
-                  >
-                    {message}
-                  </Box>
-                );
-              }}
-            />
-          </Box>
-
-          <Box position="relative" mt={balanceError ? "1rem" : 0}>
+          <ErrorMessage
+            errors={errors}
+            name="amount"
+            render={({ message }) => {
+              return (
+                <Box
+                  display={message ? "block" : "none"}
+                  ml="0.5rem"
+                  mb="-2rem"
+                  position="relative"
+                  zIndex={1}
+                  color="errorOrange"
+                  fontWeight="normal"
+                  fontSize="1.25rem"
+                >
+                  {message}
+                </Box>
+              );
+            }}
+          />
+          {/* Input */}
+          <Box
+            position="relative"
+            mt={balanceError ? "1rem" : 0}
+            mb={"-1.5rem"}
+          >
             <Input
               type="number"
               step={0.1}
@@ -122,6 +128,7 @@ const TransferForm = () => {
             />
           </Box>
         </GridItem>
+        {/* asset */}
         <GridItem px={"0.5rem"} py={1} alignContent="center">
           <HStack spacing="1rem" justifyContent="space-between">
             <AssetModal />
@@ -130,9 +137,11 @@ const TransferForm = () => {
             </Box>
           </HStack>
         </GridItem>
-        <GridItem>
+        {/* Platform select */}
+        <GridItem mb={2}>
           <ToPlatformSelection />
         </GridItem>
+        {/* username */}
         <GridItem>
           <Box color="errorOrange" fontWeight="normal" fontSize="1.25rem">
             <ErrorMessage
@@ -174,7 +183,7 @@ const TransferForm = () => {
           </Box>
         </GridItem>
       </SimpleGrid>
-      <Box mt="2rem" mx="-1.5rem" mb="-1.0rem">
+      <Box mx="-1.5rem">
         <Button onClick={() => handleReview()} variant="formGray">
           Review
         </Button>

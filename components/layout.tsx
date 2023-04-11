@@ -11,16 +11,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <>
       <HeadMetadata />
       <Box
-        py={[0, 0, "1rem"]}
         alignItems="start"
         maxW="100%"
         maxH="100vh"
-        pb="1rem"
         fontSize="1rem"
         fontWeight="extrabold"
         fontFamily="sharpie"
-        px="1rem"
-        h="100vh"
+        px={["0.5rem", "1rem"]}
         overflowY="auto"
         overflowX="hidden"
       >

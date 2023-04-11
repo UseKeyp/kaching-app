@@ -21,6 +21,13 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
   const { data: session } = useSession();
   const tokenAddress = supportedAssets[asset];
 
+  const loadingImage = (
+    <HStack>
+      <Text>Loading...</Text>
+      <Image src="keyp_spinner.svg" alt="" w="1.5rem" />
+    </HStack>
+  );
+
   const balance = () => {
     if (userAssets) {
       if (asset === "MATIC") {
@@ -92,24 +99,23 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
   return (
     <Box
       color="loginBtnGray"
-      fontSize={asset.length > 4 ? "0.95rem" : ["1.25rem", "1.5rem"]}
+      fontSize={asset.length > 4 ? "0.95rem" : ["1.25rem"]}
       fontWeight="normal"
       textAlign="right"
-      mt={0}
+      w="100%"
     >
       <Text color="socialIconsGray">Your Balance</Text>
 
-      {isLoading && (
+      {isLoading && loadingImage}
+      {displayBalance !== "NaN" ? (
         <HStack>
-          <Text>Loading...</Text>
-          <Image src="keyp_spinner.svg" alt="" w="1.5rem" />
+          <Text display={isLoading ? "none" : "block"}>
+            {displayBalance ? `${"$"}${displayBalance} ${asset}` : "Error"}
+          </Text>
         </HStack>
+      ) : (
+        loadingImage
       )}
-      <Text display={isLoading ? "none" : "block"}>
-        {displayBalance
-          ? `${"$"}${displayBalance !== "NaN" ? displayBalance : ""} ${asset}`
-          : "Error"}
-      </Text>
     </Box>
   );
 };

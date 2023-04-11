@@ -53,7 +53,6 @@ const Wallet = () => {
         axios.spread((firstResponse, secondResponse) => {
           let DAI = Object.values(secondResponse.data);
           setAssets({ ...firstResponse.data, DAI: DAI[0] });
-          console.log(assets);
           setIsLoading(false);
         })
       )
@@ -82,7 +81,7 @@ const Wallet = () => {
           <Heading as="h2" color="socialIconsGray">
             Tokens
           </Heading>
-          <VStack spacing="0.5rem" fontSize="60px" color="loginGray">
+          <VStack spacing="0.5rem" fontSize="7vh" color="loginGray">
             {renderBalances()}
           </VStack>
         </>
