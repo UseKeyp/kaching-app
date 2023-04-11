@@ -3,6 +3,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { UserBalance } from "types/keypEndpoints";
+import { KEYP_BASE_URL_V1, supportedAssets } from "utils/general";
 
 const Wallet = () => {
   const [assets, setAssets] = useState<UserBalance[] | undefined>();
@@ -40,17 +41,25 @@ const Wallet = () => {
       },
     };
 
-    const URL = `https://api.usekeyp.com/v1/users/${userId}/balance`;
+    const firstRequest = `${KEYP_BASE_URL_V1}/users/${userId}/balance`;
+    const secondRequest = `${KEYP_BASE_URL_V1}/users/${userId}/balance/${supportedAssets.DAI}`;
+
     axios
-      .get(URL, options)
-      .then((response) => {
-        // console.log("response", Object.values(response.data));
-        setAssets(response.data);
-        setIsLoading(false);
-      })
+      .all([
+        axios.get(firstRequest, options),
+        axios.get(secondRequest, options),
+      ])
+      .then(
+        axios.spread((firstResponse, secondResponse) => {
+          let DAI = Object.values(secondResponse.data);
+          setAssets({ ...firstResponse.data, DAI: DAI[0] });
+          console.log(assets);
+          setIsLoading(false);
+        })
+      )
       .catch((error) => console.error(error));
     // eslint-disable-next-line
-  }, [assets]);
+  }, []);
 
   return (
     <Box

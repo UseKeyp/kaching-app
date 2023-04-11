@@ -70,13 +70,13 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
       },
     };
 
-    // TODO: handling of ETH. Currently "ETH" really is "MATIC". Add WETH address to `supportedAddresses` dictionary
     const urlMATIC = `https://api.usekeyp.com/v1/users/${userId}/balance`;
     const urlNotMATIC = `https://api.usekeyp.com/v1/users/${userId}/balance/${tokenAddress}`;
     axios
       .get(asset === "MATIC" ? urlMATIC : urlNotMATIC, options)
       .then((response) => {
         setUserAssets(response.data);
+        console.log(response.data);
         setIsLoading(false);
       })
       .catch((error) => {
