@@ -17,7 +17,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         fontSize="1rem"
         fontWeight="extrabold"
         fontFamily="sharpie"
-        px="1rem"
+        px={["0.5rem", "1rem"]}
         overflowY="auto"
         overflowX="hidden"
       >

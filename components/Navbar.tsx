@@ -65,19 +65,19 @@ const Navbar = () => {
       alignItems="start"
     >
       {/* Box holds logo */}
-      <Box w="45%" alignSelf="start">
+      <Box w="40%" alignSelf="start">
         <Heading as="h1" color="pink" onClick={() => handleNavigateHome()}>
           Kaching
         </Heading>
       </Box>
       {/* VStack holds everything else */}
-      <VStack w="55%" alignItems="end" spacing={-0.5}>
+      <VStack w="60%" alignItems="end" spacing={-0.5}>
         {session && (
           // HStack holds address and sign out
           <HStack color="loginBtnGray" mb="0.5rem">
             <HStack>
               <Text>
-                {address?.slice(0, 7)}
+                {address?.slice(0, 4)}
                 <span>...</span>
                 {address?.slice(-6)}
               </Text>
