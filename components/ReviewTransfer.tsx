@@ -14,7 +14,7 @@ import { useFormContext } from "../context/FormContext";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
 import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
 import UseKeypApi from "../hooks/useKeypApi";
-import UseNodeMailer from "../hooks/useNodemailer";
+// import UseNodeMailer from "../hooks/useNodemailer";
 import { tokenAddresses } from "../utils/tokenAddresses";
 import { TransferData } from "types/restAPI";
 import { TransferError } from "types/keypEndpoints";
@@ -31,7 +31,9 @@ interface HandleRequestProps {
  * @returns - review form that displays the amount, asset, and username of the transaction.
  */
 const ReviewTransfer = () => {
-  const [responseError, setResponseError] = useState<TransferError | null>();
+  const [responseError, setResponseError] = useState<
+    TransferError | undefined
+  >();
 
   const {
     type,
@@ -71,13 +73,6 @@ const ReviewTransfer = () => {
         amount,
       },
     });
-    console.log("data", {
-      toUserUsername: toUserId,
-      toUserProviderType: platform === "discord" ? "DISCORD" : "GOOGLE",
-      tokenAddress: tokenAddresses[token],
-      tokenType: "ERC20",
-      amount,
-    });
 
     return request;
   };
@@ -105,41 +100,45 @@ const ReviewTransfer = () => {
     }
   };
 
+  /**
+   * @remarks - handleRequest is for request feature
+   */
   // when user requests funds from another user, Nodemailer sends an email to user
-  const handleRequest = async ({
-    amount,
-    asset,
-    username,
-  }: HandleRequestProps) => {
-    const data = {
-      amount,
-      asset,
-      username,
-    };
-    try {
-      await UseNodeMailer(data);
-      router.push({
-        pathname: "/confirmation/request",
-        query: {
-          amount,
-          asset,
-          username,
-        },
-      });
-      return;
-    } catch (err) {
-      setSendingTx(false);
-      return err;
-    }
-  };
+  // const handleRequest = async ({
+  //   amount,
+  //   asset,
+  //   username,
+  // }: HandleRequestProps) => {
+  //   const data = {
+  //     amount,
+  //     asset,
+  //     username,
+  //   };
+  //   try {
+  //     await UseNodeMailer(data);
+  //     router.push({
+  //       pathname: "/confirmation/request",
+  //       query: {
+  //         amount,
+  //         asset,
+  //         username,
+  //       },
+  //     });
+  //     return;
+  //   } catch (err) {
+  //     setSendingTx(false);
+  //     return err;
+  //   }
+  // };
 
   const handleTxType = async () => {
     setSendingTx(true);
     if (type === "send") {
       await handleSendTx();
-    } else if (type === "request") {
-      handleRequest({ amount, asset, username });
     }
+    // else if (type === "request") {
+    //   handleRequest({ amount, asset, username });
+    // }
   };
 
   // resetting setAsset ensures that `displayBalance` in AssetBalance component renders correctly
@@ -152,68 +151,79 @@ const ReviewTransfer = () => {
 
   return (
     <ButtonSpacingWrapper isTransactionSlider={false}>
-      <Box fontWeight="extrabold" fontSize="5rem" px={[0, 0, "5rem"]}>
-        <HStack
-          color="formBlueDark"
-          fontSize={["3.5rem", "5rem"]}
-          justifyContent="space-between"
-        >
-          <Box>
-            <Text color="formBlueDark" opacity={0.5}>
-              {type === "send" ? "Send" : "Request"}
-            </Text>
-          </Box>
-          <Button
-            variant="none"
-            opacity={0.5}
-            fontSize={["3.5rem", "5rem"]}
-            color="cancelOrange"
-            onClick={() => handleCancel()}
-          >
-            Cancel
-          </Button>
-        </HStack>
-        <SimpleGrid columns={1} spacing={0} mb={"1rem"}>
-          <GridItem>
-            <Text color="formGreen">{amount}</Text>
-          </GridItem>
-          <GridItem my={-2}>
+      <SimpleGrid
+        columns={1}
+        spacing={"-2rem"}
+        px={[0, 0, "5rem"]}
+        maxH="88vh"
+        fontSize="9vh"
+      >
+        {/* Buttons */}
+        <GridItem>
+          <HStack color="formBlueDark" h="14vh" justifyContent="space-between">
             <Box>
-              <Text color="assetOrange">{asset}</Text>
+              <Text color="formBlueDark" opacity={0.5}>
+                {type === "send" ? "Send" : "Request"}
+              </Text>
             </Box>
-          </GridItem>
-          <GridItem my={-2}>
-            <HStack justifyContent="start" px="0.5rem">
-              <Box mr={"1rem"}>
-                <Text color="loginGray">To</Text>
+            <Button
+              variant="none"
+              opacity={0.5}
+              fontSize="9vh"
+              color="cancelOrange"
+              onClick={() => handleCancel()}
+            >
+              Cancel
+            </Button>
+          </HStack>
+        </GridItem>
+        {/* start form values */}
+        <GridItem>
+          <Text color="formGreen">{amount}</Text>
+        </GridItem>
+        <GridItem>
+          <Box>
+            <Text color="assetOrange">{asset}</Text>
+          </Box>
+        </GridItem>
+        <GridItem>
+          <HStack justifyContent="start" px="0.5rem">
+            <Box mr={"1rem"}>
+              <Text color="loginGray">To</Text>
+            </Box>
+            <Box textAlign="center" placeSelf="center">
+              {/* vector bg image*/}
+              <Image
+                src={"social-bg-dark.svg"}
+                alt=""
+                ml="0.15rem"
+                w="4rem"
+                color="black"
+                mt="-4"
+              />
+              <Box mt="-3.15rem" ml="1rem">
+                {/* discord logo */}
+                {platform === "discord" ? (
+                  <FaDiscord color="white" size="36px" />
+                ) : (
+                  <FaGoogle color="white" size="36px" />
+                )}
               </Box>
-              <Box textAlign="center" placeSelf="center">
-                {/* vector bg image*/}
-                <Image
-                  src={"social-bg-dark.svg"}
-                  alt=""
-                  ml="0.15rem"
-                  w="4rem"
-                  color="black"
-                  mt="-4"
-                />
-                <Box mt="-3.15rem" ml="1rem">
-                  {/* discord logo */}
-                  {platform === "discord" ? (
-                    <FaDiscord color="white" size="36px" />
-                  ) : (
-                    <FaGoogle color="white" size="36px" />
-                  )}
-                </Box>
-              </Box>
-            </HStack>
-          </GridItem>
-          <GridItem my={-2}>
-            <Text color="formLightBlue">{username}</Text>
-          </GridItem>
-        </SimpleGrid>
-      </Box>
-      <Box mt="1rem" mx="-1.5rem" mb="-1rem">
+            </Box>
+          </HStack>
+        </GridItem>
+        {/* username */}
+        <GridItem>
+          <Text
+            color="formLightBlue"
+            fontSize={[username && username.length > 10 ? "7vw" : "9vw", "9vw"]}
+          >
+            {username}
+          </Text>
+        </GridItem>
+      </SimpleGrid>
+      {/* </SimpleGrid> */}
+      <Box mt="1rem" mx="-1.5rem">
         {responseError?.error && (
           <Box
             w="80%"

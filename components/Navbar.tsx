@@ -61,20 +61,17 @@ const Navbar = () => {
       id="navbar"
       fontWeight="medium"
       px={[0, 0, "5rem"]}
+      h="12vh"
+      alignItems="start"
     >
       {/* Box holds logo */}
       <Box w="45%" alignSelf="start">
         <Heading as="h1" color="pink" onClick={() => handleNavigateHome()}>
-          <Text fontWeight="extrabold">Kaching</Text>
+          Kaching
         </Heading>
       </Box>
       {/* VStack holds everything else */}
-      <VStack
-        w="55%"
-        alignItems="end"
-        spacing={-0.5}
-        fontSize={["0.85rem", "1rem", "1.25rem", "1.25rem"]}
-      >
+      <VStack w="55%" alignItems="end" spacing={-0.5}>
         {session && (
           // HStack holds address and sign out
           <HStack color="loginBtnGray" mb="0.5rem">
@@ -95,7 +92,12 @@ const Navbar = () => {
               </Tooltip>
             </HStack>
 
-            <Box pl={["0.25rem", "1rem"]} onClick={() => signOut()} cursor="pointer" _hover={{ opacity: 0.5 }}>
+            <Box
+              pl={["0.25rem"]}
+              onClick={() => signOut()}
+              cursor="pointer"
+              _hover={{ opacity: 0.5 }}
+            >
               <Text>Sign Out</Text>
             </Box>
           </HStack>

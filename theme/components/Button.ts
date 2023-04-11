@@ -4,7 +4,7 @@ const Button = defineStyleConfig({
   baseStyle: {
     fontFamily: "Sharpie",
     fontWeight: "bold",
-    fontSize: "4rem",
+    fontSize: "10vh",
     rounded: "none",
     _active: {
       transform: "translateY(2px)",
@@ -27,7 +27,7 @@ const Button = defineStyleConfig({
   variants: {
     formGray: (props: StyleFunctionProps) => ({
       border: "1px",
-      fontSize: "5rem",
+      fontSize: "10vh",
       bg: "socialIconsGray",
       borderTop: "8px solid #E9EBED",
       color: "white",
@@ -37,7 +37,7 @@ const Button = defineStyleConfig({
     }),
     formBlue: (props: StyleFunctionProps) => ({
       border: "1px",
-      fontSize: "5rem",
+      fontSize: "10vh",
       bg: "formBlueDark",
       borderTop: "8px solid #89DCFF",
       color: "white",
@@ -47,7 +47,7 @@ const Button = defineStyleConfig({
     }),
     formGreen: (props: StyleFunctionProps) => ({
       border: "1px",
-      fontSize: "5rem",
+      fontSize: "10vh",
       bg: "#5DBA14",
       borderTop: "8px solid #99DA67",
       color: "white",

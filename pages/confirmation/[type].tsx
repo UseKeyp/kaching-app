@@ -46,9 +46,9 @@ const Confirmation = () => {
         <>
           <Navbar />
           <ButtonSpacingWrapper isTransactionSlider={false}>
-            <VStack fontWeight="extrabold" fontSize="3rem" px={[0, 0, "5rem"]}>
+            <VStack fontWeight="extrabold" px={[0, 0, "5rem"]} fontSize="5vh">
               <Box w="full">
-                <Heading w="full" as="h1" fontSize={["6rem", "8rem"]}>
+                <Heading w="full" as="h1" fontSize="12vh">
                   Kaching
                 </Heading>
               </Box>
@@ -86,7 +86,7 @@ const Confirmation = () => {
                 )}
               </Stack>
             </VStack>
-            <Box mt="1rem" mx="-1.5rem" mb="-1.5rem">
+            <Box mx="-1.5rem">
               <Link href="/">
                 <Button variant="formBlue">Return</Button>
               </Link>

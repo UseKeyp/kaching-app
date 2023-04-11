@@ -19,7 +19,7 @@ import { KEYP_BASE_URL_V1 } from "utils/general";
  * @returns - Fund component that displays offramps for users to fund their wallet
  */
 const Fund = () => {
-  const [rampLoading, setRampLoading] = useState(false);
+  // const [rampLoading, setRampLoading] = useState(false);
   const [openTooltip, setOpenTooltip] = useState(false);
   const { data: session } = useSession();
   const { handleHomePage } = useFormContext();
@@ -56,14 +56,14 @@ const Fund = () => {
             Fund your Wallet
           </Text>
         </Heading>
-        <VStack spacing="1.5rem" mt="2.5rem">
+        <VStack mt="2.5rem">
           <Box w="full">
             <Button
               variant="ramps"
               color="#22272F"
               onClick={() => {
                 handleClickFund("RAMP_NETWORK");
-                setRampLoading(true);
+                // setRampLoading(true);
               }}
             >
               <Image src={"payment-ramp.svg"} alt="Ramp" />
@@ -89,7 +89,7 @@ const Fund = () => {
           </Box>
         </VStack>
       </Box>
-      <Box mt="1rem" mx="-1.5rem" mb="-1rem">
+      <Box mx="-1.5rem">
         <Button variant="formBlue" onClick={() => handleHomePage()}>
           Back
         </Button>

@@ -52,7 +52,7 @@ const AssetModal = () => {
     <>
       <Button
         onClick={() => onOpen()}
-        fontSize="5rem"
+        fontSize="9vh"
         fontWeight="extrabold"
         color="assetOrange"
         variant="none"
@@ -65,7 +65,7 @@ const AssetModal = () => {
         <Modal onClose={onClose} size={"full"} isOpen={isOpen}>
           <ModalOverlay />
           <ModalContent>
-            <ModalBody fontSize="5rem" fontWeight="extrabold" color="#C2C2C2">
+            <ModalBody fontSize="9vh" fontWeight="extrabold" color="#C2C2C2">
               {renderAssets}
             </ModalBody>
             <ModalFooter mx="-1.5rem" mb="-1.5rem">

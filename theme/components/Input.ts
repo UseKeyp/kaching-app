@@ -5,12 +5,13 @@ const helpers = createMultiStyleConfigHelpers(["field"]);
 const Input = helpers.defineMultiStyleConfig({
   baseStyle: (props: StyleFunctionProps) => ({
     field: {
-      py: "4rem",
+      // py: "4rem",
+      py: "2rem",
       h: "fit",
       mb: "-1.5rem",
       fontWeight: "extrabold",
       _placeholder: {
-        fontSize: "5rem",
+        fontSize: "9vh",
         color: props.color,
         px: "0.25rem",
       },
@@ -19,7 +20,7 @@ const Input = helpers.defineMultiStyleConfig({
   variants: {
     default: (props: StyleFunctionProps) => ({
       field: {
-        fontSize: "5rem",
+        fontSize: "9vh",
         px: ".5rem",
       },
     }),

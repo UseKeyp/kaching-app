@@ -19,11 +19,9 @@ const ToPlatformSelection = () => {
   };
 
   return (
-    <HStack justifyContent="start" spacing={"1rem"} mb="-2">
+    <HStack justifyContent="start" spacing={"1rem"}>
       <Box ml="0.5rem">
-        <Text color="loginGray" fontSize="5rem">
-          To
-        </Text>
+        <Text color="loginGray">To</Text>
       </Box>
       <Box
         textAlign="center"

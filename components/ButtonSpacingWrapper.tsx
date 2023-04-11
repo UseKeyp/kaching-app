@@ -1,6 +1,6 @@
-import React, { ReactNode } from "react";
-import { Box } from "@chakra-ui/react";
-import { useSizeProvider } from "../context/SizeContext";
+import React, { ReactNode, useEffect, useState } from "react";
+import { Box, useBreakpointValue } from "@chakra-ui/react";
+// import { useSizeProvider } from "../context/SizeContext";
 
 interface ButtonSpacingWrapperProps {
   children: ReactNode;
@@ -17,16 +17,27 @@ const ButtonSpacingWrapper: React.FC<ButtonSpacingWrapperProps> = ({
   children,
   isTransactionSlider,
 }) => {
-  const { navHeight, txSliderHeight } = useSizeProvider();
+  // const [boxHeight, setBoxHeight] = useState<string>();
+  // const { navHeight, txSliderHeight } = useSizeProvider();
+
+  // useEffect(() => {
+  //   const height = `calc(100vh - ${navHeight}px - ${
+  //     isTransactionSlider ? txSliderHeight : 0
+  //   }px)`;
+  //   setBoxHeight(height);
+  // }, [children, navHeight, txSliderHeight, isTransactionSlider]);
+
+  // const breakValue = useBreakpointValue("400px");
 
   return (
     <Box
       display="flex"
       flexDirection="column"
       justifyContent="space-between"
-      h={`calc(98vh - ${navHeight}px - ${
-        isTransactionSlider ? txSliderHeight : 0
-      }px)`}
+      fontSize="9vh"
+      // h={`${boxHeight}px`}
+      maxH="88vh"
+      minH={isTransactionSlider ? "74vh" : "88vh"}
     >
       {children}
     </Box>

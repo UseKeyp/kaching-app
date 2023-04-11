@@ -68,7 +68,7 @@ const TransactionSlider = () => {
               onClick={() => handleType(value)}
               id={value.toLowerCase().replace(" ", "")}
               variant="none"
-              fontSize="5rem"
+              fontSize="9vh"
               fontWeight="extrabold"
               color="formBlueDark"
               opacity={type === value.toLowerCase().replace(" ", "") ? 1 : 0.5}
@@ -81,8 +81,11 @@ const TransactionSlider = () => {
     );
   };
 
+  /**
+   * @remarks - calculation below is used for page formatting
+   *
+   */
   useEffect(() => {
-    // calculation below is used for page formatting
     const txSliderHeight = document.getElementById("txSlider")?.clientHeight;
     setTxSliderHeight(txSliderHeight || 0);
   }, [setTxSliderHeight]);
@@ -96,6 +99,7 @@ const TransactionSlider = () => {
       direction="row"
       id="txSlider"
       position="relative"
+      h="14vh"
     >
       {renderButtons()}
     </Flex>
