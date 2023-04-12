@@ -23,7 +23,7 @@ import ToPlatformSelection from "./ToPlatformSelection";
  */
 const TransferForm = () => {
   const [balanceError, setBalanceError] = useState(false);
-  const [isHigherThan320] = useMediaQuery("(max-height: 320px)");
+  const [isHigherThan300] = useMediaQuery("(max-height: 300px)");
 
   const {
     type,
@@ -95,12 +95,12 @@ const TransferForm = () => {
               return (
                 <Box
                   display={message ? "block" : "none"}
-                  mb={isHigherThan320 ? "-1.25rem" : "-0.75rem"}
+                  mb={isHigherThan300 ? "-1.25rem" : "-0.75rem"}
                   position="relative"
                   zIndex={1}
                   color="errorOrange"
                   fontWeight="normal"
-                  fontSize={isHigherThan320 ? "1.25rem" : "1rem"}
+                  fontSize={isHigherThan300 ? "1.25rem" : "1rem"}
                 >
                   {message}
                 </Box>
@@ -160,8 +160,8 @@ const TransferForm = () => {
                   <Box
                     display={message ? "block" : "none"}
                     mt={message ? "-1rem" : "0"}
-                    mb={isHigherThan320 ? "-1.25rem" : "-0.75rem"}
-                    fontSize={isHigherThan320 ? "1.25rem" : "1rem"}
+                    mb={isHigherThan300 ? "-1.25rem" : "-0.75rem"}
+                    fontSize={isHigherThan300 ? "1.25rem" : "1rem"}
                     position="relative"
                     zIndex={1}
                   >
