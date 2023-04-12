@@ -6,6 +6,7 @@ import {
   HStack,
   Input,
   SimpleGrid,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { ErrorMessage } from "@hookform/error-message";
 import { FieldValues, useForm } from "react-hook-form";
@@ -22,6 +23,8 @@ import ToPlatformSelection from "./ToPlatformSelection";
  */
 const TransferForm = () => {
   const [balanceError, setBalanceError] = useState(false);
+  const [isHigherThan320] = useMediaQuery("(max-height: 320px)");
+
   const {
     type,
     setAmount,
@@ -93,12 +96,12 @@ const TransferForm = () => {
                 <Box
                   display={message ? "block" : "none"}
                   ml="0.5rem"
-                  mb="-1.25rem"
+                  mb={isHigherThan320 ? "-1.25rem" : "-1rem"}
                   position="relative"
                   zIndex={1}
                   color="errorOrange"
                   fontWeight="normal"
-                  fontSize="1.25rem"
+                  fontSize={isHigherThan320 ? "1.25rem" : "1rem"}
                 >
                   {message}
                 </Box>
@@ -159,7 +162,8 @@ const TransferForm = () => {
                     display={message ? "block" : "none"}
                     mt={message ? "-1rem" : "0"}
                     ml="0.5rem"
-                    mb="-1.5rem"
+                    mb={isHigherThan320 ? "-1.25rem" : "-1rem"}
+                    fontSize={isHigherThan320 ? "1.25rem" : "1rem"}
                     position="relative"
                     zIndex={1}
                   >
