@@ -1,11 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import {
-  Box,
-  Button,
-  Flex,
-  HStack,
-  // useMediaQuery
-} from "@chakra-ui/react";
+import { Box, Button, Flex, HStack, useMediaQuery } from "@chakra-ui/react";
 import { useFormContext } from "../context/FormContext";
 import { useSizeProvider } from "../context/SizeContext";
 
@@ -17,7 +11,7 @@ const TransactionSlider = () => {
   const { setType, type, renderReviewPage, isConfirming } = useFormContext();
   const { setTxSliderHeight } = useSizeProvider();
   const scrollRef = useRef<HTMLHeadingElement>(null!);
-  // const [isLargerThan400] = useMediaQuery("(min-width: 400px)");
+  const [isHigherThan450] = useMediaQuery("(max-height: 450px)");
 
   const cleanedBtnValues = [
     "send",
@@ -56,11 +50,7 @@ const TransactionSlider = () => {
 
   const renderButtons = () => {
     return (
-      <HStack
-        spacing={"-1.5rem"}
-        // overflowX={isLargerThan400 ? undefined : "scroll"}
-        overflowX="scroll"
-      >
+      <HStack spacing={"-1.5rem"} overflowX="scroll">
         {btnValues.map((value) => (
           <Box key={value}>
             <Button
@@ -99,7 +89,9 @@ const TransactionSlider = () => {
       direction="row"
       id="txSlider"
       position="relative"
-      h="14vh"
+      // h="14vh"
+      h={!isHigherThan450 ? "14vh" : "16vh"}
+      minH="14vh"
     >
       {renderButtons()}
     </Flex>
