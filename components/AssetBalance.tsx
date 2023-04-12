@@ -99,10 +99,12 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
   return (
     <Box
       color="loginBtnGray"
-      fontSize={asset.length > 4 ? "0.95rem" : ["1.25rem"]}
+      // fontSize={[asset.length > 4 ? "3.5vh" : "3.5vh", "3.5vh"]}
+      fontSize="3.5vh"
       fontWeight="normal"
       textAlign="right"
       w="100%"
+      lineHeight={1}
     >
       <Text color="socialIconsGray">Your Balance</Text>
 

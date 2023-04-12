@@ -47,7 +47,13 @@ const ToPlatformSelection = () => {
           platform === "discord" ? "social-bg-dark.svg" : "social-bg-light.svg"
         }
       >
-        <Image src="discord-white.svg" alt="Discord" mx="auto" pt="3.5vh" />
+        <Image
+          src="discord-white.svg"
+          alt="Discord"
+          mx="auto"
+          w="5vh"
+          pt="3.5vh"
+        />
       </Box>
     </HStack>
   );

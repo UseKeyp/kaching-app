@@ -34,7 +34,7 @@ const AssetModal = () => {
   };
 
   // TODO: get list of assets from API and render those instead
-  const assets = ["MATIC", "ETH", "USDC", "DAI"];
+  const assets = ["ETH", "USDC", "DAI"];
   const renderAssets = assets.map((asset) => {
     return (
       <Box
