@@ -43,9 +43,9 @@ const Navbar = () => {
 
   const renderSocialLogo = () => {
     if (socialLogo === "discord") {
-      return <Image src="discord-color.svg" alt="" />;
+      return <Image src="discord-color.svg" alt="" w="15px" />;
     } else if (socialLogo === "google") {
-      return <Image src="google-color.svg" alt="" />;
+      return <Image src="google-color.svg" alt="" w="15px" />;
     } else return;
   };
 

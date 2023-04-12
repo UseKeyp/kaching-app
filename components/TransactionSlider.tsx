@@ -12,6 +12,7 @@ const TransactionSlider = () => {
   const { setTxSliderHeight } = useSizeProvider();
   const scrollRef = useRef<HTMLHeadingElement>(null!);
   const [isHigherThan450] = useMediaQuery("(max-height: 450px)");
+  const [isHigherThan320] = useMediaQuery("(max-height: 320px)");
 
   const cleanedBtnValues = [
     "send",
@@ -89,8 +90,8 @@ const TransactionSlider = () => {
       direction="row"
       id="txSlider"
       position="relative"
-      // h="14vh"
-      h={!isHigherThan450 ? "14vh" : "16vh"}
+      mb={!isHigherThan320 ? 0 : "0.5rem"}
+      h={!isHigherThan450 ? "14vh" : "18vh"}
       minH="14vh"
     >
       {renderButtons()}

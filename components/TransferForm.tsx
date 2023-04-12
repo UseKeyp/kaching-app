@@ -135,7 +135,7 @@ const TransferForm = () => {
           </Box>
         </GridItem>
         {/* asset */}
-        <GridItem px={"0.5rem"} py={1} alignContent="center">
+        <GridItem px={"0.5rem"} pt={1} alignContent="center">
           <HStack spacing="1rem" justifyContent="space-between">
             <AssetModal />
             <Box pt={3}>
@@ -144,7 +144,7 @@ const TransferForm = () => {
           </HStack>
         </GridItem>
         {/* Platform select */}
-        <GridItem mb={2}>
+        <GridItem mb={3}>
           <ToPlatformSelection />
         </GridItem>
         {/* username */}
