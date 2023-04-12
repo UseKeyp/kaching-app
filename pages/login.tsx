@@ -40,7 +40,7 @@ const Login = () => {
         <Heading
           as="h1"
           color="pink"
-          fontSize={["5.5rem", "8rem"]}
+          fontSize={["5rem", "8rem"]}
           fontWeight="extrabold"
         >
           <Text fontFamily="sharpie">Kaching</Text>
