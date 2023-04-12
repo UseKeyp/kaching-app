@@ -56,7 +56,7 @@ const Fund = () => {
             Fund your Wallet
           </Text>
         </Heading>
-        <VStack mt="2.5rem">
+        <VStack my={"1rem"}>
           <Box w="full">
             <Button
               variant="ramps"
