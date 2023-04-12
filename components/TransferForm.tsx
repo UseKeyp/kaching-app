@@ -93,7 +93,7 @@ const TransferForm = () => {
                 <Box
                   display={message ? "block" : "none"}
                   ml="0.5rem"
-                  mb="-2rem"
+                  mb="-1.25rem"
                   position="relative"
                   zIndex={1}
                   color="errorOrange"
@@ -159,7 +159,7 @@ const TransferForm = () => {
                     display={message ? "block" : "none"}
                     mt={message ? "-1rem" : "0"}
                     ml="0.5rem"
-                    mb="-2rem"
+                    mb="-1.5rem"
                     position="relative"
                     zIndex={1}
                   >
