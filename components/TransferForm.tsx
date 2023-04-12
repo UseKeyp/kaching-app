@@ -95,8 +95,7 @@ const TransferForm = () => {
               return (
                 <Box
                   display={message ? "block" : "none"}
-                  ml="0.5rem"
-                  mb={isHigherThan320 ? "-1.25rem" : "-1rem"}
+                  mb={isHigherThan320 ? "-1.25rem" : "-0.75rem"}
                   position="relative"
                   zIndex={1}
                   color="errorOrange"
@@ -161,8 +160,7 @@ const TransferForm = () => {
                   <Box
                     display={message ? "block" : "none"}
                     mt={message ? "-1rem" : "0"}
-                    ml="0.5rem"
-                    mb={isHigherThan320 ? "-1.25rem" : "-1rem"}
+                    mb={isHigherThan320 ? "-1.25rem" : "-0.75rem"}
                     fontSize={isHigherThan320 ? "1.25rem" : "1rem"}
                     position="relative"
                     zIndex={1}
