@@ -91,7 +91,7 @@ const TransactionSlider = () => {
       id="txSlider"
       position="relative"
       mb={!isHigherThan320 ? 0 : "0.5rem"}
-      h={!isHigherThan450 ? "14vh" : "18vh"}
+      h={!isHigherThan450 ? "14vh" : "20vh"}
       minH="14vh"
     >
       {renderButtons()}
