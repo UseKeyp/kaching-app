@@ -42,8 +42,10 @@ const TransferForm = () => {
     clearErrors,
     watch,
     trigger,
-    formState: { errors },
+    formState: { errors, isValid },
   } = localForm;
+
+  console.log(isValid);
 
   const values = getValues();
   watch();
@@ -198,7 +200,10 @@ const TransferForm = () => {
         </GridItem>
       </SimpleGrid>
       <Box mx="-1.5rem">
-        <Button onClick={() => handleReview()} variant="formGray">
+        <Button
+          onClick={() => handleReview()}
+          variant={!isValid ? "formGray" : "formBlue"}
+        >
           Review
         </Button>
       </Box>
