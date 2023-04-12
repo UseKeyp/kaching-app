@@ -115,8 +115,14 @@ const TransferForm = () => {
               type="number"
               step={0.1}
               placeholder="0.00"
+              variant="unstyled"
+              fontSize="9vh"
+              fontWeight="bold"
               color={inputColorLogicErrors(errors, type)}
               autoComplete="off"
+              _placeholder={{
+                color: "formGreen",
+              }}
               {...register("amount", {
                 required: {
                   value: true,
@@ -165,7 +171,13 @@ const TransferForm = () => {
           </Box>
           <Box position="relative" mt={!errors.username ? "-2rem" : "-1rem"}>
             <Input
+              variant="unstyled"
+              fontSize="9vh"
+              fontWeight="bold"
               type={platform === "google" ? "email" : "text"}
+              _placeholder={{
+                color: "#89DCFF",
+              }}
               placeholder={
                 platform === "google" ? "Add Gmail" : "Discord Username"
               }
