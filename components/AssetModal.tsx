@@ -57,6 +57,7 @@ const AssetModal = () => {
         color="assetOrange"
         variant="none"
         mb={-5}
+        ml="-.5rem"
         p={0}
       >
         {selectedAsset}

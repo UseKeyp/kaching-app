@@ -11,7 +11,6 @@ import {
 } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useFormContext } from "../context/FormContext";
-import { FaDiscord, FaGoogle } from "react-icons/fa";
 import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
 import UseKeypApi from "../hooks/useKeypApi";
 // import UseNodeMailer from "../hooks/useNodemailer";
@@ -153,8 +152,8 @@ const ReviewTransfer = () => {
     <ButtonSpacingWrapper isTransactionSlider={false}>
       <SimpleGrid
         columns={1}
-        spacing={"-2rem"}
-        px={[0, 0, "5rem"]}
+        // spacing={"-2rem"}
+        px={["0.25rem", "5rem"]}
         maxH="88vh"
         fontSize="9vh"
       >
@@ -169,7 +168,7 @@ const ReviewTransfer = () => {
             <Button
               variant="none"
               opacity={0.5}
-              fontSize="9vh"
+              fontSize={["9vh"]}
               color="cancelOrange"
               onClick={() => handleCancel()}
             >
@@ -182,44 +181,49 @@ const ReviewTransfer = () => {
           <Text color="formGreen">{amount}</Text>
         </GridItem>
         <GridItem>
-          <Box>
-            <Text color="assetOrange">{asset}</Text>
-          </Box>
+          <Text color="assetOrange">{asset}</Text>
         </GridItem>
         <GridItem>
-          <HStack justifyContent="start" px="0.5rem">
-            <Box mr={"1rem"}>
+          <HStack justifyContent="start">
+            <Box mr={"0.5rem"}>
               <Text color="loginGray">To</Text>
             </Box>
-            <Box textAlign="center" placeSelf="center">
-              {/* vector bg image*/}
-              <Image
-                src={"social-bg-dark.svg"}
-                alt=""
-                ml="0.15rem"
-                w="4rem"
-                color="black"
-                mt="-4"
-              />
-              <Box mt="-3.15rem" ml="1rem">
-                {/* discord logo */}
-                {platform === "discord" ? (
-                  <FaDiscord color="white" size="36px" />
-                ) : (
-                  <FaGoogle color="white" size="36px" />
-                )}
-              </Box>
+            <Box
+              textAlign="center"
+              placeSelf="center"
+              bgImage="social-bg-dark.svg"
+              h="11vh"
+              w="11vh"
+              bgRepeat="no-repeat"
+              bgPosition="center"
+              bgSize="contain"
+            >
+              {platform === "discord" ? (
+                // discord image
+                <Image
+                  src="discord-white.svg"
+                  alt="Discord"
+                  mx="auto"
+                  mt="2.5vh"
+                  h="6vh"
+                  w="6vh"
+                />
+              ) : (
+                // google image
+                <Image
+                  src="google-white.png"
+                  alt="Discord"
+                  mx="auto"
+                  mt="3vh"
+                  h="5vh"
+                />
+              )}
             </Box>
           </HStack>
         </GridItem>
         {/* username */}
-        <GridItem>
-          <Text
-            color="formLightBlue"
-            fontSize={[username && username.length > 10 ? "7vw" : "9vw", "9vw"]}
-          >
-            {username}
-          </Text>
+        <GridItem h="14vh">
+          <Text color="formLightBlue">{username}</Text>
         </GridItem>
       </SimpleGrid>
       {/* </SimpleGrid> */}

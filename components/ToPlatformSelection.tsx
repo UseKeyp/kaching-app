@@ -19,50 +19,35 @@ const ToPlatformSelection = () => {
   };
 
   return (
-    <HStack justifyContent="start" spacing={"1rem"}>
-      <Box ml="0.5rem">
+    <HStack h="14vh">
+      <Box maxH="14vh">
         <Text color="loginGray">To</Text>
       </Box>
       <Box
-        textAlign="center"
-        placeSelf="center"
         onClick={() => handleActiveIcons("google")}
+        h="11vh"
+        w="11vh"
+        bgRepeat="no-repeat"
+        bgPosition="center"
+        bgSize="contain"
+        bgImage={
+          platform === "google" ? "social-bg-dark.svg" : "social-bg-light.svg"
+        }
       >
-        {/* vector bg image*/}
-        <Image
-          src={
-            platform === "google" ? "social-bg-dark.svg" : "social-bg-light.svg"
-          }
-          alt="Google"
-          w="4rem"
-          mt="-4"
-        />
-        <Box mt="-3.15rem" ml=".9rem">
-          {/* Google logo */}
-          <FaGoogle color="white" size="36px" />
-        </Box>
+        <Image src="google-white.png" alt="Google" mx="auto" w="5vh" pt="3vh" />
       </Box>
       <Box
-        textAlign="center"
-        placeSelf="center"
         onClick={() => handleActiveIcons("discord")}
+        h="11vh"
+        w="11vh"
+        bgRepeat="no-repeat"
+        bgPosition="center"
+        bgSize="contain"
+        bgImage={
+          platform === "discord" ? "social-bg-dark.svg" : "social-bg-light.svg"
+        }
       >
-        {/* vector bg image*/}
-        <Image
-          src={
-            platform === "discord"
-              ? "social-bg-dark.svg"
-              : "social-bg-light.svg"
-          }
-          alt="Discord"
-          ml="0.15rem"
-          w="4rem"
-          mt="-4"
-        />
-        <Box mt="-3.15rem" ml="1rem">
-          {/* discord logo */}
-          <FaDiscord color="white" size="36px" />
-        </Box>
+        <Image src="discord-white.svg" alt="Discord" mx="auto" pt="3.5vh" />
       </Box>
     </HStack>
   );
