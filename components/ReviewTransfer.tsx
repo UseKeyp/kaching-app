@@ -14,16 +14,19 @@ import { useFormContext } from "../context/FormContext";
 import ButtonSpacingWrapper from "./ButtonSpacingWrapper";
 import UseKeypApi from "../hooks/useKeypApi";
 // import UseNodeMailer from "../hooks/useNodemailer";
-import { tokenAddresses } from "../utils/tokenAddresses";
+import { supportedAssets } from "utils/general";
 import { TransferData } from "types/restAPI";
 import { TransferError } from "types/keypEndpoints";
 import { KEYP_BASE_URL_V1 } from "utils/general";
 
-interface HandleRequestProps {
-  amount: number | undefined;
-  asset: string;
-  username: string | undefined;
-}
+/**
+ * @remarks code below is used for request feature. DO NOT REMOVE
+ */
+// interface HandleRequestProps {
+//   amount: number | undefined;
+//   asset: string;
+//   username: string | undefined;
+// }
 
 /**
  * @remarks - this component lets user review the transaction before sending. ButtonSpacingWrapper is used place "Send" button at the bottom of the page.
@@ -67,7 +70,7 @@ const ReviewTransfer = () => {
       data: {
         toUserUsername: toUserId,
         toUserProviderType: platform === "discord" ? "DISCORD" : "GOOGLE",
-        tokenAddress: tokenAddresses[token],
+        tokenAddress: supportedAssets[token],
         tokenType: "ERC20",
         amount,
       },
@@ -100,7 +103,9 @@ const ReviewTransfer = () => {
   };
 
   /**
-   * @remarks - handleRequest is for request feature
+   *
+   * @remarks - handleRequest is for REQUEST feature. DO NOT DELETE
+   *
    */
   // when user requests funds from another user, Nodemailer sends an email to user
   // const handleRequest = async ({
@@ -135,6 +140,7 @@ const ReviewTransfer = () => {
     if (type === "send") {
       await handleSendTx();
     }
+    // DO NOT DELETE CODE BELOW. IT'S FOR REQUEST FEATURE
     // else if (type === "request") {
     //   handleRequest({ amount, asset, username });
     // }
@@ -152,7 +158,6 @@ const ReviewTransfer = () => {
     <ButtonSpacingWrapper isTransactionSlider={false}>
       <SimpleGrid
         columns={1}
-        // spacing={"-2rem"}
         px={["0.25rem", "5rem"]}
         maxH="88vh"
         fontSize="9vh"

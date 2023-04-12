@@ -25,7 +25,7 @@ const Button = defineStyleConfig({
     },
   },
   variants: {
-    formGray: (props: StyleFunctionProps) => ({
+    formGray: () => ({
       border: "1px",
       fontSize: "10vh",
       bg: "socialIconsGray",
@@ -35,7 +35,7 @@ const Button = defineStyleConfig({
       px: "-4rem",
       h: "fit",
     }),
-    formBlue: (props: StyleFunctionProps) => ({
+    formBlue: () => ({
       border: "1px",
       fontSize: "10vh",
       bg: "formBlueDark",
@@ -45,7 +45,7 @@ const Button = defineStyleConfig({
       px: "-4rem",
       h: "fit",
     }),
-    formGreen: (props: StyleFunctionProps) => ({
+    formGreen: () => ({
       border: "1px",
       fontSize: "10vh",
       bg: "#5DBA14",

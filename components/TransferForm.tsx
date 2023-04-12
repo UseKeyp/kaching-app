@@ -146,7 +146,7 @@ const TransferForm = () => {
           </HStack>
         </GridItem>
         {/* Platform select */}
-        <GridItem mb={3}>
+        <GridItem mb={2}>
           <ToPlatformSelection />
         </GridItem>
         {/* username */}

@@ -1,8 +1,6 @@
-// import { Session } from "types/session";
-// import type { Session } from "next-auth";
+import type { Session } from "next-auth";
 
-// TODO: fix any type
-const useSocialLogo = (session: any) => {
+const useSocialLogo = (session: Session | null) => {
   const id = session && session?.user?.id;
   if (id?.includes("GOOGLE")) {
     return "google";

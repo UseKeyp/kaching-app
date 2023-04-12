@@ -1,7 +1,6 @@
 import { Box, HStack, Image, Text } from "@chakra-ui/react";
 import { useFormContext } from "context/FormContext";
 import React from "react";
-import { FaDiscord, FaGoogle } from "react-icons/fa";
 
 /**
  * @remarks component gets rendered onto TransferForm component. Nested boxes are in place for styling purposes

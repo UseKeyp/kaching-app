@@ -15,7 +15,6 @@ import { useFormContext } from "context/FormContext";
 
 /**
  * @remarks modal opens when user clicks on asset name
- * @param setGetAsset useState hook variable that captures string of asset
  * @returns modal that renders a list of assets
  */
 const AssetModal = () => {

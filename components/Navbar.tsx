@@ -14,16 +14,10 @@ import useSocialLogo from "../hooks/useSocialLogo";
 import { RxCopy } from "react-icons/rx";
 import { useSizeProvider } from "../context/SizeContext";
 
-/**
- *
- * @param setNavHeight - sets the height of the navbar. Index.tsx takes this value and passes it to other components to calculate the height of the page
- * @returns - navbar component
- */
 const Navbar = () => {
   const [openTooltip, setOpenTooltip] = useState(false);
   const { data: session } = useSession();
   const socialLogo = useSocialLogo(session);
-
   const { setNavHeight } = useSizeProvider();
 
   const address = session && session.user.address;

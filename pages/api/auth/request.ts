@@ -17,7 +17,6 @@ const request = (req: NextApiRequest, res: NextApiResponse) => {
     },
   });
 
-  // TODO: add Types to err and info
   transporter.sendMail(mailData(data), function (err: Errors, info: Info) {
     if (err) {
       console.log(err);

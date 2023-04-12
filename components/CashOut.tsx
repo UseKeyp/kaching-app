@@ -39,15 +39,6 @@ const CashOut = () => {
           </Text>
         </Heading>
         <VStack spacing="1.5rem" mt="2.5rem">
-          {/* <Box w="full">
-          <Button
-            variant="ramps"
-            color="#22272F"
-            onClick={() => handleClickCashOut("RAMP_NETWORK")}
-          >
-            <Image src={"payment-ramp.svg"} alt="Ramp" />
-          </Button>
-        </Box> */}
           <Box w="full">
             <Button
               variant="ramps"

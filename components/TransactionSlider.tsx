@@ -14,13 +14,14 @@ const TransactionSlider = () => {
   const [isHigherThan450] = useMediaQuery("(max-height: 450px)");
   const [isHigherThan320] = useMediaQuery("(max-height: 320px)");
 
-  const cleanedBtnValues = [
-    "send",
-    "wallet",
-    // "request",
-    "fund",
-    "cashout",
-  ];
+  // const cleanedBtnValues = [
+  //   "send",
+  //   "wallet",
+  //   // "request",
+  //   "fund",
+  //   "cashout",
+  // ];
+
   const btnValues = [
     "Send",
     "Wallet",
@@ -30,22 +31,22 @@ const TransactionSlider = () => {
   ];
 
   const handleType = (value: string) => {
-    const currentIndex = cleanedBtnValues.indexOf(type);
-    const newIndex = cleanedBtnValues.indexOf(
-      value.toLowerCase().replace(" ", "")
-    );
-    if (currentIndex > newIndex) {
-      scrollRef.current.scrollLeft -= 275;
-    } else if (currentIndex === newIndex) {
-      null;
-    } else {
-      if (newIndex === 4) {
-        // Cash Out needs more scroll
-        scrollRef.current.scrollLeft += 255;
-      } else {
-        scrollRef.current.scrollLeft += 235;
-      }
-    }
+    // const currentIndex = cleanedBtnValues.indexOf(type);
+    // const newIndex = cleanedBtnValues.indexOf(
+    //   value.toLowerCase().replace(" ", "")
+    // );
+    // if (currentIndex > newIndex) {
+    //   scrollRef.current.scrollLeft -= 275;
+    // } else if (currentIndex === newIndex) {
+    //   null;
+    // } else {
+    //   if (newIndex === 4) {
+    //     // Cash Out needs more scroll
+    //     scrollRef.current.scrollLeft += 255;
+    //   } else {
+    //     scrollRef.current.scrollLeft += 235;
+    //   }
+    // }
     setType(value.toLowerCase().replace(" ", ""));
   };
 

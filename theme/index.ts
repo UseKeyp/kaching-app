@@ -1,7 +1,6 @@
 import { extendTheme } from "@chakra-ui/react";
 import Heading from "./components/Heading";
 import Button from "./components/Button";
-import Input from "./components/Input";
 import Link from "./components/Link";
 import Tooltip from "./components/Tooltip";
 
@@ -9,7 +8,6 @@ export const theme = extendTheme({
   components: {
     Heading,
     Button,
-    Input,
     Link,
     Tooltip,
   },
