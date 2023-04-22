@@ -9,8 +9,19 @@ const isSolved = (puzzle: (number | null)[]) => {
   });
 };
 
+function shufflePuzzle(): (number | null)[] {
+  const arr: (number | null)[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  arr[Math.random() * 9] = null;
+  const shuffledArr = [...arr]; // create a copy of the original array
+  for (let i = shuffledArr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArr[i], shuffledArr[j]] = [shuffledArr[j], shuffledArr[i]];
+  }
+  return shuffledArr;
+}
+
 export const PuzzleGame = () => {
-  const [puzzle, setPuzzle] = useState([1, 2, 3, 4, 5, 6, 7, 8, null]);
+  const [puzzle, setPuzzle] = useState(shufflePuzzle());
 
   const handlePuzzleClick = (index: number) => {
     const nullIndex = puzzle.indexOf(null);
@@ -42,19 +53,24 @@ export const PuzzleGame = () => {
       console.log("puzzle won", isPuzzleSolved, puzzle);
     }
   }, [puzzle]);
-  // background: url('bgimage.jpg') no-repeat;
-  // background-size: 100%;
+  console.log("style", `url(/puzzle/week-${CURRENT_WEEK}/${1})`);
   return (
     <div className={styles.puzzleContainer}>
       {puzzle.map((item, index) => (
         <div
           key={index}
-          style={{ background: `url(/puzzle/week-${CURRENT_WEEK}/${index})` }}
+          style={{
+            ["background-image" as any]:
+              item !== null
+                ? `url(/puzzle/week-${CURRENT_WEEK}/${item}.png)`
+                : null,
+          }}
           className={`puzzle-item-${index + 1} ${
             item === null ? "puzzle-item-empty" : ""
           } ${styles.puzzleItem}`}
           onClick={() => handlePuzzleClick(index)}
         >
+          {/* // todo: remove this item number before production */}
           {item}
         </div>
       ))}
