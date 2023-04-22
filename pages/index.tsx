@@ -11,6 +11,7 @@ import ReviewTransfer from "../components/ReviewTransfer";
 import Navbar from "../components/Navbar";
 import Loading from "../components/Loading";
 import Wallet from "components/Wallet";
+import Play from "components/Play";
 
 /**
  * @remarks if user selects "send", render Send component, else render "Request"
@@ -37,6 +38,8 @@ const Home = () => {
       return <Fund />;
     } else if (type === "cashout") {
       return <CashOut />;
+    } else if (type === "play") {
+      return <Play />;
     }
   };
 

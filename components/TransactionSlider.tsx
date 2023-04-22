@@ -26,6 +26,7 @@ const TransactionSlider = () => {
     "Send",
     "Wallet",
     // "Request",
+    "Play",
     "Fund",
     "Cash Out",
   ];

@@ -1,0 +1,37 @@
+.puzzleContainer {
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.puzzleItem {
+  background-color: #ccc;
+  border: 1px solid #999;
+  text-align: center;
+  font-size: 2em;
+
+}
+
+
+@media (min-width: 769px) {
+  .puzzleContainer {
+    width: 700px;
+    height: 700px;
+  }
+  .puzzleItem {
+    width: calc(700px / 3);
+    height: calc(700px / 3);
+  }
+}
+
+@media (max-width: 768px) {
+  .puzzleContainer {
+    width: 300px;
+    height: 300px;
+  }
+  .puzzleItem {
+    width: calc(300px / 3);
+    height: calc(300px / 3);
+  }
+}
