@@ -18,7 +18,7 @@ const Play = () => {
       mb="12rem"
     >
       <>
-        <Heading as="h2" color="socialIconsGray" mb={"8"}>
+        <Heading as="h2" color="socialIconsGray" align="center" mb={"8"}>
           Solve the weekly puzzle and get a special Keyp NFT airdropped.
         </Heading>
         <PuzzleGame />

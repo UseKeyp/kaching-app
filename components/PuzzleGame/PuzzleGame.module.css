@@ -59,12 +59,22 @@
 .heading {
   margin-bottom: 1rem;
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 3rem;
+  text-align: center;
 }
+
+.puzzleTime {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.mintNFT {
+  margin-bottom: 2rem;
+}
+
 .puzzleItemText {
   padding: 0.5rem;
 }
-
 
 @media (min-width: 769px) {
   .puzzleContainer {

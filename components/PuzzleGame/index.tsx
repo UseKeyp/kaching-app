@@ -33,6 +33,7 @@ function shufflePuzzle(): PuzzleGame {
 }
 
 export const PuzzleGame = () => {
+  const [displayStartScreen, setDisplayStartScreen] = useState<boolean>(true);
   const [puzzle, setPuzzle] = useState<PuzzleGame>(DEFAULT_PUZZLE_STATE);
   const [isStarted, setIsStarted] = useState<boolean>(false);
   const [isSolved, setIsSolved] = useState<boolean>(false);
@@ -47,7 +48,6 @@ export const PuzzleGame = () => {
 
     if (isStarted && isPuzzleSolved) {
       setIsStarted(false);
-      const moves = gameLog.length;
       setIsSolved(true);
       setIsStarted(false);
     }
@@ -58,7 +58,7 @@ export const PuzzleGame = () => {
       const newPuzzle = randomMove([...puzzle]);
       setPuzzle(newPuzzle);
       setShuffleCount(shuffleCount + 1);
-      if (shuffleCount > 1000) {
+      if (shuffleCount > 1) {
         setIsShuffling(false);
         setIsStarted(true);
       }
@@ -72,6 +72,7 @@ export const PuzzleGame = () => {
     setIsStarted(true);
     setGameLog([]);
     setStartTime(Date.now());
+    setDisplayStartScreen(false);
   };
 
   const getPossibleMoves = (nullIndex: number): number[] => {
@@ -173,7 +174,7 @@ export const PuzzleGame = () => {
             <span className={styles.puzzleItemText}>{item}</span>
           </div>
         ))}
-        {!isStarted && (
+        {displayStartScreen && (
           <div className={styles.puzzleOverlay}>
             {isShuffling ? (
               <Image src="keyp_spinner.svg" alt="" w="4rem" />
