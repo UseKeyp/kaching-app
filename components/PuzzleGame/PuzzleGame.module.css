@@ -26,16 +26,43 @@
   background-color: pink;
   font-size: 1.5rem;
   font-weight: bold;
+  color: var(--chakra-colors-pink);
+}
+
+.mintNFT {
+  border: solid 1px black;
+  border-radius: 18px;
+  padding: 1rem 1.5rem;
+  background-color: pink;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--chakra-colors-pink);
+}
+
+.puzzleSolvedPanel {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .puzzleItem {
   background-color: #ccc;
   border: 1px solid #999;
-  text-align: center;
   font-size: 2em;
   background-size: 100%;
   background-repeat: no-repeat;
   background-size:100% 100%;
+}
+
+.heading {
+  margin-bottom: 1rem;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.puzzleItemText {
+  padding: 0.5rem;
 }
 
 

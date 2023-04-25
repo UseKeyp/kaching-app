@@ -15,14 +15,12 @@ const Play = () => {
       px={[0, 0, "5rem"]}
       justifyContent="start"
       mt="2rem"
+      mb="12rem"
     >
       <>
-        <Heading as="h2" color="socialIconsGray">
+        <Heading as="h2" color="socialIconsGray" mb={"8"}>
           Solve the weekly puzzle and get a special Keyp NFT airdropped.
         </Heading>
-        <Text spacing="0.5rem" fontSize="sm" color="loginGray">
-          play game here with wallet: {session?.user?.address}
-        </Text>
         <PuzzleGame />
       </>
     </Box>

@@ -10,11 +10,11 @@ type PuzzleGame = (number | null)[];
 
 type GameLog = {
   puzzleState: PuzzleGame;
-  moveTimeStamp: string;
+  moveTimeStamp: number;
   moveNumber: number;
 };
 
-const isSolved = (puzzle: PuzzleGame) => {
+const checkIsSolved = (puzzle: PuzzleGame) => {
   return puzzle.every((item: number | null, index: number) => {
     return item === index + 1 || item === null;
   });
@@ -33,12 +33,25 @@ function shufflePuzzle(): PuzzleGame {
 }
 
 export const PuzzleGame = () => {
-  const [puzzle, setPuzzle] = useState(DEFAULT_PUZZLE_STATE);
-  const [isStarted, setIsStarted] = useState(false);
+  const [puzzle, setPuzzle] = useState<PuzzleGame>(DEFAULT_PUZZLE_STATE);
+  const [isStarted, setIsStarted] = useState<boolean>(false);
+  const [isSolved, setIsSolved] = useState<boolean>(false);
   const [isShuffling, setIsShuffling] = useState(false);
   const [gameLog, setGameLog] = useState<GameLog[]>([]);
-  const [moveNumber, setMoveNumber] = useState(0);
-  const [shuffleCount, setShuffleCount] = useState(0);
+  const [moveNumber, setMoveNumber] = useState<number>(0);
+  const [shuffleCount, setShuffleCount] = useState<number>(0);
+  const [startTime, setStartTime] = useState<number>(0);
+
+  useEffect(() => {
+    const isPuzzleSolved = checkIsSolved(puzzle);
+
+    if (isStarted && isPuzzleSolved) {
+      setIsStarted(false);
+      const moves = gameLog.length;
+      setIsSolved(true);
+      setIsStarted(false);
+    }
+  }, [puzzle]);
 
   useEffect(() => {
     if (isShuffling) {
@@ -55,29 +68,14 @@ export const PuzzleGame = () => {
   const startGame = async () => {
     setIsShuffling(true);
     setShuffleCount(1);
-    // let shuffleCount = 0;
-    // let puzzleCopy = [...puzzle];
-    // while (shuffleCount < 100) {
-    //   puzzleCopy = randomMove(puzzleCopy);
-    //   setPuzzle(puzzleCopy);
-    //   shuffleCount++;
-    //   // pause for 5 mili seconds
-    //   await new Promise((resolve) => setTimeout(resolve, 50));
-    // }
-    // setPuzzle(puzzleCopy);
-    // setIsShuffling(false);
-    // setIsStarted(true);
+    setIsSolved(false);
+    setIsStarted(true);
+    setGameLog([]);
+    setStartTime(Date.now());
   };
 
-  const randomMove = (puzzleCopy: PuzzleGame): PuzzleGame => {
-    const nullIndex = puzzleCopy.indexOf(null);
-    let possibleMoves = [-1, 1, -3, 3];
-    console.log(
-      "Math.floor(Math.random() * 4)]",
-      Math.floor(Math.random() * 4)
-    );
-    let moveIndex = nullIndex;
-
+  const getPossibleMoves = (nullIndex: number): number[] => {
+    let possibleMoves: number[] = [];
     if (nullIndex === 0) {
       possibleMoves = [1, 3];
     } else if (nullIndex === 1) {
@@ -97,11 +95,15 @@ export const PuzzleGame = () => {
     } else if (nullIndex === 8) {
       possibleMoves = [-3, -1];
     }
+    return possibleMoves;
+  };
 
-    moveIndex =
+  const randomMove = (puzzleCopy: PuzzleGame): PuzzleGame => {
+    const nullIndex = puzzleCopy.indexOf(null);
+    const possibleMoves = getPossibleMoves(nullIndex);
+    const moveIndex =
       nullIndex +
       possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
-    console.log("moveIndex", moveIndex);
 
     [puzzleCopy[moveIndex], puzzleCopy[nullIndex]] = [
       puzzleCopy[nullIndex],
@@ -110,45 +112,45 @@ export const PuzzleGame = () => {
     return puzzleCopy;
   };
 
+  const getGameTime = () => {
+    if (gameLog.length === 0) {
+      return "0:00";
+    }
+    const endTime = gameLog[gameLog.length - 1].moveTimeStamp;
+    const timeDiff =
+      new Date(endTime).getTime() - new Date(startTime).getTime();
+    console.log(`timeDiff: ${timeDiff}`);
+    const minutes = Math.floor(timeDiff / 1000 / 60);
+    const seconds = Math.floor(timeDiff / 1000) % 60;
+    return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+  };
+
   const handlePuzzleClick = (index: number) => {
     const nullIndex = puzzle.indexOf(null);
     const puzzleCopy = [...puzzle];
-
-    if (index === nullIndex) {
+    const possibleMoves = getPossibleMoves(nullIndex);
+    if (
+      index === nullIndex ||
+      !possibleMoves.find((move) => nullIndex + move === index)
+    ) {
       return;
     }
 
-    if (
-      index === nullIndex - 1 ||
-      index === nullIndex + 1 ||
-      index === nullIndex - 3 ||
-      index === nullIndex + 3
-    ) {
-      [puzzleCopy[index], puzzleCopy[nullIndex]] = [
-        puzzleCopy[nullIndex],
-        puzzleCopy[index],
-      ];
-      setMoveNumber(moveNumber + 1);
-      setPuzzle(puzzleCopy);
-      setGameLog([
-        ...gameLog,
-        {
-          moveTimeStamp: Date.now().toLocaleString(),
-          moveNumber: moveNumber + 1,
-          puzzleState: [...puzzleCopy],
-        },
-      ]);
-    }
+    [puzzleCopy[index], puzzleCopy[nullIndex]] = [
+      puzzleCopy[nullIndex],
+      puzzleCopy[index],
+    ];
+    setMoveNumber(moveNumber + 1);
+    setPuzzle(puzzleCopy);
+    setGameLog([
+      ...gameLog,
+      {
+        moveTimeStamp: Date.now(),
+        moveNumber: moveNumber + 1,
+        puzzleState: [...puzzleCopy],
+      },
+    ]);
   };
-
-  useEffect(() => {
-    const isPuzzleSolved = isSolved(puzzle);
-
-    if (isPuzzleSolved) {
-      // alert("Congratulations, you solved the puzzle!");
-      console.log("puzzle won", isPuzzleSolved, puzzle);
-    }
-  }, [puzzle]);
   console.log("style", `url(/puzzle/week-${CURRENT_WEEK}/${1})`);
   console.log("puzzle: ", puzzle);
   return (
@@ -168,8 +170,7 @@ export const PuzzleGame = () => {
             } ${styles.puzzleItem}`}
             onClick={() => handlePuzzleClick(index)}
           >
-            {/* // todo: remove this item number before production */}
-            {item}
+            <span className={styles.puzzleItemText}>{item}</span>
           </div>
         ))}
         {!isStarted && (
@@ -181,6 +182,22 @@ export const PuzzleGame = () => {
                 Start Game
               </button>
             )}
+          </div>
+        )}
+        {isSolved && (
+          <div className={styles.puzzleOverlay}>
+            <div className={styles.puzzleSolvedPanel}>
+              <h3 className={styles.heading}>
+                You solved the puzzle in {gameLog.length} moves!
+              </h3>
+              <span className={styles.puzzleTime}>Time: {getGameTime()}</span>
+              <button className={styles.mintNFT}>
+                Mint your Special Keyp NFT
+              </button>
+              <button className={styles.startButton} onClick={startGame}>
+                Play Again
+              </button>
+            </div>
           </div>
         )}
       </div>
