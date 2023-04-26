@@ -3,24 +3,37 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-
+  border-radius: 18px;
   position:relative;
 }
 
 .puzzleOverlay {
+  border-radius: 18px;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+  background-color: rgba(0, 0, 0, 0.75);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+.puzzleItemTopLeft {
+  border-top-left-radius: 18px;
+}
+.puzzleItemTopRight {
+  border-top-right-radius: 18px;
+}
+.puzzleItemBottomLeft {
+  border-bottom-left-radius: 18px;
+}
+.puzzleItemBottomRight {
+  border-bottom-right-radius: 18px;
+}
+
 .startButton {
-  border: solid 1px black;
   border-radius: 18px;
   padding: 1rem 1.5rem;
   background-color: pink;
@@ -30,13 +43,13 @@
 }
 
 .mintNFT {
-  border: solid 1px black;
   border-radius: 18px;
   padding: 1rem 1.5rem;
   background-color: pink;
   font-size: 1.5rem;
   font-weight: bold;
   color: var(--chakra-colors-pink);
+  margin-bottom: 2rem;
 }
 
 .puzzleSolvedPanel {
@@ -49,9 +62,8 @@
 
 .puzzleItem {
   background-color: #ccc;
-  border: 1px solid #999;
+  border: 1px solid #fff;
   font-size: 2em;
-  background-size: 100%;
   background-repeat: no-repeat;
   background-size:100% 100%;
 }
@@ -68,12 +80,15 @@
   margin-bottom: 1rem;
 }
 
-.mintNFT {
-  margin-bottom: 2rem;
-}
-
 .puzzleItemText {
   padding: 0.5rem;
+}
+
+.puzzleTitle {
+  color: var(--chakra-colors-loginBtnGray);
+  font-family: Sharpie;
+  font-size: var(--chakra-fontSizes-4xl);
+  margin-top: 2rem;
 }
 
 @media (min-width: 769px) {
@@ -95,5 +110,22 @@
   .puzzleItem {
     width: calc(300px / 3);
     height: calc(300px / 3);
+  }
+  .puzzleSolvedPanel {
+    font-size: 1.25rem
+  }
+  .heading {
+    font-size: 1.25rem
+  }
+  .puzzleTime {
+    font-size: 1.25rem
+  }
+  .mintNFT {
+    font-size: 1.25rem;
+    padding: 0.25rem 1rem;
+  }
+  .startButton {
+    font-size: 1.25rem;
+    padding: 0.25rem 1rem;
   }
 }

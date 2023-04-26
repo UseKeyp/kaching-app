@@ -3,6 +3,8 @@ import { Image } from "@chakra-ui/react";
 import styles from "./PuzzleGame.module.css";
 
 const CURRENT_WEEK = process.env.NEXT_PUBLIC_CURRENT_WEEK || 1;
+const CHALLENGE_TITLE =
+  process.env.NEXT_PUBLIC_CHALLENGE_TITLE || "The Controller";
 
 const DEFAULT_PUZZLE_STATE = [1, 2, 3, 4, 5, 6, 7, 8, null];
 
@@ -19,18 +21,6 @@ const checkIsSolved = (puzzle: PuzzleGame) => {
     return item === index + 1 || item === null;
   });
 };
-
-function shufflePuzzle(): PuzzleGame {
-  const shuffledPuzzle = [...DEFAULT_PUZZLE_STATE]; // create a copy of the original array
-  for (let i = shuffledPuzzle.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffledPuzzle[i], shuffledPuzzle[j]] = [
-      shuffledPuzzle[j],
-      shuffledPuzzle[i],
-    ];
-  }
-  return shuffledPuzzle;
-}
 
 export const PuzzleGame = () => {
   const [displayStartScreen, setDisplayStartScreen] = useState<boolean>(true);
@@ -73,6 +63,10 @@ export const PuzzleGame = () => {
     setGameLog([]);
     setStartTime(Date.now());
     setDisplayStartScreen(false);
+  };
+
+  const mintNFT = () => {
+    console.log("mint NFT");
   };
 
   const getPossibleMoves = (nullIndex: number): number[] => {
@@ -120,7 +114,6 @@ export const PuzzleGame = () => {
     const endTime = gameLog[gameLog.length - 1].moveTimeStamp;
     const timeDiff =
       new Date(endTime).getTime() - new Date(startTime).getTime();
-    console.log(`timeDiff: ${timeDiff}`);
     const minutes = Math.floor(timeDiff / 1000 / 60);
     const seconds = Math.floor(timeDiff / 1000) % 60;
     return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
@@ -152,8 +145,20 @@ export const PuzzleGame = () => {
       },
     ]);
   };
-  console.log("style", `url(/puzzle/week-${CURRENT_WEEK}/${1})`);
-  console.log("puzzle: ", puzzle);
+
+  const getCornerClassName = (index: number): string => {
+    if (index === 0) {
+      return styles.puzzleItemTopLeft;
+    } else if (index === 2) {
+      return styles.puzzleItemTopRight;
+    } else if (index === 6) {
+      return styles.puzzleItemBottomLeft;
+    } else if (index === 8) {
+      return styles.puzzleItemBottomRight;
+    }
+    return "";
+  };
+
   return (
     <div className={styles.puzzle}>
       <div className={styles.puzzleContainer}>
@@ -168,11 +173,9 @@ export const PuzzleGame = () => {
             }}
             className={`puzzle-item-${index + 1} ${
               item === null ? "puzzle-item-empty" : ""
-            } ${styles.puzzleItem}`}
+            } ${styles.puzzleItem} ${getCornerClassName(index)}`}
             onClick={() => handlePuzzleClick(index)}
-          >
-            <span className={styles.puzzleItemText}>{item}</span>
-          </div>
+          ></div>
         ))}
         {displayStartScreen && (
           <div className={styles.puzzleOverlay}>
@@ -192,8 +195,8 @@ export const PuzzleGame = () => {
                 You solved the puzzle in {gameLog.length} moves!
               </h3>
               <span className={styles.puzzleTime}>Time: {getGameTime()}</span>
-              <button className={styles.mintNFT}>
-                Mint your Special Keyp NFT
+              <button className={styles.mintNFT} onClick={mintNFT}>
+                Mint NFT
               </button>
               <button className={styles.startButton} onClick={startGame}>
                 Play Again
@@ -202,6 +205,9 @@ export const PuzzleGame = () => {
           </div>
         )}
       </div>
+      <h3 className={styles.puzzleTitle}>
+        Week {CURRENT_WEEK}: {CHALLENGE_TITLE}
+      </h3>
     </div>
   );
 };
