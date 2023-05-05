@@ -1,0 +1,12 @@
+.puzzleTitleImage {
+  margin: 3rem auto 6rem;
+  width: 14rem;
+}
+
+@media (max-width: 768px) {
+  .puzzleTitleImage {
+    width: 12rem;
+    height: auto;
+    margin: 0rem auto 2rem;
+  }
+}

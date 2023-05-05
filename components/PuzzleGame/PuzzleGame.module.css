@@ -17,6 +17,7 @@
   background-color: rgba(0, 0, 0, 0.75);
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
 
@@ -34,22 +35,26 @@
 }
 
 .startButton {
-  border-radius: 18px;
+  border-radius: 40px;
   padding: 1rem 1.5rem;
-  background-color: pink;
-  font-size: 1.5rem;
+  background-color: #fff;
+  font-size: 1rem;
+  font-family: "Satoshi-Variable";
   font-weight: bold;
-  color: var(--chakra-colors-pink);
+  color: #63676F;
+  width: 200px;
 }
 
-.mintNFT {
-  border-radius: 18px;
+.mintNFTButton {
+  border-radius: 40px;
   padding: 1rem 1.5rem;
-  background-color: pink;
-  font-size: 1.5rem;
+  background-color: #fff;
+  font-family: "Satoshi-Variable";
+  font-size: 1rem;
   font-weight: bold;
-  color: var(--chakra-colors-pink);
   margin-bottom: 2rem;
+  color: #63676F;
+  width: 200px;
 }
 
 .puzzleSolvedPanel {
@@ -58,10 +63,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100%;
 }
 
 .puzzleItem {
-  background-color: #ccc;
+  background-color: #ffffff;
   border: 1px solid #fff;
   font-size: 2em;
   background-repeat: no-repeat;
@@ -73,11 +79,8 @@
   font-weight: bold;
   font-size: 3rem;
   text-align: center;
-}
-
-.puzzleTime {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  font-family: "Satoshi-Variable";
+  color: #fff;
 }
 
 .puzzleItemText {
@@ -112,9 +115,6 @@
     height: calc(300px / 3);
   }
   .puzzleSolvedPanel {
-    font-size: 1.25rem
-  }
-  .heading {
     font-size: 1.25rem
   }
   .puzzleTime {

@@ -7,6 +7,7 @@ import { FormProvider } from "../context/FormContext";
 import { SizeProvider } from "../context/SizeContext";
 import Fonts from "../components/Fonts";
 import "@fontsource/inter";
+import "public/fonts/satoshi/css/satoshi.css";
 
 interface AppProps {
   Component: any;

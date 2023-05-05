@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Image } from "@chakra-ui/react";
+import { Image, HStack, Text, VStack, Flex } from "@chakra-ui/react";
 import styles from "./PuzzleGame.module.css";
 
 const CURRENT_WEEK = process.env.NEXT_PUBLIC_CURRENT_WEEK || 1;
@@ -25,6 +25,8 @@ const checkIsSolved = (puzzle: PuzzleGame) => {
 export const PuzzleGame = () => {
   const [displayStartScreen, setDisplayStartScreen] = useState<boolean>(true);
   const [puzzle, setPuzzle] = useState<PuzzleGame>(DEFAULT_PUZZLE_STATE);
+  const [shufflingPuzzle, setShufflingPuzzle] =
+    useState<PuzzleGame>(DEFAULT_PUZZLE_STATE);
   const [isStarted, setIsStarted] = useState<boolean>(false);
   const [isSolved, setIsSolved] = useState<boolean>(false);
   const [isShuffling, setIsShuffling] = useState(false);
@@ -45,12 +47,13 @@ export const PuzzleGame = () => {
 
   useEffect(() => {
     if (isShuffling) {
-      const newPuzzle = randomMove([...puzzle]);
-      setPuzzle(newPuzzle);
+      const newShufflingPuzzle = randomMove([...shufflingPuzzle]);
+      setShufflingPuzzle(newShufflingPuzzle);
       setShuffleCount(shuffleCount + 1);
       if (shuffleCount > 1) {
         setIsShuffling(false);
         setIsStarted(true);
+        setPuzzle(shufflingPuzzle);
       }
     }
   }, [shuffleCount]);
@@ -65,7 +68,7 @@ export const PuzzleGame = () => {
     setDisplayStartScreen(false);
   };
 
-  const mintNFT = () => {
+  const handleMintNFT = () => {
     console.log("mint NFT");
   };
 
@@ -166,13 +169,13 @@ export const PuzzleGame = () => {
           <div
             key={index}
             style={{
-              ["background-image" as any]:
-                item !== null
-                  ? `url(/puzzle/week-${CURRENT_WEEK}/${item}.png)`
-                  : null,
+              ["background-image" as any]: `url(/puzzle/week-${CURRENT_WEEK}/${
+                // when puzzle is solved (start screen and end screen) display the entire solved puzzle with the missing piece
+                item === null && checkIsSolved(puzzle) ? index + 1 : item
+              }.png)`,
             }}
             className={`puzzle-item-${index + 1} ${
-              item === null ? "puzzle-item-empty" : ""
+              item === null && !checkIsSolved(puzzle) ? "puzzle-item-empty" : ""
             } ${styles.puzzleItem} ${getCornerClassName(index)}`}
             onClick={() => handlePuzzleClick(index)}
           ></div>
@@ -191,23 +194,35 @@ export const PuzzleGame = () => {
         {isSolved && (
           <div className={styles.puzzleOverlay}>
             <div className={styles.puzzleSolvedPanel}>
-              <h3 className={styles.heading}>
-                You solved the puzzle in {gameLog.length} moves!
-              </h3>
-              <span className={styles.puzzleTime}>Time: {getGameTime()}</span>
-              <button className={styles.mintNFT} onClick={mintNFT}>
+              <h3 className={styles.heading}>You solved the puzzle!</h3>
+              <button className={styles.mintNFTButton} onClick={handleMintNFT}>
                 Mint NFT
               </button>
               <button className={styles.startButton} onClick={startGame}>
                 Play Again
               </button>
             </div>
+            <Flex width="100%" direction="column" justify="end">
+              <HStack p="8" justify="space-between">
+                <Text
+                  fontWeight="normal"
+                  fontSize="1.5rem"
+                  fontFamily="Satoshi-Variable"
+                >
+                  {getGameTime()} minutes
+                </Text>
+                <Text
+                  fontWeight="normal"
+                  fontSize="1.5rem"
+                  fontFamily="Satoshi-Variable"
+                >
+                  {gameLog.length} moves
+                </Text>
+              </HStack>
+            </Flex>
           </div>
         )}
       </div>
-      <h3 className={styles.puzzleTitle}>
-        Week {CURRENT_WEEK}: {CHALLENGE_TITLE}
-      </h3>
     </div>
   );
 };

@@ -11,7 +11,7 @@ import ReviewTransfer from "../components/ReviewTransfer";
 import Navbar from "../components/Navbar";
 import Loading from "../components/Loading";
 import Wallet from "components/Wallet";
-import Play from "components/Play";
+import Play from "components/Play/index";
 
 /**
  * @remarks if user selects "send", render Send component, else render "Request"
