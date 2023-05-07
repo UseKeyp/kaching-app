@@ -2,11 +2,22 @@
   margin: 3rem auto 6rem;
   width: 14rem;
 }
+.puzzleHeading {
+  font-family: "Satoshi-Variable";
+  color: gray;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  text-align: center;
+}
 
 @media (max-width: 768px) {
   .puzzleTitleImage {
     width: 12rem;
     height: auto;
     margin: 0rem auto 2rem;
+  }
+  .puzzleHeading {
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
   }
 }

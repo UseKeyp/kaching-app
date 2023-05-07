@@ -6,7 +6,7 @@ import styles from "./Play.module.css";
 const Play = () => {
   return (
     <Box
-      w={["full", "full", "80%", "50%"]}
+      w={"full"}
       mx="auto"
       px={[0, 0, "5rem"]}
       justifyContent="start"
@@ -19,15 +19,9 @@ const Play = () => {
           className={styles.puzzleTitleImage}
           alt="Puzzle Game"
         />
-        <Heading
-          fontFamily="Satoshi-Variable"
-          as="h2"
-          color="socialIconsGray"
-          align="center"
-          mb={"8"}
-        >
+        <h2 className={styles.puzzleHeading}>
           Solve the puzzle and get it as an NFT.
-        </Heading>
+        </h2>
         <PuzzleGame />
       </>
     </Box>

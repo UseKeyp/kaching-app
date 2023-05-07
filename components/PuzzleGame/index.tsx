@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Image, HStack, Text, VStack, Flex } from "@chakra-ui/react";
+import { Image, HStack, Text, VStack, Flex, Button } from "@chakra-ui/react";
 import styles from "./PuzzleGame.module.css";
+import { useFormContext } from "../../context/FormContext";
 
 const CURRENT_WEEK = process.env.NEXT_PUBLIC_CURRENT_WEEK || 1;
 const CHALLENGE_TITLE =
@@ -29,11 +30,13 @@ export const PuzzleGame = () => {
     useState<PuzzleGame>(DEFAULT_PUZZLE_STATE);
   const [isStarted, setIsStarted] = useState<boolean>(false);
   const [isSolved, setIsSolved] = useState<boolean>(false);
+  const [isMinting, setIsMinting] = useState<boolean>(false);
   const [isShuffling, setIsShuffling] = useState(false);
   const [gameLog, setGameLog] = useState<GameLog[]>([]);
   const [moveNumber, setMoveNumber] = useState<number>(0);
   const [shuffleCount, setShuffleCount] = useState<number>(0);
   const [startTime, setStartTime] = useState<number>(0);
+  const { setType } = useFormContext();
 
   useEffect(() => {
     const isPuzzleSolved = checkIsSolved(puzzle);
@@ -70,6 +73,8 @@ export const PuzzleGame = () => {
 
   const handleMintNFT = () => {
     console.log("mint NFT");
+    setIsMinting(true);
+    setTimeout(() => setIsMinting(false), 5000);
   };
 
   const getPossibleMoves = (nullIndex: number): number[] => {
@@ -162,6 +167,89 @@ export const PuzzleGame = () => {
     return "";
   };
 
+  const renderPuzzleOverlay = () => {
+    if (displayStartScreen) {
+      return (
+        <div
+          className={styles.puzzleOverlay}
+          style={{ backgroundColor: "rgb(255 255 255 / 0%)" }}
+        >
+          {isShuffling ? (
+            <Image src="keyp_spinner.svg" alt="" w="4rem" />
+          ) : (
+            <button className={styles.startButton} onClick={startGame}>
+              Start Game
+            </button>
+          )}
+        </div>
+      );
+    }
+    if (isMinting) {
+      return (
+        <div className={styles.mintingOverlay}>
+          <div className={styles.mintingTop}>
+            <Image
+              className={styles.mintingImage}
+              src="puzzle/nft-image-sm.png"
+            />
+            <div className={styles.mintingTopText}>
+              <p className={styles.mintingHeading}>
+                We’re airdropping the NFT into your wallet.
+              </p>
+              <p className={styles.mintingSubheading}>
+                This might take a minute.
+              </p>
+            </div>
+          </div>
+          <div className={styles.mintingBottom}>
+            <button
+              className={styles.overlayButton}
+              onClick={() => setType("wallet")}
+            >
+              Go to Wallet
+            </button>
+            <button className={styles.overlayButton} onClick={startGame}>
+              Play Again
+            </button>
+          </div>
+        </div>
+      );
+    }
+    if (isSolved) {
+      return (
+        <div className={styles.puzzleOverlay}>
+          <div className={styles.puzzleSolvedPanel}>
+            <h3 className={styles.overlayHeading}>You solved the puzzle!</h3>
+            <button className={styles.mintNFTButton} onClick={handleMintNFT}>
+              Mint NFT
+            </button>
+            <button className={styles.startButton} onClick={startGame}>
+              Play Again
+            </button>
+          </div>
+          <Flex width="100%" direction="column" justify="end">
+            <HStack p="8" justify="space-between">
+              <Text
+                fontWeight="normal"
+                fontSize="1.5rem"
+                fontFamily="Satoshi-Variable"
+              >
+                {getGameTime()} minutes
+              </Text>
+              <Text
+                fontWeight="normal"
+                fontSize="1.5rem"
+                fontFamily="Satoshi-Variable"
+              >
+                {gameLog.length} moves
+              </Text>
+            </HStack>
+          </Flex>
+        </div>
+      );
+    }
+  };
+
   return (
     <div className={styles.puzzle}>
       <div className={styles.puzzleContainer}>
@@ -180,48 +268,7 @@ export const PuzzleGame = () => {
             onClick={() => handlePuzzleClick(index)}
           ></div>
         ))}
-        {displayStartScreen && (
-          <div className={styles.puzzleOverlay}>
-            {isShuffling ? (
-              <Image src="keyp_spinner.svg" alt="" w="4rem" />
-            ) : (
-              <button className={styles.startButton} onClick={startGame}>
-                Start Game
-              </button>
-            )}
-          </div>
-        )}
-        {isSolved && (
-          <div className={styles.puzzleOverlay}>
-            <div className={styles.puzzleSolvedPanel}>
-              <h3 className={styles.heading}>You solved the puzzle!</h3>
-              <button className={styles.mintNFTButton} onClick={handleMintNFT}>
-                Mint NFT
-              </button>
-              <button className={styles.startButton} onClick={startGame}>
-                Play Again
-              </button>
-            </div>
-            <Flex width="100%" direction="column" justify="end">
-              <HStack p="8" justify="space-between">
-                <Text
-                  fontWeight="normal"
-                  fontSize="1.5rem"
-                  fontFamily="Satoshi-Variable"
-                >
-                  {getGameTime()} minutes
-                </Text>
-                <Text
-                  fontWeight="normal"
-                  fontSize="1.5rem"
-                  fontFamily="Satoshi-Variable"
-                >
-                  {gameLog.length} moves
-                </Text>
-              </HStack>
-            </Flex>
-          </div>
-        )}
+        {renderPuzzleOverlay()}
       </div>
     </div>
   );
