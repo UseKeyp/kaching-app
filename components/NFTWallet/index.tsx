@@ -55,10 +55,8 @@ export const NFTWallet = () => {
     const nfts = await alchemy.nft.getNftsForOwner(address as string, {
       contractAddresses: [PUZZLE_NFT_ADDRESS],
     });
-    console.log("fetched nfts: ", nfts);
     return nfts;
   };
-  console.log("walletNFTs: ", walletNFTs);
 
   return (
     <div className={styles.listContainer}>
@@ -71,8 +69,9 @@ export const NFTWallet = () => {
                 style={{
                   backgroundImage: `url(${nft.image})`,
                 }}
-              ></div>
-              <span className={styles.nftName}>{nft.NFTName}</span>
+              >
+                <div className={styles.nftImageOverlay}></div>
+              </div>
             </>
           </Tooltip>
         </div>

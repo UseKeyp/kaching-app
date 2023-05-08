@@ -5,6 +5,8 @@
   grid-template-rows: repeat(3, 1fr);
   border-radius: 18px;
   position:relative;
+  width: 700px;
+  height: 700px;
 }
 
 .puzzleOverlay {
@@ -94,7 +96,11 @@
 .puzzleItemBottomRight {
   border-bottom-right-radius: 18px;
 }
-
+.overlayText {
+  font-family: "Satoshi-Variable";
+  font-size: 1.5rem;
+  font-weight: normal;
+}
 .startButton {
   border-radius: 40px;
   padding: 1rem 1.5rem;
@@ -146,6 +152,8 @@
 
 .puzzleItemText {
   padding: 0.5rem;
+  width: calc(700px / 3);
+  height: calc(700px / 3);
 }
 
 .puzzleTitle {
@@ -153,17 +161,6 @@
   font-family: Sharpie;
   font-size: var(--chakra-fontSizes-4xl);
   margin-top: 2rem;
-}
-
-@media (min-width: 769px) {
-  .puzzleContainer {
-    width: 700px;
-    height: 700px;
-  }
-  .puzzleItem {
-    width: calc(700px / 3);
-    height: calc(700px / 3);
-  }
 }
 
 @media (max-width: 768px) {
@@ -218,5 +215,8 @@
   .mintNFTButton {
     font-size: 1.25rem;
     padding: 0.25rem 1rem;
+  }
+  .overlayText {
+    font-size: 1rem;
   }
 }

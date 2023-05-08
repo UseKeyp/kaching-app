@@ -229,20 +229,8 @@ export const PuzzleGame = () => {
           </div>
           <Flex width="100%" direction="column" justify="end">
             <HStack p="8" justify="space-between">
-              <Text
-                fontWeight="normal"
-                fontSize="1.5rem"
-                fontFamily="Satoshi-Variable"
-              >
-                {getGameTime()} minutes
-              </Text>
-              <Text
-                fontWeight="normal"
-                fontSize="1.5rem"
-                fontFamily="Satoshi-Variable"
-              >
-                {gameLog.length} moves
-              </Text>
+              <p className={styles.overlayText}>{getGameTime()} minutes</p>
+              <p className={styles.overlayText}>{gameLog.length} moves</p>
             </HStack>
           </Flex>
         </div>

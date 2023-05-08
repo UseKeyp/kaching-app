@@ -26,6 +26,22 @@
   background-size:100% 100%;
   margin: 0.25rem;
   margin-bottom: 0;
+  position: relative;
+}
+.nftImageOverlay:hover {
+  background-image: url('/puzzle/opensea-logo.svg');
+  background-color: rgba(0, 0, 0, 0.75);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.nftImageOverlay {
+  cursor: pointer;
+  position: absolute;
+  top:0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
 }
 .nftName {
   text-align: center;
