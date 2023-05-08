@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Image, HStack, Text, VStack, Flex, Button } from "@chakra-ui/react";
 import styles from "./PuzzleGame.module.css";
 import { useFormContext } from "../../context/FormContext";
+import { useSession } from "next-auth/react";
+import axios from "axios";
 
 const CURRENT_WEEK = process.env.NEXT_PUBLIC_CURRENT_WEEK || 1;
 const CHALLENGE_TITLE =
@@ -37,6 +39,8 @@ export const PuzzleGame = () => {
   const [shuffleCount, setShuffleCount] = useState<number>(0);
   const [startTime, setStartTime] = useState<number>(0);
   const { setType } = useFormContext();
+  const { data: session } = useSession();
+  const address = session && session.user.address;
 
   useEffect(() => {
     const isPuzzleSolved = checkIsSolved(puzzle);
@@ -69,11 +73,16 @@ export const PuzzleGame = () => {
     setGameLog([]);
     setStartTime(Date.now());
     setDisplayStartScreen(false);
+    setIsMinting(false);
   };
 
-  const handleMintNFT = () => {
+  const handleMintNFT = async () => {
     console.log("mint NFT");
     setIsMinting(true);
+    const response = await axios.get("/api/mint", {
+      params: { recipient: address },
+    });
+    console.log(`api response: ${response}`);
     setTimeout(() => setIsMinting(false), 5000);
   };
 

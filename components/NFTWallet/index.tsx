@@ -17,6 +17,8 @@ type WalletNFT = {
   description: string;
   NFTName: string;
   image: string;
+  tokenId: string;
+  address: string;
 };
 
 export const NFTWallet = () => {
@@ -40,6 +42,8 @@ export const NFTWallet = () => {
             description: nft.description,
             NFTName: nft.title,
             image: nft.rawMetadata?.image,
+            tokenId: nft.tokenId,
+            address: nft.contract.address,
           };
         })
       );
@@ -55,8 +59,11 @@ export const NFTWallet = () => {
     const nfts = await alchemy.nft.getNftsForOwner(address as string, {
       contractAddresses: [PUZZLE_NFT_ADDRESS],
     });
+    console.log("fetched: ", nfts);
     return nfts;
   };
+  console.log(walletNFTs);
+  // https://opensea.io/assets/matic/0x2953399124f0cbb46d2cbacd8a89cf0599974963/55872932002358229021587123076972926992686554794914399942713773467572946075649
 
   return (
     <div className={styles.listContainer}>
@@ -70,7 +77,12 @@ export const NFTWallet = () => {
                   backgroundImage: `url(${nft.image})`,
                 }}
               >
-                <div className={styles.nftImageOverlay}></div>
+                <a
+                  className={styles.nftImageOverlay}
+                  target="_blank"
+                  rel="noreferrer"
+                  href={`https://opensea.io/assets/matic/${nft.address}/${nft.tokenId}`}
+                ></a>
               </div>
             </>
           </Tooltip>
