@@ -5,9 +5,10 @@ const alchemyProvider = new ethers.AlchemyProvider(
   process.env.PUBLIC_NEXT_NETWORK || "maticmum",
   process.env.PUBLIC_NEXT_ALCHEMY_API_KEY
 );
+const defaultProvider = ethers.getDefaultProvider("localhost");
 const signer = new ethers.Wallet(
   process.env.NEXT_PUBLIC_MINTER_PRIVATE_KEY as string,
-  alchemyProvider
+  defaultProvider
 );
 const token = new ethers.Contract(
   process.env.NEXT_PUBLIC_PUZZLE_NFT_ADDRESS as string,

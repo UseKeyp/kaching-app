@@ -27,6 +27,8 @@ const KeypProvider: OAuthConfig<any> = {
   },
 };
 
+console.log('process.env.NEXT_PUBLIC_NEXTAUTH_SESSION_COOKIE_SECRET', process.env.NEXT_PUBLIC_NEXTAUTH_SESSION_COOKIE_SECRET);
+
 export default NextAuth({
   secret: process.env.NEXT_PUBLIC_NEXTAUTH_SESSION_COOKIE_SECRET,
   providers: [KeypProvider],
