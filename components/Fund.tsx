@@ -7,6 +7,7 @@ import {
   Text,
   Tooltip,
   VStack,
+  Center,
 } from "@chakra-ui/react";
 import { RxCopy } from "react-icons/rx";
 import { useSession } from "next-auth/react";
@@ -42,6 +43,26 @@ const Fund = () => {
     return request.url || null;
   };
 
+  const renderOnramper = () => {
+    const ONRAMPER_KEY = process.env.NEXT_PUBLIC_ONRAMPER_KEY;
+    const CURRENCY = "ETH";
+    const NETWORK = "POLYGON";
+    const ADDRESS = session?.user.address;
+    if (!ADDRESS) {
+      return <Text fontSize="xl">Sign in first</Text>;
+    }
+    return (
+      <Center height="700px">
+        <iframe
+          src={`https://buy.onramper.com/?apiKey=${ONRAMPER_KEY}&onlyCryptos=${CURRENCY}&network=${NETWORK}&isAddressEditable=false&wallets=ETH:${ADDRESS}`}
+          frameborder="0"
+          width="100%"
+          height="100%"
+        ></iframe>
+      </Center>
+    );
+  };
+
   return (
     <ButtonSpacingWrapper isTransactionSlider={true}>
       <Box
@@ -56,15 +77,7 @@ const Fund = () => {
           </Text>
         </Heading>
         <VStack my={"1rem"}>
-          <Box w="full">
-            <Button
-              variant="ramps"
-              color="#22272F"
-              onClick={() => handleClickFund("RAMP_NETWORK")}
-            >
-              <Image src={"payment-ramp.svg"} alt="Ramp" />
-            </Button>
-          </Box>
+          <Box w="full">{renderOnramper()}</Box>
           <Box w="full">
             <Tooltip
               label="Address copied to clipboard"

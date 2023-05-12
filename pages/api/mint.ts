@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 import PuzzleNFT from "../../artifacts/contracts/PuzzleNFT.sol/PuzzleNFT.json";
 const alchemyProvider = new ethers.AlchemyProvider(
   process.env.PUBLIC_NEXT_NETWORK || "maticmum",
-  process.env.PUBLIC_NEXT_ALCHEMY_API_KEY
+  process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
 );
 const defaultProvider = ethers.getDefaultProvider("localhost");
 const signer = new ethers.Wallet(

@@ -5,7 +5,7 @@ import { Network, Alchemy } from "alchemy-sdk";
 import styles from "./NFTWallet.module.css";
 
 const settings = {
-  apiKey: process.env.PUBLIC_NEXT_ALCHEMY_API_KEY,
+  apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY,
   network: Network.MATIC_MAINNET,
 };
 
