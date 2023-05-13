@@ -42,6 +42,7 @@ export const PuzzleGame = () => {
   const { data: session } = useSession();
   const address = session && session.user.address;
 
+  console.log(`address ${address}, ${session}, session.user: ${session.user}`)
   useEffect(() => {
     const isPuzzleSolved = checkIsSolved(puzzle);
 
@@ -77,7 +78,6 @@ export const PuzzleGame = () => {
   };
 
   const handleMintNFT = async () => {
-    console.log("mint NFT");
     setIsMinting(true);
     const response = await axios.get("/api/mint", {
       params: { recipient: address },
