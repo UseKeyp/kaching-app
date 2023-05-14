@@ -4,12 +4,16 @@ import styles from "./PuzzleGame.module.css";
 import { useFormContext } from "../../context/FormContext";
 import { useSession } from "next-auth/react";
 import axios from "axios";
+import Sparkles from 'react-sparkle'
+import { TypeAnimation } from 'react-type-animation';
 
 const CURRENT_WEEK = process.env.NEXT_PUBLIC_CURRENT_WEEK || 1;
 const CHALLENGE_TITLE =
   process.env.NEXT_PUBLIC_CHALLENGE_TITLE || "The Controller";
 
 const DEFAULT_PUZZLE_STATE = [1, 2, 3, 4, 5, 6, 7, 8, null];
+
+const SHUFFLES_COUNT = process.env.NEXT_PUBLIC_DEV_MODE ? 1 : 1000;
 
 type PuzzleGame = (number | null)[];
 
@@ -32,7 +36,7 @@ export const PuzzleGame = () => {
     useState<PuzzleGame>(DEFAULT_PUZZLE_STATE);
   const [isStarted, setIsStarted] = useState<boolean>(false);
   const [isSolved, setIsSolved] = useState<boolean>(false);
-  const [isMinting, setIsMinting] = useState<boolean>(false);
+  const [isMinting, setIsMinting] = useState<boolean>(true);
   const [isShuffling, setIsShuffling] = useState(false);
   const [gameLog, setGameLog] = useState<GameLog[]>([]);
   const [moveNumber, setMoveNumber] = useState<number>(0);
@@ -58,7 +62,7 @@ export const PuzzleGame = () => {
       const newShufflingPuzzle = randomMove([...shufflingPuzzle]);
       setShufflingPuzzle(newShufflingPuzzle);
       setShuffleCount(shuffleCount + 1);
-      if (shuffleCount > 1) {
+      if (shuffleCount > SHUFFLES_COUNT) {
         setIsShuffling(false);
         setIsStarted(true);
         setPuzzle(shufflingPuzzle);
@@ -83,7 +87,7 @@ export const PuzzleGame = () => {
       params: { recipient: address },
     });
     console.log(`api response: ${response}`);
-    setTimeout(() => setIsMinting(false), 5000);
+    // setTimeout(() => setIsMinting(false), 5000);
   };
 
   const getPossibleMoves = (nullIndex: number): number[] => {
@@ -202,9 +206,19 @@ export const PuzzleGame = () => {
               src="puzzle/nft-image-sm.png"
             />
             <div className={styles.mintingTopText}>
-              <p className={styles.mintingHeading}>
-                We’re airdropping the NFT into your wallet.
-              </p>
+              {/* <p className={styles.mintingHeading}>
+                
+              </p> */}
+              <TypeAnimation
+                sequence={[
+                  // Same String at the start will only be typed once, initially
+                  'We\'re airdropping the NFT into your wallet.',
+                  1000,
+                ]}
+                speed={50}
+                className={styles.mintingHeading}
+                repeat={Infinity}
+              />
               <p className={styles.mintingSubheading}>
                 This might take a minute.
               </p>
@@ -227,15 +241,16 @@ export const PuzzleGame = () => {
     if (isSolved) {
       return (
         <div className={styles.puzzleOverlay}>
-          <div className={styles.puzzleSolvedPanel}>
-            <h3 className={styles.overlayHeading}>You solved the puzzle!</h3>
-            <button className={styles.mintNFTButton} onClick={handleMintNFT}>
-              Mint NFT
-            </button>
-            <button className={styles.startButton} onClick={startGame}>
-              Play Again
-            </button>
-          </div>
+            <Sparkles/>
+            <div className={styles.puzzleSolvedPanel}>
+              <h3 className={styles.overlayHeading}>You solved the puzzle!</h3>
+              <button className={styles.mintNFTButton} onClick={handleMintNFT}>
+                Mint NFT
+              </button>
+              <button className={styles.startButton} onClick={startGame}>
+                Play Again
+              </button>
+            </div>
           <Flex width="100%" direction="column" justify="end">
             <HStack p="8" justify="space-between">
               <p className={styles.overlayText}>{getGameTime()} minutes</p>

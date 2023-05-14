@@ -5,9 +5,9 @@ import { sigProviders } from '../../utils/provider';
 
 const mint = async (req: NextApiRequest, res: NextApiResponse) => {
   const token = new ethers.Contract(
-    '0x5FbDB2315678afecb367f032d93F642f64180aa3',
+    process.env.NEXT_PUBLIC_PUZZLE_NFT_ADDRESS,
     PuzzleNFT.abi,
-    sigProviders['1337']
+    sigProviders[process.env.NEXT_PUBLIC_NETWORK_CODE]
   );
   const recipient = req.query.recipient;
   const response = await token.mint(recipient, "1");

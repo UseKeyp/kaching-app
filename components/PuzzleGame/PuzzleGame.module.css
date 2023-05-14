@@ -39,6 +39,8 @@
 .mintingTop {
   display: flex;
   flex-direction: row;
+  width: 100%;
+  padding: 0px 4rem;
 }
 .mintingImage {
   width: 120px;
@@ -52,8 +54,7 @@
 .mintingHeading {
   color: #fff;
   font-family: "Satoshi-Variable";
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
+  font-size: 2rem;
   font-weight: bold;
 }
 .mintingSubheading {
@@ -83,6 +84,7 @@
   padding: 1rem 1rem;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 .puzzleItemTopLeft {
   border-top-left-radius: 18px;
@@ -200,9 +202,12 @@
     padding: 0.25rem;
     width: 150px;
   }
+  .mintingTop {
+    width: 100%;
+    padding: 0px 1rem;
+  }
   .mintingHeading {
     font-size: 0.75rem;
-    margin-bottom: 0rem;
   }
   .mintingSubheading {
     font-size: 0.75rem;
