@@ -51,19 +51,11 @@ export const NFTWallet = () => {
   };
 
   const fetchNFTs = async () => {
-    console.log(
-      "fetching nfts for address: address",
-      address,
-      `PUZZLE_NFT_ADDRESS: ${PUZZLE_NFT_ADDRESS}`
-    );
     const nfts = await alchemy.nft.getNftsForOwner(address as string, {
       contractAddresses: [PUZZLE_NFT_ADDRESS],
     });
-    console.log("fetched: ", nfts);
     return nfts;
   };
-  console.log(walletNFTs);
-  // https://opensea.io/assets/matic/0x2953399124f0cbb46d2cbacd8a89cf0599974963/55872932002358229021587123076972926992686554794914399942713773467572946075649
 
   return (
     <div className={styles.listContainer}>
