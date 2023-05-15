@@ -264,9 +264,9 @@ export const PuzzleGame = () => {
                     target="_blank"
                     rel="noreferrer"
                     href={`https://${
-                      process.env.PUBLIC_NEXT_NETWORK === "polygon"
+                      process.env.NEXT_PUBLIC_NETWORK === "polygon"
                         ? "polygonscan.com"
-                        : "mumbai.polygonscan.com/"
+                        : "mumbai.polygonscan.com"
                     }/tx/${mintTxhash}`}
                   >
                     here
