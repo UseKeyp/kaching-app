@@ -164,11 +164,27 @@
   font-size: var(--chakra-fontSizes-4xl);
   margin-top: 2rem;
 }
+.mintingResultContainer {
+  margin: 0 0.5rem;
+  display: flex;
+  font-family:"Satoshi-Variable";
+  flex-direction: row;
+  align-items: center;
+  font-size: 2rem;
+}
+.mintingResultContainer a {
+  text-decoration: underline;
+}
 
 @media (max-width: 768px) {
   .puzzleContainer {
     width: 300px;
     height: 300px;
+  }
+  .mintingResultContainer {
+    display: flex;
+    flex-direction: row;
+    font-size: 1rem;
   }
   .overlayButton {
     margin-bottom: 1rem;

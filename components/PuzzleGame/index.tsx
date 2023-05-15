@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Image, HStack, Text, VStack, Flex, Button } from "@chakra-ui/react";
+import { Image, HStack, Text, VStack, Flex } from "@chakra-ui/react";
 import styles from "./PuzzleGame.module.css";
+import { CheckCircleIcon, WarningIcon } from "@chakra-ui/icons";
 import { useFormContext } from "../../context/FormContext";
 import { useSession } from "next-auth/react";
 import axios from "axios";
-import Sparkles from 'react-sparkle'
-import { TypeAnimation } from 'react-type-animation';
+import Sparkles from "react-sparkle";
+import { TypeAnimation } from "react-type-animation";
 
 const CURRENT_WEEK = process.env.NEXT_PUBLIC_CURRENT_WEEK || 1;
 const CHALLENGE_TITLE =
   process.env.NEXT_PUBLIC_CHALLENGE_TITLE || "The Controller";
+
+const NOT_MINTED = "NOT_MINTED";
+const SUCCESS = "SUCCESS";
+const ERROR = "ERROR";
 
 const DEFAULT_PUZZLE_STATE = [1, 2, 3, 4, 5, 6, 7, 8, null];
 
@@ -35,8 +40,12 @@ export const PuzzleGame = () => {
   const [shufflingPuzzle, setShufflingPuzzle] =
     useState<PuzzleGame>(DEFAULT_PUZZLE_STATE);
   const [isStarted, setIsStarted] = useState<boolean>(false);
+  const [mintingStatus, setMintingStatus] = useState<string>(NOT_MINTED);
+  const [mintTxhash, setMintTxHash] = useState<string>("");
+  const [mintErrorMessage, setMintErrorMessage] = useState<string>("");
   const [isSolved, setIsSolved] = useState<boolean>(false);
-  const [isMinting, setIsMinting] = useState<boolean>(true);
+  const [pendingMint, setPendingMint] = useState<boolean>(false);
+  const [isMintingScreen, setIsMintingScreen] = useState<boolean>(true);
   const [isShuffling, setIsShuffling] = useState(false);
   const [gameLog, setGameLog] = useState<GameLog[]>([]);
   const [moveNumber, setMoveNumber] = useState<number>(0);
@@ -46,7 +55,6 @@ export const PuzzleGame = () => {
   const { data: session } = useSession();
   const address = session && session.user.address;
 
-  console.log(`address ${address}, ${session}, session.user: ${session.user}`)
   useEffect(() => {
     const isPuzzleSolved = checkIsSolved(puzzle);
 
@@ -78,16 +86,39 @@ export const PuzzleGame = () => {
     setGameLog([]);
     setStartTime(Date.now());
     setDisplayStartScreen(false);
-    setIsMinting(false);
+    setIsMintingScreen(false);
+    setMintingStatus(NOT_MINTED);
   };
 
   const handleMintNFT = async () => {
-    setIsMinting(true);
-    const response = await axios.get("/api/mint", {
-      params: { recipient: address },
-    });
-    console.log(`api response: ${response}`);
-    // setTimeout(() => setIsMinting(false), 5000);
+    setIsMintingScreen(true);
+    setPendingMint(true);
+    try {
+      const fetchResult = await axios.get("/api/mint", {
+        params: { recipient: address },
+      });
+      console.log(
+        `api fetchResult: ${JSON.stringify(fetchResult)}`,
+        fetchResult.data.response.hash
+      );
+
+      if (fetchResult.status === 200) {
+        setMintingStatus(SUCCESS);
+        setMintTxHash(fetchResult.data.response.hash);
+      } else {
+        setMintingStatus(ERROR);
+        setMintErrorMessage(fetchResult.data.message);
+        console.error(
+          `There was an error with the mint: ${fetchResult.data.message}`
+        );
+      }
+      setPendingMint(false);
+    } catch (e: any) {
+      setPendingMint(false);
+      setMintingStatus(ERROR);
+      setMintErrorMessage("");
+      console.error("There was an error with the fetch request to mint");
+    }
   };
 
   const getPossibleMoves = (nullIndex: number): number[] => {
@@ -197,22 +228,20 @@ export const PuzzleGame = () => {
         </div>
       );
     }
-    if (isMinting) {
+    if (isMintingScreen) {
       return (
         <div className={styles.mintingOverlay}>
           <div className={styles.mintingTop}>
             <Image
               className={styles.mintingImage}
               src="puzzle/nft-image-sm.png"
+              alt="a console game controller"
             />
             <div className={styles.mintingTopText}>
-              {/* <p className={styles.mintingHeading}>
-                
-              </p> */}
               <TypeAnimation
                 sequence={[
                   // Same String at the start will only be typed once, initially
-                  'We\'re airdropping the NFT into your wallet.',
+                  "We're airdropping the NFT into your wallet.",
                   1000,
                 ]}
                 speed={50}
@@ -223,6 +252,34 @@ export const PuzzleGame = () => {
                 This might take a minute.
               </p>
             </div>
+          </div>
+          <div className={styles.mintingResultContainer}>
+            {pendingMint && <Image src="keyp_spinner.svg" alt="" w="3rem" />}
+            {mintingStatus === SUCCESS && (
+              <HStack>
+                <CheckCircleIcon mr={"4"} />
+                <Text>
+                  View transaction{" "}
+                  <a
+                    target="_blank"
+                    rel="noreferrer"
+                    href={`https://${
+                      process.env.PUBLIC_NEXT_NETWORK === "polygon"
+                        ? "polygonscan.com"
+                        : "mumbai.polygonscan.com/"
+                    }/tx/${mintTxhash}`}
+                  >
+                    here
+                  </a>
+                </Text>
+              </HStack>
+            )}
+            {mintingStatus === ERROR && (
+              <HStack>
+                <WarningIcon fontSize="xl" mr={"4"} />
+                <Text>😱 There was an error {mintErrorMessage}</Text>
+              </HStack>
+            )}
           </div>
           <div className={styles.mintingBottom}>
             <button
@@ -241,16 +298,16 @@ export const PuzzleGame = () => {
     if (isSolved) {
       return (
         <div className={styles.puzzleOverlay}>
-            <Sparkles/>
-            <div className={styles.puzzleSolvedPanel}>
-              <h3 className={styles.overlayHeading}>You solved the puzzle!</h3>
-              <button className={styles.mintNFTButton} onClick={handleMintNFT}>
-                Mint NFT
-              </button>
-              <button className={styles.startButton} onClick={startGame}>
-                Play Again
-              </button>
-            </div>
+          <Sparkles />
+          <div className={styles.puzzleSolvedPanel}>
+            <h3 className={styles.overlayHeading}>You solved the puzzle!</h3>
+            <button className={styles.mintNFTButton} onClick={handleMintNFT}>
+              Mint NFT
+            </button>
+            <button className={styles.startButton} onClick={startGame}>
+              Play Again
+            </button>
+          </div>
           <Flex width="100%" direction="column" justify="end">
             <HStack p="8" justify="space-between">
               <p className={styles.overlayText}>{getGameTime()} minutes</p>
@@ -269,7 +326,7 @@ export const PuzzleGame = () => {
           <div
             key={index}
             style={{
-              ["background-image" as any]: `url(/puzzle/week-${CURRENT_WEEK}/${
+              ["backgroundImage" as any]: `url(/puzzle/week-${CURRENT_WEEK}/${
                 // when puzzle is solved (start screen and end screen) display the entire solved puzzle with the missing piece
                 item === null && checkIsSolved(puzzle) ? index + 1 : item
               }.png)`,
