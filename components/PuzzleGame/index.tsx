@@ -18,7 +18,7 @@ const ERROR = "ERROR";
 
 const DEFAULT_PUZZLE_STATE = [1, 2, 3, 4, 5, 6, 7, 8, null];
 
-const SHUFFLES_COUNT = process.env.NEXT_PUBLIC_DEV_MODE ? 1 : 1000;
+const SHUFFLES_COUNT = process.env.NEXT_PUBLIC_DEV_MODE === "true" ? 1 : 1000;
 
 type PuzzleGame = (number | null)[];
 
