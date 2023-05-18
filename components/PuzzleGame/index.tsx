@@ -248,38 +248,38 @@ export const PuzzleGame = () => {
                 className={styles.mintingHeading}
                 repeat={Infinity}
               />
-              <p className={styles.mintingSubheading}>
-                This might take a minute.
-              </p>
+              {pendingMint && (
+                <p className={styles.mintingSubheading}>
+                  <Image src="keyp_spinner.svg" alt="" w="1rem" /> This might
+                  take a minute.
+                </p>
+              )}
+              {mintingStatus === SUCCESS && (
+                <HStack>
+                  <span className={styles.viewTransactionText}>
+                    View transaction{" "}
+                    <a
+                      target="_blank"
+                      rel="noreferrer"
+                      href={`https://${
+                        process.env.NEXT_PUBLIC_NETWORK === "polygon"
+                          ? "polygonscan.com"
+                          : "mumbai.polygonscan.com"
+                      }/tx/${mintTxhash}`}
+                    >
+                      here
+                    </a>
+                  </span>
+                </HStack>
+              )}
+              {mintingStatus === ERROR && (
+                <HStack>
+                  <span className={styles.errorMessageText}>
+                    Errroorrrrrr. Something went wrong. 
+                  </span>
+                </HStack>
+              )}
             </div>
-          </div>
-          <div className={styles.mintingResultContainer}>
-            {pendingMint && <Image src="keyp_spinner.svg" alt="" w="3rem" />}
-            {mintingStatus === SUCCESS && (
-              <HStack>
-                <CheckCircleIcon mr={"4"} />
-                <Text>
-                  View transaction{" "}
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    href={`https://${
-                      process.env.NEXT_PUBLIC_NETWORK === "polygon"
-                        ? "polygonscan.com"
-                        : "mumbai.polygonscan.com"
-                    }/tx/${mintTxhash}`}
-                  >
-                    here
-                  </a>
-                </Text>
-              </HStack>
-            )}
-            {mintingStatus === ERROR && (
-              <HStack>
-                <WarningIcon fontSize="xl" mr={"4"} />
-                <Text>😱 There was an error {mintErrorMessage}</Text>
-              </HStack>
-            )}
           </div>
           <div className={styles.mintingBottom}>
             <button
