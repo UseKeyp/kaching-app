@@ -2,9 +2,9 @@
 
 ### Domains
 
+`main` branch: https://app.kaching.money (Production)
+`staging` branch: https://app.staging-env.kaching.money
 `dev` branch: https://kaching-app.vercel.app
-`staging` branch: https://staging-env.kaching.money
-`prod` branch: https://kaching.money
 
 ## Descripton
 
