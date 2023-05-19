@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Image, Tooltip } from "@chakra-ui/react";
+import { Tooltip } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { Network, Alchemy } from "alchemy-sdk";
 import styles from "./NFTWallet.module.css";
@@ -41,7 +41,10 @@ export const NFTWallet = () => {
           return {
             description: nft.description,
             NFTName: nft.title,
-            image: nft.rawMetadata?.image,
+            image: (nft.rawMetadata?.image || "").replace(
+              "ipfs://",
+              "https://ipfs.io/ipfs/"
+            ),
             tokenId: nft.tokenId,
             address: nft.contract.address,
           };

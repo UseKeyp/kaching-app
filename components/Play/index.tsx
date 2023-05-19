@@ -1,4 +1,4 @@
-import { Box, Heading, Image } from "@chakra-ui/react";
+import { Box, Image } from "@chakra-ui/react";
 import React from "react";
 import { PuzzleGame } from "../PuzzleGame";
 import styles from "./Play.module.css";

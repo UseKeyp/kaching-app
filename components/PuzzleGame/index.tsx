@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Image, HStack, Text, VStack, Flex } from "@chakra-ui/react";
+import { Image, HStack, Flex } from "@chakra-ui/react";
 import styles from "./PuzzleGame.module.css";
-import { CheckCircleIcon, WarningIcon } from "@chakra-ui/icons";
 import { useFormContext } from "../../context/FormContext";
 import { useSession } from "next-auth/react";
 import axios from "axios";
@@ -9,8 +8,6 @@ import Sparkles from "react-sparkle";
 import { TypeAnimation } from "react-type-animation";
 
 const CURRENT_WEEK = process.env.NEXT_PUBLIC_CURRENT_WEEK || 1;
-const CHALLENGE_TITLE =
-  process.env.NEXT_PUBLIC_CHALLENGE_TITLE || "The Controller";
 
 const NOT_MINTED = "NOT_MINTED";
 const SUCCESS = "SUCCESS";
