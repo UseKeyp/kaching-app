@@ -15,10 +15,9 @@ const mint = async (req: NextApiRequest, res: NextApiResponse) => {
       value: ethers.utils.parseEther("0"),
       gasPrice: ethers.utils.parseUnits("200", "gwei"),
     });
-    console.log("response: ", JSON.stringify(response));
     return res.status(200).json({ success: true, response: response });
   } catch (e: any) {
-    console.log(JSON.stringify(e), e.message);
+    console.error(JSON.stringify(e), e.message);
     return res.status(500).json({ success: false, response: e.message });
   }
 };

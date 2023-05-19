@@ -97,10 +97,6 @@ export const PuzzleGame = () => {
       const fetchResult = await axios.get("/api/mint", {
         params: { recipient: address },
       });
-      console.log(
-        `api fetchResult: ${JSON.stringify(fetchResult)}`,
-        fetchResult.data.response.hash
-      );
 
       if (fetchResult.status === 200) {
         setMintingStatus(SUCCESS);
@@ -239,19 +235,15 @@ export const PuzzleGame = () => {
             />
             <div className={styles.mintingTopText}>
               <TypeAnimation
-                sequence={[
-                  // Same String at the start will only be typed once, initially
-                  "We're airdropping the NFT into your wallet.",
-                  1000,
-                ]}
+                sequence={["We're airdropping the NFT into your wallet.", 1000]}
                 speed={50}
                 className={styles.mintingHeading}
                 repeat={Infinity}
               />
               {pendingMint && (
                 <p className={styles.mintingSubheading}>
-                  <Image src="keyp_spinner.svg" alt="" w="1rem" /> This might
-                  take a minute.
+                  <Image src="keyp_spinner.svg" alt="" w="1rem" mr="0.5rem" />{" "}
+                  This might take a minute.
                 </p>
               )}
               {mintingStatus === SUCCESS && (
