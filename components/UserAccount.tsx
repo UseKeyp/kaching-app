@@ -55,6 +55,7 @@ const UserAccount = () => {
               label="Address copied to clipboard"
               isOpen={openTooltip}
               placement="bottom-end"
+              fontFamily="satoshi"
             >
               <Image
                 src="copy.svg"
