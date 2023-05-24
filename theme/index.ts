@@ -41,7 +41,7 @@ export const theme = extendTheme({
       body: {
         m: 0,
         p: 0,
-        bg: "white",
+        bg: "blue",
         overflowX: "hidden",
       },
       "&::-webkit-scrollbar": {

@@ -4,7 +4,7 @@ const Fonts = () => (
   <Global
     styles={`
     @font-face {
-      font-family: "Sharpie";
+      font-family: "'Satoshi'";
       src: url("/fonts/sharpie/Sharpie-Regular.woff2") format("woff2"),
         url("/fonts/sharpie/Sharpie-Regular.woff") format("woff"),
         url("/fonts/sharpie/Sharpie-Regular.ttf") format("truetype");
@@ -13,7 +13,7 @@ const Fonts = () => (
       font-style: normal;
     }
     @font-face {
-      font-family: "Sharpie";
+      font-family: "'Satoshi'";
       src: url("/fonts/sharpie/Sharpie-Extrabold.woff2") format("woff2"),
         url("/fonts/sharpie/Sharpie-Extrabold.woff") format("woff"),
         url("/fonts/sharpie/Sharpie-Extrabold.ttf") format("truetype");
