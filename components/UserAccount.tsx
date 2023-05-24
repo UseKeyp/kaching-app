@@ -1,12 +1,13 @@
-import { Flex, Box, Text, Tooltip, HStack } from "@chakra-ui/react";
+import { Flex, Box, Text, Tooltip, HStack, Image } from "@chakra-ui/react";
+import useSocialLogo from "../hooks/useSocialLogo";
 
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 
 const UserAccount = () => {
   const [openTooltip, setOpenTooltip] = useState(false);
-
   const { data: session } = useSession();
+  const socialLogo = useSocialLogo(session);
 
   const username = session && session.user.username;
   const address = session && session.user.address;
@@ -17,6 +18,14 @@ const UserAccount = () => {
     setTimeout(() => {
       setOpenTooltip(false);
     }, 1000);
+  };
+
+  const renderSocialLogo = () => {
+    if (socialLogo === "discord") {
+      return <Image src="discord-color.svg" alt="discord icon" w="32px" />;
+    } else if (socialLogo === "google") {
+      return <Image src="google-color.svg" alt="google icon" w="32px" />;
+    } else return;
   };
 
   return (
@@ -31,7 +40,7 @@ const UserAccount = () => {
         paddingX="12px"
         align="center"
       >
-        <Box mr="16px">Icon</Box>
+        <Box mr="16px">{renderSocialLogo()}</Box>
         <Flex flexDirection="column">
           <Box>{username}</Box>
           <HStack>
@@ -45,11 +54,23 @@ const UserAccount = () => {
               isOpen={openTooltip}
               placement="bottom-end"
             >
-              <Box onClick={handleCopyAddress}>Copy</Box>
+              <Image
+                src="copy.svg"
+                alt="copy"
+                w="16px"
+                h="16px"
+                onClick={handleCopyAddress}
+              />
             </Tooltip>
           </HStack>
         </Flex>
-        <Box ml="auto">UserIcon</Box>
+        <Image
+          src="user.svg"
+          alt="user icon"
+          w="32px"
+          onClick={handleCopyAddress}
+          ml="auto"
+        />
       </Flex>
     </>
   );
