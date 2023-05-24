@@ -42,9 +42,11 @@ const UserAccount = () => {
       >
         <Box mr="16px">{renderSocialLogo()}</Box>
         <Flex flexDirection="column">
-          <Box>{username}</Box>
+          <Box fontWeight={500} color="#1499DA">
+            {username}
+          </Box>
           <HStack>
-            <Text>
+            <Text color="#80858E">
               {address?.slice(0, 7)}
               <span>...</span>
               {address?.slice(-4)}
