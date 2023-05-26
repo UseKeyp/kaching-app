@@ -1,8 +1,8 @@
 import { Flex, Box, Text, Tooltip, HStack, Image } from "@chakra-ui/react";
 import useSocialLogo from "../hooks/useSocialLogo";
 
-import React, { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
+import React, { useState } from "react";
+import { signOut, useSession } from "next-auth/react";
 
 const UserAccount = () => {
   const [openTooltip, setOpenTooltip] = useState(false);
@@ -26,6 +26,10 @@ const UserAccount = () => {
     } else if (socialLogo === "google") {
       return <Image src="google-color.svg" alt="google icon" w="32px" />;
     } else return;
+  };
+
+  const handleSignOut = () => {
+    signOut({ callbackUrl: "/login" });
   };
 
   return (
@@ -67,11 +71,12 @@ const UserAccount = () => {
             </Tooltip>
           </HStack>
         </Flex>
+        {/* temporary sign out */}
         <Image
           src="user.svg"
           alt="user icon"
           w="32px"
-          onClick={handleCopyAddress}
+          onClick={handleSignOut}
           ml="auto"
         />
       </Flex>
