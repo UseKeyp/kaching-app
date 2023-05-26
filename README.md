@@ -1,5 +1,11 @@
 # Kaching
 
+### Domains
+
+`main` branch: https://app.kaching.money (Production)
+`staging` branch: https://app.staging-env.kaching.money
+`dev` branch: https://kaching-app.vercel.app
+
 ## Descripton
 
 Kaching is a web application that allows users to send and receive cryptocurrencies on the Polygon network. It integrates with Keyp's API (https://docs.usekeyp.com/api), a non-custodial wallet service that uses OAuth2 to grant third-party applications access to user resources without exposing their login credentials. Kaching creates a non-custodial wallet on the Polygon network using Keyp's service, ensuring that the user's private keys are never exposed to Keyp.

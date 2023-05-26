@@ -7,7 +7,7 @@ import axios from "axios";
 import Sparkles from "react-sparkle";
 import { TypeAnimation } from "react-type-animation";
 
-const CURRENT_WEEK = process.env.NEXT_PUBLIC_CURRENT_WEEK || 1;
+const CURRENT_WEEK = 1;
 
 const NOT_MINTED = "NOT_MINTED";
 const SUCCESS = "SUCCESS";
