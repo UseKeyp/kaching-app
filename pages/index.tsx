@@ -63,7 +63,6 @@ const Home = () => {
       )}
       {!isLoading && !isConfirming && (
         <>
-          {/* <Navbar /> */}
           <TransactionSlider />
           {componentLogic()}
         </>
