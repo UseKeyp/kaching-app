@@ -22,55 +22,51 @@ const Navbar = () => {
 
   return (
     <>
-      <Flex p="4" boxShadow="md">
-        <Box p="2">
+      <Flex p="4">
+        <Flex p="2">
           <Button
             colorScheme="teal"
             variant="link"
             onClick={() => router.push("/wallet")}
-            isActive={router.pathname === "/wallet"}
           >
             <WalletIcon
               color={router.pathname === "/wallet" ? "#1499DA" : "#B0B6C1"}
             />
           </Button>
-        </Box>
-        <Box p="2">
+        </Flex>
+        <Flex p="2">
           <Button
             colorScheme="teal"
             variant="link"
             onClick={() => router.push("/send")}
-            isActive={router.pathname === "/send"}
           >
             <SendIcon
               color={router.pathname === "/send" ? "#1499DA" : "#B0B6C1"}
             />
           </Button>
-        </Box>
-        <Box p="2">
+        </Flex>
+        <Flex p="2">
           <Button
             colorScheme="teal"
             variant="link"
             onClick={() => router.push("/ramp")}
-            isActive={router.pathname === "/ramp"}
           >
             <RampIcon
               color={router.pathname === "/ramp" ? "#1499DA" : "#B0B6C1"}
             />
           </Button>
-        </Box>
-        <Box p="2">
+        </Flex>
+        <Flex p="2">
           <Button
             colorScheme="teal"
             variant="link"
             onClick={() => router.push("/apps")}
-            isActive={router.pathname === "/apps"}
           >
             <AppsIcon
               color={router.pathname === "/apps" ? "#1499DA" : "#B0B6C1"}
             />
           </Button>
-        </Box>
+        </Flex>
       </Flex>
     </>
   );
