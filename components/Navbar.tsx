@@ -21,9 +21,17 @@ const Navbar = () => {
   const username = session && session.user.username;
 
   return (
-    <>
-      <Flex p="4">
-        <Flex p="2">
+    <Box
+      position="fixed"
+      bottom="0"
+      left="0"
+      width="100%"
+      display="flex"
+      justifyContent="center"
+      padding="17px"
+    >
+      <Flex p="4" gap="40px">
+        <Flex>
           <Button
             colorScheme="teal"
             variant="link"
@@ -34,7 +42,7 @@ const Navbar = () => {
             />
           </Button>
         </Flex>
-        <Flex p="2">
+        <Flex>
           <Button
             colorScheme="teal"
             variant="link"
@@ -45,7 +53,7 @@ const Navbar = () => {
             />
           </Button>
         </Flex>
-        <Flex p="2">
+        <Flex>
           <Button
             colorScheme="teal"
             variant="link"
@@ -56,7 +64,7 @@ const Navbar = () => {
             />
           </Button>
         </Flex>
-        <Flex p="2">
+        <Flex>
           <Button
             colorScheme="teal"
             variant="link"
@@ -68,7 +76,7 @@ const Navbar = () => {
           </Button>
         </Flex>
       </Flex>
-    </>
+    </Box>
   );
 };
 

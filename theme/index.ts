@@ -43,8 +43,7 @@ export const theme = extendTheme({
         position: 'relative',
         m: 0,
         p: 0,
-        overflowX: "hidden",
-        
+        overflowX: "hidden",    
         '&::before': {
           content: '""',
           position: 'absolute',

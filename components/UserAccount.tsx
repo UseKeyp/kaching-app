@@ -33,10 +33,17 @@ const UserAccount = () => {
   };
 
   return (
-    <>
+    <Box
+      position="fixed"
+      top="57px"
+      left="0"
+      width="100%"
+      display="flex"
+      justifyContent="center"
+      padding="17px"
+    >
       <Flex
         borderRadius="60px"
-        boxShadow="inset 0px 2px 2px #2395C0"
         height="54px"
         width="100%"
         bg="rgba(255, 255, 255, 0.9)"
@@ -80,7 +87,7 @@ const UserAccount = () => {
           ml="auto"
         />
       </Flex>
-    </>
+    </Box>
   );
 };
 

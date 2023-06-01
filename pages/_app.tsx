@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 
-import { ChakraProvider } from "@chakra-ui/react";
+import { Box, ChakraProvider } from "@chakra-ui/react";
 import Layout from "../components/layout";
 import { SessionProvider } from "next-auth/react";
 import { theme } from "../theme";
@@ -26,14 +26,14 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
         <SizeProvider>
           <FormProvider>
             <Layout>
-              {router.pathname !== "/login" ? (
+              {router.pathname !== "/login" && (
                 <>
                   <UserAccount />
-                  <Component {...pageProps} />
+                  <Box paddingTop="150px">
+                    <Component {...pageProps} />
+                  </Box>
                   <Navbar />
                 </>
-              ) : (
-                <Component {...pageProps} />
               )}{" "}
             </Layout>
           </FormProvider>
