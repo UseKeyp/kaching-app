@@ -1,7 +1,7 @@
 import React from "react";
 
 const Send = () => {
-  return <>Wallet</>;
+  return <>Send</>;
 };
 
 export default Send;

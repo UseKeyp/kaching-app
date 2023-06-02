@@ -11,6 +11,7 @@ import Fonts from "../components/Fonts";
 import "@fontsource/inter";
 import Navbar from "components/Navbar";
 import UserAccount from "components/UserAccount";
+import Background from "components/Background";
 interface AppProps {
   Component: any;
   pageProps: any;
@@ -26,7 +27,7 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
         <SizeProvider>
           <FormProvider>
             <Layout>
-              {router.pathname !== "/login" && (
+              {router.pathname !== "/login" ? (
                 <>
                   <UserAccount />
                   <Box paddingTop="150px">
@@ -34,6 +35,8 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
                   </Box>
                   <Navbar />
                 </>
+              ) : (
+                <Component {...pageProps} />
               )}{" "}
             </Layout>
           </FormProvider>

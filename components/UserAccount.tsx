@@ -35,12 +35,13 @@ const UserAccount = () => {
   return (
     <Box
       position="fixed"
-      top="57px"
+      top="23px"
       left="0"
       width="100%"
       display="flex"
       justifyContent="center"
       padding="17px"
+      zIndex="99"
     >
       <Flex
         borderRadius="60px"
