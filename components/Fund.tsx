@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Heading,
-  Image,
   Text,
   Tooltip,
   VStack,
@@ -24,7 +23,6 @@ const Fund = () => {
   const { data: session } = useSession();
   const { handleHomePage } = useFormContext();
 
-  console.log("fund here");
   const handleCopyAddress = () => {
     const address = session && session.user.address;
     navigator.clipboard.writeText(address || "");
@@ -45,20 +43,17 @@ const Fund = () => {
   };
 
   const renderOnramper = () => {
-    const ONRAMPER_KEY = process.env.NEXT_PUBLIC_ONRAMPER_KEY;
     const CURRENCY = "ETH";
     const NETWORK = "POLYGON";
     const ADDRESS = session?.user.address;
     if (!ADDRESS) {
       return <Text fontSize="xl">Sign in first</Text>;
     }
-    // https://keyp-onramper.vercel.app/onramper?currency=ETH&network=POLYGON&address=0x7b86F576669f8d20a8244dABEFc65b31d7dEB3f2
 
     return (
       <Center height="700px">
         <iframe
           src={`https://keyp-onramper.vercel.app/onramper?currency=${CURRENCY}&network=${NETWORK}&address=${ADDRESS}`}
-          frameborder="0"
           width="100%"
           height="100%"
         ></iframe>

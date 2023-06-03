@@ -13,9 +13,6 @@ const nextConfig = {
   images: {
     domains: ['juicebox.money','jbx.mypinata.cloud'],
   },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
 };
 
 module.exports = nextConfig;
