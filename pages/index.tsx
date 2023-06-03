@@ -12,6 +12,7 @@ import Navbar from "../components/Navbar";
 import Loading from "../components/Loading";
 import Wallet from "components/Wallet";
 import Play from "components/Play/index";
+import UserAccount from "components/UserAccount";
 
 /**
  * @remarks if user selects "send", render Send component, else render "Request"
@@ -65,7 +66,6 @@ const Home = () => {
       )}
       {!isLoading && !isConfirming && (
         <>
-          <Navbar />
           <TransactionSlider />
           {componentLogic()}
         </>

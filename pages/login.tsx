@@ -30,7 +30,7 @@ const Login = () => {
 
   useEffect(() => {
     if (session && session.status === "authenticated") {
-      router.push("/");
+      router.push("/wallet");
     }
   }, [session, router]);
 
