@@ -1,5 +1,6 @@
 import { Box, Heading, HStack, Image, Text, VStack } from "@chakra-ui/react";
 import axios from "axios";
+import { NFTWallet } from "./NFTWallet";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { UserBalance } from "types/keypEndpoints";
@@ -83,6 +84,12 @@ const Wallet = () => {
           </Heading>
           <VStack spacing="0.5rem" fontSize="7vh" color="loginGray">
             {renderBalances()}
+          </VStack>
+          <Heading as="h2" color="socialIconsGray" mt={4}>
+            NFTs
+          </Heading>
+          <VStack spacing="0.5rem" fontSize="7vh" color="loginGray">
+            <NFTWallet />
           </VStack>
         </>
       )}

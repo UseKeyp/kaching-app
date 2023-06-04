@@ -11,7 +11,8 @@ import Fonts from "../components/Fonts";
 import "@fontsource/inter";
 import Navbar from "components/Navbar";
 import UserAccount from "components/UserAccount";
-import Background from "components/Background";
+import "public/fonts/satoshi/css/satoshi.css";
+
 interface AppProps {
   Component: any;
   pageProps: any;

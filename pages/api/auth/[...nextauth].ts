@@ -5,7 +5,7 @@ const KEYP_API_DOMAIN =
   process.env.KEYP_API_DOMAIN || "https://api.usekeyp.com";
 
 // Default redirect URL: http://localhost:3000/api/auth/callback/keyp
-
+// https://localhost:3000/api/auth/callback/keyp
 const KeypProvider: OAuthConfig<any> = {
   id: "keyp",
   name: "Keyp",
