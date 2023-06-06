@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Box, Link, Flex, Button, Spacer, Image, Icon } from "@chakra-ui/react";
+import React from "react";
+import { Box, Flex, Button } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import useSocialLogo from "../hooks/useSocialLogo";
-import { RxCopy } from "react-icons/rx";
-import { useSizeProvider } from "../context/SizeContext";
-import UserAccount from "./UserAccount";
-import WalletIcon from "./WalletIcon";
-import RampIcon from "./RampIcon";
-import AppsIcon from "./AppsIcon";
-import SendIcon from "./SendIcon";
+import WalletIcon from "./icons/WalletIcon";
+import RampIcon from "./icons/RampIcon";
+import AppsIcon from "./icons/AppsIcon";
+import SendIcon from "./icons/SendIcon";
 
 const Navbar = () => {
   const router = useRouter();

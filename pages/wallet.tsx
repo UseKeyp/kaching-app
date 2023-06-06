@@ -1,7 +1,8 @@
+import Tokens from "components/Tokens";
 import React from "react";
 
 const Wallet = () => {
-  return <>Wallet</>;
+  return <><Tokens/></>;
 };
 
 export default Wallet;
