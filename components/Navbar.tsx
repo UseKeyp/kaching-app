@@ -3,10 +3,7 @@ import { Box, Flex, Button } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import useSocialLogo from "../hooks/useSocialLogo";
-import WalletIcon from "./icons/WalletIcon";
-import RampIcon from "./icons/RampIcon";
-import AppsIcon from "./icons/AppsIcon";
-import SendIcon from "./icons/SendIcon";
+import Icon from "./Icon";
 
 const Navbar = () => {
   const router = useRouter();
@@ -35,7 +32,8 @@ const Navbar = () => {
             variant="link"
             onClick={() => router.push("/wallet")}
           >
-            <WalletIcon
+            <Icon
+              name="wallet"
               color={router.pathname === "/wallet" ? "#1499DA" : "#B0B6C1"}
             />
           </Button>
@@ -46,7 +44,8 @@ const Navbar = () => {
             variant="link"
             onClick={() => router.push("/send")}
           >
-            <SendIcon
+            <Icon
+              name="send"
               color={router.pathname === "/send" ? "#1499DA" : "#B0B6C1"}
             />
           </Button>
@@ -57,7 +56,8 @@ const Navbar = () => {
             variant="link"
             onClick={() => router.push("/ramp")}
           >
-            <RampIcon
+            <Icon
+              name="ramp"
               color={router.pathname === "/ramp" ? "#1499DA" : "#B0B6C1"}
             />
           </Button>
@@ -68,7 +68,8 @@ const Navbar = () => {
             variant="link"
             onClick={() => router.push("/apps")}
           >
-            <AppsIcon
+            <Icon
+              name="apps"
               color={router.pathname === "/apps" ? "#1499DA" : "#B0B6C1"}
             />
           </Button>

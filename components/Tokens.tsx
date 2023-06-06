@@ -1,14 +1,11 @@
-import { Box, Divider, Flex, Heading, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import { Box, Divider, Flex, Heading, Text } from "@chakra-ui/react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import DollarIcon from "./icons/DollarIcon";
-import ExportIcon from "./icons/ExportIcon";
-import ImportIcon from "./icons/ImportIcon";
 import Link from "next/link";
 import { UserBalance } from "types/keypEndpoints";
-import MaticIcon from "./icons/MaticIcon";
 import { KEYP_BASE_URL_V1, supportedAssets } from "utils/general";
+import Icon from "./Icon";
 
 const ASSET_DUMMY_DATA = {
   MATIC: {
@@ -59,11 +56,11 @@ const getAssetIcon = (name: string) => {
   switch (name) {
     case "USDC":
     case "ETH":
-      return <DollarIcon />;
+      return <Icon name="dollar" />;
     case "MATIC":
-      return <MaticIcon />;
+      return <Icon name="matic" />;
     default:
-      return <DollarIcon />;
+      return <Icon name="dollar" />;
   }
 };
 
@@ -95,7 +92,7 @@ const Tokens = () => {
           <Box key={asset.symbol}>
             <Flex justifyContent="space-between" p="16px" color="#4A4D53">
               <Flex>
-                <Box mr="8px">{getAssetIcon(asset.symbol)}</Box>
+                <Box mr="8px">{getAssetIcon(asset.name)}</Box>
                 <Box fontWeight="700" textTransform="capitalize">
                   {getAssetName(asset.symbol)}
                 </Box>
@@ -116,39 +113,39 @@ const Tokens = () => {
   };
 
   useEffect(() => {
-    const ACCESS_TOKEN = session?.user.accessToken;
-    const userId = session?.user.id;
+    if (session?.user) {
+      const ACCESS_TOKEN = session.user.accessToken;
+      const userId = session.user.id;
 
-    const options = {
-      headers: {
-        Authorization: `Bearer ${ACCESS_TOKEN}`,
-      },
-    };
+      const options = {
+        headers: {
+          Authorization: `Bearer ${ACCESS_TOKEN}`,
+        },
+      };
 
-    const firstRequest = `${KEYP_BASE_URL_V1}/users/${userId}/balance`; // return matic and usdc
-    const daiRequest = `${KEYP_BASE_URL_V1}/users/${userId}/balance/${supportedAssets.DAI}`;
-    const wethRequest = `${KEYP_BASE_URL_V1}/users/${userId}/balance/${supportedAssets.WETH}`;
+      const firstRequest = `${KEYP_BASE_URL_V1}/users/${userId}/balance`;
+      const daiRequest = `${KEYP_BASE_URL_V1}/users/${userId}/balance/${supportedAssets.DAI}`;
+      const wethRequest = `${KEYP_BASE_URL_V1}/users/${userId}/balance/${supportedAssets.WETH}`;
 
-    axios
-      .all([
-        axios.get(firstRequest, options),
-        axios.get(daiRequest, options),
-        axios.get(wethRequest, options),
-      ])
-      .then(
-        axios.spread((firstResponse, daiResponse, wethResponce) => {
-          let DAI = Object.values(daiResponse.data);
-          let WETH = Object.values(wethResponce.data);
-          setAssets({ ...firstResponse.data, DAI: DAI[0], WETH: WETH[0] });
-          setIsLoading(false);
-        })
-      )
-      .catch((error) => console.error(error));
+      axios
+        .all([
+          axios.get(firstRequest, options),
+          axios.get(daiRequest, options),
+          axios.get(wethRequest, options),
+        ])
+        .then(
+          axios.spread((firstResponse, daiResponse, wethResponce) => {
+            let DAI = Object.values(daiResponse.data);
+            let WETH = Object.values(wethResponce.data);
+            setAssets({ ...firstResponse.data, DAI: DAI[0], WETH: WETH[0] });
+            setIsLoading(false);
+          })
+        )
+        .catch((error) => console.error(error));
+    }
     // eslint-disable-next-line
-  }, []);
-  {
-    console.log({ assets });
-  }
+  }, [session]);
+
   return (
     <Box mx="auto" width="343px" fontFamily="satoshi">
       <Heading
@@ -167,7 +164,7 @@ const Tokens = () => {
           <Flex justifyContent="space-between" p="16px" color="#80858E">
             <Link href="/send" passHref>
               <Flex>
-                <ExportIcon />
+                <Icon name="export" />
                 <Text fontWeight="700" ml="10px">
                   Fund
                 </Text>
@@ -178,7 +175,7 @@ const Tokens = () => {
                 <Text fontWeight="700" mr="10px">
                   Cash Out
                 </Text>
-                <ImportIcon />
+                <Icon name="import" />
               </Flex>
             </Link>
           </Flex>
