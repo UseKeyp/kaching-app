@@ -110,8 +110,8 @@ const Tokens = () => {
     },
   };
 
-  //   const [assets, setAssets] = useState<UserBalance[] | undefined>();
-  const [assets, setAssets] = useState(assetsData);
+    const [assets, setAssets] = useState<UserBalance[] | undefined>();
+//   const [assets, setAssets] = useState(assetsData);
   const [isLoading, setIsLoading] = useState(true);
   const { data: session } = useSession();
 
@@ -144,6 +144,37 @@ const Tokens = () => {
     }
   };
 
+  useEffect(() => {
+    const ACCESS_TOKEN = session?.user.accessToken;
+    const userId = session?.user.id;
+
+    const options = {
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    };
+
+    const firstRequest = `${KEYP_BASE_URL_V1}/users/${userId}/balance`; // return matic
+    // const secondRequest = `${KEYP_BASE_URL_V1}/users/${userId}/balance/${supportedAssets.DAI}`;
+    // add WETH
+    // add USDC
+
+    axios
+      .all([
+        axios.get(firstRequest, options),
+        // axios.get(secondRequest, options),
+      ])
+      .then(
+        axios.spread((firstResponse) => {
+        //   let DAI = Object.values(secondResponse.data);
+          setAssets({ ...firstResponse.data});
+          setIsLoading(false);
+        })
+      )
+      .catch((error) => console.error(error));
+    // eslint-disable-next-line
+  }, []);
+  {console.log({assets})}
   return (
     <Box mx="auto" width="343px" fontFamily="satoshi">
       <Heading
