@@ -1,11 +1,14 @@
 import { Box, Divider, Flex, Heading, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useSession } from "next-auth/react";
 import DollarIcon from "./icons/DollarIcon";
 import ExportIcon from "./icons/ExportIcon";
 import ImportIcon from "./icons/ImportIcon";
 import Link from "next/link";
 import { UserBalance } from "types/keypEndpoints";
 import MaticIcon from "./icons/MaticIcon";
+import { KEYP_BASE_URL_V1, supportedAssets } from "utils/general";
 
 const assetsData = {
   MATIC: {
@@ -38,12 +41,26 @@ const assetsData = {
   },
 };
 
-const getAssetSympol = (name: string) => {
+const getAssetIcon = (name: string) => {
   switch (name) {
-    case "USDC" || "ETHERIUM":
+    case "USDC":
+    case "ETH":
       return <DollarIcon />;
     case "MATIC":
       return <MaticIcon />;
+    default:
+      return null;
+  }
+};
+
+const getAssetName = (symbol: string) => {
+  switch (symbol) {
+    case "USDC":
+      return "USDC";
+    case "MATIC":
+      return "Matic";
+    case "ETH":
+      return "Etherium";
   }
 };
 
@@ -77,9 +94,26 @@ const Tokens = () => {
       network: "POLYGON",
       chainId: 137,
     },
+    ETH: {
+      balance: "0",
+      balanceBn: {
+        type: "BigNumber",
+        hex: "0x00",
+      },
+      formatted: "0.0",
+      decimals: "6",
+      symbol: "ETH",
+      name: "Etherium",
+      tokenAddress: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+      network: "POLYGON",
+      chainId: 137,
+    },
   };
 
+  //   const [assets, setAssets] = useState<UserBalance[] | undefined>();
   const [assets, setAssets] = useState(assetsData);
+  const [isLoading, setIsLoading] = useState(true);
+  const { data: session } = useSession();
 
   const renderBalances = () => {
     const assetsList = assets && Object.values(assets);
@@ -90,11 +124,9 @@ const Tokens = () => {
           <Box key={asset.symbol}>
             <Flex justifyContent="space-between" p="16px" color="#4A4D53">
               <Flex>
-                <Box mr="8px">{getAssetSympol(asset.symbol)}</Box>
+                <Box mr="8px">{getAssetIcon(asset.symbol)}</Box>
                 <Box fontWeight="700" textTransform="capitalize">
-                  {asset.symbol === "USDC"
-                    ? asset.symbol
-                    : asset.symbol.toLowerCase()}
+                  {getAssetName(asset.symbol)}
                 </Box>
               </Flex>
               <Flex flexDirection="column" alignItems="flex-end">
