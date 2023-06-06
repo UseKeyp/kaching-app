@@ -45,7 +45,7 @@ const ASSET_DUMMY_DATA = {
     formatted: "0.0",
     decimals: "6",
     symbol: "ETH",
-    name: "Etherium",
+    name: "Ethereum",
     tokenAddress: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
     network: "POLYGON",
     chainId: 137,
@@ -71,7 +71,7 @@ const getAssetName = (symbol: string) => {
     case "MATIC":
       return "Matic";
     case "ETH":
-      return "Etherium";
+      return "Ethereum";
     default:
       return symbol;
   }
