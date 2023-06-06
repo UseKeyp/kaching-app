@@ -10,7 +10,7 @@ import { UserBalance } from "types/keypEndpoints";
 import MaticIcon from "./icons/MaticIcon";
 import { KEYP_BASE_URL_V1, supportedAssets } from "utils/general";
 
-const assetsData = {
+const ASSET_DUMMY_DATA = {
   MATIC: {
     balance: "25000000000000000",
     balanceBn: {
@@ -39,6 +39,20 @@ const assetsData = {
     network: "POLYGON",
     chainId: 137,
   },
+  ETH: {
+    balance: "0",
+    balanceBn: {
+      type: "BigNumber",
+      hex: "0x00",
+    },
+    formatted: "0.0",
+    decimals: "6",
+    symbol: "ETH",
+    name: "Etherium",
+    tokenAddress: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+    network: "POLYGON",
+    chainId: 137,
+  },
 };
 
 const getAssetIcon = (name: string) => {
@@ -49,7 +63,7 @@ const getAssetIcon = (name: string) => {
     case "MATIC":
       return <MaticIcon />;
     default:
-      return null;
+      return <DollarIcon />;
   }
 };
 
@@ -61,57 +75,14 @@ const getAssetName = (symbol: string) => {
       return "Matic";
     case "ETH":
       return "Etherium";
+    default:
+      return symbol;
   }
 };
 
 const Tokens = () => {
-  const assetsData = {
-    MATIC: {
-      balance: "25000000000000000",
-      balanceBn: {
-        type: "BigNumber",
-        hex: "0x58d15e17628000",
-      },
-      formatted: "0.025",
-      decimals: 18,
-      symbol: "MATIC",
-      name: "MATIC",
-      tokenAddress: null,
-      network: "POLYGON",
-      chainId: 137,
-    },
-    USDC: {
-      balance: "0",
-      balanceBn: {
-        type: "BigNumber",
-        hex: "0x00",
-      },
-      formatted: "0.0",
-      decimals: "6",
-      symbol: "USDC",
-      name: "USD Coin (PoS)",
-      tokenAddress: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
-      network: "POLYGON",
-      chainId: 137,
-    },
-    ETH: {
-      balance: "0",
-      balanceBn: {
-        type: "BigNumber",
-        hex: "0x00",
-      },
-      formatted: "0.0",
-      decimals: "6",
-      symbol: "ETH",
-      name: "Etherium",
-      tokenAddress: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
-      network: "POLYGON",
-      chainId: 137,
-    },
-  };
-
-    const [assets, setAssets] = useState<UserBalance[] | undefined>();
-//   const [assets, setAssets] = useState(assetsData);
+  const [assets, setAssets] = useState<UserBalance[] | undefined>();
+  //   const [assets, setAssets] = useState(ASSET_DUMMY_DATA);
   const [isLoading, setIsLoading] = useState(true);
   const { data: session } = useSession();
 
@@ -154,27 +125,30 @@ const Tokens = () => {
       },
     };
 
-    const firstRequest = `${KEYP_BASE_URL_V1}/users/${userId}/balance`; // return matic
-    // const secondRequest = `${KEYP_BASE_URL_V1}/users/${userId}/balance/${supportedAssets.DAI}`;
-    // add WETH
-    // add USDC
+    const firstRequest = `${KEYP_BASE_URL_V1}/users/${userId}/balance`; // return matic and usdc
+    const daiRequest = `${KEYP_BASE_URL_V1}/users/${userId}/balance/${supportedAssets.DAI}`;
+    const wethRequest = `${KEYP_BASE_URL_V1}/users/${userId}/balance/${supportedAssets.WETH}`;
 
     axios
       .all([
         axios.get(firstRequest, options),
-        // axios.get(secondRequest, options),
+        axios.get(daiRequest, options),
+        axios.get(wethRequest, options),
       ])
       .then(
-        axios.spread((firstResponse) => {
-        //   let DAI = Object.values(secondResponse.data);
-          setAssets({ ...firstResponse.data});
+        axios.spread((firstResponse, daiResponse, wethResponce) => {
+          let DAI = Object.values(daiResponse.data);
+          let WETH = Object.values(wethResponce.data);
+          setAssets({ ...firstResponse.data, DAI: DAI[0], WETH: WETH[0] });
           setIsLoading(false);
         })
       )
       .catch((error) => console.error(error));
     // eslint-disable-next-line
   }, []);
-  {console.log({assets})}
+  {
+    console.log({ assets });
+  }
   return (
     <Box mx="auto" width="343px" fontFamily="satoshi">
       <Heading
