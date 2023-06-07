@@ -1,8 +1,12 @@
 import { Box, Button, Flex, Input, Text } from "@chakra-ui/react";
 import Icon from "components/Icon";
-import React from "react";
+import React, {useState} from "react";
+import AssetBalance from "components/AssetBalance";
+
 
 const Send = () => {
+  const [balanceError, setBalanceError] = useState(false);
+
   return (
     <Flex fontFamily="satoshi" flexDirection="column" alignItems="center">
       <Flex justifyContent="center" mixBlendMode="overlay" mb="70px">
@@ -25,7 +29,7 @@ const Send = () => {
           width="100%"
         >
           <Box fontWeight="400" color="#63676F">
-            Available balance 2,458.88 USDC
+            <AssetBalance setBalanceError={setBalanceError}/>
           </Box>
           <Box>
             <Icon name="maticGray" />
