@@ -68,54 +68,43 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
   }, [type, amount, displayBalance, setBalanceError]);
 
   useEffect(() => {
-    const ACCESS_TOKEN = session?.user.accessToken;
-    const userId = session?.user.id;
+    if (session?.user) {
+      const ACCESS_TOKEN = session?.user.accessToken;
+      const userId = session?.user.id;
 
-    const options = {
-      headers: {
-        Authorization: `Bearer ${ACCESS_TOKEN}`,
-      },
-    };
+      const options = {
+        headers: {
+          Authorization: `Bearer ${ACCESS_TOKEN}`,
+        },
+      };
 
-    const urlMATIC = `https://api.usekeyp.com/v1/users/${userId}/balance`;
-    const urlNotMATIC = `https://api.usekeyp.com/v1/users/${userId}/balance/${tokenAddress}`;
-    axios
-      .get(asset === "MATIC" ? urlMATIC : urlNotMATIC, options)
-      .then((response) => {
-        setUserAssets(response.data);
-        console.log(response.data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        if (error?.response?.status === 401) {
-          signOut();
-        }
-        setIsLoading(false);
-        console.error(error);
-      });
+      const urlMATIC = `https://api.usekeyp.com/v1/users/${userId}/balance`;
+      const urlNotMATIC = `https://api.usekeyp.com/v1/users/${userId}/balance/${tokenAddress}`;
+      axios
+        .get(asset === "MATIC" ? urlMATIC : urlNotMATIC, options)
+        .then((response) => {
+          setUserAssets(response.data);
+          console.log(response.data);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          if (error?.response?.status === 401) {
+            signOut();
+          }
+          setIsLoading(false);
+          console.error(error);
+        });
+    }
     // eslint-disable-next-line
   }, [asset, tokenAddress]);
 
   return (
-    <Box
-      color="loginBtnGray"
-      fontSize="3.5vh"
-      fontWeight="normal"
-      textAlign="right"
-      w="100%"
-      lineHeight={1}
-    >
-      <Text color="socialIconsGray">Your Balance</Text>
-
-      {isLoading && loadingImage}
-      {displayBalance !== "NaN" ? (
-        <HStack>
-          <Text display={isLoading ? "none" : "block"}>
-            {displayBalance ? `${"$"}${displayBalance} ${asset}` : "Error"}
-          </Text>
-        </HStack>
-      ) : (
-        loadingImage
+    <Box fontWeight="400" color="#63676F">
+      {displayBalance !== "NaN" && (
+        <Text>
+          Available balance{" "}
+          {displayBalance ? `${"$"}${displayBalance} ${asset}` : "Error"}
+        </Text>
       )}
     </Box>
   );
