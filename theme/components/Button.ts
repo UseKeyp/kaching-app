@@ -2,7 +2,7 @@ import { defineStyleConfig, StyleFunctionProps } from "@chakra-ui/react";
 
 const Button = defineStyleConfig({
   baseStyle: {
-    fontFamily: "Sharpie",
+    fontFamily: "Satoshi",
     fontWeight: "bold",
     fontSize: "10vh",
     rounded: "none",
