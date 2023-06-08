@@ -1595,10 +1595,10 @@
   dependencies:
     glob "7.1.7"
 
-"@next/font@13.2.0":
-  version "13.2.0"
-  resolved "https://registry.yarnpkg.com/@next/font/-/font-13.2.0.tgz#677b3fc67243bccbae94d7d1e96a494be98206c4"
-  integrity sha512-pWoegIxqegV+9+gFmRCZao6xhA2m3kKS34lMXqShJ5ibRuyHkP/tfDE82LzYZmVQ3p51ZrkwTugNwy/ohiE2cA==
+"@next/font@13.0.3":
+  version "13.0.3"
+  resolved "https://registry.yarnpkg.com/@next/font/-/font-13.0.3.tgz#e483422262e33d0f195685dbaf4399576ecfe719"
+  integrity sha512-J3bZooNyhzhRshEJZlc4Kagfx6f8LQkPdCsP0nZm63dAUaoeMaQRidFFhbL68WZ3S5XleVfpGYypZuBSyJqYtw==
 
 "@next/swc-android-arm-eabi@13.0.3":
   version "13.0.3"
