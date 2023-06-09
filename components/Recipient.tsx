@@ -2,16 +2,12 @@ import { Box, Button, Flex, Heading, Input, Text } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import Icon from "./Icon";
 
-const Recipient = ({ nextStep, previousStep, update }) => {
-  const { register, handleSubmit } = useForm();
+const Recipient = ({ nextStep, previousStep }) => {
+  const { register, handleSubmit, getValues } = useForm();
 
-  const onSubmit = (data) => {
-    update(data);
-    nextStep();
-  };
 
   return (
-    <Box onSubmit={handleSubmit(onSubmit)} fontFamily="satoshi">
+    <Box fontFamily="satoshi">
       <Heading
         as="h2"
         fontWeight="700"
@@ -42,13 +38,25 @@ const Recipient = ({ nextStep, previousStep, update }) => {
           justifyContent="center"
           alignItems="center"
           height="56px"
+          mr="34px"
+        >
+          <Icon name="google" width="35px" height="35px" />
+        </Button>
+        <Button
+          variant="unstyled"
+          width="56px"
+          borderRadius="100%"
+          bg="white"
+          padding="10px"
+          justifyContent="center"
+          alignItems="center"
+          height="56px"
         >
           <Icon name="discord" width="35px" height="27px" />
         </Button>
       </Flex>
       <Button
         type="submit"
-        onClick={previousStep}
         variant="unstyled"
         width="343px"
         border="2px solid #0D7007"
@@ -56,10 +64,10 @@ const Recipient = ({ nextStep, previousStep, update }) => {
         height="64px"
         bg="transparent" // change if enabled
         fontSize="24px"
-        fontFamily="satoshi"
         color="#0D7007"
         px="24px"
         py="16px"
+        onClick={previousStep}
         disabled
       >
         Confirm

@@ -5,17 +5,11 @@ import Recipient from "./Recipient";
 import SendForm from "./SendForm";
 
 const SendScreensCollection = () => {
-  const [formState, updateFormState] = useState({});
-
-  const updateForm = (updatedData) => {
-    updateFormState({ ...formState, ...updatedData });
-  };
-
   return (
     <StepWizard>
-      <SendForm state={formState} />
-      <Recipient update={updateForm} />
-      <Amount update={updateForm} />
+      <SendForm />
+      <Recipient />
+      <Amount />
     </StepWizard>
   );
 };

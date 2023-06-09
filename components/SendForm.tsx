@@ -1,10 +1,13 @@
 import { Box, Button, Flex, Input, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import AssetBalance from "./AssetBalance";
 import Icon from "./Icon";
 
 const SendForm = ({goToStep}) => {
   const [balanceError, setBalanceError] = useState(false);
+
+  const { register, handleSubmit, getValues } = useForm();
 
   return (
       <Flex fontFamily="satoshi" flexDirection="column" alignItems="center">
