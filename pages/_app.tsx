@@ -25,6 +25,7 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
     switch (router.pathname) {
       case "/send":
         return "url('/bg-green.jpg')";
+      case "/ramp":
       case "/wallet":
         return "url('/bg-blue.jpg')";
       case "/apps":
