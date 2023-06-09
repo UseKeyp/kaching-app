@@ -22,14 +22,18 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   const router = useRouter();
 
   const getBackground = () => {
-    if (router.pathname === "/send") {
-      return "green";
-    } else if (router.pathname === "/wallet") {
-      return "red";
-    } else {
-      return "yellow";
+    switch (router.pathname) {
+      case "/send":
+        return "url('/bg-green.jpg')";
+      case "/wallet":
+        return "url('/bg-blue.jpg')";
+      case "/apps":
+        return "url('/bg-yellow.jpg')";
+      default:
+        return "url('/bg-color.jpg')";
     }
   };
+  
 
   return (
     <ChakraProvider theme={theme}>
@@ -37,7 +41,13 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
       <SessionProvider session={session}>
         <SizeProvider>
           <FormProvider>
-            <Box bg={getBackground()} minH="100vh">
+            <Box
+              bgImage={getBackground()}
+              minH="100vh"
+              bgPosition="center"
+              bgRepeat="no-repeat"
+              bgSize="cover"
+            >
               <Layout>
                 {router.pathname !== "/login" ? (
                   <>
