@@ -21,25 +21,37 @@ interface AppProps {
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   const router = useRouter();
 
+  const getBackground = () => {
+    if (router.pathname === "/send") {
+      return "green";
+    } else if (router.pathname === "/wallet") {
+      return "red";
+    } else {
+      return "yellow";
+    }
+  };
+
   return (
     <ChakraProvider theme={theme}>
       <Fonts />
       <SessionProvider session={session}>
         <SizeProvider>
           <FormProvider>
-            <Layout>
-              {router.pathname !== "/login" ? (
-                <>
-                  <UserAccount />
-                  <Box paddingTop="150px">
-                    <Component {...pageProps} />
-                  </Box>
-                  <Navbar />
-                </>
-              ) : (
-                <Component {...pageProps} />
-              )}{" "}
-            </Layout>
+            <Box bg={getBackground()} minH="100vh">
+              <Layout>
+                {router.pathname !== "/login" ? (
+                  <>
+                    <UserAccount />
+                    <Box paddingTop="150px">
+                      <Component {...pageProps} />
+                    </Box>
+                    <Navbar />
+                  </>
+                ) : (
+                  <Component {...pageProps} />
+                )}{" "}
+              </Layout>
+            </Box>
           </FormProvider>
         </SizeProvider>
       </SessionProvider>
