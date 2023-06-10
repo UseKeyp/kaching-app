@@ -1,16 +1,16 @@
 import { Box, Button, Flex, Input, Text } from "@chakra-ui/react";
+import { useFormContext } from "context/FormContext";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import AssetBalance from "./AssetBalance";
 import Icon from "./Icon";
 
-const SendForm = ({goToStep}) => {
+const SendForm = ({ goToStep }) => {
   const [balanceError, setBalanceError] = useState(false);
-
-  const { register, handleSubmit, getValues } = useForm();
+  const { username } = useFormContext();
 
   return (
-      <Flex fontFamily="satoshi" flexDirection="column" alignItems="center">
+    <Flex fontFamily="satoshi" flexDirection="column" alignItems="center">
       <Flex justifyContent="center" mixBlendMode="overlay" mb="70px">
         <Icon name="arrows" size="153px" />
       </Flex>
@@ -22,7 +22,8 @@ const SendForm = ({goToStep}) => {
         mb="43px"
       >
         <Input
-        // input for recipient
+          // input for recipient
+          value={username}
           placeholder="Recipient"
           mb="24px"
           height="64px"

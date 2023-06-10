@@ -1,10 +1,47 @@
 import { Box, Button, Flex, Heading, Input, Text } from "@chakra-ui/react";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm, watch } from "react-hook-form";
+import { useFormContext } from "context/FormContext";
 import Icon from "./Icon";
 
-const Recipient = ({ nextStep, previousStep }) => {
-  const { register, handleSubmit, getValues } = useForm();
+/**
+ * @remarks component gets rendered onto TransferForm component. Nested boxes are in place for styling purposes
+ * @returns component that lets user select whether to enter Google or Discord username
+ */
 
+const Recipient = ({ nextStep, previousStep }) => {
+  const { setPlatform, platform, type, setUsername } = useFormContext();
+  const localForm = useForm<FieldValues>();
+  const {
+    getValues,
+    register,
+    setError,
+    clearErrors,
+    watch,
+    trigger,
+    formState: { errors, isValid },
+  } = localForm;
+
+  const values = getValues();
+  watch();
+
+  const handleActiveIcons = (platform: string): void => {
+    if (platform === "google") {
+      setPlatform("google");
+    } else {
+      setPlatform("discord");
+    }
+  };
+
+  const handleRecipient = async (): Promise<void> => {
+    const valid = await trigger();
+
+    const stateUpdates = () => {
+      setUsername(values.username);
+    };
+    stateUpdates();
+    previousStep();
+    return;
+  };
 
   return (
     <Box fontFamily="satoshi">
@@ -19,8 +56,9 @@ const Recipient = ({ nextStep, previousStep }) => {
         Send to
       </Heading>
       <Input
-        {...register("recipient")}
-        placeholder="Recipient"
+        {...register("username")}
+        type={platform === "google" ? "email" : "text"}
+        placeholder={platform === "google" ? "Add Gmail" : "Discord Username"}
         mb="24px"
         height="64px"
         bg="rgba(255, 255, 255, 0.8)"
@@ -39,6 +77,7 @@ const Recipient = ({ nextStep, previousStep }) => {
           alignItems="center"
           height="56px"
           mr="34px"
+          onClick={() => handleActiveIcons("google")}
         >
           <Icon name="google" width="35px" height="35px" />
         </Button>
@@ -51,6 +90,7 @@ const Recipient = ({ nextStep, previousStep }) => {
           justifyContent="center"
           alignItems="center"
           height="56px"
+          onClick={() => handleActiveIcons("discord")}
         >
           <Icon name="discord" width="35px" height="27px" />
         </Button>
@@ -67,7 +107,7 @@ const Recipient = ({ nextStep, previousStep }) => {
         color="#0D7007"
         px="24px"
         py="16px"
-        onClick={previousStep}
+        onClick={()=> handleRecipient()}
         disabled
       >
         Confirm
