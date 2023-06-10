@@ -1,15 +1,14 @@
 import { Box, Button, Flex, Heading, Input, Text } from "@chakra-ui/react";
-import { FieldValues, useForm, watch } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { useFormContext } from "context/FormContext";
 import Icon from "./Icon";
 import { ErrorMessage } from "@hookform/error-message";
 
-/**
- * @remarks component gets rendered onto TransferForm component. Nested boxes are in place for styling purposes
- * @returns component that lets user select whether to enter Google or Discord username
- */
+interface RecipientProps {
+  previousStep: () => void;
+}
 
-const Recipient = ({ nextStep, previousStep }) => {
+const Recipient: React.FC<RecipientProps>  = ({ previousStep }) => {
   const { setPlatform, platform, type, setUsername } = useFormContext();
   const localForm = useForm<FieldValues>();
   const {
@@ -21,7 +20,6 @@ const Recipient = ({ nextStep, previousStep }) => {
     trigger,
     formState: { errors, isValid },
   } = localForm;
-  console.log({ isValid });
 
   const values = getValues();
   watch();
@@ -36,7 +34,6 @@ const Recipient = ({ nextStep, previousStep }) => {
 
   const handleRecipient = async (): Promise<void> => {
     const valid = await trigger();
-    console.log({ valid });
     if (valid) {
       const stateUpdates = () => {
         setUsername(values.username);

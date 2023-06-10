@@ -5,7 +5,11 @@ import { useForm } from "react-hook-form";
 import AssetBalance from "./AssetBalance";
 import Icon from "./Icon";
 
-const SendForm = ({ goToStep }) => {
+interface SendFormProps {
+  goToStep: (step: number) => void;
+}
+
+const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
   const [balanceError, setBalanceError] = useState(false);
   const { username } = useFormContext();
 
