@@ -23,7 +23,7 @@ const SendForm = ({ goToStep }) => {
       >
         <Input
           // input for recipient
-          value={username}
+          value={username ? username : ""}
           placeholder="Recipient"
           mb="24px"
           height="64px"
@@ -31,6 +31,7 @@ const SendForm = ({ goToStep }) => {
           fontSize="24px"
           fontWeight="400"
           _placeholder={{ color: "#155A11", opacity: 1 }}
+          onChange={() => {}}
           onClick={() => goToStep(2)}
         />
         <Input
