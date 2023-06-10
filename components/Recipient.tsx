@@ -2,6 +2,7 @@ import { Box, Button, Flex, Heading, Input, Text } from "@chakra-ui/react";
 import { FieldValues, useForm, watch } from "react-hook-form";
 import { useFormContext } from "context/FormContext";
 import Icon from "./Icon";
+import { ErrorMessage } from "@hookform/error-message";
 
 /**
  * @remarks component gets rendered onto TransferForm component. Nested boxes are in place for styling purposes
@@ -49,9 +50,9 @@ const Recipient = ({ nextStep, previousStep }) => {
 
   const emailValidation = (val: string) => {
     if (platform === "google") {
-      return val.includes("@") || "must be valid gmail address";
+      return val.includes("@") || "Oops. Thats not a Gmail address.";
     } else {
-      return val.includes("#") || "must be valid discord address";
+      return val.includes("#") || "Oops. Thats not a Discord address.";
     }
   };
 
@@ -67,6 +68,25 @@ const Recipient = ({ nextStep, previousStep }) => {
       >
         Send to
       </Heading>
+      <Flex justifyContent="flex-end">
+        <ErrorMessage
+          errors={errors}
+          name="username"
+          render={({ message }) => {
+            return (
+              <Box
+                display={message ? "block" : "none"}
+                mt={message ? "-1rem" : "0"}
+                position="relative"
+                zIndex={1}
+                color="#E45200"
+              >
+                {message}
+              </Box>
+            );
+          }}
+        />
+      </Flex>
       <Input
         {...register("username", {
           required: "cannot be blank",
