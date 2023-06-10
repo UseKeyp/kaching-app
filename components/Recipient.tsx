@@ -20,6 +20,7 @@ const Recipient = ({ nextStep, previousStep }) => {
     trigger,
     formState: { errors, isValid },
   } = localForm;
+  console.log({ isValid });
 
   const values = getValues();
   watch();
@@ -34,13 +35,24 @@ const Recipient = ({ nextStep, previousStep }) => {
 
   const handleRecipient = async (): Promise<void> => {
     const valid = await trigger();
+    console.log({ valid });
+    if (valid) {
+      const stateUpdates = () => {
+        setUsername(values.username);
+      };
+      stateUpdates();
+      previousStep();
+    }
 
-    const stateUpdates = () => {
-      setUsername(values.username);
-    };
-    stateUpdates();
-    previousStep();
     return;
+  };
+
+  const emailValidation = (val: string) => {
+    if (platform === "google") {
+      return val.includes("@") || "must be valid gmail address";
+    } else {
+      return val.includes("#") || "must be valid discord address";
+    }
   };
 
   return (
@@ -56,7 +68,14 @@ const Recipient = ({ nextStep, previousStep }) => {
         Send to
       </Heading>
       <Input
-        {...register("username")}
+        {...register("username", {
+          required: "cannot be blank",
+          minLength: {
+            value: 1,
+            message: "cannot be blank",
+          },
+          validate: emailValidation,
+        })}
         type={platform === "google" ? "email" : "text"}
         placeholder={platform === "google" ? "Add Gmail" : "Discord Username"}
         mb="24px"
@@ -107,7 +126,7 @@ const Recipient = ({ nextStep, previousStep }) => {
         color="#0D7007"
         px="24px"
         py="16px"
-        onClick={()=> handleRecipient()}
+        onClick={() => handleRecipient()}
         disabled
       >
         Confirm
