@@ -13,7 +13,7 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
   const { username } = useFormContext();
 
   return (
-    <Flex fontFamily="satoshi" flexDirection="column" alignItems="center">
+    <Flex fontFamily="satoshi" flexDirection="column" alignItems="center" className="sendform">
       <Flex justifyContent="center" mixBlendMode="overlay" mb="70px">
         <Icon name="arrows" size="153px" />
       </Flex>

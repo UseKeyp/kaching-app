@@ -52,7 +52,7 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
   };
 
   return (
-    <Box>
+    <Flex flexDirection="column">
       <Heading
         as="h2"
         fontWeight="700"
@@ -151,7 +151,7 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
           <Icon name="arrowRight" color={isValid ? "white" : "#0D7007"}/>
         </Box>
       </Button>
-    </Box>
+    </Flex>
   );
 };
 

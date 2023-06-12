@@ -284,7 +284,6 @@ const MaticIconGray = () => {
 };
 
 const ArrowRight = ({color}) => {
-  console.log({color})
   return (
     <svg
       width="20"

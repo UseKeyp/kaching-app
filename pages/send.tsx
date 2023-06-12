@@ -10,14 +10,16 @@ const Recipient = () => {
   // input for recipient
   // helpers buttons: when discord, validate input to fill discord username, when google, validate input to fill email address
   // confirm button -> onClick -> save value for input1 on screen 1 => go to screen 1
-}
+};
 
 const Send = () => {
   const [balanceError, setBalanceError] = useState(false);
 
-  return (<>
-    <SendScreensCollection/>
-  </>);
+  return (
+    <Flex width="343px" mx="auto">
+      <SendScreensCollection />
+    </Flex>
+  );
 };
 
 export default Send;
