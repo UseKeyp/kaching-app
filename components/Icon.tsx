@@ -17,9 +17,12 @@ interface IconProps {
     name?: string,
     size?: string,
     color?: string,
+    width?: string,
+    height?: string,
     className?: string 
+    disabled?: boolean
 }
-const Icon:React.FC<IconProps> = ({ name, size, color, className, ...rest }) => {
+const Icon:React.FC<IconProps> = ({ name, size, width, height, color, className, disabled, ...rest }) => {
 // @ts-ignore
   const Icon = iconMap[name] || EmptyIcon;
   return (
@@ -27,6 +30,9 @@ const Icon:React.FC<IconProps> = ({ name, size, color, className, ...rest }) => 
       color={color}
       className={className}
       style={{ width: size, height: size }}
+      width={width}
+      height={height}
+      disabled={disabled}
       {...rest}
     />
   );

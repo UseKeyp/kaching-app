@@ -1,6 +1,6 @@
 const Heading = {
   baseStyle: {
-    fontFamily: "Sharpie",
+    fontFamily: "Satoshi",
     color: "pink",
     fontSize: "80px",
   },

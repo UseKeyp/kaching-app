@@ -8,7 +8,7 @@ import React, {
 
 export const FormContext = createContext<{
   platform: string;
-  setPlatform: Dispatch<"google" | "discord">;
+  setPlatform: Dispatch<"google" | "discord" | "twitter" | "twitch">;
   renderTxPage: boolean;
   setRenderTxPage: Dispatch<boolean>;
   renderReviewPage: boolean;
