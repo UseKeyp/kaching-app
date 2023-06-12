@@ -4,10 +4,13 @@ import { useFormContext } from "context/FormContext";
 import Icon from "./Icon";
 import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
+import SocialButton from "./SocialButton";
 
 interface RecipientProps {
   previousStep: () => void;
 }
+
+type Platform = 'google' | 'discord' | 'twitter' | 'twitch';
 
 const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
   const { setPlatform, platform, type, setUsername } = useFormContext();
@@ -23,7 +26,7 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
   const values = getValues();
   watch();
 
-  const handleActiveIcons = (platform: string): void => {
+  const handleActiveIcons = (platform: Platform): void => {
     setPlatform(platform);
   };
 
@@ -46,26 +49,6 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
     } else {
       return val.includes("#") || "Oops. Thats not a Discord address.";
     }
-  };
-
-  const SocialButton = ({ name }) => {
-    console.log("platforn === name", platform, name, platform === name)
-    return (
-      <Button
-        display="flex"
-        variant="unstyled"
-        width="56px"
-        borderRadius="100%"
-        bg="white"
-        padding="10px"
-        justifyContent="center"
-        alignItems="center"
-        height="56px"
-        onClick={() => handleActiveIcons(name)}
-      >
-        <Icon name={name} width="35px" height="35px" disabled={platform === name} />
-      </Button>
-    );
   };
 
   return (
@@ -101,10 +84,10 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
       </Flex>
       <Input
         {...register("username", {
-          required: "cannot be blank",
+          required: "Cannot be blank",
           minLength: {
             value: 1,
-            message: "cannot be blank",
+            message: "Cannot be blank",
           },
           validate: emailValidation,
         })}
@@ -118,10 +101,10 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
         _placeholder={{ color: "#155A11", opacity: 1 }}
       />
       <Flex mb="107px" justifyContent="space-between">
-        <SocialButton name="google" />
-        <SocialButton name="discord" />
-        <SocialButton name="twitter" />
-        <SocialButton name="twitch" />
+        <SocialButton name="google" platform={platform} handleActiveIcons={handleActiveIcons}/>
+        <SocialButton name="discord" platform={platform} handleActiveIcons={handleActiveIcons}/>
+        <SocialButton name="twitter" platform={platform} handleActiveIcons={handleActiveIcons}/>
+        <SocialButton name="twitch" platform={platform} handleActiveIcons={handleActiveIcons}/>
       </Flex>
       <Button
         bg={isValid ? "#0D7007" : "transparent"}

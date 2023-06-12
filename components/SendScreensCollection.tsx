@@ -8,8 +8,11 @@ const SendScreensCollection = () => {
   return (
     <Box width="100%">
       <StepWizard className="wizard">
+        {/* @ts-ignore */}
         <SendForm />
+        {/* @ts-ignore */}
         <Recipient />
+        {/* @ts-ignore */}
         <Amount />
       </StepWizard>
     </Box>

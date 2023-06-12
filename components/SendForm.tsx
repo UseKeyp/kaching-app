@@ -5,7 +5,7 @@ import AssetBalance from "./AssetBalance";
 import Icon from "./Icon";
 
 interface SendFormProps {
-  goToStep: (step: number) => void;
+  goToStep: (step: number ) => void;
 }
 
 const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
