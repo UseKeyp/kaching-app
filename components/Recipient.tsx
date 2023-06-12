@@ -3,6 +3,7 @@ import { FieldValues, useForm } from "react-hook-form";
 import { useFormContext } from "context/FormContext";
 import Icon from "./Icon";
 import { ErrorMessage } from "@hookform/error-message";
+import { useState } from "react";
 
 interface RecipientProps {
   previousStep: () => void;
@@ -23,11 +24,7 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
   watch();
 
   const handleActiveIcons = (platform: string): void => {
-    if (platform === "google") {
-      setPlatform("google");
-    } else {
-      setPlatform("discord");
-    }
+    setPlatform(platform);
   };
 
   const handleRecipient = async (): Promise<void> => {
@@ -49,6 +46,26 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
     } else {
       return val.includes("#") || "Oops. Thats not a Discord address.";
     }
+  };
+
+  const SocialButton = ({ name }) => {
+    console.log("platforn === name", platform, name, platform === name)
+    return (
+      <Button
+        display="flex"
+        variant="unstyled"
+        width="56px"
+        borderRadius="100%"
+        bg="white"
+        padding="10px"
+        justifyContent="center"
+        alignItems="center"
+        height="56px"
+        onClick={() => handleActiveIcons(name)}
+      >
+        <Icon name={name} width="35px" height="35px" disabled={platform === name} />
+      </Button>
+    );
   };
 
   return (
@@ -100,34 +117,11 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
         fontWeight="400"
         _placeholder={{ color: "#155A11", opacity: 1 }}
       />
-      <Flex mb="107px">
-        <Button
-          variant="unstyled"
-          width="56px"
-          borderRadius="100%"
-          bg="white"
-          padding="10px"
-          justifyContent="center"
-          alignItems="center"
-          height="56px"
-          mr="34px"
-          onClick={() => handleActiveIcons("google")}
-        >
-          <Icon name="google" width="35px" height="35px" />
-        </Button>
-        <Button
-          variant="unstyled"
-          width="56px"
-          borderRadius="100%"
-          bg="white"
-          padding="10px"
-          justifyContent="center"
-          alignItems="center"
-          height="56px"
-          onClick={() => handleActiveIcons("discord")}
-        >
-          <Icon name="discord" width="35px" height="27px" />
-        </Button>
+      <Flex mb="107px" justifyContent="space-between">
+        <SocialButton name="google" />
+        <SocialButton name="discord" />
+        <SocialButton name="twitter" />
+        <SocialButton name="twitch" />
       </Flex>
       <Button
         bg={isValid ? "#0D7007" : "transparent"}
@@ -140,7 +134,6 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
         borderRadius="40px"
         height="64px"
         fontSize="24px"
-        
         px="24px"
         py="16px"
         onClick={() => handleRecipient()}
@@ -148,7 +141,7 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
       >
         <Text>Confirm Recipient</Text>
         <Box ml="auto">
-          <Icon name="arrowRight" color={isValid ? "white" : "#0D7007"}/>
+          <Icon name="arrowRight" color={isValid ? "white" : "#0D7007"} />
         </Box>
       </Button>
     </Flex>
