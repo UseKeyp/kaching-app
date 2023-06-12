@@ -14,8 +14,6 @@ const Recipient: React.FC<RecipientProps>  = ({ previousStep }) => {
   const {
     getValues,
     register,
-    setError,
-    clearErrors,
     watch,
     trigger,
     formState: { errors, isValid },

@@ -1,7 +1,6 @@
 import { Box, Button, Flex, Input, Text } from "@chakra-ui/react";
 import { useFormContext } from "context/FormContext";
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
 import AssetBalance from "./AssetBalance";
 import Icon from "./Icon";
 
