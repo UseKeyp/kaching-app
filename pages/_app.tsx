@@ -21,25 +21,48 @@ interface AppProps {
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   const router = useRouter();
 
+  const getBackground = () => {
+    switch (router.pathname) {
+      case "/send":
+        return "url('/bg-green.jpg')";
+      case "/ramp":
+      case "/wallet":
+        return "url('/bg-blue.jpg')";
+      case "/apps":
+        return "url('/bg-yellow.jpg')";
+      default:
+        return "url('/bg-color.jpg')";
+    }
+  };
+  
+
   return (
     <ChakraProvider theme={theme}>
       <Fonts />
       <SessionProvider session={session}>
         <SizeProvider>
           <FormProvider>
-            <Layout>
-              {router.pathname !== "/login" ? (
-                <>
-                  <UserAccount />
-                  <Box paddingTop="150px">
-                    <Component {...pageProps} />
-                  </Box>
-                  <Navbar />
-                </>
-              ) : (
-                <Component {...pageProps} />
-              )}{" "}
-            </Layout>
+            <Box
+              bgImage={getBackground()}
+              minH="100vh"
+              bgPosition="center"
+              bgRepeat="no-repeat"
+              bgSize="cover"
+            >
+              <Layout>
+                {router.pathname !== "/login" ? (
+                  <>
+                    <UserAccount />
+                    <Box paddingTop="150px">
+                      <Component {...pageProps} />
+                    </Box>
+                    <Navbar />
+                  </>
+                ) : (
+                  <Component {...pageProps} />
+                )}{" "}
+              </Layout>
+            </Box>
           </FormProvider>
         </SizeProvider>
       </SessionProvider>
