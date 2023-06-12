@@ -8,7 +8,7 @@ interface RecipientProps {
   previousStep: () => void;
 }
 
-const Recipient: React.FC<RecipientProps>  = ({ previousStep }) => {
+const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
   const { setPlatform, platform, type, setUsername } = useFormContext();
   const localForm = useForm<FieldValues>();
   const {
@@ -52,7 +52,7 @@ const Recipient: React.FC<RecipientProps>  = ({ previousStep }) => {
   };
 
   return (
-    <Box fontFamily="satoshi">
+    <Box>
       <Heading
         as="h2"
         fontWeight="700"
@@ -130,21 +130,26 @@ const Recipient: React.FC<RecipientProps>  = ({ previousStep }) => {
         </Button>
       </Flex>
       <Button
+        bg={isValid ? "#0D7007" : "transparent"}
+        color={isValid ? "white" : "#0D7007"}
         type="submit"
+        display="flex"
         variant="unstyled"
-        width="343px"
+        width="100%"
         border="2px solid #0D7007"
         borderRadius="40px"
         height="64px"
-        bg="transparent" // change if enabled
         fontSize="24px"
-        color="#0D7007"
+        
         px="24px"
         py="16px"
         onClick={() => handleRecipient()}
         disabled
       >
-        Confirm
+        <Text>Confirm Recipient</Text>
+        <Box ml="auto">
+          <Icon name="arrowRight" color={isValid ? "white" : "#0D7007"}/>
+        </Box>
       </Button>
     </Box>
   );

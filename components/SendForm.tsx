@@ -75,7 +75,7 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
       >
         <Text>Send payment</Text>
         <Box ml="auto">
-          <Icon name="arrowRight" />
+          <Icon name="arrowRight" color="#0D7007"/>
         </Box>
       </Button>
     </Flex>
