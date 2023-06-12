@@ -352,7 +352,6 @@ const Twitter = ({disabled}) => {
 };
 
 const Discord = ({ width, height, disabled }) => {
-  console.log({disabled})
   return (
     <svg
       width={width}
