@@ -9,7 +9,6 @@ interface SocialButtonProps {
 }
 
 const SocialButton: React.FC<SocialButtonProps> = ({ name, platform, handleActiveIcons }) => {
-  console.log("platforn === name", platform, name, platform === name);
   return (
     <Button
       display="flex"

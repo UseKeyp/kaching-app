@@ -84,7 +84,6 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
         .get(asset === "MATIC" ? urlMATIC : urlNotMATIC, options)
         .then((response) => {
           setUserAssets(response.data);
-          console.log(response.data);
           setIsLoading(false);
         })
         .catch((error) => {
