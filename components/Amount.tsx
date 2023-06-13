@@ -41,11 +41,9 @@ const RoundedButton = ({ isValid, onClick, text }) => {
 };
 
 const Amount = ({
-  nextStep,
-  previousStep,
+  goToStep,
 }: {
-  nextStep?: any;
-  previousStep?: any;
+  goToStep?: any;
 }) => {
   const [balanceError, setBalanceError] = useState(false);
   const { amount, setAmount } = useFormContext();
@@ -58,9 +56,6 @@ const Amount = ({
     formState: { errors, isValid },
   } = localForm;
   const token = "USDC";
-  const amountValidation = (val: string) => {
-    return;
-  };
 
   const values = getValues();
   watch();
@@ -72,12 +67,15 @@ const Amount = ({
         setAmount(values.amount);
       };
       stateUpdates();
-      previousStep();
+      goToStep(1);
     }
 
     return;
   };
 
+  const amountValidation = (n: any) => {
+    return Number(n) > 0 || "Value must be greater than 0"
+  }
   return (
     <Flex flexDirection="column">
       <Heading
@@ -93,7 +91,7 @@ const Amount = ({
       <Flex justifyContent="flex-end">
         <ErrorMessage
           errors={errors}
-          name="username"
+          name="amount"
           render={({ message }) => {
             return (
               <Box
@@ -112,19 +110,21 @@ const Amount = ({
       <Input
         textAlign="right"
         {...register("amount", {
-          required: "Cannot be blank",
-          minLength: {
-            value: 1,
-            message: "Cannot be blank",
+          required: {
+            value: true,
+            message: `Enter asset amount`,
           },
+          
           validate: amountValidation,
         })}
+        
         placeholder={amount ? `${amount} USDC` : `0 ${token}`}
         mb="8px"
         height="64px"
         bg="rgba(255, 255, 255, 0.8)"
         fontSize="24px"
         fontWeight="700"
+        onChange={(e) => setAmount(Number(e.target.value))}
         _placeholder={{ color: "#155A11", opacity: 1 }}
       />
       <Flex alignItems="flex-start" justifyContent="space-between" mb="24px">

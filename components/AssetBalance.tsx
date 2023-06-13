@@ -102,8 +102,7 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
     <Box fontWeight="400" color="#63676F">
       {displayBalance !== "NaN" && (
         <Text>
-          Available{" "}
-          {displayBalance ? `${"$"}${displayBalance} ${asset}` : "Error"}
+          {displayBalance ? `Available ${"$"}${displayBalance} ${asset}` : "Available balanve loading..."}
         </Text>
       )}
     </Box>
