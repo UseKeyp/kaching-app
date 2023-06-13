@@ -2,49 +2,17 @@ import {
   Box,
   Button,
   Flex,
-  FormErrorMessage,
   Heading,
   Input,
-  Text,
 } from "@chakra-ui/react";
 import { FieldValues, useForm } from "react-hook-form";
 import { useFormContext } from "context/FormContext";
-import Icon from "./Icon";
 import AssetBalance from "./AssetBalance";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ErrorMessage } from "@hookform/error-message";
+import RoundedButton from "./RoundedButton";
 
-const RoundedButton = ({ isValid, onClick, text }) => {
-  return (
-    <Button
-      bg={isValid ? "#0D7007" : "transparent"}
-      color={isValid ? "white" : "#0D7007"}
-      type="submit"
-      display="flex"
-      variant="unstyled"
-      width="100%"
-      border="2px solid #0D7007"
-      borderRadius="40px"
-      height="64px"
-      fontSize="24px"
-      px="24px"
-      py="16px"
-      onClick={onClick}
-      disabled
-    >
-      <Text>{text}</Text>
-      <Box ml="auto">
-        <Icon name="arrowRight" color={isValid ? "white" : "#0D7007"} />
-      </Box>
-    </Button>
-  );
-};
-
-const Amount = ({
-  goToStep,
-}: {
-  goToStep?: any;
-}) => {
+const Amount = ({ goToStep }: { goToStep?: any }) => {
   const [balanceError, setBalanceError] = useState(false);
   const { amount, setAmount } = useFormContext();
   const localForm = useForm<FieldValues>();
@@ -53,12 +21,23 @@ const Amount = ({
     register,
     watch,
     trigger,
+    setError,
+    clearErrors,
     formState: { errors, isValid },
   } = localForm;
   const token = "USDC";
 
   const values = getValues();
   watch();
+
+  useEffect(() => {
+    if (balanceError) {
+      setError("amount", { type: "custom", message: "Insufficient balance" });
+    } else {
+      clearErrors("amount");
+    }
+  }, [balanceError, setError, clearErrors]);
+
 
   const handleAmount = async (): Promise<void> => {
     const valid = await trigger();
@@ -74,8 +53,17 @@ const Amount = ({
   };
 
   const amountValidation = (n: any) => {
-    return Number(n) > 0 || "Value must be greater than 0"
-  }
+    const numericAmount = Number(n);
+    if (numericAmount <= 0) return "Value must be greater than 0";
+    // if (numericAmount > balance) {
+    //   setBalanceError(true);
+    //   return "Insufficient balance";
+    // }
+    setBalanceError(false);
+    return true;
+  };
+
+
   return (
     <Flex flexDirection="column">
       <Heading
@@ -114,10 +102,8 @@ const Amount = ({
             value: true,
             message: `Enter asset amount`,
           },
-          
           validate: amountValidation,
         })}
-        
         placeholder={amount ? `${amount} USDC` : `0 ${token}`}
         mb="8px"
         height="64px"
