@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { Box } from "@chakra-ui/react";
 import StepWizard from "react-step-wizard";
 import Amount from "./Amount";
