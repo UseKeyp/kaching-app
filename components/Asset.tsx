@@ -3,7 +3,7 @@ import { useFormContext } from "context/FormContext";
 import React from "react";
 import Balances from "./Balances";
 
-const Asset = ({goToStep}) => {
+const Asset = ({goToStep}: { goToStep?: any }) => {
   const { setAsset } = useFormContext();
 
   const handleClick = (token: string) => {

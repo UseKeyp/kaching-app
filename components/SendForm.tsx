@@ -58,6 +58,7 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
             borderBottomRightRadius="0px"
             borderRight="none"
             paddingRight="9px"
+            border="none"
           />
           <Box
             bg="rgba(255, 255, 255, 0.8)"
