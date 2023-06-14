@@ -41,7 +41,7 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
           onChange={() => {}}
           onClick={() => goToStep(2)}
         />
-        <Flex>
+        <Flex onClick={() => goToStep(3)}>
           <Input
             value={amount ? `${amount}` : ""}
             textAlign="right"
@@ -53,8 +53,7 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
             color="#155A11"
             placeholder={`0`}
             _placeholder={{ color: "#155A11", opacity: 1 }}
-            onChange={() => {}}
-            onClick={() => goToStep(3)}
+            
             borderTopRightRadius="0px"
             borderBottomRightRadius="0px"
             borderRight="none"

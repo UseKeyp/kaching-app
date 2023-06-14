@@ -122,24 +122,13 @@ const Amount = ({ goToStep }: { goToStep?: any }) => {
           borderTopRightRadius="8px"
           borderBottomRightRadius="8px"
           paddingRight="16px"
+          onClick={() => goToStep(4)}
         >
           {asset}
         </Box>
       </Flex>
       <Flex alignItems="flex-start" justifyContent="space-between" mb="24px">
         <AssetBalance setBalanceError={setBalanceError} />
-        <Button
-          display="flex"
-          alignItems="flex-start"
-          variant="unstyled"
-          fontSize="13px"
-          fontWeight="700"
-          color="#B0B6C1"
-          height="21px"
-          onClick={() => goToStep(4)}
-        >
-          Change Token
-        </Button>
       </Flex>
       <RoundedButton
         isValid={isValid}
