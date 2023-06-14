@@ -33,6 +33,6 @@
     "src/pages/login.js",
     "pages/api/auth/[...nextauth].js",
     "pages/request.js"
-, "components/icons/icon-map.jsx"  ],
+  ],
   "exclude": ["node_modules"]
 }
