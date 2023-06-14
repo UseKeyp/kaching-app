@@ -5,15 +5,21 @@ import AssetBalance from "./AssetBalance";
 import Icon from "./Icon";
 
 interface SendFormProps {
-  goToStep: (step: number ) => void;
+  goToStep: (step: number) => void;
 }
 
 const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
   const [balanceError, setBalanceError] = useState(false);
-  const { username } = useFormContext();
+  const { username, amount } = useFormContext();
+  const token = "USDC";
 
   return (
-    <Flex fontFamily="satoshi" flexDirection="column" alignItems="center" className="sendform">
+    <Flex
+      fontFamily="satoshi"
+      flexDirection="column"
+      alignItems="center"
+      className="sendform"
+    >
       <Flex justifyContent="center" mixBlendMode="overlay" mb="70px">
         <Icon name="arrows" size="153px" />
       </Flex>
@@ -38,13 +44,17 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
           onClick={() => goToStep(2)}
         />
         <Input
+          value={amount ? `${amount} ${token}` : ""}
+          textAlign="right"
           height="64px"
           bg="rgba(255, 255, 255, 0.8)"
           mb="8px"
-          fontSize="16px"
-          fontWeight="400"
-          placeholder="$0"
-          _placeholder={{ color: "#33912E", opacity: 1 }}
+          fontSize="24px"
+          fontWeight="700"
+          color="#155A11"
+          placeholder={`0 ${token}`}
+          _placeholder={{ color: "#155A11", opacity: 1 }}
+          onChange={() => {}}
           onClick={() => goToStep(3)}
         />
         <Flex
@@ -75,7 +85,7 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
       >
         <Text>Send payment</Text>
         <Box ml="auto">
-          <Icon name="arrowRight" color="#0D7007"/>
+          <Icon name="arrowRight" color="#0D7007" />
         </Box>
       </Button>
     </Flex>
