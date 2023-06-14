@@ -89,6 +89,7 @@ const Amount = ({ goToStep }: { goToStep?: any }) => {
       </Flex>
       <Flex>
         <Input
+          color="#155A11"
           textAlign="right"
           {...register("amount", {
             required: {
