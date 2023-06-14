@@ -123,6 +123,7 @@ const Amount = ({ goToStep }: { goToStep?: any }) => {
           fontWeight="700"
           color="#B0B6C1"
           height="21px"
+          onClick={()=>goToStep(4)}
         >
           Change Token
         </Button>
