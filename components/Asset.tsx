@@ -1,10 +1,15 @@
 import { Box, Heading } from "@chakra-ui/react";
+import { useFormContext } from "context/FormContext";
 import React from "react";
 import Balances from "./Balances";
 
-const Asset = () => {
+const Asset = ({goToStep}) => {
+  const { setAsset } = useFormContext();
+
   const handleClick = (token: string) => {
     console.log({token})
+    setAsset(token)
+    goToStep(3)
     return
   };
   return (
