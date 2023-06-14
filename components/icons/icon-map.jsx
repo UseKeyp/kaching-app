@@ -1,10 +1,6 @@
 import React from "react";
 
-interface AppsIconProps {
-  color: string;
-}
-
-const AppsIcon: React.FC<AppsIconProps> = ({ color }) => {
+const AppsIcon = ({ color }) => {
   return (
     <svg
       width="35"
@@ -115,11 +111,7 @@ const ImportIcon = () => {
   );
 };
 
-interface RampIconProps {
-  color: string;
-}
-
-const RampIcon: React.FC<RampIconProps> = ({ color }) => {
+const RampIcon = ({ color }) => {
   return (
     <svg
       width="41"
@@ -142,11 +134,7 @@ const RampIcon: React.FC<RampIconProps> = ({ color }) => {
   );
 };
 
-interface SendIconProps {
-  color: string;
-}
-
-const SendIcon: React.FC<SendIconProps> = ({ color }) => {
+const SendIcon = ({ color }) => {
   return (
     <svg
       width="34"
@@ -167,11 +155,7 @@ const SendIcon: React.FC<SendIconProps> = ({ color }) => {
   );
 };
 
-interface WalletIconProps {
-  color: string;
-}
-
-const WalletIcon: React.FC<WalletIconProps> = ({ color }) => {
+const WalletIcon = ({ color }) => {
   return (
     <svg
       width="36"
