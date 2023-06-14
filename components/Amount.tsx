@@ -1,10 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Input,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, Input } from "@chakra-ui/react";
 import { FieldValues, useForm } from "react-hook-form";
 import { useFormContext } from "context/FormContext";
 import AssetBalance from "./AssetBalance";
@@ -14,7 +8,7 @@ import RoundedButton from "./RoundedButton";
 
 const Amount = ({ goToStep }: { goToStep?: any }) => {
   const [balanceError, setBalanceError] = useState(false);
-  const { amount, setAmount } = useFormContext();
+  const { amount, setAmount, asset } = useFormContext();
   const localForm = useForm<FieldValues>();
   const {
     getValues,
@@ -37,7 +31,6 @@ const Amount = ({ goToStep }: { goToStep?: any }) => {
       clearErrors("amount");
     }
   }, [balanceError, setError, clearErrors]);
-
 
   const handleAmount = async (): Promise<void> => {
     const valid = await trigger();
@@ -62,7 +55,6 @@ const Amount = ({ goToStep }: { goToStep?: any }) => {
     setBalanceError(false);
     return true;
   };
-
 
   return (
     <Flex flexDirection="column">
@@ -95,37 +87,49 @@ const Amount = ({ goToStep }: { goToStep?: any }) => {
           }}
         />
       </Flex>
-      <Input
-        textAlign="right"
-        {...register("amount", {
-          required: {
-            value: true,
-            message: `Enter asset amount`,
-          },
-          validate: amountValidation,
-        })}
-        placeholder={amount ? `${amount} USDC` : `0 ${token}`}
-        mb="8px"
-        height="64px"
-        bg="rgba(255, 255, 255, 0.8)"
-        fontSize="24px"
-        fontWeight="700"
-        onChange={(e) => setAmount(Number(e.target.value))}
-        _placeholder={{ color: "#155A11", opacity: 1 }}
-      />
+      <Flex>
+        <Input
+          color="#155A11"
+          textAlign="right"
+          {...register("amount", {
+            required: {
+              value: true,
+              message: `Enter asset amount`,
+            },
+            validate: amountValidation,
+          })}
+          placeholder={amount ? `${amount}` : `0`}
+          mb="8px"
+          height="64px"
+          bg="rgba(255, 255, 255, 0.8)"
+          fontSize="24px"
+          fontWeight="700"
+          onChange={(e) => setAmount(Number(e.target.value))}
+          _placeholder={{ color: "#155A11", opacity: 1 }}
+          borderTopRightRadius="0px"
+          borderBottomRightRadius="0px"
+          border="none"
+          paddingRight="9px"
+        />
+        <Box
+          bg="rgba(255, 255, 255, 0.8)"
+          fontSize="24px"
+          fontWeight="700"
+          color="#155A11"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height="64px"
+          borderTopRightRadius="8px"
+          borderBottomRightRadius="8px"
+          paddingRight="16px"
+          onClick={() => goToStep(4)}
+        >
+          {asset}
+        </Box>
+      </Flex>
       <Flex alignItems="flex-start" justifyContent="space-between" mb="24px">
         <AssetBalance setBalanceError={setBalanceError} />
-        <Button
-          display="flex"
-          alignItems="flex-start"
-          variant="unstyled"
-          fontSize="13px"
-          fontWeight="700"
-          color="#B0B6C1"
-          height="21px"
-        >
-          Change Token
-        </Button>
       </Flex>
       <RoundedButton
         isValid={isValid}

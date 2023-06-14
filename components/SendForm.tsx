@@ -10,8 +10,7 @@ interface SendFormProps {
 
 const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
   const [balanceError, setBalanceError] = useState(false);
-  const { username, amount } = useFormContext();
-  const token = "USDC";
+  const { username, amount, asset } = useFormContext();
 
   return (
     <Flex
@@ -31,7 +30,6 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
         mb="43px"
       >
         <Input
-          // input for recipient
           value={username ? username : ""}
           placeholder="Recipient"
           mb="24px"
@@ -43,20 +41,41 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
           onChange={() => {}}
           onClick={() => goToStep(2)}
         />
-        <Input
-          value={amount ? `${amount} ${token}` : ""}
-          textAlign="right"
-          height="64px"
-          bg="rgba(255, 255, 255, 0.8)"
-          mb="8px"
-          fontSize="24px"
-          fontWeight="700"
-          color="#155A11"
-          placeholder={`0 ${token}`}
-          _placeholder={{ color: "#155A11", opacity: 1 }}
-          onChange={() => {}}
-          onClick={() => goToStep(3)}
-        />
+        <Flex onClick={() => goToStep(3)}>
+          <Input
+            value={amount ? `${amount}` : ""}
+            textAlign="right"
+            height="64px"
+            bg="rgba(255, 255, 255, 0.8)"
+            mb="8px"
+            fontSize="24px"
+            fontWeight="700"
+            color="#155A11"
+            placeholder={`0`}
+            _placeholder={{ color: "#155A11", opacity: 1 }}
+            
+            borderTopRightRadius="0px"
+            borderBottomRightRadius="0px"
+            borderRight="none"
+            paddingRight="9px"
+            border="none"
+          />
+          <Box
+            bg="rgba(255, 255, 255, 0.8)"
+            fontSize="24px"
+            fontWeight="700"
+            color="#155A11"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            height="64px"
+            borderTopRightRadius="8px"
+            borderBottomRightRadius="8px"
+            paddingRight="16px"
+          >
+            {asset}
+          </Box>
+        </Flex>
         <Flex
           alignSelf="flex-start"
           justifyContent="space-between"

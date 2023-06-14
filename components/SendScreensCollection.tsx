@@ -2,6 +2,7 @@
 import { Box } from "@chakra-ui/react";
 import StepWizard from "react-step-wizard";
 import Amount from "./Amount";
+import Asset from "./Asset";
 import Recipient from "./Recipient";
 import SendForm from "./SendForm";
 
@@ -15,6 +16,7 @@ const SendScreensCollection = () => {
         <Recipient />
         {/* @ts-ignore */}
         <Amount />
+        <Asset/>
       </StepWizard>
     </Box>
   );
