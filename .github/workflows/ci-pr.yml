@@ -1,0 +1,21 @@
+name: CI - Pull Request
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  qa:
+    name: Quality Assurance
+    runs-on: ubuntu-latest
+    env:
+      FORCE_COLOR: 1
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - name: Install packages
+        run: yarn
+      - name: Lint
+        run: yarn lint
+      - name: Build
+        run: yarn build
