@@ -3,14 +3,92 @@ import { useFormContext } from "context/FormContext";
 import React, { useState } from "react";
 import AssetBalance from "./AssetBalance";
 import Icon from "./Icon";
-
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import { TransferData } from "types/restAPI";
+import { TransferError } from "types/keypEndpoints";
+import { KEYP_BASE_URL_V1 } from "utils/general";
+import { supportedAssets } from "utils/general";
+import UseKeypApi from "../hooks/useKeypApi";
 interface SendFormProps {
   goToStep: (step: number) => void;
 }
 
 const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
+  const [responseError, setResponseError] = useState<
+    TransferError | undefined
+  >();
   const [balanceError, setBalanceError] = useState(false);
-  const { username, amount, asset } = useFormContext();
+
+  const {
+    type,
+    platform,
+    amount,
+    setAmount,
+    asset,
+    setAsset,
+    username,
+    setRenderTxPage,
+    setRenderReviewPage,
+  } = useFormContext();
+  const [sendingTx, setSendingTx] = useState(false);
+  const router = useRouter();
+  const { data: session } = useSession();
+
+  const handleTokenTransfer = async (
+    toUserId: string,
+    token: string,
+    amount: string
+  ): Promise<TransferData> => {
+    const request: TransferData = await UseKeypApi({
+      accessToken: session?.user.accessToken,
+      method: "POST",
+      endpointUrl: `${KEYP_BASE_URL_V1}/tokens/transfers`,
+      data: {
+        toUserUsername: toUserId,
+        toUserProviderType: platform === "discord" ? "DISCORD" : "GOOGLE",
+        tokenAddress: supportedAssets[token],
+        tokenType: "ERC20",
+        amount,
+      },
+    });
+
+    return request;
+  };
+
+  const handleSendTx = async () => {
+    if (asset && amount && username) {
+      const req = await handleTokenTransfer(username, asset, amount.toString());
+      console.log(req);
+      if (req.status === "SUCCESS") {
+        console.log(req);
+        router.push({
+          pathname: "/confirmation/send",
+          query: {
+            amount,
+            asset,
+            username,
+            hash: req.hash,
+          },
+        });
+        return req;
+      } else {
+        setResponseError(req);
+        setSendingTx(false);
+      }
+    }
+  };
+
+  const handleTxType = async () => {
+    setSendingTx(true);
+    if (type === "send") {
+      await handleSendTx();
+    }
+    // DO NOT DELETE CODE BELOW. IT'S FOR REQUEST FEATURE
+    // else if (type === "request") {
+    //   handleRequest({ amount, asset, username });
+    // }
+  };
 
   return (
     <Flex
@@ -53,7 +131,7 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
             color="#155A11"
             placeholder={`0`}
             _placeholder={{ color: "#155A11", opacity: 1 }}
-            
+            onChange={() => {}}
             borderTopRightRadius="0px"
             borderBottomRightRadius="0px"
             borderRight="none"
@@ -90,6 +168,10 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
         </Flex>
       </Flex>
       <Button
+        onClick={() => handleTxType()}
+        isLoading={sendingTx}
+        loadingText={type === "request" ? "Requesting..." : "Sending..."}
+        type="submit"
         width="343px"
         border="2px solid #0D7007"
         borderRadius="40px"
@@ -100,7 +182,6 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
         color="#0D7007"
         px="24px"
         py="16px"
-        disabled
       >
         <Text>Send payment</Text>
         <Box ml="auto">
