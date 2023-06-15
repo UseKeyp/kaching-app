@@ -1,3 +1,16 @@
+.puzzleIcon {
+  margin-left: 1rem;
+}
+
+.puzzleIconText {
+  font-family: "Satoshi-Variable";
+  color: #63676F;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 15.6px;
+  margin-left: 2.5rem;
+}
+
 .puzzleTitleImage {
   margin: 3rem auto 2rem;
   width: 14rem;
