@@ -15,6 +15,8 @@ interface SendFormProps {
 }
 
 const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
+  const [success, setSuccess] = useState(true);
+  const [hash, setHash] = useState("0x1234...2526");
   const [responseError, setResponseError] = useState<
     TransferError | undefined
   >();
@@ -62,6 +64,9 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
       console.log(req);
       if (req.status === "SUCCESS") {
         console.log(req);
+        console.log(req.hash);
+        setSuccess(true);
+        setHash(req.hash);
         router.push({
           pathname: "/confirmation/send",
           query: {
@@ -74,6 +79,7 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
         return req;
       } else {
         setResponseError(req);
+        console.log("error: ", req.status);
         setSendingTx(false);
       }
     }
@@ -97,9 +103,20 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
       alignItems="center"
       className="sendform"
     >
-      <Flex justifyContent="center" mixBlendMode="overlay" mb="70px">
-        <Icon name="arrows" size="153px" />
-      </Flex>
+      {success ? (
+        <>
+          <Box mb="18px">
+            <Icon name="transaction_success" />
+          </Box>
+          <Text mb="8px" color="#99DA67" fontSize="12px" fontWeight="400">View on Chain Explorer</Text>
+          <Text mb="34px" color="#155A11" fontSize="12px">{hash}</Text>
+        </>
+      ) : (
+        <Flex justifyContent="center" mixBlendMode="overlay" mb="70px">
+          <Icon name="arrows" size="153px" />
+        </Flex>
+      )}
+
       <Flex
         width="343px"
         flexDirection="column"
