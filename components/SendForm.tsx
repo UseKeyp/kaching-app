@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Input, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Input, Text, Tooltip } from "@chakra-ui/react";
 import { useFormContext } from "context/FormContext";
 import React, { useState } from "react";
 import AssetBalance from "./AssetBalance";
@@ -10,17 +10,38 @@ import { TransferError } from "types/keypEndpoints";
 import { KEYP_BASE_URL_V1 } from "utils/general";
 import { supportedAssets } from "utils/general";
 import UseKeypApi from "../hooks/useKeypApi";
+import Link from "next/link";
+
+export const trimAddress = (address: string) => {
+  if (typeof address !== "string") return "";
+
+  const firstPart = address.substring(0, 2);
+  const secondPart = address.substring(2, 6);
+  const lastPart = address.substring(62);
+
+  return (
+    <>
+      <span style={{ fontVariantLigatures: "no-common-ligatures" }}>
+        {firstPart}
+      </span>
+      {secondPart}...{lastPart}
+    </>
+  );
+};
 interface SendFormProps {
   goToStep: (step: number) => void;
 }
 
 const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
-  const [success, setSuccess] = useState(true);
-  const [hash, setHash] = useState("0x1234...2526");
+  const [success, setSuccess] = useState(false);
+  const [hash, setHash] = useState(
+    "0xc22a6ac1d76f8f7e390362aed359a2922e8ba4d310bf4cef91836f729d7621ad"
+  );
   const [responseError, setResponseError] = useState<
     TransferError | undefined
   >();
   const [balanceError, setBalanceError] = useState(false);
+  const [openTooltip, setOpenTooltip] = useState(false);
 
   const {
     type,
@@ -64,18 +85,9 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
       console.log(req);
       if (req.status === "SUCCESS") {
         console.log(req);
-        console.log(req.hash);
         setSuccess(true);
         setHash(req.hash);
-        router.push({
-          pathname: "/confirmation/send",
-          query: {
-            amount,
-            asset,
-            username,
-            hash: req.hash,
-          },
-        });
+        setSendingTx(false);
         return req;
       } else {
         setResponseError(req);
@@ -108,8 +120,18 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
           <Box mb="18px">
             <Icon name="transaction_success" />
           </Box>
-          <Text mb="8px" color="#99DA67" fontSize="12px" fontWeight="400">View on Chain Explorer</Text>
-          <Text mb="34px" color="#155A11" fontSize="12px">{hash}</Text>
+          <Link href={`https://polygonscan.com/tx/${hash}`} target="_blank">
+            <Text mb="8px" color="#99DA67" fontSize="12px" fontWeight="400">
+              View on Chain Explorer
+            </Text>
+          </Link>
+          <Text
+            mb="34px"
+            color="#155A11"
+            fontSize="12px"
+          >
+            {trimAddress(hash)}
+          </Text>
         </>
       ) : (
         <Flex justifyContent="center" mixBlendMode="overlay" mb="70px">
