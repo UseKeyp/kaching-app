@@ -15,7 +15,7 @@ const Navbar = () => {
   const username = session && session.user.username;
 
   const getIconColor = (name: string) => {
-    if (name === "wallet" && router.pathname === "/wallet") {
+    if (name === "wallet" && (router.pathname === "/wallet" || router.pathname === "/")) {
       return "#1499DA";
     } else if (name === "send" && router.pathname === "/send") {
       return "#3A8500"
