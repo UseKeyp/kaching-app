@@ -125,18 +125,16 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
               View on Chain Explorer
             </Text>
           </Link>
-          <Text
-            mb="34px"
-            color="#155A11"
-            fontSize="12px"
-          >
+          <Text mb="34px" color="#155A11" fontSize="12px">
             {trimAddress(hash)}
           </Text>
         </>
       ) : (
-        <Flex justifyContent="center" mixBlendMode="overlay" mb="70px">
-          <Icon name="arrows" size="153px" />
-        </Flex>
+        <Box justifyContent="center" mb="70px">
+          <Box>
+            <Icon name="arrows" size="153px" />
+          </Box>
+        </Box>
       )}
 
       <Flex

@@ -8,7 +8,7 @@ import SendForm from "./SendForm";
 
 const SendScreensCollection = () => {
   return (
-    <Box width="100%">
+    <Box width="100%" overflow="hidden">
       <StepWizard className="wizard">
         {/* @ts-ignore */}
         <SendForm />
