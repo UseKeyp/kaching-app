@@ -1,9 +1,8 @@
-import { Box, Button, Flex, Input, Text, Tooltip } from "@chakra-ui/react";
+import { Box, Flex, Input, Text } from "@chakra-ui/react";
 import { useFormContext } from "context/FormContext";
 import React, { useState } from "react";
 import AssetBalance from "./AssetBalance";
 import Icon from "./Icon";
-import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { TransferData } from "types/restAPI";
 import { TransferError } from "types/keypEndpoints";
@@ -11,6 +10,7 @@ import { KEYP_BASE_URL_V1 } from "utils/general";
 import { supportedAssets } from "utils/general";
 import UseKeypApi from "../hooks/useKeypApi";
 import Link from "next/link";
+import RoundedButton from "./RoundedButton";
 
 export const trimAddress = (address: string) => {
   if (typeof address !== "string") return "";
@@ -41,21 +41,9 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
     TransferError | undefined
   >();
   const [balanceError, setBalanceError] = useState(false);
-  const [openTooltip, setOpenTooltip] = useState(false);
 
-  const {
-    type,
-    platform,
-    amount,
-    setAmount,
-    asset,
-    setAsset,
-    username,
-    setRenderTxPage,
-    setRenderReviewPage,
-  } = useFormContext();
+  const { type, platform, amount, asset, username } = useFormContext();
   const [sendingTx, setSendingTx] = useState(false);
-  const router = useRouter();
   const { data: session } = useSession();
 
   const handleTokenTransfer = async (
@@ -130,10 +118,8 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
           </Text>
         </>
       ) : (
-        <Box justifyContent="center" mb="70px">
-          <Box>
+        <Box justifyContent="center" mb="70px" mixBlendMode="overlay">
             <Icon name="arrows" size="153px" />
-          </Box>
         </Box>
       )}
 
@@ -204,27 +190,13 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
           </Box>
         </Flex>
       </Flex>
-      <Button
+      <RoundedButton
+        isValid={!!(username && amount)}
         onClick={() => handleTxType()}
+        text="Send Payment"
         isLoading={sendingTx}
         loadingText={type === "request" ? "Requesting..." : "Sending..."}
-        type="submit"
-        width="343px"
-        border="2px solid #0D7007"
-        borderRadius="40px"
-        height="64px"
-        bg="transparent" // change if enabled
-        fontSize="24px"
-        fontFamily="satoshi"
-        color="#0D7007"
-        px="24px"
-        py="16px"
-      >
-        <Text>Send payment</Text>
-        <Box ml="auto">
-          <Icon name="arrowRight" color="#0D7007" />
-        </Box>
-      </Button>
+      />
     </Flex>
   );
 };
