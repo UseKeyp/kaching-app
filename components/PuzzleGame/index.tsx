@@ -3,9 +3,9 @@ import { Image, HStack, Flex } from "@chakra-ui/react";
 import styles from "./PuzzleGame.module.css";
 import { useFormContext } from "../../context/FormContext";
 import { useSession } from "next-auth/react";
-import axios from "axios";
 import Sparkles from "react-sparkle";
 import { TypeAnimation } from "react-type-animation";
+import { writeContract } from "@usekeyp/js-sdk";
 
 const CURRENT_WEEK = 1;
 
@@ -91,26 +91,28 @@ export const PuzzleGame = () => {
     setIsMintingScreen(true);
     setPendingMint(true);
     try {
-      const fetchResult = await axios.get("/api/mint", {
-        params: { recipient: address },
+      const result = await writeContract({
+        accessToken: session?.user.accessToken,
+        address: process.env.NEXT_PUBLIC_PUZZLE_NFT_ADDRESS || "",
+        abi: "mint(address,uint256)",
+        args: [address || "", '1'],
+        value: "0",
       });
 
-      if (fetchResult.status === 200) {
+      if (result.status === "SUCCESS") {
         setMintingStatus(SUCCESS);
-        setMintTxHash(fetchResult.data.response.hash);
+        setMintTxHash(result.hash || "");
       } else {
         setMintingStatus(ERROR);
-        setMintErrorMessage(fetchResult.data.message);
-        console.error(
-          `There was an error with the mint: ${fetchResult.data.message}`
-        );
+        setMintErrorMessage(result.error || "");
+        console.error(`There was an error with the mint: ${result.error}`);
       }
       setPendingMint(false);
     } catch (e: any) {
       setPendingMint(false);
       setMintingStatus(ERROR);
       setMintErrorMessage("");
-      console.error("There was an error with the fetch request to mint");
+      console.error("There was an error with the writeContract call to mint");
     }
   };
 
