@@ -15,7 +15,8 @@ const SocialButton: React.FC<SocialButtonProps> = ({ name, platform, handleActiv
       variant="unstyled"
       width="56px"
       borderRadius="100%"
-      bg="white"
+      bg={"white"}
+      opacity={platform === name ? "" : "0.4"}
       padding="10px"
       justifyContent="center"
       alignItems="center"

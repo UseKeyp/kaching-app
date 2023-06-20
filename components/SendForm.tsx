@@ -1,9 +1,8 @@
-import { Box, Button, Flex, Input, Text, Tooltip } from "@chakra-ui/react";
+import { Box, Flex, Input, Text } from "@chakra-ui/react";
 import { useFormContext } from "context/FormContext";
 import React, { useState } from "react";
 import AssetBalance from "./AssetBalance";
 import Icon from "./Icon";
-import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { TransferData } from "types/restAPI";
 import { TransferError } from "types/keypEndpoints";
@@ -11,6 +10,7 @@ import { KEYP_BASE_URL_V1 } from "utils/general";
 import { supportedAssets } from "utils/general";
 import UseKeypApi from "../hooks/useKeypApi";
 import Link from "next/link";
+import RoundedButton from "./RoundedButton";
 
 export const trimAddress = (address: string) => {
   if (typeof address !== "string") return "";
@@ -40,22 +40,11 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
   const [responseError, setResponseError] = useState<
     TransferError | undefined
   >();
+  const [serverError, setServerError] = useState(false);
   const [balanceError, setBalanceError] = useState(false);
-  const [openTooltip, setOpenTooltip] = useState(false);
 
-  const {
-    type,
-    platform,
-    amount,
-    setAmount,
-    asset,
-    setAsset,
-    username,
-    setRenderTxPage,
-    setRenderReviewPage,
-  } = useFormContext();
+  const { type, platform, amount, asset, username } = useFormContext();
   const [sendingTx, setSendingTx] = useState(false);
-  const router = useRouter();
   const { data: session } = useSession();
 
   const handleTokenTransfer = async (
@@ -91,6 +80,7 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
         return req;
       } else {
         setResponseError(req);
+        setServerError(true);
         console.log("error: ", req.status);
         setSendingTx(false);
       }
@@ -125,18 +115,14 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
               View on Chain Explorer
             </Text>
           </Link>
-          <Text
-            mb="34px"
-            color="#155A11"
-            fontSize="12px"
-          >
+          <Text mb="34px" color="#155A11" fontSize="12px">
             {trimAddress(hash)}
           </Text>
         </>
       ) : (
-        <Flex justifyContent="center" mixBlendMode="overlay" mb="70px">
+        <Box justifyContent="center" mb="70px" mixBlendMode="overlay">
           <Icon name="arrows" size="153px" />
-        </Flex>
+        </Box>
       )}
 
       <Flex
@@ -146,18 +132,39 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
         mx="auto"
         mb="43px"
       >
-        <Input
-          value={username ? username : ""}
-          placeholder="Recipient"
-          mb="24px"
-          height="64px"
-          bg="rgba(255, 255, 255, 0.8)"
-          fontSize="24px"
-          fontWeight="400"
-          _placeholder={{ color: "#155A11", opacity: 1 }}
-          onChange={() => {}}
-          onClick={() => goToStep(2)}
-        />
+        <Box width="100%" mb="24px">
+          <Input
+            value={username ? username : ""}
+            placeholder="Recipient"
+            height="64px"
+            bg="rgba(255, 255, 255, 0.8)"
+            fontSize="24px"
+            fontWeight="400"
+            _placeholder={{ color: "#155A11", opacity: 1 }}
+            onChange={() => {}}
+            onClick={() => goToStep(2)}
+            mb="8px"
+          />
+          {username && username !== "" && username !== null && (
+            <Flex alignItems="center" justifyContent="flex-start" width="100%">
+              <Box color="#63676F" mr="8px">
+                Sending to
+              </Box>
+              <Box
+                display="flex"
+                width="24px"
+                height="24px"
+                borderRadius="100%"
+                bg={"white"}
+                opacity="0.4"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Icon name={platform} width="15px" height="15px" />
+              </Box>
+            </Flex>
+          )}
+        </Box>
         <Flex onClick={() => goToStep(3)}>
           <Input
             value={amount ? `${amount}` : ""}
@@ -206,27 +213,14 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
           </Box>
         </Flex>
       </Flex>
-      <Button
+      {responseError && <Box color="#E45200" fontSize="13px">Server Error: Try Again. Sorry!</Box>}
+      <RoundedButton
+        isValid={!!(username && amount)}
         onClick={() => handleTxType()}
+        text="Send Payment"
         isLoading={sendingTx}
         loadingText={type === "request" ? "Requesting..." : "Sending..."}
-        type="submit"
-        width="343px"
-        border="2px solid #0D7007"
-        borderRadius="40px"
-        height="64px"
-        bg="transparent" // change if enabled
-        fontSize="24px"
-        fontFamily="satoshi"
-        color="#0D7007"
-        px="24px"
-        py="16px"
-      >
-        <Text>Send payment</Text>
-        <Box ml="auto">
-          <Icon name="arrowRight" color="#0D7007" />
-        </Box>
-      </Button>
+      />
     </Flex>
   );
 };

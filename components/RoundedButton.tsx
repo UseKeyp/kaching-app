@@ -1,16 +1,26 @@
 import { Box, Button, Text } from "@chakra-ui/react";
-import  React  from "react";
+import React from "react";
 import Icon from "./Icon";
 
 interface RoundedButtonProps {
-    isValid: boolean;
-    onClick: React.MouseEventHandler<HTMLButtonElement>;
-    text: string
+  isValid?: boolean;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  text?: string;
+  isLoading?: any;
+  loadingText?: any;
 }
 
-const RoundedButton: React.FC<RoundedButtonProps> = ({ isValid, onClick, text }) => {
+const RoundedButton: React.FC<RoundedButtonProps> = ({
+  isValid,
+  onClick,
+  text,
+  isLoading,
+  loadingText,
+}) => {
   return (
     <Button
+      isLoading={isLoading}
+      loadingText={loadingText}
       bg={isValid ? "#0D7007" : "transparent"}
       color={isValid ? "white" : "#0D7007"}
       type="submit"
@@ -34,4 +44,4 @@ const RoundedButton: React.FC<RoundedButtonProps> = ({ isValid, onClick, text })
   );
 };
 
-export default RoundedButton
+export default RoundedButton;
