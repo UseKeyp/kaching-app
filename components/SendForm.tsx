@@ -40,6 +40,7 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
   const [responseError, setResponseError] = useState<
     TransferError | undefined
   >();
+  const [serverError, setServerError] = useState(false);
   const [balanceError, setBalanceError] = useState(false);
 
   const { type, platform, amount, asset, username } = useFormContext();
@@ -79,6 +80,7 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
         return req;
       } else {
         setResponseError(req);
+        setServerError(true);
         console.log("error: ", req.status);
         setSendingTx(false);
       }
@@ -96,7 +98,6 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
     // }
   };
 
-  console.log({ platform });
   return (
     <Flex
       fontFamily="satoshi"
@@ -145,11 +146,7 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
             mb="8px"
           />
           {username && username !== "" && username !== null && (
-            <Flex
-              alignItems="center"
-              justifyContent="flex-start"
-              width="100%"
-            >
+            <Flex alignItems="center" justifyContent="flex-start" width="100%">
               <Box color="#63676F" mr="8px">
                 Sending to
               </Box>
@@ -216,6 +213,7 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
           </Box>
         </Flex>
       </Flex>
+      {responseError && <Box color="#E45200" fontSize="13px">Server Error: Try Again. Sorry!</Box>}
       <RoundedButton
         isValid={!!(username && amount)}
         onClick={() => handleTxType()}
