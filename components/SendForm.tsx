@@ -96,7 +96,7 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
     // }
   };
 
-  console.log({ username });
+  console.log({ platform });
   return (
     <Flex
       fontFamily="satoshi"
@@ -163,7 +163,7 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
                 justifyContent="center"
                 alignItems="center"
               >
-                <Icon name="google" width="15px" height="15px" />
+                <Icon name={platform} width="15px" height="15px" />
               </Box>
             </Flex>
           )}
