@@ -3,11 +3,11 @@ import React from "react";
 import Icon from "./Icon";
 
 interface RoundedButtonProps {
-  isValid: boolean;
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
-  text: string;
-  isLoading: any;
-  loadingText: any;
+  isValid?: boolean;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  text?: string;
+  isLoading?: any;
+  loadingText?: any;
 }
 
 const RoundedButton: React.FC<RoundedButtonProps> = ({

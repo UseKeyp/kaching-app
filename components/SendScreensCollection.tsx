@@ -7,9 +7,10 @@ import Recipient from "./Recipient";
 import SendForm from "./SendForm";
 
 const SendScreensCollection = () => {
+  
   return (
-    <Box width="100%" overflow="hidden">
-      <StepWizard className="wizard">
+    <Box width="100%">
+      <StepWizard className="wizard" isLazyMount={true}>
         {/* @ts-ignore */}
         <SendForm />
         {/* @ts-ignore */}
