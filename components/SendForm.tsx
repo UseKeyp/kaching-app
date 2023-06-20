@@ -96,6 +96,7 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
     // }
   };
 
+  console.log({ username });
   return (
     <Flex
       fontFamily="satoshi"
@@ -119,7 +120,7 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
         </>
       ) : (
         <Box justifyContent="center" mb="70px" mixBlendMode="overlay">
-            <Icon name="arrows" size="153px" />
+          <Icon name="arrows" size="153px" />
         </Box>
       )}
 
@@ -130,18 +131,43 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
         mx="auto"
         mb="43px"
       >
-        <Input
-          value={username ? username : ""}
-          placeholder="Recipient"
-          mb="24px"
-          height="64px"
-          bg="rgba(255, 255, 255, 0.8)"
-          fontSize="24px"
-          fontWeight="400"
-          _placeholder={{ color: "#155A11", opacity: 1 }}
-          onChange={() => {}}
-          onClick={() => goToStep(2)}
-        />
+        <Box width="100%" mb="24px">
+          <Input
+            value={username ? username : ""}
+            placeholder="Recipient"
+            height="64px"
+            bg="rgba(255, 255, 255, 0.8)"
+            fontSize="24px"
+            fontWeight="400"
+            _placeholder={{ color: "#155A11", opacity: 1 }}
+            onChange={() => {}}
+            onClick={() => goToStep(2)}
+            mb="8px"
+          />
+          {username && username !== "" && username !== null && (
+            <Flex
+              alignItems="center"
+              justifyContent="flex-start"
+              width="100%"
+            >
+              <Box color="#63676F" mr="8px">
+                Sending to
+              </Box>
+              <Box
+                display="flex"
+                width="24px"
+                height="24px"
+                borderRadius="100%"
+                bg={"white"}
+                opacity="0.4"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Icon name="google" width="15px" height="15px" />
+              </Box>
+            </Flex>
+          )}
+        </Box>
         <Flex onClick={() => goToStep(3)}>
           <Input
             value={amount ? `${amount}` : ""}
