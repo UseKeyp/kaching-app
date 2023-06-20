@@ -114,7 +114,6 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any, isActive?: any }) => {
           bg="rgba(255, 255, 255, 0.8)"
           fontSize="24px"
           fontWeight="700"
-          onChange={(e) => setAmount(Number(e.target.value))}
           _placeholder={{ color: "#155A11", opacity: 1 }}
           borderTopRightRadius="0px"
           borderBottomRightRadius="0px"
