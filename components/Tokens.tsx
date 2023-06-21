@@ -53,10 +53,14 @@ const ASSET_DUMMY_DATA = {
 };
 
 const getAssetIcon = (name: string) => {
+  console.log({name})
   switch (name) {
     case "USDC":
-    case "ETH":
       return <Icon name="dollar" />;
+    case "WETH":
+      return <Icon name="weth" />
+    case "DAI":
+        return <Icon name="dai" />
     case "MATIC":
       return <Icon name="matic" />;
     default:
@@ -92,7 +96,7 @@ const Tokens = () => {
           <Box key={asset.symbol}>
             <Flex justifyContent="space-between" p="16px" color="#4A4D53">
               <Flex>
-                <Box mr="8px">{getAssetIcon(asset.name)}</Box>
+                <Box mr="8px">{getAssetIcon(asset.symbol)}</Box>
                 <Box fontWeight="700" textTransform="capitalize">
                   {getAssetName(asset.symbol)}
                 </Box>
