@@ -5917,9 +5917,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@usekeyp/js-sdk@npm:^0.1.6":
-  version: 0.1.6
-  resolution: "@usekeyp/js-sdk@npm:0.1.6"
+"@usekeyp/js-sdk@npm:^0.1.7":
+  version: 0.1.7
+  resolution: "@usekeyp/js-sdk@npm:0.1.7"
   dependencies:
     "@redwoodjs/router": ^3.3.0
     next-auth: ^4.22.1
@@ -5927,7 +5927,7 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     react-scripts: 5.0.1
-  checksum: a55e3362a83e9fb2abfcd463d35a522e0be1943d8a03c98c195984b3b34ac655535bbee79a4b089e348600af37a4c9a1364594cc7fe2545626386297f13ddd1a
+  checksum: f7f9c38c5c09b3a83980016834add6b3f4162d99ca9898eb4f24f056bc465cc49147a4d4a5da88499ce64c92e161acd24924d2a971e5cf0d8db11ce8751be23b
   languageName: node
   linkType: hard
 
@@ -13173,7 +13173,7 @@ __metadata:
     "@types/node": 18.11.18
     "@types/react": 18.0.26
     "@types/react-dom": 18.0.10
-    "@usekeyp/js-sdk": ^0.1.6
+    "@usekeyp/js-sdk": ^0.1.7
     alchemy-sdk: ^2.8.0
     axios: ^1.2.3
     cheerio: ^1.0.0-rc.12
