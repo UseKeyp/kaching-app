@@ -84,17 +84,14 @@ const formatNumber = (number: string) => {
   let num = parseFloat(number);
   let numDecimals = num.toString().split('.')[1];
 
-  // If number is '0.0', return as '0.00'
   if (num === 0) {
     return num.toFixed(2);
   }
 
-  // If there are less than 10 digits after ".", don't add extra zeroes
   else if (numDecimals && numDecimals.length <= 10) {
     return num.toFixed(numDecimals.length);
   }
 
-  // If there are more than 10 digits after ".", round to 10 decimals
   else {
     return num.toFixed(10);
   }
