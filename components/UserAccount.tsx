@@ -2,7 +2,7 @@ import { Flex, Box, Text, Tooltip, HStack, Image } from "@chakra-ui/react";
 import useSocialLogo from "../hooks/useSocialLogo";
 
 import React, { useState } from "react";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 const UserAccount = () => {
