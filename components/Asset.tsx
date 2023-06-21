@@ -3,17 +3,17 @@ import { useFormContext } from "context/FormContext";
 import React from "react";
 import Balances from "./Balances";
 
-const Asset = ({goToStep}: { goToStep?: any }) => {
+const Asset = ({ goToStep }: { goToStep?: any }) => {
   const { setAsset } = useFormContext();
 
   const handleClick = (token: string) => {
-    console.log({token})
-    setAsset(token)
-    goToStep(3)
-    return
+    console.log({ token });
+    setAsset(token);
+    goToStep(3);
+    return;
   };
   return (
-    <Box>
+    <Box overflow="hidden">
       <Heading
         as="h2"
         fontWeight="700"
@@ -24,7 +24,12 @@ const Asset = ({goToStep}: { goToStep?: any }) => {
       >
         Asset
       </Heading>
-      <Box bg="rgba(255, 255, 255, 0.8)" borderRadius="8px" width="100%">
+      <Box
+        bg="rgba(255, 255, 255, 0.8)"
+        borderRadius="8px"
+        width="100%"
+        overflow="hidden"
+      >
         <Balances onClick={handleClick} />
       </Box>
     </Box>

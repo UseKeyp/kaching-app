@@ -6,11 +6,56 @@ import { UserBalance } from "types/keypEndpoints";
 import { KEYP_BASE_URL_V1, supportedAssets } from "utils/general";
 import Icon from "./Icon";
 
+const ASSET_DUMMY_DATA = {
+  MATIC: {
+    balance: "25000000000000000",
+    balanceBn: {
+      type: "BigNumber",
+      hex: "0x58d15e17628000",
+    },
+    formatted: "0.025",
+    decimals: 18,
+    symbol: "MATIC",
+    name: "MATIC",
+    tokenAddress: null,
+    network: "POLYGON",
+    chainId: 137,
+  },
+  USDC: {
+    balance: "0",
+    balanceBn: {
+      type: "BigNumber",
+      hex: "0x00",
+    },
+    formatted: "0.0",
+    decimals: "6",
+    symbol: "USDC",
+    name: "USD Coin (PoS)",
+    tokenAddress: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+    network: "POLYGON",
+    chainId: 137,
+  },
+  ETH: {
+    balance: "0",
+    balanceBn: {
+      type: "BigNumber",
+      hex: "0x00",
+    },
+    formatted: "0.0",
+    decimals: "6",
+    symbol: "ETH",
+    name: "Ethereum",
+    tokenAddress: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+    network: "POLYGON",
+    chainId: 137,
+  },
+};
+
 interface BalancesProps {
-    onClick: (token: string) => void;
+  onClick?: (token: string) => void;
 }
 
-const Balances: React.FC<BalancesProps> = ({onClick}) => {
+const Balances: React.FC<BalancesProps> = ({ onClick }) => {
   const [assets, setAssets] = useState<UserBalance[] | undefined>();
   //   const [assets, setAssets] = useState(ASSET_DUMMY_DATA);
   const [isLoading, setIsLoading] = useState(true);
@@ -21,15 +66,18 @@ const Balances: React.FC<BalancesProps> = ({onClick}) => {
   const getAssetIcon = (name: string) => {
     switch (name) {
       case "USDC":
-      case "ETH":
         return <Icon name="dollar" />;
+      case "WETH":
+        return <Icon name="weth" />;
+      case "DAI":
+        return <Icon name="dai" />;
       case "MATIC":
         return <Icon name="matic" />;
       default:
         return <Icon name="dollar" />;
     }
   };
-  
+
   const getAssetName = (symbol: string) => {
     switch (symbol) {
       case "USDC":
@@ -40,6 +88,19 @@ const Balances: React.FC<BalancesProps> = ({onClick}) => {
         return "Ethereum";
       default:
         return symbol;
+    }
+  };
+
+  const formatNumber = (number: string) => {
+    let num = parseFloat(number);
+    let numDecimals = num.toString().split(".")[1];
+
+    if (num === 0) {
+      return num.toFixed(2);
+    } else if (numDecimals && numDecimals.length <= 10) {
+      return num.toFixed(numDecimals.length);
+    } else {
+      return num.toFixed(10);
     }
   };
 
@@ -83,16 +144,19 @@ const Balances: React.FC<BalancesProps> = ({onClick}) => {
         assetsList.length > 1 &&
         assetsList?.map((asset: any) => {
           return (
-            <Box key={asset.symbol} onClick={() => onClick(asset.symbol)}>
+            <Box
+              key={asset.symbol}
+              onClick={() => (onClick ? onClick(asset.symbol) : null)}
+            >
               <Flex justifyContent="space-between" p="16px" color="#4A4D53">
                 <Flex>
-                  <Box mr="8px">{getAssetIcon(asset.name)}</Box>
+                  <Box mr="8px">{getAssetIcon(asset.symbol)}</Box>
                   <Box fontWeight="700" textTransform="capitalize">
                     {getAssetName(asset.symbol)}
                   </Box>
                 </Flex>
                 <Flex flexDirection="column" alignItems="flex-end">
-                  <Box fontWeight="700">${asset.formatted}</Box>
+                  <Box fontWeight="700">${formatNumber(asset.formatted)}</Box>
                   <Box color="#63676F" fontWeight="400" fontSize="12px">
                     2,500 USDC
                   </Box>
