@@ -8,6 +8,7 @@ interface RoundedButtonProps {
   text?: string;
   isLoading?: any;
   loadingText?: any;
+  type?: string;
 }
 
 const RoundedButton: React.FC<RoundedButtonProps> = ({

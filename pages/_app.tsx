@@ -28,6 +28,7 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
       case "/ramp":
       case "/wallet":
       case "/":
+      case "/account":
         return "url('/bg-blue.jpg')";
       case "/apps":
         return "url('/bg-yellow.jpg')";
