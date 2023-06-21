@@ -84,7 +84,6 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
         .get(asset === "MATIC" ? urlMATIC : urlNotMATIC, options)
         .then((response) => {
           setUserAssets(response.data);
-          console.log(response.data);
           setIsLoading(false);
         })
         .catch((error) => {
@@ -102,8 +101,7 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
     <Box fontWeight="400" color="#63676F">
       {displayBalance !== "NaN" && (
         <Text>
-          Available balance{" "}
-          {displayBalance ? `${"$"}${displayBalance} ${asset}` : "Error"}
+          {displayBalance ? `Available ${displayBalance} ${asset}` : "Error"}
         </Text>
       )}
     </Box>

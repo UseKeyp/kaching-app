@@ -9,14 +9,14 @@ interface SocialButtonProps {
 }
 
 const SocialButton: React.FC<SocialButtonProps> = ({ name, platform, handleActiveIcons }) => {
-  console.log("platforn === name", platform, name, platform === name);
   return (
     <Button
       display="flex"
       variant="unstyled"
       width="56px"
       borderRadius="100%"
-      bg="white"
+      bg={"white"}
+      opacity={platform === name ? "" : "0.4"}
       padding="10px"
       justifyContent="center"
       alignItems="center"

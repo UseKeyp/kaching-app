@@ -53,7 +53,7 @@ export const FormProvider = ({ children }: FormProviderProps) => {
   const [renderTxPage, setRenderTxPage] = useState(true);
   const [renderReviewPage, setRenderReviewPage] = useState(false);
   const [isConfirming, setIsConfirming] = useState(false);
-  const [platform, setPlatform] = useState<"google" | "discord">("google");
+  const [platform, setPlatform] = useState<"google" | "discord" | "twitter" | "twitch">("google");
   const [amount, setAmount] = useState<number | undefined>();
   const [asset, setAsset] = useState<string>("USDC");
   const [username, setUsername] = useState<string | undefined>();
