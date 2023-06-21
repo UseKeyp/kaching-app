@@ -53,14 +53,13 @@ const ASSET_DUMMY_DATA = {
 };
 
 const getAssetIcon = (name: string) => {
-  console.log({name})
   switch (name) {
     case "USDC":
       return <Icon name="dollar" />;
     case "WETH":
-      return <Icon name="weth" />
+      return <Icon name="weth" />;
     case "DAI":
-        return <Icon name="dai" />
+      return <Icon name="dai" />;
     case "MATIC":
       return <Icon name="matic" />;
     default:
@@ -78,6 +77,26 @@ const getAssetName = (symbol: string) => {
       return "Ethereum";
     default:
       return symbol;
+  }
+};
+
+const formatNumber = (number: string) => {
+  let num = parseFloat(number);
+  let numDecimals = num.toString().split('.')[1];
+
+  // If number is '0.0', return as '0.00'
+  if (num === 0) {
+    return num.toFixed(2);
+  }
+
+  // If there are less than 10 digits after ".", don't add extra zeroes
+  else if (numDecimals && numDecimals.length <= 10) {
+    return num.toFixed(numDecimals.length);
+  }
+
+  // If there are more than 10 digits after ".", round to 10 decimals
+  else {
+    return num.toFixed(10);
   }
 };
 
@@ -102,7 +121,7 @@ const Tokens = () => {
                 </Box>
               </Flex>
               <Flex flexDirection="column" alignItems="flex-end">
-                <Box fontWeight="700">${asset.formatted}</Box>
+                <Box fontWeight="700">{formatNumber(asset.formatted)}</Box>
                 <Box color="#63676F" fontWeight="400" fontSize="12px">
                   2,500 USDC
                 </Box>
