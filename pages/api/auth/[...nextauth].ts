@@ -46,6 +46,7 @@ export default NextAuth({
     async session({ session, token }) {
       // Send properties to the client, like an access_token from a provider.
       if (token) {
+        console.log(token.accessToken)
         session.user.accessToken = token.accessToken;
         session.user.username = token.username;
         session.user.address = token.address;
