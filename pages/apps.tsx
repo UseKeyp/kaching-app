@@ -15,8 +15,8 @@ const Apps = () => {
     <>
       <Wrap gap={6}>
         {appDetails.map((app) => (
-          <WrapItem>
-            <Link href={app.url} key={app.url}>
+          <WrapItem key={app.url}>
+            <Link href={app.url} >
               <Flex
                 flexDirection="column"
                 alignItems="start"
