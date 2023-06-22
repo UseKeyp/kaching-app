@@ -1,4 +1,12 @@
-import { Box, Flex, Heading, Image, Text, Tooltip } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Heading,
+  Image,
+  Link,
+  Text,
+  Tooltip,
+} from "@chakra-ui/react";
 import RoundedButton from "components/RoundedButton";
 import TransactionDetails from "components/TransactionDetails";
 import { signOut, useSession } from "next-auth/react";
@@ -58,7 +66,7 @@ const DATA_EXAMPLE = [
   {
     type: "CONTRACT_CALL",
     contractAddress: "0xbbb1111",
-    methodName: "deposit",
+    methodName: "deposit", // MintAndDeposit...WithRedeption
     timestamp: "2021-09-01T00:00:00Z",
     hash: "0x2401030c1B23eBf40b1a219AF6AaD0bc582dB656",
     explorerUrl: "https://polygonscan.io/tx/0xabc123...",
@@ -155,6 +163,13 @@ const Account = () => {
                 </>
               );
             })}
+          <Link
+            href={`https://polygonscan.com/address/${address}`}
+            p="16px"
+            fontWeight="700"
+          >
+            View All Transactions on Explorer
+          </Link>
         </Flex>
       </Box>
 

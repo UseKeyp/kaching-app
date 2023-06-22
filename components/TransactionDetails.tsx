@@ -1,4 +1,4 @@
-import { Box, Divider, Flex, Text } from "@chakra-ui/react";
+import { Box, Divider, Flex, Link, Text } from "@chakra-ui/react";
 import { Transactions } from "types/Transactions";
 import Icon from "./Icon";
 
@@ -37,7 +37,7 @@ const TransactionDetails: React.FC<TransactionDetailsProps> = ({ item }) => {
 
   const formattedTimestamp = formatDate(item.timestamp);
   return (
-    <Box>
+    <Link href={item.explorerUrl}>
       <Flex
         p="16px"
         fontSize="11px"
@@ -58,7 +58,9 @@ const TransactionDetails: React.FC<TransactionDetailsProps> = ({ item }) => {
                 <Icon name="matic" width="16px" height="16px" />
               </>
             ) : (
-              <Text>Text</Text>
+              <Text textTransform="capitalize" fontSize="16px" fontWeight="700">
+                {item.methodName}
+              </Text>
             )}
           </Box>
           <Box>
@@ -93,7 +95,7 @@ const TransactionDetails: React.FC<TransactionDetailsProps> = ({ item }) => {
       </Flex>
       <Divider borderColor="rgba(255, 255, 255, 0.5)" />
       <Divider borderColor="#C6E3F3" />
-    </Box>
+    </Link>
   );
 };
 
