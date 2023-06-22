@@ -1,15 +1,6 @@
-import {
-  Box,
-  Divider,
-  Flex,
-  Heading,
-  Image,
-  Text,
-  Tooltip,
-  VStack,
-} from "@chakra-ui/react";
-import Icon from "components/Icon";
+import { Box, Flex, Heading, Image, Text, Tooltip } from "@chakra-ui/react";
 import RoundedButton from "components/RoundedButton";
+import TransactionDetails from "components/TransactionDetails";
 import { signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 
@@ -19,7 +10,7 @@ const DATA_EXAMPLE = [
     to: {
       username: "pi0neerpat",
       platform: "DISCORD",
-      address: "0xffff123...",
+      address: "0x2401030c1B23eBf40b1a219AF6AaD0bc582dB656",
     },
     amount: {
       type: "POLYGON_MATIC",
@@ -37,13 +28,13 @@ const DATA_EXAMPLE = [
       chainId: 137,
     },
     timestamp: "2021-09-01T00:00:00Z",
-    hash: "0xabc123...",
+    hash: "0x2401030c1B23eBf40b1a219AF6AaD0bc582dB654",
     explorerUrl: "https://polygonscan.io/tx/0xabc123...",
   },
   {
     type: "TRANSFER",
     to: {
-      address: "0x2401...",
+      address: "0x2401030c1B23eBf40b1a219AF6AaD0bc582dB656",
     },
     amount: {
       type: "POLYGON_MATIC",
@@ -61,7 +52,7 @@ const DATA_EXAMPLE = [
       chainId: 137,
     },
     timestamp: "2021-09-01T00:00:00Z",
-    hash: "0xabc123...",
+    hash: "0x2401030c1B23eBf40b1a219AF6AaD0bc582dB655",
     explorerUrl: "https://polygonscan.io/tx/0xabc123...",
   },
   {
@@ -69,13 +60,14 @@ const DATA_EXAMPLE = [
     contractAddress: "0xbbb1111",
     methodName: "deposit",
     timestamp: "2021-09-01T00:00:00Z",
-    hash: "0xabc123...",
+    hash: "0x2401030c1B23eBf40b1a219AF6AaD0bc582dB656",
     explorerUrl: "https://polygonscan.io/tx/0xabc123...",
   },
 ];
 
 const Account = () => {
   const [openTooltip, setOpenTooltip] = useState(false);
+  const [data, setData] = useState(DATA_EXAMPLE);
 
   const { data: session } = useSession();
 
@@ -155,28 +147,14 @@ const Account = () => {
           flexDirection="column"
           overflow="hidden"
         >
-          <Box>
-            <Flex p="16px" fontSize="11px" justifyContent="space-between" lineHeight="130%">
-              <Flex gap={1} flexDirection="column" justifyContent="space-between" alignItems="flex-start">
-                <Text textTransform="uppercase">Jan 04</Text>
-                <Icon name="matic" width="16px" height="16px" />
-                <Text>Recipient</Text>
-              </Flex>
-              <Flex gap={1} flexDirection="column" justifyContent="space-between" alignItems="flex-end">
-                <Text textTransform="uppercase">Transfer</Text>
-                <Text fontSize="16px" fontWeight="700">2.5436 MATIC</Text>
-                <Text>0x2401030c1B23eBf40b1a219AF6AaD0bc582dB654</Text>
-              </Flex>
-            </Flex>
-            <Divider borderColor="rgba(255, 255, 255, 0.5)" />
-            <Divider borderColor="#C6E3F3" />
-          </Box>
-
-          <Box>
-            <Box p="16px">SeconsRow</Box>
-            <Divider borderColor="rgba(255, 255, 255, 0.5)" />
-            <Divider borderColor="#C6E3F3" />
-          </Box>
+          {data &&
+            data.map((item, index) => {
+              return (
+                <>
+                  <TransactionDetails item={item} key={index} />{" "}
+                </>
+              );
+            })}
         </Flex>
       </Box>
 
