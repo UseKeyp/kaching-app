@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Transfers } from "../types/Transfers";
+import { signOut } from "next-auth/react";
 
 interface UseKeypApiProps {
   accessToken: string | undefined;
@@ -38,6 +39,9 @@ const UseKeypApi = async ({
   })
     .then((response) => {
       console.log(response.data);
+      if (response?.status === 401) {
+        signOut();
+      }
       return response.data;
     })
     .catch((error) => {
