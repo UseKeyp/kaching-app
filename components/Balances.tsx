@@ -93,14 +93,13 @@ const Balances: React.FC<BalancesProps> = ({ onClick }) => {
 
   const formatNumber = (number: string) => {
     let num = parseFloat(number);
-    let numDecimals = num.toString().split(".")[1];
 
     if (num === 0) {
-      return num.toFixed(2);
-    } else if (numDecimals && numDecimals.length <= 10) {
-      return num.toFixed(numDecimals.length);
+      return "0.0000";
+    } else if (num < 0.0001) {
+      return "< 0.0001";
     } else {
-      return num.toFixed(10);
+      return num.toFixed(4);
     }
   };
 
@@ -156,10 +155,8 @@ const Balances: React.FC<BalancesProps> = ({ onClick }) => {
                   </Box>
                 </Flex>
                 <Flex flexDirection="column" alignItems="flex-end">
-                  <Box fontWeight="700">${formatNumber(asset.formatted)}</Box>
-                  <Box color="#63676F" fontWeight="400" fontSize="12px">
-                    2,500 USDC
-                  </Box>
+                  <Box fontWeight="700">{formatNumber(asset.formatted)}</Box>
+                  <Box color="#63676F" fontWeight="400" fontSize="12px"></Box>
                 </Flex>
               </Flex>
               <Divider borderColor="rgba(255, 255, 255, 0.5)" />
