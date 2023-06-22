@@ -14,6 +14,20 @@ const Navbar = () => {
   const address = session && session.user.address;
   const username = session && session.user.username;
 
+  const getIconColor = (name: string) => {
+    if (name === "wallet" && (router.pathname === "/wallet" || router.pathname === "/")) {
+      return "#1499DA";
+    } else if (name === "send" && router.pathname === "/send") {
+      return "#3A8500"
+    } else if (name === "ramp" && router.pathname === "/ramp") {
+      return "#1499DA"
+    } else if (name === "apps" && router.pathname === "/apps") {
+      return "#D28200"
+    } else {
+      return "#B0B6C1"
+    }
+  };
+
   return (
     <Box
       position="fixed"
@@ -34,7 +48,7 @@ const Navbar = () => {
           >
             <Icon
               name="wallet"
-              color={router.pathname === "/wallet" ? "#1499DA" : "#B0B6C1"}
+              color={getIconColor("wallet")}
             />
           </Button>
         </Flex>
@@ -46,7 +60,7 @@ const Navbar = () => {
           >
             <Icon
               name="send"
-              color={router.pathname === "/send" ? "#1499DA" : "#B0B6C1"}
+              color={getIconColor("send")}
             />
           </Button>
         </Flex>
@@ -58,7 +72,7 @@ const Navbar = () => {
           >
             <Icon
               name="ramp"
-              color={router.pathname === "/ramp" ? "#1499DA" : "#B0B6C1"}
+              color={getIconColor("ramp")}
             />
           </Button>
         </Flex>
@@ -70,7 +84,7 @@ const Navbar = () => {
           >
             <Icon
               name="apps"
-              color={router.pathname === "/apps" ? "#1499DA" : "#B0B6C1"}
+              color={getIconColor("apps")}
             />
           </Button>
         </Flex>

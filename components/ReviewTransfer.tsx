@@ -84,6 +84,7 @@ const ReviewTransfer = () => {
       const req = await handleTokenTransfer(username, asset, amount.toString());
       console.log(req);
       if (req.status === "SUCCESS") {
+        
         console.log(req);
         router.push({
           pathname: "/confirmation/send",
@@ -249,7 +250,7 @@ const ReviewTransfer = () => {
           onClick={() => handleTxType()}
           variant="formGreen"
           isLoading={sendingTx}
-          loadingText={type === "request" ? "Requesting..." : "Sending..."}
+          loadingText={type === "request" ? "Transaction processing..." : "Sending..."}
         >
           {type === "send" ? "Send!" : "Request!"}
         </Button>
