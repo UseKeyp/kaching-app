@@ -191,7 +191,7 @@ const Arrows = () => {
   );
 };
 
-const MaticIcon = ({width, height}) => {
+const MaticIcon = ({width = "24px", height="24px"}) => {
   return (
     <svg
       width={width}

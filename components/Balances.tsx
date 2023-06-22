@@ -64,6 +64,7 @@ const Balances: React.FC<BalancesProps> = ({ onClick }) => {
   const assetsList = assets && Object.values(assets);
 
   const getAssetIcon = (name: string) => {
+    console.log({name})
     switch (name) {
       case "USDC":
         return <Icon name="dollar" />;
@@ -72,6 +73,7 @@ const Balances: React.FC<BalancesProps> = ({ onClick }) => {
       case "DAI":
         return <Icon name="dai" />;
       case "MATIC":
+        console.log("matic?")
         return <Icon name="matic" />;
       default:
         return <Icon name="dollar" />;
