@@ -27,6 +27,8 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
         return "url('/bg-green.jpg')";
       case "/ramp":
       case "/wallet":
+      case "/play":
+        return "url('/bg-grey.jpg')";
       case "/":
         return "url('/bg-blue.jpg')";
       case "/apps":
@@ -36,7 +38,6 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
     }
   };
   
-
   return (
     <ChakraProvider theme={theme}>
       <Fonts />
