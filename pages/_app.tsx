@@ -25,10 +25,10 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
     switch (router.pathname) {
       case "/send":
         return "url('/bg-green.jpg')";
-      case "/ramp":
-      case "/wallet":
       case "/play":
         return "url('/bg-grey.jpg')";
+      case "/ramp":
+      case "/wallet":
       case "/":
       case "/account":
         return "url('/bg-blue.jpg')";
@@ -38,7 +38,7 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
         return "url('/bg-color.jpg')";
     }
   };
-  
+
   return (
     <ChakraProvider theme={theme}>
       <Fonts />
