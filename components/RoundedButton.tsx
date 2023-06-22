@@ -8,7 +8,10 @@ interface RoundedButtonProps {
   text?: string;
   isLoading?: any;
   loadingText?: any;
+  type?: string;
 }
+
+
 
 const RoundedButton: React.FC<RoundedButtonProps> = ({
   isValid,
@@ -16,18 +19,30 @@ const RoundedButton: React.FC<RoundedButtonProps> = ({
   text,
   isLoading,
   loadingText,
+  type
 }) => {
+
+  const getColor = () => {
+    if (isValid) {
+      return "white"
+    } else if (type === "logout") {
+      return "#E45200"
+    } else {
+      return "#0D7007"
+    }
+  }
+
   return (
     <Button
       isLoading={isLoading}
       loadingText={loadingText}
       bg={isValid ? "#0D7007" : "transparent"}
-      color={isValid ? "white" : "#0D7007"}
+      color={getColor()}
+      border={`2px solid ${getColor()}`}
       type="submit"
       display="flex"
       variant="unstyled"
       width="100%"
-      border="2px solid #0D7007"
       borderRadius="40px"
       height="64px"
       fontSize="24px"
@@ -38,7 +53,7 @@ const RoundedButton: React.FC<RoundedButtonProps> = ({
     >
       <Text>{text}</Text>
       <Box ml="auto">
-        <Icon name="arrowRight" color={isValid ? "white" : "#0D7007"} />
+        <Icon name="arrowRight" color={getColor()} />
       </Box>
     </Button>
   );
