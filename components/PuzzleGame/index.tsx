@@ -99,10 +99,9 @@ export const PuzzleGame = () => {
     try {
       const result = await writeContract({
         accessToken: session?.user.accessToken,
-        address: process.env.NEXT_PUBLIC_PUZZLE_NFT_ADDRESS || "",
+        address: "0x841f6bf42a41c4ded1b9c3d09dbcb5b0da634c05",
         abi: "mint(address,uint256)",
         args: [address || "", '1'],
-        value: "0",
       });
 
       if (result.status === "SUCCESS") {
