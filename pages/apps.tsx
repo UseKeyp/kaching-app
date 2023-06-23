@@ -1,6 +1,7 @@
 import React from "react";
-import { Wrap, WrapItem, Flex, Image, Text, Link } from "@chakra-ui/react";
+import { Wrap, WrapItem, Flex, Image, Text } from "@chakra-ui/react";
 import styles from "../components/Play/Play.module.css";
+import Link from "next/link";
 
 const appDetails = [
   {
@@ -16,7 +17,7 @@ const Apps = () => {
       <Wrap gap={6}>
         {appDetails.map((app) => (
           <WrapItem key={app.url}>
-            <Link href={app.url} >
+            <Link href={app.url}>
               <Flex
                 flexDirection="column"
                 alignItems="start"

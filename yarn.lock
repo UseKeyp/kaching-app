@@ -4699,13 +4699,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@remix-run/router@npm:1.6.3":
-  version: 1.6.3
-  resolution: "@remix-run/router@npm:1.6.3"
-  checksum: d419fab24288123d8564a051c4a0e8cf46fb0f8fb7285701a819efb7f30b67785d0b63d21900a781485dea2d27271d78f2c56cb8b4b3fdb2ad72b61483989bd3
-  languageName: node
-  linkType: hard
-
 "@rollup/plugin-babel@npm:^5.2.0":
   version: 5.3.1
   resolution: "@rollup/plugin-babel@npm:5.3.1"
@@ -13198,7 +13191,6 @@ __metadata:
     react-dom: 18.2.0
     react-hook-form: ^7.43.3
     react-icons: ^4.7.1
-    react-router-dom: ^6.13.0
     react-sparkle: ^2.0.0
     react-step-wizard: ^5.3.11
     react-type-animation: ^3.0.1
@@ -16257,30 +16249,6 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 4952657e6a7b9d661d4ad4dfcef81b9c7fa493e35164abff99c35c0b27b3d172ef7ad70c09416dc44dd14ff2e6b38a5ec7da27e27e90a15cbad36b8fd2fd8054
-  languageName: node
-  linkType: hard
-
-"react-router-dom@npm:^6.13.0":
-  version: 6.13.0
-  resolution: "react-router-dom@npm:6.13.0"
-  dependencies:
-    "@remix-run/router": 1.6.3
-    react-router: 6.13.0
-  peerDependencies:
-    react: ">=16.8"
-    react-dom: ">=16.8"
-  checksum: 760c57063e305b0623f7b39bca3c7f5c169af557867eac7d1b19419111f7b6a9ed95d2083305c40ce98fd3be27e82c61f5674c90dd066a67653cb15901d00991
-  languageName: node
-  linkType: hard
-
-"react-router@npm:6.13.0":
-  version: 6.13.0
-  resolution: "react-router@npm:6.13.0"
-  dependencies:
-    "@remix-run/router": 1.6.3
-  peerDependencies:
-    react: ">=16.8"
-  checksum: c58b4b943d3a76d328c6ef299567a85d84a69b417f5f5d07596b0b9bd40632a828591d6f470b0f233ff9095f489f9fd5c8666fb03513e9470927447169a91d8a
   languageName: node
   linkType: hard
 

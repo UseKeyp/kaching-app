@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import Sparkles from "react-sparkle";
 import { TypeAnimation } from "react-type-animation";
 import { writeContract } from "@usekeyp/js-sdk";
+import { useRouter } from 'next/router';
 
 const CURRENT_WEEK = 1;
 
@@ -25,13 +26,12 @@ type GameLog = {
   moveNumber: number;
 };
 
-const checkIsSolved = (puzzle: PuzzleGame) => {
-  return puzzle.every((item: number | null, index: number) => {
-    return item === index + 1 || item === null;
-  });
-};
+
 
 export const PuzzleGame = () => {
+  const router = useRouter();
+  const { query } = router;
+
   const [displayStartScreen, setDisplayStartScreen] = useState<boolean>(true);
   const [puzzle, setPuzzle] = useState<PuzzleGame>(DEFAULT_PUZZLE_STATE);
   const [shufflingPuzzle, setShufflingPuzzle] =
@@ -52,6 +52,12 @@ export const PuzzleGame = () => {
   const { data: session } = useSession();
   const address = session && session.user.address;
 
+  const checkIsSolved = (puzzle: PuzzleGame) => {
+    if (!!router.query.solved) return true
+    return puzzle.every((item: number | null, index: number) => {
+      return item === index + 1 || item === null;
+    });
+  };
   useEffect(() => {
     const isPuzzleSolved = checkIsSolved(puzzle);
 
@@ -266,7 +272,7 @@ export const PuzzleGame = () => {
               {mintingStatus === ERROR && (
                 <HStack>
                   <span className={styles.errorMessageText}>
-                    Errroorrrrrr. Something went wrong. 
+                    Whoops! Something went wrong. 
                   </span>
                 </HStack>
               )}
