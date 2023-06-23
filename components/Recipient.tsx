@@ -13,7 +13,7 @@ interface RecipientProps {
 type Platform = 'google' | 'discord' | 'twitter' | 'twitch';
 
 const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
-  const { setPlatform, platform, type, setUsername } = useFormContext();
+  const { setPlatform, platform, type, setUsername, username } = useFormContext();
   const localForm = useForm<FieldValues>();
   const {
     getValues,
@@ -50,7 +50,6 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
       return val.includes("#") || "Oops. Thats not a Discord address.";
     }
   };
-
   return (
     <Flex flexDirection="column">
       <Heading
@@ -84,6 +83,7 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
       </Flex>
       <Input
         {...register("username", {
+          value: username,
           required: "Cannot be blank",
           minLength: {
             value: 1,

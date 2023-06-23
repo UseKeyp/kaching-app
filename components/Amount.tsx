@@ -21,7 +21,6 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any, isActive?: any }) => {
     clearErrors,
     formState: { errors, isValid },
   } = localForm;
-  const token = "USDC";
 
   const values = getValues();
   watch();
@@ -99,26 +98,27 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any, isActive?: any }) => {
       </Flex>
       <Flex>
         <Input
-          color="#155A11"
-          textAlign="right"
           {...register("amount", {
+            value: amount,
             required: {
               value: true,
               message: `Enter asset amount`,
             },
             validate: amountValidation,
           })}
-          placeholder={amount ? `${amount}` : `0`}
+          placeholder={"0"}
+          _placeholder={{ color: "#155A11", opacity: 1 }}
           mb="8px"
           height="64px"
           bg="rgba(255, 255, 255, 0.8)"
           fontSize="24px"
           fontWeight="700"
-          _placeholder={{ color: "#155A11", opacity: 1 }}
           borderTopRightRadius="0px"
           borderBottomRightRadius="0px"
           border="none"
           paddingRight="9px"
+          textAlign="right"
+          color="#155A11"
         />
         <Box
           bg="rgba(255, 255, 255, 0.8)"
