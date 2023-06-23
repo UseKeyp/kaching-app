@@ -99,6 +99,7 @@ export const PuzzleGame = () => {
     try {
       const result = await writeContract({
         accessToken: session?.user.accessToken,
+        // TODO: Contract address is incorrect
         address: "0x841f6bf42a41c4ded1b9c3d09dbcb5b0da634c05",
         abi: "mint(address,uint256)",
         args: [address || "", '1'],
@@ -117,6 +118,7 @@ export const PuzzleGame = () => {
       setPendingMint(false);
       setMintingStatus(ERROR);
       setMintErrorMessage("");
+      console.log(e)
       console.error("There was an error with the writeContract call to mint");
     }
   };
