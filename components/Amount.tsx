@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Input } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Input } from "@chakra-ui/react";
 import { FieldValues, useForm } from "react-hook-form";
 import { useFormContext } from "context/FormContext";
 import AssetBalance from "./AssetBalance";
@@ -144,6 +144,19 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
       </Flex>
       <Flex alignItems="flex-start" justifyContent="space-between" mb="24px">
         <AssetBalance setBalanceError={setBalanceError} />
+        <Button
+          display="flex"
+          alignItems="flex-start"
+          variant="unstyled"
+          fontSize="13px"
+          fontWeight="700"
+          color="#B0B6C1"
+          height="21px"
+          onClick={() => goToStep(4)}
+          mixBlendMode="multiply"
+        >
+          Change Token
+        </Button>
       </Flex>
       <RoundedButton
         isValid={isValid}
