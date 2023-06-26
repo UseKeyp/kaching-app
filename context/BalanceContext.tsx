@@ -6,7 +6,7 @@ import { UserBalance } from "types/keypEndpoints";
 import { supportedAssets } from "utils/general";
 
 const BalanceContext = React.createContext({
-  balance: {},
+  balance: "",
   error: null,
   loading: false,
 });
@@ -22,7 +22,7 @@ export const BalanceProvider: React.FC<BalanceProviderProps> = ({
 
   const { data: session } = useSession();
   const { asset } = useFormContext();
-  const [balance, setBalance] = useState({}); // change to number
+  const [balance, setBalance] = useState(""); // change to number
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const tokenAddress = supportedAssets[asset];
