@@ -64,7 +64,6 @@ const Balances: React.FC<BalancesProps> = ({ onClick }) => {
   const assetsList = assets && Object.values(assets);
 
   const getAssetIcon = (name: string) => {
-    console.log({name})
     switch (name) {
       case "USDC":
         return <Icon name="dollar" />;
@@ -130,6 +129,7 @@ const Balances: React.FC<BalancesProps> = ({ onClick }) => {
           axios.spread((firstResponse, daiResponse, wethResponce) => {
             let DAI = Object.values(daiResponse.data);
             let WETH = Object.values(wethResponce.data);
+            console.log("balances", firstResponse.data, "Dai: ", DAI[0], WETH[0])
             setAssets({ ...firstResponse.data, DAI: DAI[0], WETH: WETH[0] });
             setIsLoading(false);
           })
