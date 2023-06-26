@@ -48,10 +48,21 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
   const emailValidation = (val: string) => {
     if (platform === "google") {
       return val.includes("@") || "Oops. Thats not a Gmail address.";
-    } else {
-      return val.includes("#") || "Oops. Thats not a Discord address.";
     }
   };
+
+  const getPlatformPlaceholder = () => {
+    if (platform === "google") {
+      return "Recipient Email";
+    } else if (platform === "discord") {
+      return "Discord Username";
+    } else if (platform === "twitter") {
+      return "Twitter Username";
+    } else if (platform === "twitch") {
+      return "Twitch Username";
+    }
+  };
+
   return (
     <Flex flexDirection="column">
       <Heading
@@ -94,7 +105,7 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
           validate: emailValidation,
         })}
         type={platform === "google" ? "email" : "text"}
-        placeholder={platform === "google" ? "Add Gmail" : "Discord Username"}
+        placeholder={getPlatformPlaceholder()}
         mb="24px"
         height="64px"
         bg="rgba(255, 255, 255, 0.8)"
@@ -126,7 +137,7 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
       </Flex>
       <Flex>
         <Box mr="8px">
-          <RoundedButton text="Cancel" arrow={false} />
+          <RoundedButton text="Cancel" arrow={false} onClick={previousStep} />
         </Box>
         <RoundedButton
           isValid={isValid}
