@@ -103,6 +103,10 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
               value: true,
               message: `Enter asset amount`,
             },
+            pattern: {
+              value: /^[0-9.,]*$/, // only allows numeric input
+              message: "You can only enter numeric value",
+            },
             validate: amountValidation,
           })}
           placeholder={"0"}
