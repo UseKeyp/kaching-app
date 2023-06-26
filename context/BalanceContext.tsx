@@ -42,7 +42,6 @@ export const BalanceProvider: React.FC<BalanceProviderProps> = ({
         asset === "MATIC" ? urlMATIC : urlNotMATIC,
         options
       );
-      console.log("responce balanceContext", response.data);
       const contractAddress = Object.keys(response.data)[0]; // Get the first key from the object
       const formattedBalance = response.data[contractAddress].formatted;
       setBalance(Number(formattedBalance).toFixed(4));
@@ -59,7 +58,6 @@ export const BalanceProvider: React.FC<BalanceProviderProps> = ({
     }
     // eslint-disable-next-line
   }, [session, asset]);
-  console.log({loading})
   return (
     <BalanceContext.Provider value={{ balance, error, loading }}>
       {children}
