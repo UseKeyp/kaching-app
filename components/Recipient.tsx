@@ -5,15 +5,17 @@ import Icon from "./Icon";
 import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
 import SocialButton from "./SocialButton";
+import RoundedButton from "./RoundedButton";
 
 interface RecipientProps {
   previousStep: () => void;
 }
 
-type Platform = 'google' | 'discord' | 'twitter' | 'twitch';
+type Platform = "google" | "discord" | "twitter" | "twitch";
 
 const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
-  const { setPlatform, platform, type, setUsername, username } = useFormContext();
+  const { setPlatform, platform, type, setUsername, username } =
+    useFormContext();
   const localForm = useForm<FieldValues>();
   const {
     getValues,
@@ -101,32 +103,38 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
         _placeholder={{ color: "#155A11", opacity: 1 }}
       />
       <Flex mb="107px" justifyContent="space-between">
-        <SocialButton name="google" platform={platform} handleActiveIcons={handleActiveIcons}/>
-        <SocialButton name="discord" platform={platform} handleActiveIcons={handleActiveIcons}/>
-        <SocialButton name="twitter" platform={platform} handleActiveIcons={handleActiveIcons}/>
-        <SocialButton name="twitch" platform={platform} handleActiveIcons={handleActiveIcons}/>
+        <SocialButton
+          name="google"
+          platform={platform}
+          handleActiveIcons={handleActiveIcons}
+        />
+        <SocialButton
+          name="discord"
+          platform={platform}
+          handleActiveIcons={handleActiveIcons}
+        />
+        <SocialButton
+          name="twitter"
+          platform={platform}
+          handleActiveIcons={handleActiveIcons}
+        />
+        <SocialButton
+          name="twitch"
+          platform={platform}
+          handleActiveIcons={handleActiveIcons}
+        />
       </Flex>
-      <Button
-        bg={isValid ? "#0D7007" : "transparent"}
-        color={isValid ? "white" : "#0D7007"}
-        type="submit"
-        display="flex"
-        variant="unstyled"
-        width="100%"
-        border="2px solid #0D7007"
-        borderRadius="40px"
-        height="64px"
-        fontSize="24px"
-        px="24px"
-        py="16px"
-        onClick={() => handleRecipient()}
-        disabled
-      >
-        <Text>Confirm Recipient</Text>
-        <Box ml="auto">
-          <Icon name="arrowRight" color={isValid ? "white" : "#0D7007"} />
+      <Flex>
+        <Box mr="8px">
+          <RoundedButton text="Cancel" arrow={false} />
         </Box>
-      </Button>
+        <RoundedButton
+          isValid={isValid}
+          type="submit"
+          onClick={handleRecipient}
+          text="Confirm"
+        />
+      </Flex>
     </Flex>
   );
 };
