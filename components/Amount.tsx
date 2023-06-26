@@ -1,5 +1,4 @@
 import { Box, Flex, Heading, Input } from "@chakra-ui/react";
-import { useMergeRefs } from '@chakra-ui/react'
 import { FieldValues, useForm } from "react-hook-form";
 import { useFormContext } from "context/FormContext";
 import AssetBalance from "./AssetBalance";
@@ -7,8 +6,7 @@ import { useState, useEffect, useRef } from "react";
 import { ErrorMessage } from "@hookform/error-message";
 import RoundedButton from "./RoundedButton";
 
-const Amount = ({ goToStep, isActive }: { goToStep?: any, isActive?: any }) => {
-  const amountInput = useRef<HTMLInputElement>(null);
+const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
   const [balanceError, setBalanceError] = useState(false);
   const { amount, setAmount, asset } = useFormContext();
   const localForm = useForm<FieldValues>();
@@ -65,6 +63,7 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any, isActive?: any }) => {
     setBalanceError(false);
     return true;
   };
+
   return (
     <Flex flexDirection="column">
       <Heading
@@ -108,6 +107,12 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any, isActive?: any }) => {
           })}
           placeholder={"0"}
           _placeholder={{ color: "#155A11", opacity: 1 }}
+          sx={{
+            "&:focus": {
+              borderColor: "initial",
+              boxShadow: "none",
+            },
+          }}
           mb="8px"
           height="64px"
           bg="rgba(255, 255, 255, 0.8)"
