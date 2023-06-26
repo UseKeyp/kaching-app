@@ -18,16 +18,15 @@ type BalanceProviderProps = {
 export const BalanceProvider: React.FC<BalanceProviderProps> = ({
   children,
 }) => {
-  const [userAssets, setUserAssets] = useState<UserBalance | undefined>();
-
   const { data: session } = useSession();
   const { asset } = useFormContext();
-  const [balance, setBalance] = useState(""); // change to number
+  const [balance, setBalance] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const tokenAddress = supportedAssets[asset];
 
   const fetchBalance = async () => {
+    setLoading(true);
     try {
       const ACCESS_TOKEN = session?.user.accessToken;
       const userId = session?.user.id;
@@ -47,8 +46,10 @@ export const BalanceProvider: React.FC<BalanceProviderProps> = ({
       const contractAddress = Object.keys(response.data)[0]; // Get the first key from the object
       const formattedBalance = response.data[contractAddress].formatted;
       setBalance(Number(formattedBalance).toFixed(4));
+      setLoading(false);
     } catch {
       console.error(error);
+      setError(error);
     }
   };
 
@@ -58,7 +59,7 @@ export const BalanceProvider: React.FC<BalanceProviderProps> = ({
     }
     // eslint-disable-next-line
   }, [session, asset]);
-
+  console.log({loading})
   return (
     <BalanceContext.Provider value={{ balance, error, loading }}>
       {children}
