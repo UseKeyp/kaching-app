@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   Box,
   Button,
+  Flex,
   Heading,
   HStack,
   Image,
@@ -21,12 +22,8 @@ const Login = () => {
 
   console.log(session);
 
-  const handleGoogleLogin = () => {
-    signIn("keyp", undefined, "login_provider=GOOGLE");
-  };
-
-  const handleDiscordLogin = () => {
-    signIn("keyp", undefined, "login_provider=DISCORD");
+  const handleLogin = (provider) => {
+    signIn("keyp", undefined, `login_provider=${provider}`);
   };
 
   useEffect(() => {
@@ -37,7 +34,7 @@ const Login = () => {
 
   return (
     <>
-      <Box textAlign="center" px="0.5rem">
+      <Box textAlign="center">
         <Heading
           as="h1"
           color="pink"
@@ -46,102 +43,13 @@ const Login = () => {
         >
           <Text>Kaching</Text>
         </Heading>
-        <div className="text-red-600">HELLLO RED TAILWIND</div>
-        <div className="my_class">HELLO GREEN TAILWIND</div>
-        <Box my={"2rem"}>
-          <Text textAlign="center" fontSize="5rem">
-            👋
-          </Text>
-        </Box>
-        <LoginPortal providers={["GOOGLE", "DISCORD"]}></LoginPortal>
-        <Stack
-          direction="column"
-          m="auto"
-          spacing={3}
-          textAlign="left"
-          px={[0, 0, "10rem", "20rem"]}
-        >
-          <Box
-            w="full"
-            textAlign="left"
-            color="loginBtnGray"
-            fontFamily="inter"
-            fontWeight="normal"
-          >
-            Signup or Login with
-          </Box>
-          <HStack
-            onMouseEnter={() => setActiveBtn("google")}
-            onMouseLeave={() => setActiveBtn("")}
-          >
-            <Button
-              variant="login"
-              onClick={() => handleGoogleLogin()}
-              _hover={{
-                bg: "googleBlue",
-                color: "white",
-              }}
-            >
-              <Image
-                src={
-                  activeBtn === "google"
-                    ? "social-bg-white.svg"
-                    : "social-bg-light.svg"
-                }
-                alt=""
-                w="2.5rem"
-              />
-              <Box position="absolute" ml="0.65rem">
-                <FaGoogle
-                  color={activeBtn === "google" ? "#4285F4" : "white"}
-                  size="20px"
-                />
-              </Box>
-              <Text ml="1rem">Google</Text>
-            </Button>
-          </HStack>
-          <HStack
-            onMouseEnter={() => setActiveBtn("discord")}
-            onMouseLeave={() => setActiveBtn("")}
-          >
-            <Button
-              variant="login"
-              onClick={() => handleDiscordLogin()}
-              _hover={{
-                bg: "discordBlue",
-                color: "white",
-              }}
-            >
-              <Image
-                src={
-                  activeBtn === "discord"
-                    ? "social-bg-white.svg"
-                    : "social-bg-light.svg"
-                }
-                alt=""
-                w="2.5rem"
-              />
-              <Box
-                position="absolute"
-                ml="0.65rem"
-                _hover={{
-                  color: "#5865F2",
-                }}
-              >
-                <FaDiscord
-                  color={activeBtn === "discord" ? "#5865F2" : "white"}
-                  size="20px"
-                />
-              </Box>
-              <Text ml="1rem">Discord</Text>
-            </Button>
-          </HStack>
-          <Box>
-            <Text color="#B0B6C1" fontSize="0.75rem" fontFamily="inter">
-              Powered by 🍩 Keyp
-            </Text>
-          </Box>
-        </Stack>
+        <Flex justifyContent="center">
+          <LoginPortal
+            providers={["GOOGLE", "TWITTER", "DISCORD"]}
+            additionalProviders={["TWITCH"]}
+            onClick={handleLogin}
+          ></LoginPortal>
+        </Flex>
       </Box>
     </>
   );
