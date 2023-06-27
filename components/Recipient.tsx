@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Flex,
   Heading,
   Input,
@@ -9,12 +8,9 @@ import {
 } from "@chakra-ui/react";
 import { FieldValues, useForm } from "react-hook-form";
 import { useFormContext } from "context/FormContext";
-import Icon from "./Icon";
 import { ErrorMessage } from "@hookform/error-message";
-import { useState } from "react";
 import SocialButton from "./SocialButton";
 import RoundedButton from "./RoundedButton";
-import Container from "./Container";
 
 interface RecipientProps {
   previousStep: () => void;
