@@ -37,14 +37,14 @@ const Login = () => {
 
   return (
     <>
-      <Box textAlign="center" fontFamily="sharpie" px="0.5rem">
+      <Box textAlign="center" px="0.5rem">
         <Heading
           as="h1"
           color="pink"
           fontSize={["5rem", "8rem"]}
           fontWeight="extrabold"
         >
-          <Text fontFamily="sharpie">Kaching</Text>
+          <Text>Kaching</Text>
         </Heading>
         <div className="text-red-600">HELLLO RED TAILWIND</div>
         <div className="my_class">HELLO GREEN TAILWIND</div>
