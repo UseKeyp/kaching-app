@@ -1,4 +1,12 @@
-import { Box, Button, Flex, Heading, Input, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Input,
+  Text,
+  useMediaQuery,
+} from "@chakra-ui/react";
 import { FieldValues, useForm } from "react-hook-form";
 import { useFormContext } from "context/FormContext";
 import Icon from "./Icon";
@@ -6,6 +14,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
 import SocialButton from "./SocialButton";
 import RoundedButton from "./RoundedButton";
+import Container from "./Container";
 
 interface RecipientProps {
   previousStep: () => void;
@@ -24,6 +33,8 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
     trigger,
     formState: { errors, isValid },
   } = localForm;
+
+  const [isLargerThan380] = useMediaQuery("(min-width: 380px)");
 
   const values = getValues();
   watch();
@@ -72,6 +83,8 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
         color="#33912E"
         textTransform="capitalize"
         mb="40px"
+        width="343px"
+        mx="auto"
       >
         Send to
       </Heading>
@@ -94,6 +107,48 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
           }}
         />
       </Flex>
+      <Box overflowX={isLargerThan380 ? "unset" : "scroll"} pb="32px">
+        <Flex
+          gap="24px"
+          minW="min-content"
+          paddingLeft={isLargerThan380 ? "0" : "16px"}
+          width={isLargerThan380 ? "343px" : ""}
+          mx={isLargerThan380 ? "auto" : "0"}
+          flexWrap={isLargerThan380 ? "wrap" : "nowrap"}
+        >
+          <SocialButton
+            name="google"
+            platform={platform}
+            handleActiveIcons={handleActiveIcons}
+          />
+          <SocialButton
+            name="discord"
+            platform={platform}
+            handleActiveIcons={handleActiveIcons}
+          />
+          <SocialButton
+            name="twitter"
+            platform={platform}
+            handleActiveIcons={handleActiveIcons}
+          />
+          <SocialButton
+            name="twitch"
+            platform={platform}
+            handleActiveIcons={handleActiveIcons}
+          />
+          <SocialButton
+            name="reddit"
+            platform={platform}
+            handleActiveIcons={handleActiveIcons}
+          />
+          <SocialButton
+            name="chess"
+            platform={platform}
+            handleActiveIcons={handleActiveIcons}
+          />
+        </Flex>
+      </Box>
+
       <Input
         {...register("username", {
           value: username,
@@ -112,30 +167,11 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
         fontSize="24px"
         fontWeight="400"
         _placeholder={{ color: "#155A11", opacity: 1 }}
+        mx="auto"
+        width="343px"
       />
-      <Flex mb="107px" justifyContent="space-between">
-        <SocialButton
-          name="google"
-          platform={platform}
-          handleActiveIcons={handleActiveIcons}
-        />
-        <SocialButton
-          name="discord"
-          platform={platform}
-          handleActiveIcons={handleActiveIcons}
-        />
-        <SocialButton
-          name="twitter"
-          platform={platform}
-          handleActiveIcons={handleActiveIcons}
-        />
-        <SocialButton
-          name="twitch"
-          platform={platform}
-          handleActiveIcons={handleActiveIcons}
-        />
-      </Flex>
-      <Flex>
+
+      <Flex width="343px" mx="auto">
         <Box mr="8px">
           <RoundedButton text="Cancel" arrow={false} onClick={previousStep} />
         </Box>
