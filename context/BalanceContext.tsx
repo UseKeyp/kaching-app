@@ -3,10 +3,10 @@ import { signOut, useSession } from "next-auth/react";
 import React, { useEffect, useState, ReactNode } from "react";
 import { useFormContext } from "context/FormContext";
 import { UserBalance } from "types/keypEndpoints";
-import { supportedAssets } from "utils/general";
+import { KEYP_BASE_URL_V1, supportedAssets } from "utils/general";
 
 const BalanceContext = React.createContext({
-  balance: "",
+  balance: {},
   error: null,
   loading: false,
 });
@@ -15,41 +15,60 @@ type BalanceProviderProps = {
   children: ReactNode;
 };
 
+// return object with all tokens, that have the same type
+// const { balances } = useBalance()
+// console.log(balances) should output all the return objects from the api, and component take what it needs depending on the asset
+
 export const BalanceProvider: React.FC<BalanceProviderProps> = ({
   children,
 }) => {
   const { data: session } = useSession();
   const { asset } = useFormContext();
-  const [balance, setBalance] = useState("");
+  const [balance, setBalance] = useState({}); // change to object with all available tokens
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const tokenAddress = supportedAssets[asset];
 
-  const fetchBalance = async () => {
+  const fetchBalance = () => {
     setLoading(true);
-    try {
-      const ACCESS_TOKEN = session?.user.accessToken;
-      const userId = session?.user.id;
-      const options = {
-        headers: {
-          Authorization: `Bearer ${ACCESS_TOKEN}`,
-        },
-      };
 
-      const urlMATIC = `https://api.usekeyp.com/v1/users/${userId}/balance`;
-      const urlNotMATIC = `https://api.usekeyp.com/v1/users/${userId}/balance/${tokenAddress}`;
-      const response = await axios.get(
-        asset === "MATIC" ? urlMATIC : urlNotMATIC,
-        options
-      );
-      const contractAddress = Object.keys(response.data)[0]; // Get the first key from the object
-      const formattedBalance = response.data[contractAddress].formatted;
-      setBalance(Number(formattedBalance).toFixed(4));
-      setLoading(false);
-    } catch {
-      console.error(error);
-      setError(error);
-    }
+    const ACCESS_TOKEN = session?.user.accessToken;
+    const userId = session?.user.id;
+    const options = {
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    };
+
+    const firstRequest = `${KEYP_BASE_URL_V1}/users/${userId}/balance`;
+    const daiRequest = `${KEYP_BASE_URL_V1}/users/${userId}/balance/${supportedAssets.DAI}`;
+    const wethRequest = `${KEYP_BASE_URL_V1}/users/${userId}/balance/${supportedAssets.WETH}`;
+
+    axios
+      .all([
+        axios.get(firstRequest, options),
+        axios.get(daiRequest, options),
+        axios.get(wethRequest, options),
+      ])
+      .then(
+        axios.spread((firstResponse, daiResponse, wethResponse) => {
+          let DAI = Object.values(daiResponse.data);
+          let WETH = Object.values(wethResponse.data);
+
+          let balanceData = {
+            ...firstResponse.data,
+            DAI: DAI[0],
+            WETH: WETH[0],
+          };
+          console.log("balance data:", balanceData);
+          setBalance(balanceData);
+          setLoading(false);
+        })
+      )
+      .catch((error) => {
+        console.error(error);
+        setError(error);
+      });
   };
 
   useEffect(() => {
