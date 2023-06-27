@@ -4,7 +4,7 @@ module.exports = {
     "./pages/**/*.{js,jsx,ts,tsx}",
     "./components/**/*.{js, tsx, jsx}",
     "./public/**/*.html",
-    "./node_modules/@usekeyp/ui-kit/lib/components/**/*.{js, jsx, ts, tsx, md}",
+    "./node_modules/@usekeyp/ui-kit/**/*.{js, jsx, ts, tsx, md}",
   ],
   theme: {
     extend: {},
