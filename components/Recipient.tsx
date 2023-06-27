@@ -16,7 +16,13 @@ interface RecipientProps {
   previousStep: () => void;
 }
 
-type Platform = "google" | "discord" | "twitter" | "twitch";
+type Platform =
+  | "google"
+  | "discord"
+  | "twitter"
+  | "twitch"
+  | "reddit"
+  | "chess";
 
 const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
   const { setPlatform, platform, type, setUsername, username } =
@@ -59,14 +65,19 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
   };
 
   const getPlatformPlaceholder = () => {
-    if (platform === "google") {
-      return "Recipient Email";
-    } else if (platform === "discord") {
-      return "Discord Username";
-    } else if (platform === "twitter") {
-      return "Twitter Username";
-    } else if (platform === "twitch") {
-      return "Twitch Username";
+    switch (platform) {
+      case "google":
+        return "Recipient Email";
+      case "discord":
+        return "Discord Username";
+      case "twitter":
+        return "Twitter Username";
+      case "twitch":
+        return "Twitch Username";
+      case "reddit":
+        return "Reddit Username";
+      case "chess":
+        return "Chess.com Username";
     }
   };
 
