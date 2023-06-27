@@ -12,6 +12,7 @@ import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
+import { LoginPortal } from "@usekeyp/ui-kit";
 
 const Login = () => {
   const [activeBtn, setActiveBtn] = useState<string>();
@@ -45,12 +46,14 @@ const Login = () => {
         >
           <Text fontFamily="sharpie">Kaching</Text>
         </Heading>
-
+        <div className="text-red-600">HELLLO RED TAILWIND</div>
+        <div className="my_class">HELLO GREEN TAILWIND</div>
         <Box my={"2rem"}>
           <Text textAlign="center" fontSize="5rem">
             👋
           </Text>
         </Box>
+        <LoginPortal providers={["GOOGLE", "DISCORD"]}></LoginPortal>
         <Stack
           direction="column"
           m="auto"

@@ -7292,7 +7292,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"autoprefixer@npm:^10.4.13":
+"autoprefixer@npm:^10.4.13, autoprefixer@npm:^10.4.14":
   version: 10.4.14
   resolution: "autoprefixer@npm:10.4.14"
   dependencies:
@@ -13189,6 +13189,7 @@ __metadata:
     "@usekeyp/js-sdk": ^0.1.7
     "@usekeyp/ui-kit": ^0.1.6
     alchemy-sdk: ^2.8.0
+    autoprefixer: ^10.4.14
     axios: ^1.2.3
     cheerio: ^1.0.0-rc.12
     eslint: 8.32.0
@@ -13199,6 +13200,7 @@ __metadata:
     next: 13.0.3
     next-auth: ^4.19.2
     nodemailer: ^6.9.1
+    postcss: ^8.4.24
     react: 18.2.0
     react-dom: 18.2.0
     react-hook-form: ^7.43.3
@@ -13207,6 +13209,7 @@ __metadata:
     react-sparkle: ^2.0.0
     react-step-wizard: ^5.3.11
     react-type-animation: ^3.0.1
+    tailwindcss: ^3.3.2
     typescript: 4.9.4
     urql: ^3.0.3
     wagmi: ^0.10.11
@@ -15724,7 +15727,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.3.5, postcss@npm:^8.4.21, postcss@npm:^8.4.23, postcss@npm:^8.4.4":
+"postcss@npm:^8.3.5, postcss@npm:^8.4.21, postcss@npm:^8.4.23, postcss@npm:^8.4.24, postcss@npm:^8.4.4":
   version: 8.4.24
   resolution: "postcss@npm:8.4.24"
   dependencies:
@@ -17873,7 +17876,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:^3.0.2":
+"tailwindcss@npm:^3.0.2, tailwindcss@npm:^3.3.2":
   version: 3.3.2
   resolution: "tailwindcss@npm:3.3.2"
   dependencies:

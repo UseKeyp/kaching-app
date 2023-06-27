@@ -12,6 +12,7 @@ import "@fontsource/inter";
 import Navbar from "components/Navbar";
 import UserAccount from "components/UserAccount";
 import "public/fonts/satoshi/css/satoshi.css";
+import "../styles/globals.css"
 
 interface AppProps {
   Component: any;
