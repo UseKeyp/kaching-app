@@ -1,5 +1,5 @@
 import { Box, Flex, Heading, Input } from "@chakra-ui/react";
-import { useMergeRefs } from '@chakra-ui/react'
+import { useMergeRefs } from "@chakra-ui/react";
 import { FieldValues, useForm } from "react-hook-form";
 import { useFormContext } from "context/FormContext";
 import AssetBalance from "./AssetBalance";
@@ -7,7 +7,7 @@ import { useState, useEffect, useRef } from "react";
 import { ErrorMessage } from "@hookform/error-message";
 import RoundedButton from "./RoundedButton";
 
-const Amount = ({ goToStep, isActive }: { goToStep?: any, isActive?: any }) => {
+const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
   const amountInput = useRef<HTMLInputElement>(null);
   const [balanceError, setBalanceError] = useState(false);
   const { amount, setAmount, asset } = useFormContext();
@@ -66,7 +66,7 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any, isActive?: any }) => {
     return true;
   };
   return (
-    <Flex flexDirection="column">
+    <Flex flexDirection="column" width="343px" mx="auto">
       <Heading
         as="h2"
         fontWeight="700"
@@ -140,11 +140,16 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any, isActive?: any }) => {
       <Flex alignItems="flex-start" justifyContent="space-between" mb="24px">
         <AssetBalance setBalanceError={setBalanceError} />
       </Flex>
-      <RoundedButton
-        isValid={isValid}
-        onClick={handleAmount}
-        text="Confirm Amount"
-      />
+      <Flex>
+        <Box mr="8px">
+          <RoundedButton text="Cancel" arrow={false} onClick={() => goToStep(1)}/>
+        </Box>
+        <RoundedButton
+          isValid={isValid}
+          onClick={handleAmount}
+          text="Confirm"
+        />
+      </Flex>
     </Flex>
   );
 };
