@@ -76,19 +76,13 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
       >
         Amount
       </Heading>
-      <Flex justifyContent="flex-end">
+      <Flex justifyContent="flex-end" height="24px">
         <ErrorMessage
           errors={errors}
           name="amount"
           render={({ message }) => {
             return (
-              <Box
-                display={message ? "block" : "none"}
-                mt={message ? "-1rem" : "0"}
-                position="relative"
-                zIndex={1}
-                color="#E45200"
-              >
+              <Box display={message ? "block" : "none"} color="#E45200">
                 {message}
               </Box>
             );
