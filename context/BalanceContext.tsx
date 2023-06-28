@@ -6,7 +6,7 @@ import { UserBalance } from "types/keypEndpoints";
 import { KEYP_BASE_URL_V1, supportedAssets } from "utils/general";
 
 const BalanceContext = React.createContext({
-  balance: {},
+  balances: {},
   error: null,
   loading: false,
 });
@@ -24,10 +24,10 @@ export const BalanceProvider: React.FC<BalanceProviderProps> = ({
 }) => {
   const { data: session } = useSession();
   const { asset } = useFormContext();
-  const [balance, setBalance] = useState({}); // change to object with all available tokens
+  const [balances, setBalance] = useState({}); // change to object with all available tokens
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const tokenAddress = supportedAssets[asset];
+  // const tokenAddress = supportedAssets[asset];
 
   const fetchBalance = () => {
     setLoading(true);
@@ -78,7 +78,7 @@ export const BalanceProvider: React.FC<BalanceProviderProps> = ({
     // eslint-disable-next-line
   }, [session, asset]);
   return (
-    <BalanceContext.Provider value={{ balance, error, loading }}>
+    <BalanceContext.Provider value={{ balances, error, loading }}>
       {children}
     </BalanceContext.Provider>
   );

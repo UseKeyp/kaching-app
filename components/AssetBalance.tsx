@@ -17,9 +17,23 @@ interface AssetBalanceProps {
  */
 const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
   const { type, asset, amount } = useFormContext();
-  const { balance, loading } = useBalance();
+  const { balances, loading } = useBalance();
 
-  const displayBalance = balance;
+  const formatBalance = (balance: string) => {
+    return Number(balance).toFixed(4);
+  };
+
+  const getAssetBalance = () => {
+    const assetData = balances[asset];
+    if (!assetData) {
+      return "Asset not found";
+    }
+
+    const formattedBalance = formatBalance(assetData.formatted);
+    return formattedBalance;
+  };
+
+  const displayBalance = getAssetBalance();
 
   useEffect(() => {
     /**
