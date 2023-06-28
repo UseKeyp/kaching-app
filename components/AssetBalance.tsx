@@ -1,11 +1,8 @@
-import { Box, HStack, Image, Text } from "@chakra-ui/react";
-import axios from "axios";
+import { Box, Text } from "@chakra-ui/react";
 import { useBalance } from "context/BalanceContext";
 import { useFormContext } from "context/FormContext";
-import { signOut, useSession } from "next-auth/react";
 import React, { Dispatch, useEffect, useState } from "react";
 import { UserBalance } from "types/keypEndpoints";
-import { supportedAssets } from "utils/general";
 
 interface AssetBalanceProps {
   setBalanceError: Dispatch<boolean>;
@@ -24,7 +21,7 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ setBalanceError }) => {
   };
 
   const getAssetBalance = () => {
-    const assetData = balances[asset];
+    const assetData = (balances as UserBalance)[asset];
     if (!assetData) {
       return "Asset not found";
     }
