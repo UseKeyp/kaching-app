@@ -15,10 +15,6 @@ type BalanceProviderProps = {
   children: ReactNode;
 };
 
-// return object with all tokens, that have the same type
-// const { balances } = useBalance()
-// console.log(balances) should output all the return objects from the api, and component take what it needs depending on the asset
-
 export const BalanceProvider: React.FC<BalanceProviderProps> = ({
   children,
 }) => {
@@ -60,7 +56,6 @@ export const BalanceProvider: React.FC<BalanceProviderProps> = ({
             DAI: DAI[0],
             WETH: WETH[0],
           };
-          console.log("balance data:", balanceData);
           setBalance(balanceData);
           setLoading(false);
         })
