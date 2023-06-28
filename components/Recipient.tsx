@@ -29,10 +29,13 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
     useFormContext();
   const localForm = useForm<FieldValues>();
   const {
+    handleSubmit,
     getValues,
     register,
     watch,
     trigger,
+    setError,
+    clearErrors,
     formState: { errors, isValid },
   } = localForm;
 
@@ -45,17 +48,26 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
     setPlatform(platform);
   };
 
-  const handleRecipient = async (): Promise<void> => {
-    const valid = await trigger();
-    if (valid) {
-      const stateUpdates = () => {
-        setUsername(values.username);
-      };
-      stateUpdates();
-      previousStep();
+  const handleValidation = async (e: React.FocusEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value.length < 1) {
+      setError("username", {
+        type: "manual",
+        message: "Cannot be blank",
+      });
+    } else if (platform === "google" && !value.includes("@")) {
+      setError("username", {
+        type: "manual",
+        message: "Oops. Thats not a Gmail address.",
+      });
+    } else {
+      clearErrors("username");
     }
+  };
 
-    return;
+  const handleRecipient = (data:any) => {
+    setUsername(data.username);
+    previousStep();
   };
 
   const emailValidation = (val: string) => {
@@ -80,7 +92,6 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
         return "Chess.com Username";
     }
   };
-
   return (
     <Flex flexDirection="column">
       <Heading
@@ -95,25 +106,6 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
       >
         Send to
       </Heading>
-      <Flex justifyContent="flex-end">
-        <ErrorMessage
-          errors={errors}
-          name="username"
-          render={({ message }) => {
-            return (
-              <Box
-                display={message ? "block" : "none"}
-                mt={message ? "-1rem" : "0"}
-                position="relative"
-                zIndex={1}
-                color="#E45200"
-              >
-                {message}
-              </Box>
-            );
-          }}
-        />
-      </Flex>
       <Box overflowX={isLargerThan380 ? "unset" : "scroll"} pb="32px">
         <Flex
           gap="24px"
@@ -155,15 +147,23 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
           />
         </Flex>
       </Box>
-
+      <Flex justifyContent="flex-end" height="24px" width="343px" mx="auto">
+        <ErrorMessage
+          errors={errors}
+          name="username"
+          render={({ message }) => {
+            return <Box color="#E45200">{message}</Box>;
+          }}
+        />
+      </Flex>
       <Input
         {...register("username", {
           value: username,
-          required: "Cannot be blank",
           minLength: {
             value: 1,
             message: "Cannot be blank",
           },
+          required: "Cannot be blank",
           validate: emailValidation,
         })}
         type={platform === "google" ? "email" : "text"}
@@ -185,7 +185,7 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
         <RoundedButton
           isValid={isValid}
           type="submit"
-          onClick={handleRecipient}
+          onClick={handleSubmit(handleRecipient)}
           text="Confirm"
         />
       </Flex>
