@@ -41,10 +41,10 @@ const OnramperWidget = () => {
     return (
         <Box className="onramper-container"textAlign="center" >
             {onramperUrl ? (<iframe
-                style={{ borderRadius: '4px', border: '1px solid #58585f', margin: 'auto', maxWidth: '420px' }}
+                style={{ borderRadius: '16px', border: '1px solid #58585f', margin: 'auto', maxWidth: '420px' }}
                 src={onramperUrl}
                 height="630px"
-                width="420px"
+                width="347px"
                 title="Onramper widget"
                 allow="accelerometer; autoplay; camera; gyroscope; payment">
             </iframe>) : <Loading/>}
