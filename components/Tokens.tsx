@@ -29,14 +29,6 @@ const Tokens = () => {
                 </Text>
               </Flex>
             </Link>
-            <Link href="/send" passHref>
-              <Flex>
-                <Text fontWeight="700" mr="10px">
-                  Cash Out
-                </Text>
-                <Icon name="import" />
-              </Flex>
-            </Link>
           </Flex>
         </Box>
       </Box>
