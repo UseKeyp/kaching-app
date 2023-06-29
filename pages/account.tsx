@@ -167,6 +167,7 @@ const Account = () => {
             href={`https://polygonscan.com/address/${address}`}
             p="16px"
             fontWeight="700"
+            target="_blank"
           >
             View All Transactions on Explorer
           </Link>

@@ -12,7 +12,7 @@ const Asset = ({ goToStep }: { goToStep?: any }) => {
     return;
   };
   return (
-    <Box overflow="hidden">
+    <Box overflow="hidden" width="343px" mx="auto">
       <Heading
         as="h2"
         fontWeight="700"

@@ -4,7 +4,7 @@ import SendScreensCollection from "components/SendScreensCollection";
 
 const Send = () => {
   return (
-    <Flex width="343px" mx="auto">
+    <Flex mx="auto">
       <SendScreensCollection />
     </Flex>
   );

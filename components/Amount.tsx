@@ -65,7 +65,7 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
   };
 
   return (
-    <Flex flexDirection="column">
+    <Flex flexDirection="column" width="343px" mx="auto">
       <Heading
         as="h2"
         fontWeight="700"
@@ -168,11 +168,16 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
           Change Token
         </Button>
       </Flex>
-      <RoundedButton
-        isValid={isValid}
-        onClick={handleAmount}
-        text="Confirm Amount"
-      />
+      <Flex>
+        <Box mr="8px">
+          <RoundedButton text="Cancel" arrow={false} onClick={() => goToStep(1)}/>
+        </Box>
+        <RoundedButton
+          isValid={isValid}
+          onClick={handleAmount}
+          text="Confirm"
+        />
+      </Flex>
     </Flex>
   );
 };

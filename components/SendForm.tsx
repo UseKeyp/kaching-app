@@ -104,6 +104,8 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
       flexDirection="column"
       alignItems="center"
       className="sendform"
+      width="343px"
+      mx="auto"
     >
       {success ? (
         <>
@@ -120,8 +122,8 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
           </Text>
         </>
       ) : (
-        <Box justifyContent="center" mb="70px" mixBlendMode="overlay">
-          <Icon name="arrows" size="153px" />
+        <Box justifyContent="center" mb="70px">
+          <Icon name="arrows" />
         </Box>
       )}
 
