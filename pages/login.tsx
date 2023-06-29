@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
 import { LoginPortal } from "@usekeyp/ui-kit";
+import Icon from "components/Icon";
 
 const Login = () => {
   const [activeBtn, setActiveBtn] = useState<string>();
@@ -35,14 +36,9 @@ const Login = () => {
   return (
     <>
       <Box textAlign="center">
-        <Heading
-          as="h1"
-          color="pink"
-          fontSize={["5rem", "8rem"]}
-          fontWeight="extrabold"
-        >
-          <Text>Kaching</Text>
-        </Heading>
+        <Flex justifyContent="center" mb="80px" mt="100px">
+          <Icon name="kaching_title"></Icon>
+        </Flex>
         <Flex justifyContent="center">
           <LoginPortal
             providers={["GOOGLE", "TWITTER", "DISCORD"]}
