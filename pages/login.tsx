@@ -18,7 +18,7 @@ const Login = () => {
   const session = useSession();
   const router = useRouter();
 
-  console.log(session);
+  // console.log(session);
 
   const handleGoogleLogin = () => {
     signIn("keyp", undefined, "login_provider=GOOGLE");
