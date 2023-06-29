@@ -7,7 +7,6 @@ const Asset = ({ goToStep }: { goToStep?: any }) => {
   const { setAsset } = useFormContext();
 
   const handleClick = (token: string) => {
-    console.log({ token });
     setAsset(token);
     goToStep(3);
     return;

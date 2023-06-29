@@ -12,6 +12,7 @@ import "@fontsource/inter";
 import Navbar from "components/Navbar";
 import UserAccount from "components/UserAccount";
 import "public/fonts/satoshi/css/satoshi.css";
+import { BalanceProvider } from "../context/BalanceContext";
 
 interface AppProps {
   Component: any;
@@ -45,27 +46,29 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
       <SessionProvider session={session}>
         <SizeProvider>
           <FormProvider>
-            <Box
-              bgImage={getBackground()}
-              minH="100vh"
-              bgPosition="center"
-              bgRepeat="no-repeat"
-              bgSize="cover"
-            >
-              <Layout>
-                {router.pathname !== "/login" ? (
-                  <>
-                    <UserAccount />
-                    <Box paddingTop="150px">
-                      <Component {...pageProps} />
-                    </Box>
-                    <Navbar />
-                  </>
-                ) : (
-                  <Component {...pageProps} />
-                )}{" "}
-              </Layout>
-            </Box>
+            <BalanceProvider>
+              <Box
+                bgImage={getBackground()}
+                minH="100vh"
+                bgPosition="center"
+                bgRepeat="no-repeat"
+                bgSize="cover"
+              >
+                <Layout>
+                  {router.pathname !== "/login" ? (
+                    <>
+                      <UserAccount />
+                      <Box paddingTop="150px">
+                        <Component {...pageProps} />
+                      </Box>
+                      <Navbar />
+                    </>
+                  ) : (
+                    <Component {...pageProps} />
+                  )}{" "}
+                </Layout>
+              </Box>
+            </BalanceProvider>
           </FormProvider>
         </SizeProvider>
       </SessionProvider>
