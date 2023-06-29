@@ -5,32 +5,31 @@ import Icon from "./Icon";
 interface RoundedButtonProps {
   isValid?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  arrow?: boolean;
   text?: string;
   isLoading?: any;
   loadingText?: any;
   type?: string;
 }
 
-
-
 const RoundedButton: React.FC<RoundedButtonProps> = ({
   isValid,
   onClick,
   text,
+  arrow = true,
   isLoading,
   loadingText,
-  type
+  type,
 }) => {
-
   const getColor = () => {
     if (isValid) {
-      return "white"
+      return "white";
     } else if (type === "logout") {
-      return "#E45200"
+      return "#E45200";
     } else {
-      return "#0D7007"
+      return "#0D7007";
     }
-  }
+  };
 
   return (
     <Button
@@ -38,7 +37,7 @@ const RoundedButton: React.FC<RoundedButtonProps> = ({
       loadingText={loadingText}
       bg={isValid ? "#0D7007" : "transparent"}
       color={getColor()}
-      border={`2px solid ${getColor()}`}
+      border={`2px solid ${type === "logout" ? "#E45200" : "#0D7007"}`}
       type="submit"
       display="flex"
       variant="unstyled"
@@ -52,9 +51,11 @@ const RoundedButton: React.FC<RoundedButtonProps> = ({
       disabled
     >
       <Text>{text}</Text>
-      <Box ml="auto">
-        <Icon name="arrowRight" color={getColor()} />
-      </Box>
+      {arrow && (
+        <Box ml="auto">
+          <Icon name="arrowRight" color={getColor()} />
+        </Box>
+      )}
     </Button>
   );
 };

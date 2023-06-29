@@ -104,6 +104,8 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
       flexDirection="column"
       alignItems="center"
       className="sendform"
+      width="343px"
+      mx="auto"
     >
       {success ? (
         <>
