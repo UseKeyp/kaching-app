@@ -89,7 +89,14 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
           }}
         />
       </Flex>
-      <Flex>
+      <Box
+        display="flex"
+        alignItems="center"
+        mb="8px"
+        height="64px"
+        bg="rgba(255, 255, 255, 0.8)"
+        borderRadius="8px"
+      >
         <Input
           {...register("amount", {
             value: amount,
@@ -117,27 +124,26 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
             }
           }}
           inputMode="decimal"
-          mb="8px"
-          height="64px"
-          bg="rgba(255, 255, 255, 0.8)"
           fontSize="24px"
           fontWeight="700"
           borderTopRightRadius="0px"
           borderBottomRightRadius="0px"
           border="none"
+          borderWidth={0}
+          borderStyle="none"
           paddingRight="9px"
           textAlign="right"
           color="#155A11"
+          flexGrow="1"
+          bg="rgba(255, 255, 255, 0.0)"
         />
         <Box
-          bg="rgba(255, 255, 255, 0.8)"
           fontSize="24px"
           fontWeight="700"
           color="#155A11"
           display="flex"
           justifyContent="center"
           alignItems="center"
-          height="64px"
           borderTopRightRadius="8px"
           borderBottomRightRadius="8px"
           paddingRight="16px"
@@ -145,7 +151,7 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
         >
           {asset}
         </Box>
-      </Flex>
+      </Box>
       <Flex alignItems="flex-start" justifyContent="space-between" mb="24px">
         <AssetBalance setBalanceError={setBalanceError} />
         <Button
