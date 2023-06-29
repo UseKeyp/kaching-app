@@ -21,7 +21,7 @@ const Tokens = () => {
         <Balances />
         <Box>
           <Flex justifyContent="space-between" p="16px" color="#80858E">
-            <Link href="/send" passHref>
+            <Link href="/ramp" passHref>
               <Flex>
                 <Icon name="export" />
                 <Text fontWeight="700" ml="10px">
