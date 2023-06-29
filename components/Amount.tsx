@@ -111,6 +111,11 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
               boxShadow: "none",
             },
           }}
+          onKeyPress={(event) => {
+            if (!/[0-9,.]/.test(event.key)) {
+              event.preventDefault();
+            }
+          }}
           mb="8px"
           height="64px"
           bg="rgba(255, 255, 255, 0.8)"
