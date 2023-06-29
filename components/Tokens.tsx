@@ -10,7 +10,7 @@ const Tokens = () => {
       <Heading
         as="h2"
         fontFamily="satoshi"
-        color="#80858E"
+        color="#0079AD"
         fontSize="16px"
         fontWeight="900"
         mb="8px"
