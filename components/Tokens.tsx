@@ -10,7 +10,7 @@ const Tokens = () => {
       <Heading
         as="h2"
         fontFamily="satoshi"
-        color="#80858E"
+        color="#0079AD"
         fontSize="16px"
         fontWeight="900"
         mb="8px"
@@ -21,20 +21,12 @@ const Tokens = () => {
         <Balances />
         <Box>
           <Flex justifyContent="space-between" p="16px" color="#80858E">
-            <Link href="/send" passHref>
+            <Link href="/ramp" passHref>
               <Flex>
                 <Icon name="export" />
                 <Text fontWeight="700" ml="10px">
                   Fund
                 </Text>
-              </Flex>
-            </Link>
-            <Link href="/send" passHref>
-              <Flex>
-                <Text fontWeight="700" mr="10px">
-                  Cash Out
-                </Text>
-                <Icon name="import" />
               </Flex>
             </Link>
           </Flex>

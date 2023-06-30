@@ -149,7 +149,7 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
           />
           {username && username !== "" && username !== null && (
             <Flex alignItems="center" justifyContent="flex-start" width="100%">
-              <Box color="#63676F" mr="8px">
+              <Box color="#4A4D53" mr="8px">
                 Sending to
               </Box>
               <Box
