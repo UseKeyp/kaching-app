@@ -5,9 +5,12 @@ import AssetBalance from "./AssetBalance";
 import { useState, useEffect, useRef } from "react";
 import { ErrorMessage } from "@hookform/error-message";
 import RoundedButton from "./RoundedButton";
+import { useBalance } from "context/BalanceContext";
+import { UserBalance } from "types/keypEndpoints";
 
 const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
   const [balanceError, setBalanceError] = useState(false);
+  const { balances } = useBalance();
   const { amount, setAmount, asset } = useFormContext();
   const localForm = useForm<FieldValues>();
   const {
@@ -55,11 +58,14 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
 
   const amountValidation = (n: any) => {
     const numericAmount = Number(n);
-    if (numericAmount <= 0) return "Value must be greater than 0";
-    // if (numericAmount > balance) {
-    //   setBalanceError(true);
-    //   return "Insufficient balance";
-    // }
+    const assetData = (balances as UserBalance)[asset];
+    const numericBalance = Number(assetData.formatted);
+    if (numericAmount <= 0) {
+      return "Value must be greater than 0";
+    } else if (numericBalance < numericAmount) {
+      setBalanceError(true);
+      return "You don't have enought balance"
+    }
     setBalanceError(false);
     return true;
   };
