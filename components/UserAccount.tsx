@@ -1,11 +1,12 @@
 import { Flex, Box, Text, Tooltip, HStack, Image } from "@chakra-ui/react";
 import useSocialLogo from "../hooks/useSocialLogo";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 const UserAccount = () => {
+  const [scrollDirection, setScrollDirection] = useState(null);
   const [openTooltip, setOpenTooltip] = useState(false);
   const { data: session } = useSession();
   const socialLogo = useSocialLogo(session);
@@ -37,9 +38,7 @@ const UserAccount = () => {
 
   return (
     <Box
-      position="fixed"
-      top="23px"
-      left="0"
+      height="54px"
       width="100%"
       display="flex"
       justifyContent="center"
@@ -49,8 +48,8 @@ const UserAccount = () => {
       <Flex
         borderRadius="60px"
         height="54px"
-        width="100%"
-        bg="rgba(255, 255, 255, 0.9)"
+        width="343px"
+        bg="rgba(255, 255, 255)"
         paddingY="8px"
         paddingX="12px"
         align="center"
