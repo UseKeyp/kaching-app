@@ -9,7 +9,6 @@ import { useBalance } from "context/BalanceContext";
 import { UserBalance } from "types/keypEndpoints";
 
 const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
-  const [balanceError, setBalanceError] = useState(false);
   const { balances } = useBalance();
   const { amount, setAmount, asset } = useFormContext();
   const localForm = useForm<FieldValues>();
@@ -18,21 +17,12 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
     register,
     watch,
     trigger,
-    setError,
-    clearErrors,
+    handleSubmit,
     formState: { errors, isValid },
   } = localForm;
 
   const values = getValues();
   watch();
-
-  useEffect(() => {
-    if (balanceError) {
-      setError("amount", { type: "custom", message: "Insufficient balance" });
-    } else {
-      clearErrors("amount");
-    }
-  }, [balanceError, setError, clearErrors]);
 
   useEffect(() => {
     if (isActive) {
@@ -59,14 +49,17 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
   const amountValidation = (n: any) => {
     const numericAmount = Number(n);
     const assetData = (balances as UserBalance)[asset];
-    const numericBalance = Number(assetData.formatted);
     if (numericAmount <= 0) {
       return "Value must be greater than 0";
-    } else if (numericBalance < numericAmount) {
-      setBalanceError(true);
-      return "You don't have enought balance"
     }
-    setBalanceError(false);
+    if (assetData) {
+      const numericBalance = Number(assetData.formatted);
+      if (numericBalance < numericAmount) {
+        return "Insufficient balance";
+      }
+    } else {
+      return "Balance is not available yet";
+    }
     return true;
   };
 
@@ -159,7 +152,7 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
         </Box>
       </Box>
       <Flex alignItems="flex-start" justifyContent="space-between" mb="24px">
-        <AssetBalance setBalanceError={setBalanceError} />
+        <AssetBalance />
         <Button
           display="flex"
           alignItems="flex-start"
@@ -176,11 +169,16 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
       </Flex>
       <Flex>
         <Box mr="8px">
-          <RoundedButton text="Cancel" arrow={false} onClick={() => goToStep(1)}/>
+          <RoundedButton
+            text="Cancel"
+            arrow={false}
+            onClick={() => goToStep(1)}
+          />
         </Box>
         <RoundedButton
           isValid={isValid}
-          onClick={handleAmount}
+          // onClick={handleAmount}
+          onClick={handleSubmit(handleAmount)}
           text="Confirm"
         />
       </Flex>
