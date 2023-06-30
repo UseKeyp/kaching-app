@@ -20,7 +20,7 @@ const Asset = ({ goToStep }: { goToStep?: any }) => {
         fontSize="40px"
         color="#33912E"
         textTransform="capitalize"
-        mb="40px"
+        mb="30px"
       >
         Asset
       </Heading>
