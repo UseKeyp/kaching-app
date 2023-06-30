@@ -13,6 +13,7 @@ import Navbar from "components/Navbar";
 import UserAccount from "components/UserAccount";
 import "public/fonts/satoshi/css/satoshi.css";
 import { BalanceProvider } from "../context/BalanceContext";
+import { BackgroundImage } from "components/BackgroundImage";
 
 interface AppProps {
   Component: any;
@@ -47,13 +48,7 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
         <SizeProvider>
           <FormProvider>
             <BalanceProvider>
-              <Box
-                bgImage={getBackground()}
-                minH="100vh"
-                bgPosition="center"
-                bgRepeat="no-repeat"
-                bgSize="cover"
-              >
+              <BackgroundImage image={getBackground()} minH="100vh" opacity={0.7}>
                 <Layout>
                   {router.pathname !== "/login" ? (
                     <>
@@ -67,7 +62,7 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
                     <Component {...pageProps} />
                   )}{" "}
                 </Layout>
-              </Box>
+              </BackgroundImage>
             </BalanceProvider>
           </FormProvider>
         </SizeProvider>
