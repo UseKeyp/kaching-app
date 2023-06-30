@@ -44,6 +44,7 @@ const Login = () => {
             providers={["GOOGLE", "TWITTER", "DISCORD"]}
             additionalProviders={["TWITCH"]}
             onClick={handleLogin}
+            bg="transparent"
           ></LoginPortal>
         </Flex>
       </Box>

@@ -3810,6 +3810,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@floating-ui/core@npm:^1.3.1":
+  version: 1.3.1
+  resolution: "@floating-ui/core@npm:1.3.1"
+  checksum: 894bc3637c03beda184a4460cb53155fd30c2a0956569e1c714b7df9e3439517b1c34ad9a8114ea15a6c08d1e3f1d40741d259f0f1087fc3ea96fae7dfeb697e
+  languageName: node
+  linkType: hard
+
+"@floating-ui/dom@npm:^1.0.0":
+  version: 1.4.3
+  resolution: "@floating-ui/dom@npm:1.4.3"
+  dependencies:
+    "@floating-ui/core": ^1.3.1
+  checksum: 2e649d1e2ffb4edfeadab0ab2c2e2a8424df1d9cdb798d5a09ccc8a65b93574449bdb0d25991773a859c9de70b181b596777e61e6581bf942bdef7fc6d18867a
+  languageName: node
+  linkType: hard
+
 "@fontsource/inter@npm:^4.5.15":
   version: 4.5.15
   resolution: "@fontsource/inter@npm:4.5.15"
@@ -5931,16 +5947,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@usekeyp/ui-kit@npm:^0.1.6":
-  version: 0.1.6
-  resolution: "@usekeyp/ui-kit@npm:0.1.6"
+"@usekeyp/ui-kit@npm:PR72":
+  version: 0.1.7-PR72.f0aeefe.0
+  resolution: "@usekeyp/ui-kit@npm:0.1.7-PR72.f0aeefe.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40usekeyp%2Fui-kit%2F0.1.7-PR72.f0aeefe.0%2Fc4570eeadcc98c6631a176b22a01b391e4a5cf2a"
   dependencies:
-    "@redwoodjs/router": ^3.3.0
     prop-types: ^15.8.1
     react: ^18.2.0
     react-dom: ^18.2.0
     react-scripts: 5.0.1
-  checksum: 45408855a4c4163b29ce0f42dccefb65e536a8d5e00c89a31183cbc5da628aa7169129bcd990e0a91c2321623ff5af1e4db02c860033475619f5c5dc5a741976
+    react-tooltip: ^5.16.1
+  checksum: 9568ad4b8633751dc1a40a3d87cfa0cc2754a7f47be61b3a23e8db7f5570dad2929cac7dedcd9bb83da79d5da2feddc84d41addf4470a6d18f330e01d0c748f3
   languageName: node
   linkType: hard
 
@@ -8169,6 +8185,13 @@ __metadata:
   version: 1.2.3
   resolution: "cjs-module-lexer@npm:1.2.3"
   checksum: 0de9a9c3fad03a46804c0d38e7b712fb282584a9c7ef1ed44cae22fb71d9bb600309d66a9711ac36a596fd03422f5bb03e021e8f369c12a39fa1786ae531baab
+  languageName: node
+  linkType: hard
+
+"classnames@npm:^2.3.0":
+  version: 2.3.2
+  resolution: "classnames@npm:2.3.2"
+  checksum: cd50ead57b4f97436aaa9f9885c6926323efc7c2bea8e3d4eb10e4e972aa6a1cfca1c7a0e06f8a199ca7498d4339e30bb6002e589e61c9f21248cbf3e8b0b18d
   languageName: node
   linkType: hard
 
@@ -13187,7 +13210,7 @@ __metadata:
     "@types/react": 18.0.26
     "@types/react-dom": 18.0.10
     "@usekeyp/js-sdk": ^0.1.7
-    "@usekeyp/ui-kit": ^0.1.6
+    "@usekeyp/ui-kit": PR72
     alchemy-sdk: ^2.8.0
     autoprefixer: ^10.4.14
     axios: ^1.2.3
@@ -16393,6 +16416,19 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 6d66f3bdb65e1ec79089f80314da97c9a005087a04ee034255a5de129a4c0d9fd0bf99fa7bf642781ac2dc745ca687aae3de082bd8afdd0d117bc953241e15ad
+  languageName: node
+  linkType: hard
+
+"react-tooltip@npm:^5.16.1":
+  version: 5.16.1
+  resolution: "react-tooltip@npm:5.16.1"
+  dependencies:
+    "@floating-ui/dom": ^1.0.0
+    classnames: ^2.3.0
+  peerDependencies:
+    react: ">=16.14.0"
+    react-dom: ">=16.14.0"
+  checksum: 5421d3a493eff485d98fe725cffad008d8a1ad0f7ee841ce77a0dd4c17ca8a941053200a50e0461aac21e85484b775d10f96f2e124110546f9761922dea54172
   languageName: node
   linkType: hard
 
