@@ -25,44 +25,22 @@ type Platform =
   | "chess";
 
 const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
-  const { setPlatform, platform, type, setUsername, username } =
+  const { setPlatform, platform, setUsername, username } =
     useFormContext();
   const localForm = useForm<FieldValues>();
   const {
     handleSubmit,
-    getValues,
     register,
     watch,
-    trigger,
-    setError,
-    clearErrors,
     formState: { errors, isValid },
   } = localForm;
 
   const [isLargerThan380] = useMediaQuery("(min-width: 380px)");
 
-  const values = getValues();
   watch();
 
   const handleActiveIcons = (platform: Platform): void => {
     setPlatform(platform);
-  };
-
-  const handleValidation = async (e: React.FocusEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (value.length < 1) {
-      setError("username", {
-        type: "manual",
-        message: "Cannot be blank",
-      });
-    } else if (platform === "google" && !value.includes("@")) {
-      setError("username", {
-        type: "manual",
-        message: "Oops. Thats not a Gmail address.",
-      });
-    } else {
-      clearErrors("username");
-    }
   };
 
   const handleRecipient = (data:any) => {
