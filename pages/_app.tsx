@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import { Box, ChakraProvider } from "@chakra-ui/react";
@@ -53,7 +53,7 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
                   {router.pathname !== "/login" ? (
                     <>
                       <UserAccount />
-                      <Box paddingTop="150px">
+                      <Box paddingTop="150px" paddingBottom="140px">
                         <Component {...pageProps} />
                       </Box>
                       <Navbar />
