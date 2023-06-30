@@ -7,10 +7,7 @@ interface BalancesProps {
   onClick?: (token: string) => void;
 }
 
-const Balances: React.FC<BalancesProps> = ({ onClick }) => {
-  const { balances, loading } = useBalance();
-  const assetsList = balances && Object.values(balances);
-
+const AssetDataRow = ({ asset }) => {
   const getAssetIcon = (name: string) => {
     switch (name) {
       case "USDC":
@@ -52,6 +49,26 @@ const Balances: React.FC<BalancesProps> = ({ onClick }) => {
   };
 
   return (
+    <Flex justifyContent="space-between" p="16px" color="#4A4D53">
+      <Flex>
+        <Box mr="8px">{getAssetIcon(asset.symbol)}</Box>
+        <Box fontWeight="700" textTransform="capitalize">
+          {getAssetName(asset.symbol)}
+        </Box>
+      </Flex>
+      <Flex flexDirection="column" alignItems="flex-end">
+        <Box fontWeight="700">{formatNumber(asset.formatted)}</Box>
+        <Box color="#63676F" fontWeight="400" fontSize="12px"></Box>
+      </Flex>
+    </Flex>
+  );
+};
+
+const Balances: React.FC<BalancesProps> = ({ onClick }) => {
+  const { balances } = useBalance();
+  const assetsList = balances && Object.values(balances);
+
+  return (
     <>
       {assetsList &&
         assetsList.length > 1 &&
@@ -61,18 +78,7 @@ const Balances: React.FC<BalancesProps> = ({ onClick }) => {
               key={asset.symbol}
               onClick={() => (onClick ? onClick(asset.symbol) : null)}
             >
-              <Flex justifyContent="space-between" p="16px" color="#4A4D53">
-                <Flex>
-                  <Box mr="8px">{getAssetIcon(asset.symbol)}</Box>
-                  <Box fontWeight="700" textTransform="capitalize">
-                    {getAssetName(asset.symbol)}
-                  </Box>
-                </Flex>
-                <Flex flexDirection="column" alignItems="flex-end">
-                  <Box fontWeight="700">{formatNumber(asset.formatted)}</Box>
-                  <Box color="#63676F" fontWeight="400" fontSize="12px"></Box>
-                </Flex>
-              </Flex>
+              <AssetDataRow asset={asset}/>
               <Divider borderColor="rgba(255, 255, 255, 0.5)" />
               <Divider borderColor="#C6E3F3" />
             </Box>
