@@ -88,14 +88,12 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
   };
 
   const handleTxType = async () => {
-    setSendingTx(true);
-    if (type === "send") {
-      await handleSendTx();
+    if (username && amount) {
+      setSendingTx(true);
+      if (type === "send") {
+        await handleSendTx();
+      }
     }
-    // DO NOT DELETE CODE BELOW. IT'S FOR REQUEST FEATURE
-    // else if (type === "request") {
-    //   handleRequest({ amount, asset, username });
-    // }
   };
 
   return (
@@ -214,7 +212,11 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
           </Box>
         </Flex>
       </Flex>
-      {responseError && <Box color="#E45200" fontSize="13px">Server Error: Try Again. Sorry!</Box>}
+      {responseError && (
+        <Box color="#E45200" fontSize="13px">
+          Server Error: Try Again. Sorry!
+        </Box>
+      )}
       <RoundedButton
         isValid={!!(username && amount)}
         onClick={() => handleTxType()}
