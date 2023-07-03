@@ -11,6 +11,7 @@ import { supportedAssets } from "utils/general";
 import UseKeypApi from "../hooks/useKeypApi";
 import Link from "next/link";
 import RoundedButton from "./RoundedButton";
+import { useRouter } from "next/router";
 
 export const trimAddress = (address: string) => {
   if (typeof address !== "string") return "";
@@ -41,11 +42,14 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
     TransferError | undefined
   >();
   const [serverError, setServerError] = useState(false);
+  const [serverErrorMessage, setServerErrorMessage] = useState("")
   const [balanceError, setBalanceError] = useState(false);
+  const [sendingTx, setSendingTx] = useState(false);
+
+  const router = useRouter();
+  const { data: session } = useSession();
 
   const { type, platform, amount, asset, username } = useFormContext();
-  const [sendingTx, setSendingTx] = useState(false);
-  const { data: session } = useSession();
 
   const handleTokenTransfer = async (
     toUserId: string,
@@ -74,13 +78,15 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
       console.log(req);
       if (req.status === "SUCCESS") {
         console.log(req);
-        setSuccess(true);
+        // setSuccess(true);
         setHash(req.hash);
         setSendingTx(false);
+        router.push("/transaction-success")
         return req;
       } else {
         setResponseError(req);
         setServerError(true);
+        setServerErrorMessage(req.error)
         console.log("error: ", req.status);
         setSendingTx(false);
       }
@@ -212,10 +218,10 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
           </Box>
         </Flex>
       </Flex>
-      <Box height="19.5px">
+      <Box minHeight="19.5px">
         {responseError && (
           <Box color="#E45200" fontSize="13px">
-            Server Error: Try Again. Sorry!
+            {serverErrorMessage}
           </Box>
         )}
       </Box>

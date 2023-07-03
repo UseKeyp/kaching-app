@@ -26,6 +26,7 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   const getBackground = () => {
     switch (router.pathname) {
       case "/send":
+      case "/transaction-success":
         return "url('/bg-green.jpg')";
       case "/play":
         return "url('/bg-grey.jpg')";

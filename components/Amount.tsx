@@ -104,7 +104,7 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
               message: `Enter asset amount`,
             },
             pattern: {
-              value: /^[0-9.,]*$/, // only allows numeric input
+              value: /^[0-9.]*$/, // only allows numeric input
               message: "You can only enter numeric value",
             },
             validate: amountValidation,
@@ -118,7 +118,7 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
             },
           }}
           onKeyPress={(event) => {
-            if (!/[0-9,.]/.test(event.key)) {
+            if (!/[0-9.]/.test(event.key)) {
               event.preventDefault();
             }
           }}
