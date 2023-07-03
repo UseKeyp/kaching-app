@@ -210,9 +210,6 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
           <Box fontWeight="400" color="#63676F">
             <AssetBalance setBalanceError={setBalanceError} />
           </Box>
-          <Box>
-            <Icon name="maticGray" />
-          </Box>
         </Flex>
       </Flex>
       {responseError && <Box color="#E45200" fontSize="13px">Server Error: Try Again. Sorry!</Box>}
