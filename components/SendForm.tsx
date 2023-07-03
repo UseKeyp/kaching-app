@@ -212,13 +212,15 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
           </Box>
         </Flex>
       </Flex>
-      {responseError && (
-        <Box color="#E45200" fontSize="13px">
-          Server Error: Try Again. Sorry!
-        </Box>
-      )}
+      <Box height="19.5px">
+        {responseError && (
+          <Box color="#E45200" fontSize="13px">
+            Server Error: Try Again. Sorry!
+          </Box>
+        )}
+      </Box>
       <RoundedButton
-        isValid={!!(username && amount)}
+        isValid={!!(username && amount && !serverError)}
         onClick={() => handleTxType()}
         text="Send Payment"
         isLoading={sendingTx}

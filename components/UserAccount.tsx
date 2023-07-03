@@ -83,7 +83,6 @@ const UserAccount = () => {
             </Tooltip>
           </HStack>
         </Flex>
-        {/* temporary sign out */}
         <Image
           src="user.svg"
           alt="user icon"
