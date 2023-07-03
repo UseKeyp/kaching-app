@@ -146,6 +146,8 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
             onChange={() => {}}
             onClick={() => goToStep(2)}
             mb="8px"
+            border="none"
+            borderColor="none"
           />
           {username && username !== "" && username !== null && (
             <Flex alignItems="center" justifyContent="flex-start" width="100%">
