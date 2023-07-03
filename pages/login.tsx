@@ -45,7 +45,8 @@ const Login = () => {
             additionalProviders={["TWITCH"]}
             onClick={handleLogin}
             bg="transparent"
-          ></LoginPortal>
+            align="center"
+          />
         </Flex>
       </Box>
     </>
