@@ -8,6 +8,7 @@ import ScrollableElementContext from "context/ScrollableElementContext";
 
 const UserAccount = () => {
   const [openTooltip, setOpenTooltip] = useState(false);
+  const [scrollDirection, setScrollDirection] = useState(null);
   const { data: session } = useSession();
 
   const scrollableElementRef = useContext(ScrollableElementContext);
@@ -19,24 +20,32 @@ const UserAccount = () => {
   const address = session && session.user.address;
 
   useEffect(() => {
-    if (!scrollableElementRef) {
+    if (!scrollableElementRef || !scrollableElementRef.current) {
       return;
     }
 
-    const onScroll = () => {
-      console.log("scroll in UserAccount");
+    let lastScrollY = scrollableElementRef.current.scrollTop;
+
+    const updateScrollDirection = () => {
+      const scrollY = scrollableElementRef.current.scrollTop;
+      const direction = scrollY > lastScrollY ? "down" : "up";
+
+      if (
+        direction !== scrollDirection &&
+        (scrollY - lastScrollY > 10 || scrollY - lastScrollY < -10)
+      ) {
+        setScrollDirection(direction);
+      }
+      lastScrollY = scrollY > 0 ? scrollY : 0;
     };
 
     const element = scrollableElementRef.current;
 
-    if (element) {
-      element.addEventListener("scroll", onScroll);
-
-      return () => {
-        element.removeEventListener("scroll", onScroll);
-      };
-    }
-  }, []);
+    element.addEventListener("scroll", updateScrollDirection); // add event listener
+    return () => {
+      element.removeEventListener("scroll", updateScrollDirection); // clean up
+    };
+  }, [scrollDirection]);
 
   const handleCopyAddress = () => {
     navigator.clipboard.writeText(address || "");
@@ -56,7 +65,6 @@ const UserAccount = () => {
 
   const handleIconClick = () => {
     router.push("/account");
-    // signOut({ callbackUrl: "/login" });
   };
 
   return (
