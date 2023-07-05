@@ -1,19 +1,42 @@
 import { Flex, Box, Text, Tooltip, HStack, Image } from "@chakra-ui/react";
 import useSocialLogo from "../hooks/useSocialLogo";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import ScrollableElementContext from "context/ScrollableElementContext";
 
 const UserAccount = () => {
-  const [scrollDirection, setScrollDirection] = useState(null);
   const [openTooltip, setOpenTooltip] = useState(false);
   const { data: session } = useSession();
+
+  const scrollableElementRef = useContext(ScrollableElementContext);
+
   const socialLogo = useSocialLogo(session);
   const router = useRouter();
 
   const username = session && session.user.username;
   const address = session && session.user.address;
+
+  useEffect(() => {
+    if (!scrollableElementRef) {
+      return;
+    }
+
+    const onScroll = () => {
+      console.log("scroll in UserAccount");
+    };
+
+    const element = scrollableElementRef.current;
+
+    if (element) {
+      element.addEventListener("scroll", onScroll);
+
+      return () => {
+        element.removeEventListener("scroll", onScroll);
+      };
+    }
+  }, []);
 
   const handleCopyAddress = () => {
     navigator.clipboard.writeText(address || "");
@@ -32,7 +55,7 @@ const UserAccount = () => {
   };
 
   const handleIconClick = () => {
-    router.push("/account")
+    router.push("/account");
     // signOut({ callbackUrl: "/login" });
   };
 

@@ -1,12 +1,14 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useRef } from "react";
 import { Box } from "@chakra-ui/react";
 import HeadMetadata from "./HeadMetadata";
+import ScrollableElementContext from "context/ScrollableElementContext";
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const scrollableElementRef = useRef(null);
   return (
     <>
       <HeadMetadata />
@@ -18,8 +20,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         fontFamily="satoshi"
         overflowY="auto"
         overflowX="hidden"
+        ref={scrollableElementRef}
       >
-        {children}
+        <ScrollableElementContext.Provider value={scrollableElementRef}>
+          {children}
+        </ScrollableElementContext.Provider>
       </Box>
     </>
   );
