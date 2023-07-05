@@ -2,9 +2,10 @@ import { Box, Flex, Input, Text } from "@chakra-ui/react";
 import { useFormContext } from "context/FormContext";
 import Link from "next/link";
 import { Router, useRouter } from "next/router";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Icon from "./Icon";
 import RoundedButton from "./RoundedButton";
+import { HashContext } from "./SendScreensCollection";
 
 export const trimAddress = (address: string) => {
   if (typeof address !== "string") return "";
@@ -23,9 +24,14 @@ export const trimAddress = (address: string) => {
   );
 };
 
-const Success = () => {
-  const [hash, setHash] = useState("");
-  const router = useRouter();
+const Success = ({ goToStep }: { goToStep?: any }) => {
+  const hashContext = useContext(HashContext);
+
+  if (!hashContext) {
+    throw new Error("HashContext is not available");
+  }
+
+  const { hash } = hashContext;
 
   const {
     platform,
@@ -41,7 +47,7 @@ const Success = () => {
     setAmount(undefined);
     setUsername(undefined);
     setAsset("USDC");
-    router.push("/send");
+    goToStep(1);
   };
   return (
     <>

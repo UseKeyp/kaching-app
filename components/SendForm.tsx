@@ -1,6 +1,6 @@
 import { Box, Flex, Input, Text } from "@chakra-ui/react";
 import { useFormContext } from "context/FormContext";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import AssetBalance from "./AssetBalance";
 import Icon from "./Icon";
 import { useSession } from "next-auth/react";
@@ -12,6 +12,7 @@ import UseKeypApi from "../hooks/useKeypApi";
 import Link from "next/link";
 import RoundedButton from "./RoundedButton";
 import { useRouter } from "next/router";
+import { HashContext } from "./SendScreensCollection";
 
 export const trimAddress = (address: string) => {
   if (typeof address !== "string") return "";
@@ -35,9 +36,6 @@ interface SendFormProps {
 
 const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
   const [success, setSuccess] = useState(false);
-  const [hash, setHash] = useState(
-    "0xc22a6ac1d76f8f7e390362aed359a2922e8ba4d310bf4cef91836f729d7621ad"
-  );
   const [responseError, setResponseError] = useState<
     TransferError | undefined
   >();
@@ -45,6 +43,8 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
   const [serverErrorMessage, setServerErrorMessage] = useState("")
   const [balanceError, setBalanceError] = useState(false);
   const [sendingTx, setSendingTx] = useState(false);
+
+  const { hash, setHash } = useContext(HashContext);
 
   const router = useRouter();
   const { data: session } = useSession();
@@ -81,7 +81,8 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
         // setSuccess(true);
         setHash(req.hash);
         setSendingTx(false);
-        router.push("/transaction-success")
+        goToStep(5);
+        // router.push("/transaction-success")
         return req;
       } else {
         setResponseError(req);
