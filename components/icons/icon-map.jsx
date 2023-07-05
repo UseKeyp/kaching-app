@@ -200,7 +200,6 @@ const Arrows = () => {
 };
 
 const MaticIcon = ({ width = "24px", height = "24px" }) => {
-const MaticIcon = ({ width = "24px", height = "24px" }) => {
   return (
     <svg
       width={width}
@@ -697,6 +696,6 @@ const iconMap = {
   reddit: Reddit,
   chess: Chess,
   kaching_title: KachingTitle,
-};
+}
 
 export default iconMap;
