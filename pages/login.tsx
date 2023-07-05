@@ -1,18 +1,8 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  HStack,
-  Image,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { FaDiscord, FaGoogle } from "react-icons/fa";
 import { LoginPortal } from "@usekeyp/ui-kit";
 import Icon from "components/Icon";
 
@@ -42,7 +32,7 @@ const Login = () => {
         <Flex justifyContent="center">
           <LoginPortal
             providers={["GOOGLE", "TWITTER", "DISCORD"]}
-            additionalProviders={["TWITCH"]}
+            additionalProviders={["TWITCH", "REDDIT", "CHESS"]}
             onClick={handleLogin}
             bg="transparent"
             align="center"
