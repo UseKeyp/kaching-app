@@ -16,7 +16,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         maxH="100vh"
         fontSize="1rem"
         fontFamily="satoshi"
-        px={["0.5rem", "1rem"]}
         overflowY="auto"
         overflowX="hidden"
       >

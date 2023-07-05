@@ -37,7 +37,7 @@ const TransactionDetails: React.FC<TransactionDetailsProps> = ({ item }) => {
 
   const formattedTimestamp = formatDate(item.timestamp);
   return (
-    <Link href={item.explorerUrl}>
+    <Link href={item.explorerUrl} target="_blank">
       <Flex
         p="16px"
         fontSize="11px"

@@ -8,7 +8,7 @@ import React, {
 
 export const FormContext = createContext<{
   platform: string;
-  setPlatform: Dispatch<"google" | "discord" | "twitter" | "twitch">;
+  setPlatform: Dispatch<"google" | "discord" | "twitter" | "twitch" | "reddit" | "chess">;
   renderTxPage: boolean;
   setRenderTxPage: Dispatch<boolean>;
   renderReviewPage: boolean;
@@ -53,7 +53,7 @@ export const FormProvider = ({ children }: FormProviderProps) => {
   const [renderTxPage, setRenderTxPage] = useState(true);
   const [renderReviewPage, setRenderReviewPage] = useState(false);
   const [isConfirming, setIsConfirming] = useState(false);
-  const [platform, setPlatform] = useState<"google" | "discord" | "twitter" | "twitch">("google");
+  const [platform, setPlatform] = useState<"google" | "discord" | "twitter" | "reddit" | "chess" | "twitch">("google");
   const [amount, setAmount] = useState<number | undefined>();
   const [asset, setAsset] = useState<string>("USDC");
   const [username, setUsername] = useState<string | undefined>();

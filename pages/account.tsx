@@ -37,7 +37,7 @@ const DATA_EXAMPLE = [
     },
     timestamp: "2021-09-01T00:00:00Z",
     hash: "0x2401030c1B23eBf40b1a219AF6AaD0bc582dB654",
-    explorerUrl: "https://polygonscan.io/tx/0xabc123...",
+    explorerUrl: "https://polygonscan.com/tx/0xabc123...",
   },
   {
     type: "TRANSFER",
@@ -61,7 +61,7 @@ const DATA_EXAMPLE = [
     },
     timestamp: "2021-09-01T00:00:00Z",
     hash: "0x2401030c1B23eBf40b1a219AF6AaD0bc582dB655",
-    explorerUrl: "https://polygonscan.io/tx/0xabc123...",
+    explorerUrl: "https://polygonscan.com/tx/0xabc123...",
   },
   {
     type: "CONTRACT_CALL",
@@ -69,7 +69,7 @@ const DATA_EXAMPLE = [
     methodName: "deposit", // MintAndDeposit...WithRedeption
     timestamp: "2021-09-01T00:00:00Z",
     hash: "0x2401030c1B23eBf40b1a219AF6AaD0bc582dB656",
-    explorerUrl: "https://polygonscan.io/tx/0xabc123...",
+    explorerUrl: "https://polygonscan.com/tx/0xabc123...",
   },
 ];
 
@@ -157,16 +157,13 @@ const Account = () => {
         >
           {data &&
             data.map((item, index) => {
-              return (
-                <>
-                  <TransactionDetails item={item} key={index} />{" "}
-                </>
-              );
+              return <TransactionDetails item={item} key={item.hash} />;
             })}
           <Link
             href={`https://polygonscan.com/address/${address}`}
             p="16px"
             fontWeight="700"
+            target="_blank"
           >
             View All Transactions on Explorer
           </Link>

@@ -36,8 +36,8 @@ const Navbar = () => {
       width="100%"
       display="flex"
       justifyContent="center"
-      padding="17px"
       zIndex="99"
+      bg="#FFFFFF"
     >
       <Flex p="4" gap="40px">
         <Flex>

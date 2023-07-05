@@ -21,7 +21,7 @@ const Login = () => {
   const session = useSession();
   const router = useRouter();
 
-  console.log(session);
+  // console.log(session);
 
   const handleLogin = (provider) => {
     signIn("keyp", undefined, `login_provider=${provider}`);
