@@ -8,7 +8,7 @@ import ScrollableElementContext from "context/ScrollableElementContext";
 
 const UserAccount = () => {
   const [openTooltip, setOpenTooltip] = useState(false);
-  const [scrollDirection, setScrollDirection] = useState(null);
+  const [scrollDirection, setScrollDirection] = useState<"up" | "down" | null>(null);
   const { data: session } = useSession();
 
   const scrollableElementRef = useContext(ScrollableElementContext);
@@ -20,19 +20,23 @@ const UserAccount = () => {
   const address = session && session.user.address;
 
   useEffect(() => {
-    if (!scrollableElementRef || !scrollableElementRef.current) {
+    if (!scrollableElementRef?.current) {
       return;
     }
 
     let lastScrollY = scrollableElementRef.current.scrollTop;
 
     const updateScrollDirection = () => {
-      const scrollY = scrollableElementRef.current.scrollTop;
+      const scrollY = scrollableElementRef.current?.scrollTop;
+      if (scrollY === undefined || lastScrollY === undefined) {
+        return;
+      }
+
       const direction = scrollY > lastScrollY ? "down" : "up";
 
       if (
         direction !== scrollDirection &&
-        (scrollY - lastScrollY > 10 || scrollY - lastScrollY < -10)
+        (scrollY - lastScrollY > 1 || scrollY - lastScrollY < -1)
       ) {
         setScrollDirection(direction);
       }
@@ -46,6 +50,7 @@ const UserAccount = () => {
       element.removeEventListener("scroll", updateScrollDirection); // clean up
     };
   }, [scrollDirection]);
+
 
   const handleCopyAddress = () => {
     navigator.clipboard.writeText(address || "");
@@ -66,12 +71,13 @@ const UserAccount = () => {
   const handleIconClick = () => {
     router.push("/account");
   };
-
+  console.log({scrollDirection})
   return (
     <Box
       height="54px"
       width="100%"
-      display="flex"
+      position={scrollDirection === "down" ? "unset" : "fixed"}
+      display={scrollDirection === "down" ? "none" : "flex"}
       justifyContent="center"
       padding="17px"
       zIndex="99"
