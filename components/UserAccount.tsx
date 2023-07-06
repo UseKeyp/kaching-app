@@ -1,12 +1,12 @@
 import { Flex, Box, Text, Tooltip, HStack, Image } from "@chakra-ui/react";
 import useSocialLogo from "../hooks/useSocialLogo";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import Icon from "./Icon";
 
 const UserAccount = () => {
-  const [scrollDirection, setScrollDirection] = useState(null);
   const [openTooltip, setOpenTooltip] = useState(false);
   const { data: session } = useSession();
   const socialLogo = useSocialLogo(session);
@@ -32,10 +32,10 @@ const UserAccount = () => {
   };
 
   const handleIconClick = () => {
-    router.push("/account")
+    router.push("/account");
     // signOut({ callbackUrl: "/login" });
   };
-
+  console.log("User Account rendered")
   return (
     <Box
       height="54px"
@@ -60,6 +60,7 @@ const UserAccount = () => {
             {username}
           </Box>
           <HStack>
+            <Icon name="polygon" />
             <Text color="#80858E">
               {address?.slice(0, 7)}
               <span>...</span>
@@ -81,7 +82,6 @@ const UserAccount = () => {
             </Tooltip>
           </HStack>
         </Flex>
-        {/* temporary sign out */}
         <Image
           src="user.svg"
           alt="user icon"

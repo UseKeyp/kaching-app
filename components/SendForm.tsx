@@ -1,6 +1,6 @@
-import { Box, Flex, Input, Text } from "@chakra-ui/react";
+import { Box, Flex, Input, Tooltip } from "@chakra-ui/react";
 import { useFormContext } from "context/FormContext";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import AssetBalance from "./AssetBalance";
 import Icon from "./Icon";
 import { useSession } from "next-auth/react";
@@ -9,8 +9,8 @@ import { TransferError } from "types/keypEndpoints";
 import { KEYP_BASE_URL_V1 } from "utils/general";
 import { supportedAssets } from "utils/general";
 import UseKeypApi from "../hooks/useKeypApi";
-import Link from "next/link";
 import RoundedButton from "./RoundedButton";
+import { HashContext } from "./SendScreensCollection";
 
 export const trimAddress = (address: string) => {
   if (typeof address !== "string") return "";
@@ -33,19 +33,27 @@ interface SendFormProps {
 }
 
 const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
-  const [success, setSuccess] = useState(false);
-  const [hash, setHash] = useState(
-    "0xc22a6ac1d76f8f7e390362aed359a2922e8ba4d310bf4cef91836f729d7621ad"
-  );
+  const [openTooltip, setOpenTooltip] = useState(false);
+
   const [responseError, setResponseError] = useState<
     TransferError | undefined
   >();
   const [serverError, setServerError] = useState(false);
-  const [balanceError, setBalanceError] = useState(false);
+  const [serverErrorMessage, setServerErrorMessage] = useState(
+    "Unable to transfer because it is a very very very very long message blbabla blabla"
+  );
+  const [sendingTx, setSendingTx] = useState(false);
+  const hashContext = useContext(HashContext);
+
+  const { data: session } = useSession();
 
   const { type, platform, amount, asset, username } = useFormContext();
-  const [sendingTx, setSendingTx] = useState(false);
-  const { data: session } = useSession();
+
+  if (!hashContext) {
+    throw new Error("HashContext is not available");
+  }
+
+  const { setHash } = hashContext;
 
   const handleTokenTransfer = async (
     toUserId: string,
@@ -74,13 +82,14 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
       console.log(req);
       if (req.status === "SUCCESS") {
         console.log(req);
-        setSuccess(true);
         setHash(req.hash);
         setSendingTx(false);
+        goToStep(5);
         return req;
       } else {
         setResponseError(req);
         setServerError(true);
+        setServerErrorMessage(req.error);
         console.log("error: ", req.status);
         setSendingTx(false);
       }
@@ -88,14 +97,23 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
   };
 
   const handleTxType = async () => {
-    setSendingTx(true);
-    if (type === "send") {
-      await handleSendTx();
+    if (username && amount) {
+      setSendingTx(true);
+      if (type === "send") {
+        await handleSendTx();
+      }
     }
-    // DO NOT DELETE CODE BELOW. IT'S FOR REQUEST FEATURE
-    // else if (type === "request") {
-    //   handleRequest({ amount, asset, username });
-    // }
+  };
+
+  const handleOpenTooltip = () => {
+    setOpenTooltip(true);
+    setTimeout(() => {
+      setOpenTooltip(false);
+    }, 2000);
+  };
+
+  const truncate = (str: string, num: number) => {
+    return str.length <= num ? str : str.slice(0, num) + "...";
   };
 
   return (
@@ -107,26 +125,6 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
       width="343px"
       mx="auto"
     >
-      {success ? (
-        <>
-          <Box mb="18px">
-            <Icon name="transaction_success" />
-          </Box>
-          <Link href={`https://polygonscan.com/tx/${hash}`} target="_blank">
-            <Text mb="8px" color="#99DA67" fontSize="12px" fontWeight="400">
-              View on Chain Explorer
-            </Text>
-          </Link>
-          <Text mb="34px" color="#155A11" fontSize="12px">
-            {trimAddress(hash)}
-          </Text>
-        </>
-      ) : (
-        <Box justifyContent="center" mb="70px">
-          <Icon name="arrows" />
-        </Box>
-      )}
-
       <Flex
         width="343px"
         flexDirection="column"
@@ -146,6 +144,8 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
             onChange={() => {}}
             onClick={() => goToStep(2)}
             mb="8px"
+            border="none"
+            borderColor="none"
           />
           {username && username !== "" && username !== null && (
             <Flex alignItems="center" justifyContent="flex-start" width="100%">
@@ -208,16 +208,31 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
           width="100%"
         >
           <Box fontWeight="400" color="#63676F">
-            <AssetBalance setBalanceError={setBalanceError} />
-          </Box>
-          <Box>
-            <Icon name="maticGray" />
+            <AssetBalance />
           </Box>
         </Flex>
       </Flex>
-      {responseError && <Box color="#E45200" fontSize="13px">Server Error: Try Again. Sorry!</Box>}
+      <Tooltip
+        label={serverErrorMessage}
+        fontSize="md"
+        isOpen={serverErrorMessage.length > 50 ? openTooltip : false}
+        color="#E45200"
+      >
+        <Box minHeight="19.5px">
+          {responseError && (
+            <Box
+              color="#E45200"
+              fontSize="13px"
+              onClick={handleOpenTooltip}
+              onMouseEnter={handleOpenTooltip}
+            >
+              {truncate(serverErrorMessage, 50)}
+            </Box>
+          )}
+        </Box>
+      </Tooltip>
       <RoundedButton
-        isValid={!!(username && amount)}
+        isValid={!!(username && amount && !serverError)}
         onClick={() => handleTxType()}
         text="Send Payment"
         isLoading={sendingTx}
