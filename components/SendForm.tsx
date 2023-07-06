@@ -132,6 +132,9 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
         mx="auto"
         mb="43px"
       >
+        <Box justifyContent="center" mb="70px">
+          <Icon name="arrows" />
+        </Box>
         <Box width="100%" mb="24px">
           <Input
             value={username ? username : ""}
