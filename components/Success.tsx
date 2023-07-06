@@ -1,8 +1,7 @@
 import { Box, Flex, Input, Text } from "@chakra-ui/react";
 import { useFormContext } from "context/FormContext";
 import Link from "next/link";
-import { Router, useRouter } from "next/router";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import Icon from "./Icon";
 import RoundedButton from "./RoundedButton";
 import { HashContext } from "./SendScreensCollection";
