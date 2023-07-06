@@ -93,6 +93,7 @@ const UserAccount = () => {
         paddingY="8px"
         paddingX="12px"
         align="center"
+        m="auto"
       >
         <Box mr="16px">{renderSocialLogo()}</Box>
         <Flex flexDirection="column">
