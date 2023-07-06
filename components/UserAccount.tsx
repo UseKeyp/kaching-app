@@ -8,7 +8,9 @@ import ScrollableElementContext from "context/ScrollableElementContext";
 
 const UserAccount = () => {
   const [openTooltip, setOpenTooltip] = useState(false);
-  const [scrollDirection, setScrollDirection] = useState<"up" | "down" | null>(null);
+  const [scrollDirection, setScrollDirection] = useState<"up" | "down" | null>(
+    null
+  );
   const { data: session } = useSession();
 
   const scrollableElementRef = useContext(ScrollableElementContext);
@@ -51,7 +53,6 @@ const UserAccount = () => {
     };
   }, [scrollDirection]);
 
-
   const handleCopyAddress = () => {
     navigator.clipboard.writeText(address || "");
     setOpenTooltip(true);
@@ -71,16 +72,18 @@ const UserAccount = () => {
   const handleIconClick = () => {
     router.push("/account");
   };
-  console.log({scrollDirection})
+  console.log({ scrollDirection });
   return (
     <Box
       height="54px"
       width="100%"
       position={scrollDirection === "down" ? "unset" : "fixed"}
-      display={scrollDirection === "down" ? "none" : "flex"}
       justifyContent="center"
       padding="17px"
       zIndex="99"
+      opacity={scrollDirection === "down" ? 0 : 1} // Change this line
+      visibility={scrollDirection === "down" ? "hidden" : "visible"} // Add this line
+      transition="opacity 0.5s ease-in-out, visibility 0.5s ease-in-out" // Change this line
     >
       <Flex
         borderRadius="60px"
