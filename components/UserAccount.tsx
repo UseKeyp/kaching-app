@@ -35,7 +35,7 @@ const UserAccount = () => {
     router.push("/account");
     // signOut({ callbackUrl: "/login" });
   };
-
+  console.log("User Account rendered")
   return (
     <Box
       height="54px"

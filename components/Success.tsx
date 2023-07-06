@@ -40,11 +40,13 @@ const Success = ({ goToStep }: { goToStep?: any }) => {
     setAmount,
     setUsername,
     setAsset,
+    setPlatform
   } = useFormContext();
 
   const handleBtnClick = () => {
     setAmount(undefined);
     setUsername(undefined);
+    setPlatform("google");
     setAsset("USDC");
     goToStep(1);
   };
