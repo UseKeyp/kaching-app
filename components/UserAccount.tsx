@@ -72,7 +72,7 @@ const UserAccount = () => {
   const handleIconClick = () => {
     router.push("/account");
   };
-
+  console.log("User Account rendered")
   return (
     <Box height="54px">
       <Box

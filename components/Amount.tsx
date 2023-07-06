@@ -2,7 +2,7 @@ import { Box, Button, Flex, Heading, Input } from "@chakra-ui/react";
 import { FieldValues, useForm } from "react-hook-form";
 import { useFormContext } from "context/FormContext";
 import AssetBalance from "./AssetBalance";
-import { useState, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { ErrorMessage } from "@hookform/error-message";
 import RoundedButton from "./RoundedButton";
 import { useBalance } from "context/BalanceContext";
@@ -13,15 +13,12 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
   const { amount, setAmount, asset } = useFormContext();
   const localForm = useForm<FieldValues>();
   const {
-    getValues,
     register,
     watch,
-    trigger,
     handleSubmit,
     formState: { errors, isValid },
   } = localForm;
 
-  const values = getValues();
   watch();
 
   useEffect(() => {
@@ -33,17 +30,10 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
     }
   }, [isActive]);
 
-  const handleAmount = async (): Promise<void> => {
-    const valid = await trigger();
-    if (valid) {
-      const stateUpdates = () => {
-        setAmount(values.amount);
-      };
-      stateUpdates();
-      goToStep(1);
-    }
-
-    return;
+  const handleAmount = async (data: any): Promise<void> => {
+    console.log({ amount });
+    setAmount(data.amount);
+    goToStep(1);
   };
 
   const amountValidation = (n: any) => {
@@ -104,7 +94,7 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
               message: `Enter asset amount`,
             },
             pattern: {
-              value: /^[0-9.,]*$/, // only allows numeric input
+              value: /^[0-9.]*$/, // only allows numeric input
               message: "You can only enter numeric value",
             },
             validate: amountValidation,
@@ -118,7 +108,7 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
             },
           }}
           onKeyPress={(event) => {
-            if (!/[0-9,.]/.test(event.key)) {
+            if (!/[0-9.]/.test(event.key)) {
               event.preventDefault();
             }
           }}
@@ -177,7 +167,6 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
         </Box>
         <RoundedButton
           isValid={isValid}
-          // onClick={handleAmount}
           onClick={handleSubmit(handleAmount)}
           text="Confirm"
         />

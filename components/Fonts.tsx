@@ -57,6 +57,14 @@ const Fonts = () => (
       font-display: swap;
       font-style: normal;
     }
+    @font-face {
+      font-family: "Roboto Mono";
+      src: 
+        url("/fonts/roboto-mono/RobotoMono-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-display: swap;
+      font-style: normal;
+    }
   `}
   />
 );

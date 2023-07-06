@@ -40,7 +40,7 @@ const Icon:React.FC<IconProps> = ({ name, size, width, height, color, className,
 
 Icon.defaultProps = {
   size: "32px",
-  color: "black",
+  // color: "black",
 };
 
 export default Icon;

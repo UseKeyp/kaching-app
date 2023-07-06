@@ -14,6 +14,7 @@ import UserAccount from "components/UserAccount";
 import "public/fonts/satoshi/css/satoshi.css";
 import { BalanceProvider } from "../context/BalanceContext";
 import { BackgroundImage } from "components/BackgroundImage";
+import "../styles/globals.css"
 
 interface AppProps {
   Component: any;
@@ -26,6 +27,7 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   const getBackground = () => {
     switch (router.pathname) {
       case "/send":
+      case "/transaction-success":
         return "url('/bg-green.jpg')";
       case "/play":
         return "url('/bg-grey.jpg')";
