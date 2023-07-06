@@ -58,7 +58,12 @@ const TransactionDetails: React.FC<TransactionDetailsProps> = ({ item }) => {
                 <Icon name="matic" width="16px" height="16px" />
               </>
             ) : (
-              <Text textTransform="capitalize" fontSize="16px" fontWeight="700">
+              <Text
+                textTransform="capitalize"
+                fontSize="16px"
+                fontWeight="400"
+                fontFamily="Roboto Mono"
+              >
                 {item.methodName}
               </Text>
             )}
@@ -86,7 +91,10 @@ const TransactionDetails: React.FC<TransactionDetailsProps> = ({ item }) => {
                   ></Icon>
                 </Box>
               )}
-              <Text>
+              <Text
+                fontFamily={item.to?.username ? "Satoshi" : "Roboto Mono"}
+                fontSize={item.to?.username ? "11px" : "10px"}
+              >
                 {item.to?.username ? item.to.username : item.to?.address}
               </Text>
             </Flex>
