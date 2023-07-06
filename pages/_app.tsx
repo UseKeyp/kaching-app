@@ -14,6 +14,7 @@ import UserAccount from "components/UserAccount";
 import "public/fonts/satoshi/css/satoshi.css";
 import { BalanceProvider } from "../context/BalanceContext";
 import { BackgroundImage } from "components/BackgroundImage";
+import "../styles/globals.css"
 
 interface AppProps {
   Component: any;

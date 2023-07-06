@@ -1,0 +1,9 @@
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+
+.my_class {
+  color: green;
+}
