@@ -48,7 +48,10 @@ const RoundedButton: React.FC<RoundedButtonProps> = ({
       px="24px"
       py="16px"
       onClick={onClick}
-      disabled
+      _focusVisible={{
+        boxShadow: "none",
+      }}
+      _active={{ bg: "none" }}
     >
       <Text>{text}</Text>
       {arrow && (

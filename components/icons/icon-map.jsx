@@ -375,7 +375,7 @@ const Discord = ({ width, height, disabled, color }) => {
     } else if (color) {
       return color;
     } else {
-      return black;
+      return "black";
     }
   };
   return (
