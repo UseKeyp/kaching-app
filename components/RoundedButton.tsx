@@ -31,7 +31,6 @@ const RoundedButton: React.FC<RoundedButtonProps> = ({
     }
   };
 
-  console.log("btn is valid? ", isValid);
   return (
     <Button
       isLoading={isLoading}
