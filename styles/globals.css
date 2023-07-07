@@ -4,6 +4,7 @@
 
 @import "tailwindcss/utilities";
 
-.my_class {
-  color: green;
+button {
+  -webkit-tap-highlight-color: transparent;
 }
+
