@@ -15,16 +15,19 @@ const Navbar = () => {
   const username = session && session.user.username;
 
   const getIconColor = (name: string) => {
-    if (name === "wallet" && (router.pathname === "/wallet" || router.pathname === "/")) {
+    if (
+      name === "wallet" &&
+      (router.pathname === "/wallet" || router.pathname === "/")
+    ) {
       return "#1499DA";
     } else if (name === "send" && router.pathname === "/send") {
-      return "#3A8500"
+      return "#3A8500";
     } else if (name === "ramp" && router.pathname === "/ramp") {
-      return "#1499DA"
+      return "#1499DA";
     } else if (name === "apps" && router.pathname === "/apps") {
-      return "#D28200"
+      return "#D28200";
     } else {
-      return "#B0B6C1"
+      return "#B0B6C1";
     }
   };
 
@@ -43,49 +46,54 @@ const Navbar = () => {
         <Flex>
           <Button
             colorScheme="teal"
-            variant="link"
+            variant="unstyled"
             onClick={() => router.push("/wallet")}
+            _active={{ bg: "none" }}
+            _focus={{ bg: "none" }}
           >
-            <Icon
-              name="wallet"
-              color={getIconColor("wallet")}
-            />
+            <Icon name="wallet" color={getIconColor("wallet")} />
           </Button>
         </Flex>
         <Flex>
           <Button
             colorScheme="teal"
-            variant="link"
+            variant="unstyled"
             onClick={() => router.push("/send")}
+            _focusVisible={{
+              boxShadow: "none",
+            }}
+            _active={{ bg: "none" }}
+            _focus={{ bg: "none" }}
           >
-            <Icon
-              name="send"
-              color={getIconColor("send")}
-            />
+            <Icon name="send" color={getIconColor("send")} />
           </Button>
         </Flex>
         <Flex>
           <Button
             colorScheme="teal"
-            variant="link"
+            variant="unstyled"
+            _focusVisible={{
+              boxShadow: "none",
+            }}
+            _active={{ bg: "none" }}
+            _focus={{ bg: "none" }}
             onClick={() => router.push("/ramp")}
           >
-            <Icon
-              name="ramp"
-              color={getIconColor("ramp")}
-            />
+            <Icon name="ramp" color={getIconColor("ramp")} />
           </Button>
         </Flex>
         <Flex>
           <Button
             colorScheme="teal"
-            variant="link"
+            variant="unstyled"
             onClick={() => router.push("/apps")}
+            _focusVisible={{
+              boxShadow: "none",
+            }}
+            _active={{ bg: "none" }}
+            _focus={{ bg: "none" }}
           >
-            <Icon
-              name="apps"
-              color={getIconColor("apps")}
-            />
+            <Icon name="apps" color={getIconColor("apps")} />
           </Button>
         </Flex>
       </Flex>
