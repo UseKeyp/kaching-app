@@ -39,9 +39,7 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
     TransferError | undefined
   >();
   const [serverError, setServerError] = useState(false);
-  const [serverErrorMessage, setServerErrorMessage] = useState(
-    "Unable to transfer because it is a very very very very long message blbabla blabla"
-  );
+  const [serverErrorMessage, setServerErrorMessage] = useState("");
   const [sendingTx, setSendingTx] = useState(false);
   const hashContext = useContext(HashContext);
 
@@ -90,14 +88,20 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
         setResponseError(req);
         setServerError(true);
         setServerErrorMessage(req.error);
+
         console.log("error: ", req.status);
         setSendingTx(false);
+
+        setTimeout(() => {
+          setServerError(false);
+          setServerErrorMessage("");
+        }, 10000);
       }
     }
   };
 
   const handleTxType = async () => {
-    if (username && amount) {
+    if (username && amount && !serverError) {
       setSendingTx(true);
       if (type === "send") {
         await handleSendTx();
