@@ -74,64 +74,53 @@ const UserAccount = () => {
   };
 
   return (
-    <Box height="54px">
-      <Box
-        width="100%"
-        position={scrollDirection === "down" ? "unset" : "fixed"}
-        justifyContent="center"
-        padding="17px"
-        zIndex="99"
-        opacity={scrollDirection === "down" ? 0 : 1} // Change this line
-        visibility={scrollDirection === "down" ? "hidden" : "visible"} // Add this line
-        transition="opacity 0.5s ease-in-out, visibility 0.5s ease-in-out" // Change this line
+    <Box width="100%" padding="17px">
+      <Flex
+        borderRadius="60px"
+        height="54px"
+        width="343px"
+        bg="rgba(255, 255, 255)"
+        paddingY="8px"
+        paddingX="12px"
+        align="center"
+        m="auto"
       >
-        <Flex
-          borderRadius="60px"
-          height="54px"
-          width="343px"
-          bg="rgba(255, 255, 255)"
-          paddingY="8px"
-          paddingX="12px"
-          align="center"
-          m="auto"
-        >
-          <Box mr="16px">{renderSocialLogo()}</Box>
-          <Flex flexDirection="column">
-            <Box fontWeight={500} color="#1499DA">
-              {username}
-            </Box>
-            <HStack>
-              <Text color="#80858E">
-                {address?.slice(0, 7)}
-                <span>...</span>
-                {address?.slice(-4)}
-              </Text>
-              <Tooltip
-                label="Address copied to clipboard"
-                isOpen={openTooltip}
-                placement="bottom-end"
-                fontFamily="satoshi"
-              >
-                <Image
-                  src="copy.svg"
-                  alt="copy"
-                  w="16px"
-                  h="16px"
-                  onClick={handleCopyAddress}
-                />
-              </Tooltip>
-            </HStack>
-          </Flex>
-          {/* temporary sign out */}
-          <Image
-            src="user.svg"
-            alt="user icon"
-            w="32px"
-            onClick={handleIconClick}
-            ml="auto"
-          />
+        <Box mr="16px">{renderSocialLogo()}</Box>
+        <Flex flexDirection="column">
+          <Box fontWeight={500} color="#1499DA">
+            {username}
+          </Box>
+          <HStack>
+            <Text color="#80858E">
+              {address?.slice(0, 7)}
+              <span>...</span>
+              {address?.slice(-4)}
+            </Text>
+            <Tooltip
+              label="Address copied to clipboard"
+              isOpen={openTooltip}
+              placement="bottom-end"
+              fontFamily="satoshi"
+            >
+              <Image
+                src="copy.svg"
+                alt="copy"
+                w="16px"
+                h="16px"
+                onClick={handleCopyAddress}
+              />
+            </Tooltip>
+          </HStack>
         </Flex>
-      </Box>
+        {/* temporary sign out */}
+        <Image
+          src="user.svg"
+          alt="user icon"
+          w="32px"
+          onClick={handleIconClick}
+          ml="auto"
+        />
+      </Flex>
     </Box>
   );
 };
