@@ -1,57 +1,19 @@
 import { Flex, Box, Text, Tooltip, HStack, Image } from "@chakra-ui/react";
 import useSocialLogo from "../hooks/useSocialLogo";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import ScrollableElementContext from "context/ScrollableElementContext";
 
 const UserAccount = () => {
   const [openTooltip, setOpenTooltip] = useState(false);
-  const [scrollDirection, setScrollDirection] = useState<"up" | "down" | null>(
-    null
-  );
   const { data: session } = useSession();
-
-  const scrollableElementRef = useContext(ScrollableElementContext);
 
   const socialLogo = useSocialLogo(session);
   const router = useRouter();
 
   const username = session && session.user.username;
   const address = session && session.user.address;
-
-  useEffect(() => {
-    if (!scrollableElementRef?.current) {
-      return;
-    }
-
-    let lastScrollY = scrollableElementRef.current.scrollTop;
-
-    const updateScrollDirection = () => {
-      const scrollY = scrollableElementRef.current?.scrollTop;
-      if (scrollY === undefined || lastScrollY === undefined) {
-        return;
-      }
-
-      const direction = scrollY > lastScrollY ? "down" : "up";
-
-      if (
-        direction !== scrollDirection &&
-        (scrollY - lastScrollY > 1 || scrollY - lastScrollY < -1)
-      ) {
-        setScrollDirection(direction);
-      }
-      lastScrollY = scrollY > 0 ? scrollY : 0;
-    };
-
-    const element = scrollableElementRef.current;
-
-    element.addEventListener("scroll", updateScrollDirection); // add event listener
-    return () => {
-      element.removeEventListener("scroll", updateScrollDirection); // clean up
-    };
-  }, [scrollDirection]);
 
   const handleCopyAddress = () => {
     navigator.clipboard.writeText(address || "");
@@ -112,7 +74,6 @@ const UserAccount = () => {
             </Tooltip>
           </HStack>
         </Flex>
-        {/* temporary sign out */}
         <Image
           src="user.svg"
           alt="user icon"
