@@ -14,13 +14,13 @@ const SocialButton: React.FC<SocialButtonProps> = ({ name, platform, handleActiv
       display="flex"
       variant="unstyled"
       width="56px"
+      height="56px"
       borderRadius="100%"
       bg={"white"}
       opacity={platform === name ? "" : "0.4"}
       padding="10px"
       justifyContent="center"
-      alignItems="center"
-      height="56px"
+      alignItems="center"  
       onClick={() => handleActiveIcons(name)}
     >
       <Icon

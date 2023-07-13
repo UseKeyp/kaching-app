@@ -14,7 +14,7 @@ const appDetails = [
 const Apps = () => {
   return (
     <>
-      <Wrap gap={6}>
+      <Wrap gap={6} maxW="325px" m="auto">
         {appDetails.map((app) => (
           <WrapItem key={app.url}>
             <Link href={app.url}>

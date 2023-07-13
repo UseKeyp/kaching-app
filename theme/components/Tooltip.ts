@@ -1,7 +1,7 @@
 const Tooltip = {
   baseStyle: {
     bg: "white",
-    color: "pink",
+    color: "black",
     rounded: "md",
     fontSize: "1rem",
   },
