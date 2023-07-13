@@ -55,7 +55,7 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
                   {router.pathname !== "/login" ? (
                     <>
                       <UserAccount />
-                      <Box paddingTop="80px" paddingBottom="140px">
+                      <Box paddingTop="30px" paddingBottom="140px">
                         <Component {...pageProps} />
                       </Box>
                       <Navbar />
