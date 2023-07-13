@@ -46,6 +46,7 @@ const UseKeypApi = async ({
     })
     .catch((error) => {
       console.error(error);
+      signOut();
       return error;
     });
 };
