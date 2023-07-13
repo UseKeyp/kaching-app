@@ -111,7 +111,7 @@ const Account = () => {
           overflow="hidden"
         >
           {data &&
-            data.map((item, index) => {
+            data.map((item: any, index) => {
               return <TransactionDetails item={item} key={item.hash} />;
             })}
           <Link
