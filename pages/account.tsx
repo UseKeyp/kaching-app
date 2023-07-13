@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   Box,
   Flex,
@@ -10,76 +11,31 @@ import {
 import RoundedButton from "components/RoundedButton";
 import TransactionDetails from "components/TransactionDetails";
 import { signOut, useSession } from "next-auth/react";
-import { useState } from "react";
-
-const DATA_EXAMPLE = [
-  {
-    type: "TRANSFER",
-    to: {
-      username: "pi0neerpat",
-      platform: "DISCORD",
-      address: "0x2401030c1B23eBf40b1a219AF6AaD0bc582dB656",
-    },
-    amount: {
-      type: "POLYGON_MATIC",
-      value: "25000000000000000",
-      valueBn: {
-        type: "BigNumber",
-        hex: "0x58d15e17628000",
-      },
-      formatted: "0.025",
-      decimals: 18,
-      symbol: "MATIC",
-      name: "Matic",
-      tokenAddress: null,
-      network: "polygon",
-      chainId: 137,
-    },
-    timestamp: "2021-09-01T00:00:00Z",
-    hash: "0x2401030c1B23eBf40b1a219AF6AaD0bc582dB654",
-    explorerUrl: "https://polygonscan.com/tx/0xabc123...",
-  },
-  {
-    type: "TRANSFER",
-    to: {
-      address: "0x2401030c1B23eBf40b1a219AF6AaD0bc582dB656",
-    },
-    amount: {
-      type: "POLYGON_MATIC",
-      value: "25000000000000000",
-      valueBn: {
-        type: "BigNumber",
-        hex: "0x58d15e17628000",
-      },
-      formatted: "0.025",
-      decimals: 18,
-      symbol: "MATIC",
-      name: "Matic",
-      tokenAddress: null,
-      network: "polygon",
-      chainId: 137,
-    },
-    timestamp: "2021-09-01T00:00:00Z",
-    hash: "0x2401030c1B23eBf40b1a219AF6AaD0bc582dB655",
-    explorerUrl: "https://polygonscan.com/tx/0xabc123...",
-  },
-  {
-    type: "CONTRACT_CALL",
-    contractAddress: "0xbbb1111",
-    methodName: "deposit", // MintAndDeposit...WithRedeption
-    timestamp: "2021-09-01T00:00:00Z",
-    hash: "0x2401030c1B23eBf40b1a219AF6AaD0bc582dB656",
-    explorerUrl: "https://polygonscan.com/tx/0xabc123...",
-  },
-];
+// import { KEYP_BASE_URL_V1 } from "utils/general";
+import UseKeypApi from "../hooks/useKeypApi";
 
 const Account = () => {
   const [openTooltip, setOpenTooltip] = useState(false);
-  const [data, setData] = useState(DATA_EXAMPLE);
+  const [data, setData] = useState([]);
 
   const { data: session } = useSession();
 
   const address = session && session.user.address;
+  const KEYP_BASE_URL_V1 = "http://localhost:4001/v1"
+  const fetchTransfers = async () => {
+    const res = await UseKeypApi({
+      accessToken: session?.user.accessToken,
+      method: "GET",
+      endpointUrl: `${KEYP_BASE_URL_V1}/users/${session?.user?.id}/history`,
+    });
+    setData(res);
+  };
+  console.log(data)
+
+  useEffect(() => {
+    if (!session) return
+    fetchTransfers();
+  }, [session]);
 
   const handleBtnClick = () => {
     signOut({ callbackUrl: "/login" });

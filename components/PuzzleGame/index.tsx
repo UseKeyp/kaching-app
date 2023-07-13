@@ -99,8 +99,7 @@ export const PuzzleGame = () => {
     try {
       const result = await writeContract({
         accessToken: session?.user.accessToken,
-        // TODO: Contract address is incorrect
-        address: "0x841f6bf42a41c4ded1b9c3d09dbcb5b0da634c05",
+        address: "0x3e0141f019508744e9dbc7c1274f3c1f9446f238",
         abi: "mint(address,uint256)",
         args: [address || "", '1'],
       });
