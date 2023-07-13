@@ -1,4 +1,4 @@
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { Box, Flex, Heading, Image } from "@chakra-ui/react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
@@ -6,7 +6,6 @@ import { KEYP_BASE_URL_V1, supportedAssets } from "utils/general";
 
 interface Media {
   thumbnail?: string;
-  // Other properties...
 }
 
 interface NFT {
@@ -22,7 +21,7 @@ const NFTsList = () => {
   const fetchNFTs = () => {
     const ACCESS_TOKEN = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
     // const ACCESS_TOKEN = session?.user.accessToken;
-    const userId = "0x3ab208D3CE512F2ac0Aa821Eecf2B816A96799B0" // account with nfts
+    const userId = "0x3ab208D3CE512F2ac0Aa821Eecf2B816A96799B0"; // account with nfts
     // const userId = session?.user.id;
     const options = {
       headers: {
@@ -83,7 +82,7 @@ const NFTsList = () => {
               overflow="hidden"
               borderRadius="6px"
             >
-              <img src={nft.media[0].thumbnail} alt={nft.title} />
+              <Image src={nft.media[0].thumbnail} alt={nft.title} />
             </Flex>
           ) : null;
         })}
