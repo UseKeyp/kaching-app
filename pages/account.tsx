@@ -11,7 +11,7 @@ import {
 import RoundedButton from "components/RoundedButton";
 import TransactionDetails from "components/TransactionDetails";
 import { signOut, useSession } from "next-auth/react";
-// import { KEYP_BASE_URL_V1 } from "utils/general";
+import { KEYP_BASE_URL_V1 } from "utils/general";
 import UseKeypApi from "../hooks/useKeypApi";
 
 const Account = () => {
@@ -21,7 +21,6 @@ const Account = () => {
   const { data: session } = useSession();
 
   const address = session && session.user.address;
-  const KEYP_BASE_URL_V1 = "http://localhost:4001/v1"
   const fetchTransfers = async () => {
     const res = await UseKeypApi({
       accessToken: session?.user.accessToken,
