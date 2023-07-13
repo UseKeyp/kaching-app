@@ -258,11 +258,7 @@ export const PuzzleGame = () => {
                     <a
                       target="_blank"
                       rel="noreferrer"
-                      href={`https://${
-                        process.env.NEXT_PUBLIC_NETWORK === "polygon"
-                          ? "polygonscan.com"
-                          : "mumbai.polygonscan.com"
-                      }/tx/${mintTxhash}`}
+                      href={`https://polygonscan.com/tx/${mintTxhash}`}
                     >
                       here
                     </a>

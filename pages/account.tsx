@@ -30,7 +30,6 @@ const Account = () => {
     });
     setData(res);
   };
-  console.log(data)
 
   useEffect(() => {
     if (!session) return
