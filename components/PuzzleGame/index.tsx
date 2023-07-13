@@ -3,9 +3,10 @@ import { Image, HStack, Flex } from "@chakra-ui/react";
 import styles from "./PuzzleGame.module.css";
 import { useFormContext } from "../../context/FormContext";
 import { useSession } from "next-auth/react";
-import axios from "axios";
 import Sparkles from "react-sparkle";
 import { TypeAnimation } from "react-type-animation";
+import { writeContract } from "@usekeyp/js-sdk";
+import { useRouter } from 'next/router';
 
 const CURRENT_WEEK = 1;
 
@@ -25,13 +26,12 @@ type GameLog = {
   moveNumber: number;
 };
 
-const checkIsSolved = (puzzle: PuzzleGame) => {
-  return puzzle.every((item: number | null, index: number) => {
-    return item === index + 1 || item === null;
-  });
-};
+
 
 export const PuzzleGame = () => {
+  const router = useRouter();
+  const { query } = router;
+
   const [displayStartScreen, setDisplayStartScreen] = useState<boolean>(true);
   const [puzzle, setPuzzle] = useState<PuzzleGame>(DEFAULT_PUZZLE_STATE);
   const [shufflingPuzzle, setShufflingPuzzle] =
@@ -52,6 +52,12 @@ export const PuzzleGame = () => {
   const { data: session } = useSession();
   const address = session && session.user.address;
 
+  const checkIsSolved = (puzzle: PuzzleGame) => {
+    if (!!router.query.solved) return true
+    return puzzle.every((item: number | null, index: number) => {
+      return item === index + 1 || item === null;
+    });
+  };
   useEffect(() => {
     const isPuzzleSolved = checkIsSolved(puzzle);
 
@@ -91,26 +97,28 @@ export const PuzzleGame = () => {
     setIsMintingScreen(true);
     setPendingMint(true);
     try {
-      const fetchResult = await axios.get("/api/mint", {
-        params: { recipient: address },
+      const result = await writeContract({
+        accessToken: session?.user.accessToken,
+        address: "0x3e0141f019508744e9dbc7c1274f3c1f9446f238",
+        abi: "mint(address,uint256)",
+        args: [address || "", '1'],
       });
 
-      if (fetchResult.status === 200) {
+      if (result.status === "SUCCESS") {
         setMintingStatus(SUCCESS);
-        setMintTxHash(fetchResult.data.response.hash);
+        setMintTxHash(result.hash || "");
       } else {
         setMintingStatus(ERROR);
-        setMintErrorMessage(fetchResult.data.message);
-        console.error(
-          `There was an error with the mint: ${fetchResult.data.message}`
-        );
+        setMintErrorMessage(result.error || "");
+        console.error(`There was an error with the mint: ${result.error}`);
       }
       setPendingMint(false);
     } catch (e: any) {
       setPendingMint(false);
       setMintingStatus(ERROR);
       setMintErrorMessage("");
-      console.error("There was an error with the fetch request to mint");
+      console.log(e)
+      console.error("There was an error with the writeContract call to mint");
     }
   };
 
@@ -250,11 +258,7 @@ export const PuzzleGame = () => {
                     <a
                       target="_blank"
                       rel="noreferrer"
-                      href={`https://${
-                        process.env.NEXT_PUBLIC_NETWORK === "polygon"
-                          ? "polygonscan.com"
-                          : "mumbai.polygonscan.com"
-                      }/tx/${mintTxhash}`}
+                      href={`https://polygonscan.com/tx/${mintTxhash}`}
                     >
                       here
                     </a>
@@ -264,7 +268,7 @@ export const PuzzleGame = () => {
               {mintingStatus === ERROR && (
                 <HStack>
                   <span className={styles.errorMessageText}>
-                    Errroorrrrrr. Something went wrong. 
+                    Whoops! Something went wrong. 
                   </span>
                 </HStack>
               )}
