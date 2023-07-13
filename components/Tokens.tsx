@@ -6,7 +6,7 @@ import Balances from "./Balances";
 
 const Tokens = () => {
   return (
-    <Box mx="auto" width="343px" fontFamily="satoshi">
+    <Box>
       <Heading
         as="h2"
         fontFamily="satoshi"
