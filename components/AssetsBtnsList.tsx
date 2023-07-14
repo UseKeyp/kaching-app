@@ -12,12 +12,12 @@ const AssetsBtnsList: React.FC<AssetsBtnsListProps> = ({ onClick }) => {
 
   return (
     <>
-      {error && (
+      {error && 'message' in error && (
         <Flex justifyContent="center" color="#E45200" pt="20px">
           {error.message}
         </Flex>
       )}
-      {assetsList && !error &&
+      {assetsList &&
         assetsList.length > 1 &&
         assetsList?.map((asset: any) => {
           return (

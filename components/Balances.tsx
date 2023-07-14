@@ -11,11 +11,6 @@ const Balances: React.FC<BalancesProps> = ({ onClick }) => {
   const { balances, loading, error } = useBalance();
   const assetsList = balances
 
-  // assets list is loading in BalanceContext
-  console.log({assetsList})
-  console.log({balances})
-  console.log({ loading });
-  console.log({ error });
   return (
     <>
       {loading && Object.values(assetsList).length === 0 && (
@@ -26,10 +21,9 @@ const Balances: React.FC<BalancesProps> = ({ onClick }) => {
       {error && !loading && (
         <Flex justifyContent="center" color="#E45200" pt="20px">{error.message}</Flex>
       )}
-      {assetsList && !error &&
+      {assetsList &&
         Object.values(assetsList).length > 1 &&
         Object.values(assetsList)?.map((asset: any) => {
-          console.log({asset})
           return (
             <Box
               key={asset.symbol}
