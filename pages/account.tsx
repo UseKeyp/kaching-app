@@ -16,7 +16,7 @@ import UseKeypApi from "../hooks/useKeypApi";
 
 const Account = () => {
   const [openTooltip, setOpenTooltip] = useState(false);
-  const [data, setData] = useState([]);
+  const [transfersData, setTransfersData] = useState<any[]>([]);
 
   const { data: session } = useSession();
 
@@ -27,11 +27,15 @@ const Account = () => {
       method: "GET",
       endpointUrl: `${KEYP_BASE_URL_V1}/users/${session?.user?.id}/history`,
     });
-    setData(res);
+    console.log({ res });
+    console.log("arr is arr? ", Array.isArray(res));
+    if (Array.isArray(res) && res.length > 0) {
+      setTransfersData(res);
+    }
   };
 
   useEffect(() => {
-    if (!session) return
+    if (!session) return;
     fetchTransfers();
   }, [session]);
 
@@ -109,9 +113,11 @@ const Account = () => {
           flexDirection="column"
           overflow="hidden"
         >
-          {data &&
-            data.map((item: any, index) => {
-              return <TransactionDetails item={item} key={item.hash} />;
+          {transfersData.length > 0 &&
+            transfersData.slice(0, 10).map((item: any) => {
+              return item && item.hash ? (
+                <TransactionDetails item={item} key={item.hash} />
+              ) : null;
             })}
           <Link
             href={`https://polygonscan.com/address/${address}`}
