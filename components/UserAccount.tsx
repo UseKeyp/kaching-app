@@ -25,7 +25,11 @@ const UserAccount = () => {
   };
 
   const renderSocialLogo = () => {
-    return socialLogo && <Icon name={socialLogo} width="32px" height="32px" disabled/>
+    return (
+      socialLogo && (
+        <Icon name={socialLogo} width="32px" height="32px" disabled />
+      )
+    );
   };
 
   const handleIconClick = () => {
@@ -50,6 +54,7 @@ const UserAccount = () => {
             {username}
           </Box>
           <HStack>
+            <Icon name="polygon" />
             <Text color="#80858E">
               {address?.slice(0, 7)}
               <span>...</span>
