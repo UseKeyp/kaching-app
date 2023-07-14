@@ -33,23 +33,19 @@ const NFTsList = () => {
   const { data: session } = useSession();
 
   const fetchNFTs = () => {
-    const ACCESS_TOKEN = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
-    // const ACCESS_TOKEN = session?.user.accessToken;
-    const userId = "0x3ab208D3CE512F2ac0Aa821Eecf2B816A96799B0"; // account with nfts
-    // const userId = session?.user.id;
+    const ACCESS_TOKEN = session?.user.accessToken;
+    const userId = session?.user.id;
     const options = {
       headers: {
         Authorization: `Bearer ${ACCESS_TOKEN}`,
       },
     };
 
-    // const getNft = `http://api.usekeyp.com/v1/nfts/${userId}`;
-    const getNft = `http://localhost:4001/v1/nfts/${userId}`;
+    const getNft = `http://api.usekeyp.com/v1/nfts/${userId}`;
 
     axios
       .get(getNft, options)
       .then((response) => {
-        console.log("nft", response.data);
         setNftsList(response.data.ownedNfts);
       })
       .catch((error) => {
