@@ -23,8 +23,7 @@ export const BalanceProvider: React.FC<BalanceProviderProps> = ({
   const [balances, setBalance] = useState<UserBalance>({}); // change to object with all available tokens
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  // const tokenAddress = supportedAssets[asset];
-
+  
   const fetchBalance = () => {
     setLoading(true);
 
@@ -50,7 +49,6 @@ export const BalanceProvider: React.FC<BalanceProviderProps> = ({
         axios.spread((firstResponse, daiResponse, wethResponse) => {
           let DAI = Object.values(daiResponse.data);
           let WETH = Object.values(wethResponse.data);
-
           let balanceData = {
             ...firstResponse.data,
             DAI: DAI[0],
