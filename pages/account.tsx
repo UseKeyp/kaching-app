@@ -114,7 +114,7 @@ const Account = () => {
           overflow="hidden"
         >
           {transfersData.length > 0 &&
-            transfersData.map((item: any) => {
+            transfersData.slice(0, 10).map((item: any) => {
               return item && item.hash ? (
                 <TransactionDetails item={item} key={item.hash} />
               ) : null;
