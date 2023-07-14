@@ -9,30 +9,33 @@ interface BalancesProps {
 
 const Balances: React.FC<BalancesProps> = ({ onClick }) => {
   const { balances, loading, error } = useBalance();
-  const assetsList = balances && Object.values(balances);
+  const assetsList = balances
 
   // assets list is loading in BalanceContext
+  console.log({assetsList})
+  console.log({balances})
   console.log({ loading });
   console.log({ error });
   return (
     <>
-      {loading && assetsList.length === 0 && (
+      {loading && Object.values(assetsList).length === 0 && (
         <Flex justifyContent="center" pt="20px">
           <Spinner size="md" color="blue.500"/>
         </Flex>
       )}
-      {error && !loading && assetsList.length === 0 && (
+      {error && !loading && (
         <Flex justifyContent="center" color="#E45200" pt="20px">{error.message}</Flex>
       )}
-      {assetsList &&
-        assetsList.length > 1 &&
-        assetsList?.map((asset: any) => {
+      {assetsList && !error &&
+        Object.values(assetsList).length > 1 &&
+        Object.values(assetsList)?.map((asset: any) => {
+          console.log({asset})
           return (
             <Box
               key={asset.symbol}
               onClick={() => (onClick ? onClick(asset.symbol) : null)}
             >
-              <AssetRow asset={asset} />
+              <AssetRow asset={asset} loading={loading}/>
               <Divider borderColor="rgba(255, 255, 255, 0.5)" />
               <Divider borderColor="#C6E3F3" />
             </Box>

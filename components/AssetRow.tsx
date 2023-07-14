@@ -1,12 +1,14 @@
 import { Box, Flex } from "@chakra-ui/layout";
+import { Spinner } from "@chakra-ui/react";
 import { AssetBalance } from "types/keypEndpoints";
 import Icon from "./Icon";
 
 interface AssetRowProps {
   asset: AssetBalance;
+  loading?: boolean;
 }
 
-const AssetRow: React.FC<AssetRowProps> = ({ asset }) => {
+const AssetRow: React.FC<AssetRowProps> = ({ asset, loading }) => {
   const getAssetIcon = (name: string) => {
     switch (name) {
       case "USDC":
@@ -56,7 +58,9 @@ const AssetRow: React.FC<AssetRowProps> = ({ asset }) => {
         </Box>
       </Flex>
       <Flex flexDirection="column" alignItems="flex-end">
-        <Box fontWeight="700">{formatNumber(asset.formatted)}</Box>
+        <Box fontWeight="700">
+          {loading ? "Loading..." : formatNumber(asset.formatted)}
+        </Box>
         <Box color="#63676F" fontWeight="400" fontSize="12px"></Box>
       </Flex>
     </Flex>

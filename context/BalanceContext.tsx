@@ -2,11 +2,18 @@ import axios from "axios";
 import { signOut, useSession } from "next-auth/react";
 import React, { useEffect, useState, ReactNode } from "react";
 import { useFormContext } from "context/FormContext";
-import { UserBalance } from "types/keypEndpoints";
+import { UserBalance, AssetBalance } from "types/keypEndpoints";
 import { KEYP_BASE_URL_V1, supportedAssets } from "utils/general";
 
+const initialBalances = {
+  MATIC: {symbol: "MATIC"},
+  USDC: {symbol: "USDC"},
+  DAI: {symbol: "DAI"},
+  WETH: {symbol: "WETH"},
+};
+
 const BalanceContext = React.createContext({
-  balances: {},
+  balances: initialBalances,
   error: null,
   loading: false,
 });
@@ -18,11 +25,11 @@ type BalanceProviderProps = {
 export const BalanceProvider: React.FC<BalanceProviderProps> = ({
   children,
 }) => {
-  const { data: session } = useSession();
-  const { asset } = useFormContext();
-  const [balances, setBalance] = useState<UserBalance>({});
+  const [balances, setBalance] = useState(initialBalances);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const { data: session } = useSession();
+  const { asset } = useFormContext();
   // const tokenAddress = supportedAssets[asset];
 
   const fetchBalance = () => {
@@ -58,6 +65,7 @@ export const BalanceProvider: React.FC<BalanceProviderProps> = ({
           };
           setBalance(balanceData);
           setLoading(false);
+          setError(null);
         })
       )
       .catch((error) => {
