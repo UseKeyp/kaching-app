@@ -15,7 +15,7 @@ const OnramperWidget = () => {
 
   useEffect(() => {
     if (!address || !router.query || onramperUrl) return;
-    const network = "POLYGON";
+    const network = router.query.network || "POLYGON";
     const params = {
       apiKey: process.env.ONRAMPER_API_KEY,
       onlyCryptoNetworks: network,
