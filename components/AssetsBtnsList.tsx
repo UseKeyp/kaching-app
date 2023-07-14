@@ -7,7 +7,7 @@ interface AssetsBtnsListProps {
 }
 
 const AssetsBtnsList: React.FC<AssetsBtnsListProps> = ({ onClick }) => {
-  const { balances, error } = useBalance();
+  const { balances, error, loading } = useBalance();
   const assetsList = balances && Object.values(balances);
 
   return (
@@ -28,7 +28,7 @@ const AssetsBtnsList: React.FC<AssetsBtnsListProps> = ({ onClick }) => {
               borderRadius="40px"
               boxShadow="0px 1px 0px #C6E3F3"
             >
-              <AssetRow asset={asset} />
+              <AssetRow asset={asset} loading={loading}/>
             </Box>
           );
         })}

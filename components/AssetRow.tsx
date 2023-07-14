@@ -1,5 +1,4 @@
 import { Box, Flex } from "@chakra-ui/layout";
-import { Spinner } from "@chakra-ui/react";
 import { AssetBalance } from "types/keypEndpoints";
 import Icon from "./Icon";
 

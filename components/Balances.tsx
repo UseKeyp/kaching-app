@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Divider, Flex, Spinner } from "@chakra-ui/react";
+import { Box, Divider, Flex } from "@chakra-ui/react";
 import { useBalance } from "context/BalanceContext";
 import AssetRow from "./AssetRow";
 
@@ -13,11 +13,6 @@ const Balances: React.FC<BalancesProps> = ({ onClick }) => {
 
   return (
     <>
-      {loading && Object.values(assetsList).length === 0 && (
-        <Flex justifyContent="center" pt="20px">
-          <Spinner size="md" color="blue.500"/>
-        </Flex>
-      )}
       {error && !loading && (
         <Flex justifyContent="center" color="#E45200" pt="20px">{error.message}</Flex>
       )}
