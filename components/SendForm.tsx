@@ -87,11 +87,12 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
       } else {
         setResponseError(req);
         setServerError(true);
-        setServerErrorMessage(req.error);
-
-        console.log("error: ", req.status);
+        if (req.error) {
+          setServerErrorMessage(req.error);
+        } else {
+          setServerErrorMessage("Something went wrong");
+        }
         setSendingTx(false);
-
         setTimeout(() => {
           setServerError(false);
           setServerErrorMessage("");
