@@ -20,7 +20,7 @@ export const BalanceProvider: React.FC<BalanceProviderProps> = ({
 }) => {
   const { data: session } = useSession();
   const { asset } = useFormContext();
-  const [balances, setBalance] = useState<UserBalance>({}); // change to object with all available tokens
+  const [balances, setBalance] = useState<UserBalance>({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   // const tokenAddress = supportedAssets[asset];
@@ -62,6 +62,7 @@ export const BalanceProvider: React.FC<BalanceProviderProps> = ({
       )
       .catch((error) => {
         console.error(error);
+        setLoading(false);
         setError(error);
       });
   };
