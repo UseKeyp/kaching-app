@@ -6,7 +6,16 @@ const useSocialLogo = (session: Session | null) => {
     return "google";
   } else if (id?.includes("DISCORD")) {
     return "discord";
-  } else return null;
+  } else if (id?.includes("TWITTER")) {
+    return "twitter";
+  } else if (id?.includes("TWITCH")) {
+    return "twitch";
+  } else if (id?.includes("REDDIT")) {
+    return "reddit";
+  } else if (id?.includes("CHESS")) {
+    return "chess";
+  } 
+  else return null;
 };
 
 export default useSocialLogo;

@@ -4,6 +4,7 @@ import useSocialLogo from "../hooks/useSocialLogo";
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import Icon from "./Icon";
 
 const UserAccount = () => {
   const [openTooltip, setOpenTooltip] = useState(false);
@@ -24,11 +25,11 @@ const UserAccount = () => {
   };
 
   const renderSocialLogo = () => {
-    if (socialLogo === "discord") {
-      return <Image src="discord-color.svg" alt="discord icon" w="32px" />;
-    } else if (socialLogo === "google") {
-      return <Image src="google-color.svg" alt="google icon" w="32px" />;
-    } else return;
+    return (
+      socialLogo && (
+        <Icon name={socialLogo} width="32px" height="32px" disabled />
+      )
+    );
   };
 
   const handleIconClick = () => {
@@ -53,6 +54,7 @@ const UserAccount = () => {
             {username}
           </Box>
           <HStack>
+            <Icon name="polygon" />
             <Text color="#80858E">
               {address?.slice(0, 7)}
               <span>...</span>
