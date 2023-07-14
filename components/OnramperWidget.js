@@ -15,11 +15,10 @@ const OnramperWidget = () => {
 
   useEffect(() => {
     if (!address || !router.query || onramperUrl) return;
-    const network = router.query.network || "POLYGON";
+    const network = "POLYGON";
     const params = {
       apiKey: process.env.ONRAMPER_API_KEY,
-      onlyCryptos: router.query.currency || "USDC_POLYGON",
-      onlyNetwork: network,
+      onlyCryptoNetworks: network,
       isAddressEditable: false,
       wallets: `${network}:${address}`,
     };
