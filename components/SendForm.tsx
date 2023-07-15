@@ -87,11 +87,12 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
       } else {
         setResponseError(req);
         setServerError(true);
-        setServerErrorMessage(req.error);
-
-        console.log("error: ", req.status);
+        if (req.error) {
+          setServerErrorMessage(req.error);
+        } else {
+          setServerErrorMessage("Something went wrong");
+        }
         setSendingTx(false);
-
         setTimeout(() => {
           setServerError(false);
           setServerErrorMessage("");
@@ -222,7 +223,7 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
       <Tooltip
         label={serverErrorMessage}
         fontSize="md"
-        isOpen={serverErrorMessage.length > 50 ? openTooltip : false}
+        isOpen={serverErrorMessage?.length > 50 ? openTooltip : false}
         color="#E45200"
       >
         <Box minHeight="19.5px">
@@ -233,7 +234,7 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
               onClick={handleOpenTooltip}
               onMouseEnter={handleOpenTooltip}
             >
-              {truncate(serverErrorMessage, 50)}
+            {serverErrorMessage ? truncate(serverErrorMessage, 50) : ""} :
             </Box>
           )}
         </Box>

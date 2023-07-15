@@ -30,8 +30,7 @@ const Amount = ({ goToStep, isActive }: { goToStep?: any; isActive?: any }) => {
     }
   }, [isActive]);
 
-  const handleAmount = async (data: any): Promise<void> => {
-    console.log({ amount });
+  const handleAmount = (data: any) => {
     setAmount(data.amount);
     goToStep(1);
   };

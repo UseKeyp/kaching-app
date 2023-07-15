@@ -30,24 +30,21 @@ const UseKeypApi = async ({
     "Content-type": "application/json",
     Authorization: "Bearer " + accessToken,
   };
-
-  return await axios({
-    method,
-    headers,
-    url: endpointUrl,
-    data,
-  })
-    .then((response) => {
-      console.log(response.data);
-      if (response?.status === 401) {
-        signOut();
-      }
-      return response.data;
-    })
-    .catch((error) => {
-      console.error(error);
-      return error;
+  try {
+    const response = await axios({
+      method,
+      headers,
+      url: endpointUrl,
+      data,
     });
+    return response.data;
+  } catch (e: any) {
+    console.error(e.response);
+    if (e.response.status === 401) {
+      signOut({ callbackUrl: "/login" });
+    }
+    throw e;
+  }
 };
 
 export default UseKeypApi;
