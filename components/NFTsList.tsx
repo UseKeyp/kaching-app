@@ -41,7 +41,7 @@ const NFTsList = () => {
       },
     };
 
-    const getNft = `http://api.usekeyp.com/v1/nfts/${userId}`;
+    const getNft = `${KEYP_BASE_URL_V1}/nfts/${userId}`;
 
     axios
       .get(getNft, options)
