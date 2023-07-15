@@ -51,11 +51,9 @@ const TransferForm = () => {
   watch();
 
   const emailValidation = (val: string) => {
-    if (platform === "google") {
+    if (platform === "GOOGLE") {
       return val.includes("@") || "must be valid gmail address";
-    } else {
-      return val.includes("#") || "must be valid discord address";
-    }
+    } 
   };
 
   const handleReview = async (): Promise<void> => {
@@ -167,7 +165,7 @@ const TransferForm = () => {
                     position="relative"
                     zIndex={1}
                   >
-                    {platform === "google" ? "Email" : "Username"} {message}
+                    {platform === "GOOGLE" ? "Email" : "Username"} {message}
                   </Box>
                 );
               }}
@@ -178,12 +176,12 @@ const TransferForm = () => {
               variant="unstyled"
               fontSize="9vh"
               fontWeight="bold"
-              type={platform === "google" ? "email" : "text"}
+              type={platform === "GOOGLE" ? "email" : "text"}
               _placeholder={{
                 color: "#89DCFF",
               }}
               placeholder={
-                platform === "google" ? "Add Gmail" : "Discord Username"
+                platform === "GOOGLE" ? "Add Gmail" : "Username"
               }
               color={errors.username ? "errorEmailRed" : "#89DCFF"}
               autoComplete="off"

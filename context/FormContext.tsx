@@ -8,7 +8,7 @@ import React, {
 
 export const FormContext = createContext<{
   platform: string;
-  setPlatform: Dispatch<"google" | "discord" | "twitter" | "twitch" | "reddit" | "chess">;
+  setPlatform: Dispatch<string>;
   renderTxPage: boolean;
   setRenderTxPage: Dispatch<boolean>;
   renderReviewPage: boolean;
@@ -25,7 +25,7 @@ export const FormContext = createContext<{
   setUsername: Dispatch<string | undefined>;
   handleHomePage: any;
 }>({
-  platform: "google",
+  platform: "GOOGLE",
   setPlatform: useState,
   renderTxPage: true,
   setRenderTxPage: useState,
@@ -53,7 +53,7 @@ export const FormProvider = ({ children }: FormProviderProps) => {
   const [renderTxPage, setRenderTxPage] = useState(true);
   const [renderReviewPage, setRenderReviewPage] = useState(false);
   const [isConfirming, setIsConfirming] = useState(false);
-  const [platform, setPlatform] = useState<"google" | "discord" | "twitter" | "reddit" | "chess" | "twitch">("google");
+  const [platform, setPlatform] = useState<string>("GOOGLE");
   const [amount, setAmount] = useState<number | undefined>();
   const [asset, setAsset] = useState<string>("USDC");
   const [username, setUsername] = useState<string | undefined>();
@@ -63,7 +63,7 @@ export const FormProvider = ({ children }: FormProviderProps) => {
     setType("send");
     setRenderTxPage(true);
     setRenderReviewPage(false);
-    setPlatform("google");
+    setPlatform("GOOGLE");
     setAmount(undefined);
     setAsset("USDC");
     setUsername(undefined);

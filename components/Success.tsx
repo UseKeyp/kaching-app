@@ -46,7 +46,7 @@ const Success = ({ goToStep }: { goToStep?: any }) => {
   const handleBtnClick = () => {
     setAmount(undefined);
     setUsername(undefined);
-    setPlatform("google");
+    setPlatform("GOOGLE");
     setAsset("USDC");
     goToStep(1);
   };
