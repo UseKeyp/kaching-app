@@ -43,7 +43,7 @@ const UseKeypApi = async ({
     if (e.response.status === 401) {
       signOut({ callbackUrl: "/login" });
     }
-    throw e;
+    // throw e;
   }
 };
 

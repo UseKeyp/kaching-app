@@ -46,8 +46,9 @@ export const BalanceProvider: React.FC<BalanceProviderProps> = ({
     const firstRequest = `${KEYP_BASE_URL_V1}/users/${userId}/balance`;
     const daiRequest = `${KEYP_BASE_URL_V1}/users/${userId}/balance/${supportedAssets.DAI}`;
     const wethRequest = `${KEYP_BASE_URL_V1}/users/${userId}/balance/${supportedAssets.WETH}`;
+    const sporkRequest = `${KEYP_BASE_URL_V1}/users/${userId}/balance/${supportedAssets.SPORK}`;
     try {
-      const [firstResponse, daiResponse, wethResponse] = await Promise.all([
+      const [firstResponse, daiResponse, wethResponse, sporkResponse] = await Promise.all([
         UseKeypApi({
           accessToken: ACCESS_TOKEN,
           method: "GET",
@@ -63,15 +64,22 @@ export const BalanceProvider: React.FC<BalanceProviderProps> = ({
           method: "GET",
           endpointUrl: wethRequest,
         }),
+        UseKeypApi({
+          accessToken: ACCESS_TOKEN,
+          method: "GET",
+          endpointUrl: sporkRequest,
+        }),
       ]);
 
       let DAI = Object.values(daiResponse);
       let WETH = Object.values(wethResponse);
+      let SPORK= Object.values(sporkResponse)
 
       let balanceData = {
         ...firstResponse,
         DAI: DAI[0],
         WETH: WETH[0],
+        SPORK: SPORK[0]
       };
       setBalance(balanceData);
       setLoading(false);

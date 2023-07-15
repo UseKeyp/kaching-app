@@ -9,10 +9,10 @@ const ToPlatformSelection = () => {
   const { setPlatform, platform } = useFormContext();
 
   const handleActiveIcons = (platform: string): void => {
-    if (platform === "google") {
-      setPlatform("google");
+    if (platform === "GOOGLE") {
+      setPlatform("GOOGLE");
     } else {
-      setPlatform("discord");
+      setPlatform("DISCORD");
     }
   };
 
@@ -22,7 +22,7 @@ const ToPlatformSelection = () => {
         <Text color="loginGray">To</Text>
       </Box>
       <Box
-        onClick={() => handleActiveIcons("google")}
+        onClick={() => handleActiveIcons("GOOGLE")}
         h="11vh"
         w="11vh"
         bgRepeat="no-repeat"
@@ -42,7 +42,7 @@ const ToPlatformSelection = () => {
         bgPosition="center"
         bgSize="contain"
         bgImage={
-          platform === "discord" ? "social-bg-dark.svg" : "social-bg-light.svg"
+          platform === "DISCORD" ? "social-bg-dark.svg" : "social-bg-light.svg"
         }
       >
         <Image

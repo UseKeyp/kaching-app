@@ -17,12 +17,12 @@ interface RecipientProps {
 }
 
 type Platform =
-  | "google"
-  | "discord"
-  | "twitter"
-  | "twitch"
-  | "reddit"
-  | "chess";
+  | "GOOGLe"
+  | "DISCORD"
+  | "TWITTER"
+  | "TWITCH"
+  | "REDDIT"
+  | "CHESS";
 
 const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
   const { setPlatform, platform, setUsername, username } =
@@ -49,24 +49,24 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
   };
 
   const emailValidation = (val: string) => {
-    if (platform === "google") {
+    if (platform === "GOOGLE") {
       return val.includes("@") || "Oops. Thats not a Gmail address.";
     }
   };
 
   const getPlatformPlaceholder = () => {
     switch (platform) {
-      case "google":
+      case "GOOGLE":
         return "Recipient Email";
-      case "discord":
+      case "DISCORD":
         return "Discord Username";
-      case "twitter":
+      case "TWITTER":
         return "Twitter Username";
-      case "twitch":
+      case "TWITCH":
         return "Twitch Username";
-      case "reddit":
+      case "REDDIT":
         return "Reddit Username";
-      case "chess":
+      case "CHESS":
         return "Chess.com Username";
     }
   };
@@ -94,32 +94,32 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
           flexWrap={isLargerThan380 ? "wrap" : "nowrap"}
         >
           <SocialButton
-            name="google"
+            name="GOOGLE"
             platform={platform}
             handleActiveIcons={handleActiveIcons}
           />
           <SocialButton
-            name="discord"
+            name="DISCORD"
             platform={platform}
             handleActiveIcons={handleActiveIcons}
           />
           <SocialButton
-            name="twitter"
+            name="TWITTER"
             platform={platform}
             handleActiveIcons={handleActiveIcons}
           />
           <SocialButton
-            name="twitch"
+            name="TWITCH"
             platform={platform}
             handleActiveIcons={handleActiveIcons}
           />
           <SocialButton
-            name="reddit"
+            name="REDDIT"
             platform={platform}
             handleActiveIcons={handleActiveIcons}
           />
           <SocialButton
-            name="chess"
+            name="CHESS"
             platform={platform}
             handleActiveIcons={handleActiveIcons}
           />
@@ -144,7 +144,7 @@ const Recipient: React.FC<RecipientProps> = ({ previousStep }) => {
           required: "Cannot be blank",
           validate: emailValidation,
         })}
-        type={platform === "google" ? "email" : "text"}
+        type={platform === "GOOGLE" ? "email" : "text"}
         placeholder={getPlatformPlaceholder()}
         mb="24px"
         height="64px"

@@ -58,13 +58,14 @@ const SendForm: React.FC<SendFormProps> = ({ goToStep }) => {
     token: string,
     amount: string
   ): Promise<TransferData> => {
+    console.log(platform)
     const request: TransferData = await UseKeypApi({
       accessToken: session?.user.accessToken,
       method: "POST",
       endpointUrl: `${KEYP_BASE_URL_V1}/tokens/transfers`,
       data: {
         toUserUsername: toUserId,
-        toUserProviderType: platform === "discord" ? "DISCORD" : "GOOGLE",
+        toUserProviderType: platform,
         tokenAddress: supportedAssets[token],
         tokenType: "ERC20",
         amount,

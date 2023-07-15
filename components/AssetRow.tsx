@@ -11,15 +11,28 @@ const AssetRow: React.FC<AssetRowProps> = ({ asset, loading }) => {
   const getAssetIcon = (name: string) => {
     switch (name) {
       case "USDC":
-        return <Icon name="dollar" />;
+        return <Icon name="USDC" />;
       case "WETH":
-        return <Icon name="weth" />;
+        return <Icon name="WETH" />;
       case "DAI":
-        return <Icon name="dai" />;
+        return <Icon name="DAI" />;
       case "MATIC":
-        return <Icon name="matic" />;
+        return <Icon name="MATIC" />;
       default:
-        return <Icon name="dollar" />;
+        return (
+          <svg
+            height="24"
+            width="24"
+            viewBox="0 0 24 25"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect y="0.5" width="24" height="24" rx="12" fill="white" />
+            <text font-weight="bold" x="7" y="18" fill="black">
+              {name.charAt(0).toUpperCase()}
+            </text>
+          </svg>
+        );
     }
   };
 
