@@ -1,21 +1,22 @@
-# Kaching
+<h1 align="center"><img width="200" style="border-radius: 30px;" src="./public/kaching-logo.png"/></h1>
+<p align="center">
+  <a href="#" target="_blank">
+    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blue.svg" />
+  </a>
+  <a href="https://twitter.com/UseKeyp" target="_blank">
+    <img alt="Twitter: UseKeyp" src="https://img.shields.io/twitter/follow/UseKeyp.svg?style=social" />
+  </a><br/>
+</p>
 
-### Domains
-
-`main` branch: https://app.kaching.money (Production)
-`staging` branch: https://app.staging-env.kaching.money
-`dev` branch: https://kaching-app.vercel.app
+<p align="center"><strong>Open source wallet built with Keyp OAuth logins and API <br/><a href="https://app.kaching.money" target="_blank">https://app.kaching.money</a></strong></p>
 
 ## Descripton
 
-Kaching is a web application that allows users to send and receive cryptocurrencies on the Polygon network. It integrates with Keyp's API (https://docs.usekeyp.com/api), a non-custodial wallet service that uses OAuth2 to grant third-party applications access to user resources without exposing their login credentials. Kaching creates a non-custodial wallet on the Polygon network using Keyp's service, ensuring that the user's private keys are never exposed to Keyp.
-How to Use Kaching
+Kaching is a web application that allows users to send and receive cryptocurrencies on the Polygon network. It integrates with Keyp's API (https://docs.usekeyp.com), a non-custodial wallet service that uses OAuth2 to grant third-party applications access to user resources without exposing their login credentials.
 
 ## How to Use Kaching
 
-To use Kaching, simply sign in using your Google or Discord account. You will be redirected to Keyp's authorization page to grant Kaching permission to send and receive crypto on your behalf. If you do not have a wallet, Kaching will create one for you.
-
-Kaching's key features are:
+Social logins available for login include Google, Discord, Twitter, Twitch, and Chess.com. You will be redirected to Keyp's authorization page to grant Kaching permission to send and receive crypto on your behalf. If you do not have a wallet, Keyp will automatically create one for you.
 
 - Send - allows you to send cryptocurrency to other users who have also created accounts with Keyp.
 
@@ -23,17 +24,15 @@ Kaching's key features are:
 
 - Fund - allows you to fund your wallet with popular onramps.
 
-- Cash out - lets you offramp your funds to popular offramps.
+- Play - mint an NFT by completing a puzzle
 
-## Installation
+## Contributing
 
-Kaching is a web application that does not require installation. Simply navigate to https://kaching.money/ to start using the application.
-Support
+Make a contribution and we'll send you USDC or USD! Check out the contributing guide `CONTRIBUTING.md`.
 
-## License
+## License 📝
 
-GNU General Public License v3.0
+Copyright © 2023 Nifty Chess, Inc.<br />
+This project is MIT licensed.
 
-## How to Contribute to the Project
-
-Open a pull request and your code will be reviewed by the Kaching team
+[sponsor-keyp]: https://UseKeyp.com
